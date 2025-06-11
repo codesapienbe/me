@@ -539,6 +539,81 @@ class PerformanceOptimizer {
     }
 }
 
+// Localization Manager for UI translations
+document.documentElement.setAttribute('lang', navigator.language || 'en');
+class LocalizationManager {
+    constructor() {
+        this.init();
+    }
+
+    async init() {
+        // Determine language
+        let lang = localStorage.getItem('lang') || (navigator.language || 'en');
+        lang = this.normalizeLang(lang);
+        this.lang = lang;
+
+        // Set HTML lang attribute for accessibility
+        document.documentElement.setAttribute('lang', this.lang);
+
+        // Load translations
+        try {
+            this.translations = await fetch(`translations/${lang}.json`).then(res => res.json());
+        } catch {
+            this.translations = {};
+        }
+
+        // Apply translations to elements with data-i18n-key
+        document.querySelectorAll('[data-i18n-key]').forEach(el => {
+            const key = el.getAttribute('data-i18n-key');
+            const text = this.translations[key] || el.textContent.trim();
+            const attr = el.getAttribute('data-i18n-attr');
+            if (attr) {
+                el.setAttribute(attr, text);
+            } else if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+                el.placeholder = text;
+            } else {
+                el.textContent = text;
+            }
+        });
+
+        // Setup language selector
+        const select = document.getElementById('languageSelect');
+        if (select) {
+            select.value = lang;
+            select.addEventListener('change', e => {
+                localStorage.setItem('lang', e.target.value);
+                window.location.reload();
+            });
+        }
+
+        // Chat popup toggle controls
+        this.launcher = document.getElementById('chatLauncher');
+        this.popup = document.getElementById('chatPopup');
+        this.closeBtn = document.getElementById('chatClose');
+        if (this.launcher && this.popup) {
+            this.launcher.addEventListener('click', () => {
+                const isVisible = this.popup.classList.toggle('visible');
+                this.popup.setAttribute('aria-modal', isVisible);
+            });
+        }
+        if (this.closeBtn && this.popup) {
+            this.closeBtn.addEventListener('click', () => {
+                this.popup.classList.remove('visible');
+                this.popup.setAttribute('aria-modal', 'false');
+            });
+        }
+    }
+
+    normalizeLang(lang) {
+        lang = lang.toLowerCase();
+        if (lang.startsWith('nl')) return 'nl-BE';
+        if (lang.startsWith('fr')) return 'fr-BE';
+        if (lang.startsWith('de')) return 'de';
+        if (lang.startsWith('tr')) return 'tr';
+        return 'en';
+    }
+}
+
 // Loader classes to fetch and render JSON-driven content
 class ExperienceLoader {
     constructor() {
@@ -637,15 +712,19 @@ class AgendaLoader {
     async init() {
         try {
             const data = await fetch('agenda.json').then(res => res.json());
-            const monthName = data.month;
-            const year = data.year;
             const availableDates = data.availableDates;
+            const year = data.year;
             const monthTitleElem = document.querySelector('.calendar__title');
             const datesContainer = document.querySelector('.calendar__dates');
             if (!monthTitleElem || !datesContainer) return;
-            monthTitleElem.textContent = `${monthName} ${year}`;
+            // Compute localized month name using HTML lang
+            const lang = document.documentElement.getAttribute('lang') || 'en';
+            const monthIndex = new Date(Date.parse(`${data.month} 1, 2000`)).getMonth();
+            const localizedMonthName = new Date(year, monthIndex, 1).toLocaleString(lang, { month: 'long' });
+            monthTitleElem.textContent = `${localizedMonthName} ${year}`;
+            // Store English month for CalendarManager parsing
+            monthTitleElem.setAttribute('data-month', data.month);
             datesContainer.innerHTML = '';
-            const monthIndex = new Date(Date.parse(`${monthName} 1, 2000`)).getMonth();
             const firstDay = new Date(year, monthIndex, 1).getDay();
             for (let i = 0; i < firstDay; i++) {
                 const emptyDiv = document.createElement('div');
@@ -663,6 +742,84 @@ class AgendaLoader {
         } catch (error) {
             console.error('Error loading agenda data:', error);
         }
+    }
+}
+
+class LocalQAManager {
+    constructor() {
+        this.init();
+    }
+
+    async init() {
+        // Load JSON data for QA
+        this.experience = await fetch('experience.json').then(res => res.json()).catch(() => []);
+        this.skills = await fetch('skills.json').then(res => res.json()).catch(() => []);
+        this.applications = await fetch('applications.json').then(res => res.json()).catch(() => []);
+        this.agenda = await fetch('agenda.json').then(res => res.json()).catch(() => ({ availableDates: [], month: '', year: 0 }));
+
+        // Bind UI elements
+        this.input = document.getElementById('qaInput');
+        this.button = document.getElementById('qaButton');
+        this.output = document.getElementById('qaAnswer');
+        if (this.button && this.input && this.output) {
+            this.button.addEventListener('click', () => this.handleQuestion());
+        }
+        // Chat popup toggle controls
+        this.launcher = document.getElementById('chatLauncher');
+        this.popup = document.getElementById('chatPopup');
+        this.closeBtn = document.getElementById('chatClose');
+        if (this.launcher && this.popup) {
+            this.launcher.addEventListener('click', () => this.popup.classList.toggle('visible'));
+        }
+        if (this.closeBtn && this.popup) {
+            this.closeBtn.addEventListener('click', () => this.popup.classList.remove('visible'));
+        }
+    }
+
+    handleQuestion() {
+        const q = this.input.value.trim().toLowerCase();
+        let resp = '';
+
+        // Experience related queries
+        if (/\bcompany\b|\bcompanies\b/.test(q)) {
+            const companies = [...new Set(this.experience.map(i => i.company))];
+            resp = 'Companies: ' + companies.join(', ');
+        } else if (/\btitle\b|\brole\b|\bposition\b/.test(q)) {
+            const titles = [...new Set(this.experience.map(i => i.title))];
+            resp = 'Roles: ' + titles.join(', ');
+        } else if (/\bachievement\b|\baward\b|\bhackathon\b|\btrained\b/.test(q)) {
+            const achievements = this.experience.flatMap(i => i.achievements);
+            resp = 'Achievements: ' + achievements.join('; ');
+        } else if (/\bexperience\b|\bwork\b/.test(q)) {
+            resp = this.experience.map(i => `- ${i.period}: ${i.title} @ ${i.company}`).join('\n');
+        }
+        // Skills related queries
+        else if (/\bskill\b|\btechnology\b|\bexpertise\b/.test(q)) {
+            const cat = this.skills.find(c => q.includes(c.category.toLowerCase()));
+            if (cat) {
+                resp = `${cat.category} Skills: ${cat.skills.join(', ')}`;
+            } else {
+                resp = this.skills.map(c => `${c.category}: ${c.skills.join(', ')}`).join('\n\n');
+            }
+        }
+        // Applications related queries
+        else if (/\bapplication\b|\bapplied\b|\bstatus\b/.test(q)) {
+            const statuses = ['Interview Scheduled', 'Application Submitted', 'Offer Received'];
+            const statusMatch = statuses.find(s => q.includes(s.toLowerCase()));
+            const apps = statusMatch ? this.applications.filter(a => a.status.toLowerCase() === statusMatch.toLowerCase()) : this.applications;
+            resp = apps.map(a => `${a.company} (${a.position}) - ${a.status}`).join('\n');
+        }
+        // Availability related queries
+        else if (/\bavailable\b|\bavailability\b|\bagenda\b|\bdate\b|\bdates\b/.test(q)) {
+            const dates = Array.isArray(this.agenda.availableDates) ? this.agenda.availableDates : [];
+            resp = `Available on: ${dates.join(', ')} ${this.agenda.month} ${this.agenda.year}`;
+        }
+        // Fallback response
+        else {
+            resp = 'Sorry, I do not know the answer to that.';
+        }
+
+        this.output.textContent = resp;
     }
 }
 
@@ -685,9 +842,10 @@ class CalendarManager {
     handleDateClick(e) {
         const el = e.currentTarget;
         const day = el.textContent.trim();
-        const [monthName, yearStr] = this.monthTitleElement.textContent.trim().split(' ');
-        const year = parseInt(yearStr, 10);
-        const month = new Date(Date.parse(`${monthName} 1, 2020`)).getMonth() + 1;
+        // Parse English month from data-month attribute and year from title
+        const year = parseInt(this.monthTitleElement.textContent.trim().split(' ')[1], 10);
+        const monthEnglish = this.monthTitleElement.getAttribute('data-month');
+        const month = new Date(Date.parse(`${monthEnglish} 1, 2025`)).getMonth() + 1;
         const timeValue = this.timeSelect.value;
         if (!timeValue) {
             alert('Please select a time before scheduling an interview.');
@@ -739,20 +897,17 @@ class PortfolioApp {
         this.components = [];
         this.init();
     }
-    
     init() {
-        // Wait for DOM to be fully loaded
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
         } else {
             this.initializeComponents();
         }
     }
-    
     initializeComponents() {
         try {
-            // Initialize all components
             this.components = [
+                new LocalizationManager(),
                 new ThemeManager(),
                 new NavigationManager(),
                 new TypingAnimation(),
@@ -763,94 +918,65 @@ class PortfolioApp {
                 new SkillsAnimation(),
                 new ApplicationsLoader(),
                 new AgendaLoader(),
+                new LocalQAManager(),
                 new CalendarManager(),
                 new StatsCounter(),
                 new ProjectCardsManager(),
                 new PerformanceOptimizer()
             ];
-            
             console.log('Portfolio application initialized successfully');
         } catch (error) {
             console.error('Error initializing portfolio application:', error);
         }
     }
-    
-    // Method to reinitialize components if needed
     reinitialize() {
         this.components.forEach(component => {
-            if (component.destroy && typeof component.destroy === 'function') {
-                component.destroy();
-            }
+            if (component.destroy && typeof component.destroy === 'function') component.destroy();
         });
-        
         this.initializeComponents();
     }
 }
 
-// Initialize the application
 const portfolioApp = new PortfolioApp();
+if (typeof window !== 'undefined') window.PortfolioApp = PortfolioApp;
 
-// Export for potential external use
-if (typeof window !== 'undefined') {
-    window.PortfolioApp = PortfolioApp;
-}
-
-// Add some utility functions for external use
 window.portfolioUtils = {
     scrollToSection: (sectionId) => {
         const section = document.getElementById(sectionId);
         if (section) {
             const offsetTop = section.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
         }
     },
-    
     toggleTheme: () => {
         const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.click();
-        }
+        if (themeToggle) themeToggle.click();
     },
-    
     openContactForm: () => {
-        portfolioUtils.scrollToSection('contact');
+        window.portfolioUtils.scrollToSection('contact');
         setTimeout(() => {
             const nameField = document.getElementById('name');
-            if (nameField) {
-                nameField.focus();
-            }
+            if (nameField) nameField.focus();
         }, 1000);
     }
 };
 
-// Add keyboard navigation support
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        // Close mobile menu if open
         const navMenu = document.getElementById('navMenu');
         const navToggle = document.getElementById('navToggle');
-        
         if (navMenu && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
+            navMenu.classList.remove('active'); navToggle.classList.remove('active');
         }
     }
 });
-
-// Add focus management for accessibility
 document.addEventListener('focusin', (e) => {
     if (e.target.matches('.nav__link')) {
-        e.target.style.outline = '2px solid var(--color-primary)';
-        e.target.style.outlineOffset = '2px';
+        e.target.style.outline = '2px solid var(--color-primary)'; e.target.style.outlineOffset = '2px';
     }
 });
-
 document.addEventListener('focusout', (e) => {
     if (e.target.matches('.nav__link')) {
-        e.target.style.outline = '';
-        e.target.style.outlineOffset = '';
+        e.target.style.outline = ''; e.target.style.outlineOffset = '';
     }
 });

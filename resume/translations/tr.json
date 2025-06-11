@@ -1,0 +1,36 @@
+{
+  "nav.home": "Anasayfa",
+  "nav.about": "Hakkımda",
+  "nav.experience": "Deneyim",
+  "nav.skills": "Yetenekler & Teknolojiler",
+  "nav.projects": "Öne Çıkan Projeler",
+  "nav.agenda": "Ajanda",
+  "nav.contact": "İletişim",
+
+  "section.about": "Hakkımda",
+  "section.experience": "Deneyim",
+  "section.skills": "Yetenekler & Teknolojiler",
+  "section.projects": "Öne Çıkan Projeler",
+  "section.agenda": "Ajanda",
+  "section.contact": "İletişim",
+
+  "agenda.applicationsProgress": "Başvuru Durumu",
+
+  "hero.getInTouch": "İletişime Geç",
+  "hero.viewProjects": "Projeleri Görüntüle",
+
+  "calendar.selectTime": "Saat Seç:",
+  "calendar.selectTimePlaceholder": "--Bir saat seçin--",
+
+  "chat.launcherLabel": "Sohbeti Aç",
+  "chat.header": "Bana Sorun",
+  "chat.inputPlaceholder": "Deneyimim, yeteneklerim, başvurularım veya uygunluğum hakkında soru sorun",
+  "chat.askButton": "Sor",
+  "chat.closeLabel": "Sohbeti Kapat",
+
+  "contact.label.name": "Ad *",
+  "contact.label.email": "E-posta *",
+  "contact.label.subject": "Konu",
+  "contact.label.message": "Mesaj *",
+  "contact.button.sendMessage": "Gönder"
+} 

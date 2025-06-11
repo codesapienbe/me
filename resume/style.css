@@ -1652,3 +1652,88 @@ select.form-control {
 .agenda__list td:first-child {
   filter: blur(4px);
 }
+
+/* Chat widget styles */
+.chat-launcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.chat-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 300px;
+  max-width: 90%;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  padding: var(--space-16);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-8);
+  z-index: 1000;
+}
+
+.chat-popup.visible {
+  display: flex;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.chat-body input {
+  width: 100%;
+  padding: var(--space-8);
+}
+
+.chat-body button {
+  align-self: flex-end;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+/* Language selector styling */
+.nav-language-select {
+  margin-right: var(--space-12);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+.nav-language-select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

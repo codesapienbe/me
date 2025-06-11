@@ -16,15 +16,22 @@
                     <a href="#home">Yilmaz Mustafa</a>
                 </div>
                 <ul class="nav__menu" id="navMenu">
-                    <li><a href="#home" class="nav__link active">Home</a></li>
-                    <li><a href="#about" class="nav__link">About</a></li>
-                    <li><a href="#experience" class="nav__link">Experience</a></li>
-                    <li><a href="#skills" class="nav__link">Skills</a></li>
-                    <li><a href="#projects" class="nav__link">Projects</a></li>
-                    <li><a href="#agenda" class="nav__link">Agenda</a></li>
-                    <li><a href="#contact" class="nav__link">Contact</a></li>
+                    <li><a href="#home" class="nav__link active" data-i18n-key="nav.home">Home</a></li>
+                    <li><a href="#about" class="nav__link" data-i18n-key="nav.about">About</a></li>
+                    <li><a href="#experience" class="nav__link" data-i18n-key="nav.experience">Experience</a></li>
+                    <li><a href="#skills" class="nav__link" data-i18n-key="nav.skills">Skills & Technologies</a></li>
+                    <li><a href="#projects" class="nav__link" data-i18n-key="nav.projects">Featured Projects</a></li>
+                    <li><a href="#agenda" class="nav__link" data-i18n-key="nav.agenda">Agenda</a></li>
+                    <li><a href="#contact" class="nav__link" data-i18n-key="nav.contact">Get In Touch</a></li>
                 </ul>
                 <div class="nav__actions">
+                    <select id="languageSelect" class="form-control nav-language-select" aria-label="Select language">
+                        <option value="en">English</option>
+                        <option value="nl-BE">Nederlands</option>
+                        <option value="fr-BE">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
                     <button class="btn btn--outline theme-toggle" id="themeToggle" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
@@ -91,7 +98,7 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <h2 class="section__title">About Me</h2>
+            <h2 class="section__title" data-i18n-key="section.about">About Me</h2>
             <div class="about__content">
                 <div class="about__text">
                     <p>
@@ -160,7 +167,7 @@
     <!-- Experience Section -->
     <section class="experience" id="experience">
         <div class="container">
-            <h2 class="section__title">Experience</h2>
+            <h2 class="section__title" data-i18n-key="section.experience">Experience</h2>
             <div class="timeline">
                 <div class="timeline__item">
                     <div class="timeline__marker"></div>
@@ -222,7 +229,7 @@
     <!-- Skills Section -->
     <section class="skills" id="skills">
         <div class="container">
-            <h2 class="section__title">Skills & Technologies</h2>
+            <h2 class="section__title" data-i18n-key="section.skills">Skills & Technologies</h2>
             <div class="skills__grid">
                 <div class="skill-category">
                     <h3 class="skill-category__title">AI/ML Development</h3>
@@ -261,7 +268,7 @@
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
-            <h2 class="section__title">Featured Projects</h2>
+            <h2 class="section__title" data-i18n-key="section.projects">Featured Projects</h2>
             <div class="projects__grid">
                 <div class="project-card">
                     <div class="project-card__content">
@@ -428,7 +435,7 @@
     <!-- Applications Section -->
     <section class="agenda" id="agenda">
         <div class="container">
-            <h2 class="section__title">Agenda</h2>
+            <h2 class="section__title" data-i18n-key="section.agenda">Agenda</h2>
             <div class="agenda__grid">
                 <div class="agenda__calendar">
                     <h3>Interview Availability</h3>
@@ -454,9 +461,9 @@
                         </div>
                     </div>
                     <div class="time-selector" style="margin-top: 1em;">
-                        <label for="timeSelect">Select Time:</label>
+                        <label for="timeSelect" data-i18n-key="calendar.selectTime">Select Time:</label>
                         <select id="timeSelect" class="form-control">
-                            <option value="">--Select a time--</option>
+                            <option value="" data-i18n-key="calendar.selectTimePlaceholder">--Select a time--</option>
                             <option value="09:00">09:00</option>
                             <option value="10:00">10:00</option>
                             <option value="11:00">11:00</option>
@@ -468,7 +475,7 @@
                     </div>
                 </div>
                 <div class="agenda__list">
-                    <h3>Applications Progress</h3>
+                    <h3 data-i18n-key="agenda.applicationsProgress">Applications Progress</h3>
                     <table>
                         <thead>
                             <tr>
@@ -508,7 +515,7 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section__title">Get In Touch</h2>
+            <h2 class="section__title" data-i18n-key="section.contact">Get In Touch</h2>
             <div class="contact__content">
                 <div class="contact__info">
                     <h3>Let's Work Together</h3>
@@ -543,29 +550,43 @@
                 </div>
                 <form class="contact__form" id="contactForm">
                     <div class="form-group">
-                        <label for="name" class="form-label">Name *</label>
+                        <label for="name" class="form-label" data-i18n-key="contact.label.name">Name *</label>
                         <input type="text" id="name" name="name" class="form-control" required>
-                        <div class="form-error" id="nameError"></div>
+                        <div class="form-error" id="nameError" role="alert" aria-live="assertive"></div>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="form-label">Email *</label>
+                        <label for="email" class="form-label" data-i18n-key="contact.label.email">Email *</label>
                         <input type="email" id="email" name="email" class="form-control" required>
-                        <div class="form-error" id="emailError"></div>
+                        <div class="form-error" id="emailError" role="alert" aria-live="assertive"></div>
                     </div>
                     <div class="form-group">
-                        <label for="subject" class="form-label">Subject</label>
+                        <label for="subject" class="form-label" data-i18n-key="contact.label.subject">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="message" class="form-label">Message *</label>
+                        <label for="message" class="form-label" data-i18n-key="contact.label.message">Message *</label>
                         <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                        <div class="form-error" id="messageError"></div>
+                        <div class="form-error" id="messageError" role="alert" aria-live="assertive"></div>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+                    <button type="submit" class="btn btn--primary btn--full-width" data-i18n-key="contact.button.sendMessage">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
+
+    <!-- Chat Launcher & Popup -->
+    <button id="chatLauncher" class="chat-launcher" data-i18n-key="chat.launcherLabel" data-i18n-attr="aria-label" aria-label="Open chat">💬</button>
+    <div id="chatPopup" class="chat-popup" role="dialog" aria-modal="false">
+        <div class="chat-header">
+            <span data-i18n-key="chat.header">Ask Me</span>
+            <button id="chatClose" class="chat-close" data-i18n-key="chat.closeLabel" data-i18n-attr="aria-label" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="chat-body">
+            <input type="text" id="qaInput" class="form-control" data-i18n-key="chat.inputPlaceholder" placeholder="Ask me about my experience, skills, applications, or availability">
+            <button id="qaButton" class="btn btn--primary" data-i18n-key="chat.askButton">Ask</button>
+            <div id="qaAnswer" class="chat__answer" role="region" aria-live="polite"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

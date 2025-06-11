@@ -1,0 +1,36 @@
+{
+  "nav.home": "Startseite",
+  "nav.about": "Über mich",
+  "nav.experience": "Erfahrung",
+  "nav.skills": "Fähigkeiten & Technologien",
+  "nav.projects": "Ausgewählte Projekte",
+  "nav.agenda": "Agenda",
+  "nav.contact": "Kontakt",
+
+  "section.about": "Über mich",
+  "section.experience": "Erfahrung",
+  "section.skills": "Fähigkeiten & Technologien",
+  "section.projects": "Ausgewählte Projekte",
+  "section.agenda": "Agenda",
+  "section.contact": "Kontakt",
+
+  "agenda.applicationsProgress": "Bewerbungsfortschritt",
+
+  "hero.getInTouch": "Kontakt aufnehmen",
+  "hero.viewProjects": "Projekte ansehen",
+
+  "calendar.selectTime": "Zeit auswählen:",
+  "calendar.selectTimePlaceholder": "--Wählen Sie eine Uhrzeit--",
+
+  "chat.launcherLabel": "Chat öffnen",
+  "chat.header": "Fragen Sie mich",
+  "chat.inputPlaceholder": "Stellen Sie Fragen zu meiner Erfahrung, meinen Fähigkeiten, Bewerbungen oder Verfügbarkeiten",
+  "chat.askButton": "Fragen",
+  "chat.closeLabel": "Chat schließen",
+
+  "contact.label.name": "Name *",
+  "contact.label.email": "E-Mail *",
+  "contact.label.subject": "Betreff",
+  "contact.label.message": "Nachricht *",
+  "contact.button.sendMessage": "Senden"
+} 

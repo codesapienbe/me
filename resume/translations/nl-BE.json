@@ -1,0 +1,36 @@
+{
+  "nav.home": "Startpagina",
+  "nav.about": "Over mij",
+  "nav.experience": "Ervaring",
+  "nav.skills": "Vaardigheden & Technologieën",
+  "nav.projects": "Uitgelichte projecten",
+  "nav.agenda": "Agenda",
+  "nav.contact": "Contact",
+
+  "section.about": "Over mij",
+  "section.experience": "Ervaring",
+  "section.skills": "Vaardigheden & Technologieën",
+  "section.projects": "Uitgelichte projecten",
+  "section.agenda": "Agenda",
+  "section.contact": "Neem contact op",
+
+  "agenda.applicationsProgress": "Sollicitatievoortgang",
+
+  "hero.getInTouch": "Neem contact op",
+  "hero.viewProjects": "Projecten bekijken",
+
+  "calendar.selectTime": "Selecteer tijd:",
+  "calendar.selectTimePlaceholder": "--Selecteer een tijd--",
+
+  "chat.launcherLabel": "Open chat",
+  "chat.header": "Stel mij een vraag",
+  "chat.inputPlaceholder": "Stel een vraag over mijn ervaring, vaardigheden, aanvragen of beschikbaarheid",
+  "chat.askButton": "Vraag",
+  "chat.closeLabel": "Sluit chat",
+
+  "contact.label.name": "Naam *",
+  "contact.label.email": "E-mail *",
+  "contact.label.subject": "Onderwerp",
+  "contact.label.message": "Bericht *",
+  "contact.button.sendMessage": "Verzenden"
+} 

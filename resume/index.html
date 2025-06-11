@@ -604,6 +604,22 @@
         </div>
     </footer>
 
+    <!-- AI in-browser LLM -->
+    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers/dist/transformers.min.js"></script>
+    <script>
+      let pipeline;
+      async function askLLM(prompt) {
+        if (!pipeline) {
+          pipeline = await window.transformers.pipeline(
+            'text-generation',
+            'distilgpt2',
+            { progress: true }
+          );
+        }
+        const [{ generated_text }] = await pipeline(prompt, { max_new_tokens: 50 });
+        return generated_text;
+      }
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

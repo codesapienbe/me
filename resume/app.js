@@ -621,7 +621,7 @@ class ExperienceLoader {
     }
     async init() {
         try {
-            const data = await fetch('experience.json').then(res => res.json());
+            const data = await fetch('experience/experience.json').then(res => res.json());
             const container = document.querySelector('.experience .timeline');
             if (!container) return;
             container.innerHTML = '';
@@ -656,7 +656,7 @@ class SkillsLoader {
     }
     async init() {
         try {
-            const data = await fetch('skills.json').then(res => res.json());
+            const data = await fetch('skill/skills.json').then(res => res.json());
             const grid = document.querySelector('.skills__grid');
             if (!grid) return;
             grid.innerHTML = '';
@@ -685,7 +685,7 @@ class ApplicationsLoader {
     }
     async init() {
         try {
-            const data = await fetch('applications.json').then(res => res.json());
+            const data = await fetch('applications/applications.json').then(res => res.json());
             const tbody = document.querySelector('.agenda__list table tbody');
             if (!tbody) return;
             tbody.innerHTML = '';
@@ -752,76 +752,355 @@ class LocalQAManager {
 
     async init() {
         // Load JSON data for QA
-        this.experience = await fetch('experience.json').then(res => res.json()).catch(() => []);
-        this.skills = await fetch('skills.json').then(res => res.json()).catch(() => []);
-        this.applications = await fetch('applications.json').then(res => res.json()).catch(() => []);
+        this.experience = await fetch('experience/experience.json').then(res => res.json()).catch(() => []);
+        this.skills = await fetch('skill/skills.json').then(res => res.json()).catch(() => []);
+        this.applications = await fetch('applications/applications.json').then(res => res.json()).catch(() => []);
         this.agenda = await fetch('agenda.json').then(res => res.json()).catch(() => ({ availableDates: [], month: '', year: 0 }));
+
+        // Initialize context and conversation memory
+        this.context = {
+            lastTopic: null,
+            lastQuestion: null,
+            conversationFlow: []
+        };
+
+        // Initialize synonyms for better question understanding
+        this.synonyms = {
+            greeting: ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'],
+            identity: ['who', 'what', 'identity', 'name', 'yourself'],
+            contact: ['contact', 'reach', 'email', 'phone', 'call', 'message', 'communication'],
+            work: ['work', 'job', 'employment', 'career', 'professional', 'occupation'],
+            experience: ['experience', 'background', 'history', 'past', 'previous', 'worked'],
+            skills: ['skills', 'technologies', 'tech', 'expertise', 'abilities', 'knowledge', 'proficient'],
+            education: ['education', 'degree', 'university', 'college', 'school', 'studied', 'learning'],
+            projects: ['projects', 'portfolio', 'built', 'developed', 'created', 'made'],
+            availability: ['available', 'free', 'schedule', 'time', 'when', 'dates'],
+            location: ['location', 'where', 'based', 'live', 'situated', 'place'],
+            languages: ['languages', 'speak', 'fluent', 'multilingual'],
+            interests: ['interests', 'hobbies', 'passion', 'enjoy', 'like'],
+            achievements: ['achievements', 'awards', 'recognition', 'accomplishments', 'success'],
+            applications: ['applications', 'applied', 'jobs', 'positions', 'interviews'],
+            salary: ['salary', 'compensation', 'pay', 'wage', 'money', 'cost'],
+            future: ['future', 'goals', 'plans', 'next', 'career path', 'ambitions']
+        };
+
+        // Initialize comprehensive question patterns
+        this.questionPatterns = {
+            greetings: {
+                patterns: [
+                    /^(hi|hello|hey|greetings|good\s+(morning|afternoon|evening))\s*[!.]?$/i,
+                    /^(what's\s+up|how\s+are\s+you|how\s+do\s+you\s+do)\s*\??$/i
+                ],
+                responses: [
+                    "Hello! I'm Yilmaz Mustafa. How can I help you today?",
+                    "Hi there! Feel free to ask me anything about my experience, skills, or availability.",
+                    "Greetings! I'm here to answer questions about my professional background."
+                ]
+            },
+            identity: {
+                patterns: [
+                    /^(who\s+are\s+you|what('s|\s+is)\s+your\s+name|tell\s+me\s+about\s+yourself)\s*\??$/i,
+                    /^(introduce\s+yourself|your\s+identity|about\s+you)\s*\??$/i,
+                    /^(what\s+do\s+you\s+do|your\s+profession|your\s+job)\s*\??$/i
+                ],
+                responses: [
+                    "I'm Yilmaz Mustafa, a Software Engineer specializing in Java, AI/ML, and Full-Stack development. I have experience in building scalable applications and implementing machine learning solutions.",
+                    "Hello! I'm Yilmaz Mustafa, a passionate software engineer with expertise in Java development, artificial intelligence, and full-stack web development.",
+                    "I'm Yilmaz Mustafa, a dedicated Software Engineer focused on creating innovative solutions using Java, AI/ML technologies, and modern web development frameworks."
+                ]
+            },
+            contact: {
+                patterns: [
+                    /^(what('s|\s+is)\s+your\s+email|how\s+to\s+contact|email\s+address)\s*\??$/i,
+                    /^(phone\s+number|telephone|mobile|cell\s+phone|how\s+to\s+call)\s*\??$/i,
+                    /^(contact\s+information|contact\s+details|reach\s+you)\s*\??$/i,
+                    /^(social\s+media|linkedin|github|portfolio)\s*\??$/i
+                ]
+            },
+            experience: {
+                patterns: [
+                    /^(work\s+experience|professional\s+background|career\s+history)\s*\??$/i,
+                    /^(where\s+have\s+you\s+worked|previous\s+jobs|past\s+employment)\s*\??$/i,
+                    /^(companies\s+worked\s+for|employers|work\s+history)\s*\??$/i,
+                    /^(what\s+companies|which\s+companies|list\s+companies)\s*\??$/i,
+                    /^(job\s+titles|roles|positions\s+held)\s*\??$/i,
+                    /^(how\s+long\s+have\s+you\s+worked|years\s+of\s+experience)\s*\??$/i
+                ]
+            },
+            skills: {
+                patterns: [
+                    /^(what\s+skills|technical\s+skills|programming\s+languages)\s*\??$/i,
+                    /^(technologies\s+you\s+know|tech\s+stack|expertise)\s*\??$/i,
+                    /^(programming\s+experience|coding\s+skills|development\s+skills)\s*\??$/i,
+                    /^(java|python|javascript|react|spring|database|ai|ml|machine\s+learning)\s*\??$/i,
+                    /^(frontend|backend|full.?stack|devops)\s*\??$/i
+                ]
+            },
+            applications: {
+                patterns: [
+                    /^(job\s+applications|applied\s+positions|interview\s+status)\s*\??$/i,
+                    /^(current\s+applications|job\s+search|position\s+status)\s*\??$/i,
+                    /^(companies\s+applied|where\s+applied|application\s+status)\s*\??$/i,
+                    /^(interviews\s+scheduled|upcoming\s+interviews)\s*\??$/i,
+                    /^(offers\s+received|job\s+offers)\s*\??$/i
+                ]
+            },
+            availability: {
+                patterns: [
+                    /^(when\s+are\s+you\s+available|availability|free\s+time)\s*\??$/i,
+                    /^(schedule\s+interview|meeting\s+times|available\s+dates)\s*\??$/i,
+                    /^(calendar|agenda|schedule)\s*\??$/i,
+                    /^(next\s+week|this\s+week|available\s+soon)\s*\??$/i
+                ]
+            },
+            achievements: {
+                patterns: [
+                    /^(achievements|accomplishments|awards|recognition)\s*\??$/i,
+                    /^(projects\s+completed|successful\s+projects|portfolio)\s*\??$/i,
+                    /^(hackathons|competitions|certifications)\s*\??$/i,
+                    /^(notable\s+work|impressive\s+projects|highlights)\s*\??$/i
+                ]
+            },
+            education: {
+                patterns: [
+                    /^(education|degree|university|college|studied)\s*\??$/i,
+                    /^(academic\s+background|qualifications|credentials)\s*\??$/i,
+                    /^(learning|courses|training|certification)\s*\??$/i
+                ],
+                responses: [
+                    "I'm continuously learning and staying updated with the latest technologies in software development, AI/ML, and web development.",
+                    "My technical expertise comes from both formal education and hands-on professional experience in software engineering.",
+                    "I believe in continuous learning and regularly update my skills through courses, projects, and professional development."
+                ]
+            },
+            location: {
+                patterns: [
+                    /^(where\s+are\s+you\s+located|location|based|live)\s*\??$/i,
+                    /^(remote\s+work|work\s+remotely|onsite|hybrid)\s*\??$/i,
+                    /^(relocation|willing\s+to\s+relocate|move)\s*\??$/i
+                ],
+                responses: [
+                    "I'm based in Belgium and open to both remote and on-site opportunities.",
+                    "I'm located in Belgium and flexible with work arrangements including remote, hybrid, or on-site positions.",
+                    "Currently based in Belgium with flexibility for various work arrangements depending on the role."
+                ]
+            },
+            salary: {
+                patterns: [
+                    /^(salary\s+expectations|compensation|pay\s+range)\s*\??$/i,
+                    /^(how\s+much|cost|rate|hourly|annual)\s*\??$/i,
+                    /^(budget|price|money|payment)\s*\??$/i
+                ],
+                responses: [
+                    "Compensation expectations depend on the role, responsibilities, and company. I'm open to discussing this during the interview process.",
+                    "I'm flexible with compensation and prefer to discuss this based on the specific role and its requirements.",
+                    "Let's discuss compensation details during our conversation about the specific position and its scope."
+                ]
+            },
+            future: {
+                patterns: [
+                    /^(career\s+goals|future\s+plans|where\s+do\s+you\s+see|ambitions)\s*\??$/i,
+                    /^(next\s+steps|career\s+path|professional\s+growth)\s*\??$/i,
+                    /^(five\s+years|long.?term|vision)\s*\??$/i
+                ],
+                responses: [
+                    "I'm focused on growing as a software engineer, particularly in AI/ML applications and building scalable systems that solve real-world problems.",
+                    "My goal is to continue developing expertise in cutting-edge technologies while contributing to innovative projects that make a meaningful impact.",
+                    "I aim to advance my career in software engineering, with particular interest in AI/ML, system architecture, and leading technical teams."
+                ]
+            },
+            help: {
+                patterns: [
+                    /^(help|what\s+can\s+you\s+tell|what\s+do\s+you\s+know)\s*\??$/i,
+                    /^(commands|options|ask\s+you)\s*\??$/i
+                ],
+                responses: [
+                    "I can answer questions about:\n• My work experience and background\n• Technical skills and expertise\n• Job applications and availability\n• Contact information\n• Career goals and achievements\n\nFeel free to ask anything!"
+                ]
+            }
+        };
 
         // Bind UI elements
         this.input = document.getElementById('qaInput');
         this.button = document.getElementById('qaButton');
         this.output = document.getElementById('qaAnswer');
+        
         if (this.button && this.input && this.output) {
             this.button.addEventListener('click', () => this.handleQuestion());
-        }
-        // Chat popup toggle controls
-        this.launcher = document.getElementById('chatLauncher');
-        this.popup = document.getElementById('chatPopup');
-        this.closeBtn = document.getElementById('chatClose');
-        if (this.launcher && this.popup) {
-            this.launcher.addEventListener('click', () => this.popup.classList.toggle('visible'));
-        }
-        if (this.closeBtn && this.popup) {
-            this.closeBtn.addEventListener('click', () => this.popup.classList.remove('visible'));
+            this.input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.handleQuestion();
+            });
         }
     }
 
     handleQuestion() {
-        const q = this.input.value.trim().toLowerCase();
-        let resp = '';
+        const question = this.input.value.trim();
+        if (!question) return;
 
-        // Experience related queries
-        if (/\bcompany\b|\bcompanies\b/.test(q)) {
-            const companies = [...new Set(this.experience.map(i => i.company))];
-            resp = 'Companies: ' + companies.join(', ');
-        } else if (/\btitle\b|\brole\b|\bposition\b/.test(q)) {
-            const titles = [...new Set(this.experience.map(i => i.title))];
-            resp = 'Roles: ' + titles.join(', ');
-        } else if (/\bachievement\b|\baward\b|\bhackathon\b|\btrained\b/.test(q)) {
-            const achievements = this.experience.flatMap(i => i.achievements);
-            resp = 'Achievements: ' + achievements.join('; ');
-        } else if (/\bexperience\b|\bwork\b/.test(q)) {
-            resp = this.experience.map(i => `- ${i.period}: ${i.title} @ ${i.company}`).join('\n');
-        }
-        // Skills related queries
-        else if (/\bskill\b|\btechnology\b|\bexpertise\b/.test(q)) {
-            const cat = this.skills.find(c => q.includes(c.category.toLowerCase()));
-            if (cat) {
-                resp = `${cat.category} Skills: ${cat.skills.join(', ')}`;
-            } else {
-                resp = this.skills.map(c => `${c.category}: ${c.skills.join(', ')}`).join('\n\n');
+        const q = question.toLowerCase().replace(/[^\w\s?]/g, ' ').replace(/\s+/g, ' ').trim();
+        let resp = '';
+        let matchFound = false;
+
+        // Pattern-based matching for comprehensive responses
+        for (const [category, data] of Object.entries(this.questionPatterns)) {
+            if (data.patterns) {
+                for (const pattern of data.patterns) {
+                    if (pattern.test(q)) {
+                        matchFound = true;
+                        
+                        // Handle specific categories with custom logic
+                        if (category === 'contact') {
+                            if (/email/i.test(q)) {
+                                resp = "You can reach me at ymus@tuta.io";
+                            } else if (/phone|mobile|cell|telephone|call/i.test(q)) {
+                                resp = "My phone number is +32 467 71 17 09";
+                            } else if (/contact/i.test(q)) {
+                                resp = "Contact Information:\n• Email: ymus@tuta.io\n• Phone: +32 467 71 17 09";
+                            } else {
+                                resp = "For professional inquiries, please contact me at ymus@tuta.io or +32 467 71 17 09";
+                            }
+                        } else if (category === 'experience') {
+                            if (/companies|employers/i.test(q)) {
+                                const companies = [...new Set(this.experience.map(i => i.company))];
+                                resp = `I have worked with these companies: ${companies.join(', ')}`;
+                            } else if (/titles|roles|positions/i.test(q)) {
+                                const titles = [...new Set(this.experience.map(i => i.title))];
+                                resp = `My professional roles include: ${titles.join(', ')}`;
+                            } else if (/how\s+long|years/i.test(q)) {
+                                resp = `I have ${this.experience.length} professional experiences spanning multiple years in software development.`;
+                            } else {
+                                resp = this.experience.map(i => `• ${i.period}: ${i.title} at ${i.company}`).join('\n');
+                            }
+                        } else if (category === 'skills') {
+                            const techMentions = q;
+                            const specificSkill = this.skills.find(cat => 
+                                cat.category.toLowerCase().includes(techMentions) ||
+                                cat.skills.some(skill => techMentions.includes(skill.toLowerCase()))
+                            );
+
+                            if (specificSkill) {
+                                resp = `${specificSkill.category} Skills: ${specificSkill.skills.join(', ')}`;
+                            } else {
+                                resp = this.skills.map(cat => `${cat.category}:\n${cat.skills.map(skill => `• ${skill}`).join('\n')}`).join('\n\n');
+                            }
+                        } else if (category === 'applications') {
+                            if (/interview/i.test(q)) {
+                                const interviews = this.applications.filter(a => 
+                                    a.status.toLowerCase().includes('interview')
+                                );
+                                resp = interviews.length > 0 ? 
+                                    `Interviews Scheduled:\n${interviews.map(a => `• ${a.company} - ${a.position}`).join('\n')}` :
+                                    "No interviews currently scheduled.";
+                            } else if (/offer/i.test(q)) {
+                                const offers = this.applications.filter(a => 
+                                    a.status.toLowerCase().includes('offer')
+                                );
+                                resp = offers.length > 0 ? 
+                                    `Offers Received:\n${offers.map(a => `• ${a.company} - ${a.position}`).join('\n')}` :
+                                    "No offers currently received.";
+                            } else {
+                                resp = this.applications.map(a => `• ${a.company} (${a.position}) - ${a.status}`).join('\n');
+                            }
+                        } else if (category === 'availability') {
+                            const dates = Array.isArray(this.agenda.availableDates) ? this.agenda.availableDates : [];
+                            if (dates.length === 0) {
+                                resp = "Please contact me to discuss availability for meetings or interviews.";
+                            } else {
+                                resp = `I'm available on: ${dates.join(', ')} ${this.agenda.month} ${this.agenda.year}`;
+                            }
+                        } else if (category === 'achievements') {
+                            const achievements = this.experience.flatMap(i => i.achievements || []);
+                            resp = achievements.length > 0 ? 
+                                `Key Achievements:\n${achievements.map(a => `• ${a}`).join('\n')}` :
+                                "Please contact me to discuss my project portfolio and achievements.";
+                        } else if (data.responses) {
+                            // Handle static responses
+                            if (Array.isArray(data.responses)) {
+                                const randomIndex = Math.floor(Math.random() * data.responses.length);
+                                resp = data.responses[randomIndex];
+                            } else {
+                                resp = data.responses;
+                            }
+                        }
+                        
+                        // Update context
+                        this.context.lastTopic = category;
+                        this.context.lastQuestion = question;
+                        this.context.conversationFlow.push({ question, category });
+                        
+                        if (this.context.conversationFlow.length > 10) {
+                            this.context.conversationFlow = this.context.conversationFlow.slice(-5);
+                        }
+                        
+                        break;
+                    }
+                }
+                if (matchFound) break;
             }
         }
-        // Applications related queries
-        else if (/\bapplication\b|\bapplied\b|\bstatus\b/.test(q)) {
-            const statuses = ['Interview Scheduled', 'Application Submitted', 'Offer Received'];
-            const statusMatch = statuses.find(s => q.includes(s.toLowerCase()));
-            const apps = statusMatch ? this.applications.filter(a => a.status.toLowerCase() === statusMatch.toLowerCase()) : this.applications;
-            resp = apps.map(a => `${a.company} (${a.position}) - ${a.status}`).join('\n');
-        }
-        // Availability related queries
-        else if (/\bavailable\b|\bavailability\b|\bagenda\b|\bdate\b|\bdates\b/.test(q)) {
-            const dates = Array.isArray(this.agenda.availableDates) ? this.agenda.availableDates : [];
-            resp = `Available on: ${dates.join(', ')} ${this.agenda.month} ${this.agenda.year}`;
-        }
-        // Fallback response
-        else {
-            resp = 'Sorry, I do not know the answer to that.';
+
+        // Fallback with legacy patterns if no match found
+        if (!matchFound) {
+            // Legacy question handling with enhancements
+            if (/who are you\??/.test(q)) {
+                resp = "I'm Yilmaz Mustafa, a Software Engineer specializing in Java, AI/ML, and Full-Stack development.";
+            } else if (/what(?:'s| is) your email\??/.test(q)) {
+                resp = 'You can reach me at ymus@tuta.io';
+            } else if (/what(?:'s| is) your phone number\??/.test(q)) {
+                resp = 'My phone number is +32 467 71 17 09';
+            } else if (/\bcompany\b|\bcompanies\b/.test(q)) {
+                const companies = [...new Set(this.experience.map(i => i.company))];
+                resp = 'Companies: ' + companies.join(', ');
+            } else if (/\btitle\b|\brole\b|\bposition\b/.test(q)) {
+                const titles = [...new Set(this.experience.map(i => i.title))];
+                resp = 'Roles: ' + titles.join(', ');
+            } else if (/\bachievement\b|\baward\b|\bhackathon\b|\btrained\b/.test(q)) {
+                const achievements = this.experience.flatMap(i => i.achievements || []);
+                resp = achievements.length > 0 ? 'Achievements: ' + achievements.join('; ') : 'Please contact me to discuss my achievements.';
+            } else if (/\bexperience\b|\bwork\b/.test(q)) {
+                resp = this.experience.map(i => `- ${i.period}: ${i.title} @ ${i.company}`).join('\n');
+            } else if (/\bskill\b|\btechnology\b|\bexpertise\b/.test(q)) {
+                const cat = this.skills.find(c => q.includes(c.category.toLowerCase()));
+                if (cat) {
+                    resp = `${cat.category} Skills: ${cat.skills.join(', ')}`;
+                } else {
+                    resp = this.skills.map(c => `${c.category}: ${c.skills.join(', ')}`).join('\n\n');
+                }
+            } else if (/\bapplication\b|\bapplied\b|\bstatus\b/.test(q)) {
+                const statuses = ['Interview Scheduled', 'Application Submitted', 'Offer Received'];
+                const statusMatch = statuses.find(s => q.includes(s.toLowerCase()));
+                const apps = statusMatch ? this.applications.filter(a => a.status.toLowerCase() === statusMatch.toLowerCase()) : this.applications;
+                resp = apps.map(a => `${a.company} (${a.position}) - ${a.status}`).join('\n');
+            } else if (/\bavailable\b|\bavailability\b|\bagenda\b|\bdate\b|\bdates\b/.test(q)) {
+                const dates = Array.isArray(this.agenda.availableDates) ? this.agenda.availableDates : [];
+                resp = dates.length > 0 ? `Available on: ${dates.join(', ')} ${this.agenda.month} ${this.agenda.year}` : 'Please contact me to discuss availability.';
+            } else {
+                // Smart fallback based on keyword analysis
+                const suggestions = [];
+                const words = q.split(' ');
+                const topics = Object.keys(this.synonyms);
+                
+                for (const topic of topics) {
+                    if (this.synonyms[topic].some(syn => words.some(word => word.includes(syn) || syn.includes(word)))) {
+                        suggestions.push(topic);
+                    }
+                }
+
+                if (suggestions.length > 0) {
+                    resp = `I'm not sure about that specific question, but I can help with information about: ${suggestions.join(', ')}. Could you please rephrase your question?`;
+                } else if (this.context.lastTopic) {
+                    resp = `I didn't quite understand that. Are you still asking about ${this.context.lastTopic}? Or would you like to know about something else like my experience, skills, or availability?`;
+                } else {
+                    resp = "I'm sorry, I don't understand that question. You can ask me about my work experience, skills, contact information, job applications, or availability. Type 'help' to see what I can answer.";
+                }
+            }
         }
 
         this.output.textContent = resp;
+        this.input.value = '';
     }
 }
+
 
 // Add CalendarManager class to handle calendar date clicks and ICS file generation
 class CalendarManager {

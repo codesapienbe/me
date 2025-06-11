@@ -539,6 +539,200 @@ class PerformanceOptimizer {
     }
 }
 
+// Loader classes to fetch and render JSON-driven content
+class ExperienceLoader {
+    constructor() {
+        this.init();
+    }
+    async init() {
+        try {
+            const data = await fetch('experience.json').then(res => res.json());
+            const container = document.querySelector('.experience .timeline');
+            if (!container) return;
+            container.innerHTML = '';
+            data.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'timeline__item';
+                const markerDiv = document.createElement('div');
+                markerDiv.className = 'timeline__marker';
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'timeline__content';
+                contentDiv.innerHTML = `
+                    <div class="timeline__period">${item.period}</div>
+                    <h3 class="timeline__title">${item.title}</h3>
+                    <div class="timeline__company">${item.company}</div>
+                    <ul class="timeline__achievements">
+                        ${item.achievements.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                `;
+                itemDiv.appendChild(markerDiv);
+                itemDiv.appendChild(contentDiv);
+                container.appendChild(itemDiv);
+            });
+        } catch (error) {
+            console.error('Error loading experience data:', error);
+        }
+    }
+}
+
+class SkillsLoader {
+    constructor() {
+        this.init();
+    }
+    async init() {
+        try {
+            const data = await fetch('skills.json').then(res => res.json());
+            const grid = document.querySelector('.skills__grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            data.forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'skill-category';
+                catDiv.innerHTML = `
+                    <h3 class="skill-category__title">${cat.category}</h3>
+                    <div class="skill-tags">
+                        ${cat.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(catDiv);
+            });
+            // Re-initialize tag animations for dynamic content
+            new SkillsAnimation();
+        } catch (error) {
+            console.error('Error loading skills data:', error);
+        }
+    }
+}
+
+class ApplicationsLoader {
+    constructor() {
+        this.init();
+    }
+    async init() {
+        try {
+            const data = await fetch('applications.json').then(res => res.json());
+            const tbody = document.querySelector('.agenda__list table tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            data.forEach(app => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${app.company}</td>
+                    <td>${app.position}</td>
+                    <td>${app.dateApplied}</td>
+                    <td>${app.status}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } catch (error) {
+            console.error('Error loading applications data:', error);
+        }
+    }
+}
+
+class AgendaLoader {
+    constructor() {
+        this.init();
+    }
+    async init() {
+        try {
+            const data = await fetch('agenda.json').then(res => res.json());
+            const monthName = data.month;
+            const year = data.year;
+            const availableDates = data.availableDates;
+            const monthTitleElem = document.querySelector('.calendar__title');
+            const datesContainer = document.querySelector('.calendar__dates');
+            if (!monthTitleElem || !datesContainer) return;
+            monthTitleElem.textContent = `${monthName} ${year}`;
+            datesContainer.innerHTML = '';
+            const monthIndex = new Date(Date.parse(`${monthName} 1, 2000`)).getMonth();
+            const firstDay = new Date(year, monthIndex, 1).getDay();
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                datesContainer.appendChild(emptyDiv);
+            }
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'calendar__date ' + (availableDates.includes(d) ? 'available' : 'unavailable');
+                dateDiv.textContent = d;
+                datesContainer.appendChild(dateDiv);
+            }
+            // Bind calendar date click handlers for ICS download
+            new CalendarManager();
+        } catch (error) {
+            console.error('Error loading agenda data:', error);
+        }
+    }
+}
+
+// Add CalendarManager class to handle calendar date clicks and ICS file generation
+class CalendarManager {
+    constructor() {
+        this.dateElements = document.querySelectorAll('.calendar__date.available');
+        this.timeSelect = document.getElementById('timeSelect');
+        this.monthTitleElement = document.querySelector('.calendar__title');
+        this.init();
+    }
+
+    init() {
+        this.dateElements.forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', (e) => this.handleDateClick(e));
+        });
+    }
+
+    handleDateClick(e) {
+        const el = e.currentTarget;
+        const day = el.textContent.trim();
+        const [monthName, yearStr] = this.monthTitleElement.textContent.trim().split(' ');
+        const year = parseInt(yearStr, 10);
+        const month = new Date(Date.parse(`${monthName} 1, 2020`)).getMonth() + 1;
+        const timeValue = this.timeSelect.value;
+        if (!timeValue) {
+            alert('Please select a time before scheduling an interview.');
+            return;
+        }
+        const [hourStr, minuteStr] = timeValue.split(':');
+        const hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+        const startDate = new Date(year, month - 1, parseInt(day, 10), hour, minute);
+        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
+        const pad = (num) => num.toString().padStart(2, '0');
+        const formatDate = (date) => {
+            return `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
+        };
+        const dtStamp = formatDate(new Date());
+        const dtStart = formatDate(startDate);
+        const dtEnd = formatDate(endDate);
+        const uid = `${Date.now()}@yilmaz-on-web`;
+        const lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Yilmaz On Web//Interview Scheduler//EN',
+            'BEGIN:VEVENT',
+            `UID:${uid}`,
+            `DTSTAMP:${dtStamp}`,
+            `DTSTART:${dtStart}`,
+            `DTEND:${dtEnd}`,
+            'SUMMARY:Interview Session',
+            'DESCRIPTION:Interview scheduled via Yilmaz On Web',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ];
+        const icsContent = lines.join('\r\n');
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `interview-${year}${pad(month)}${pad(day)}-${pad(hour)}${pad(minute)}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+}
+
 // Application Initialization
 class PortfolioApp {
     constructor() {
@@ -564,7 +758,12 @@ class PortfolioApp {
                 new TypingAnimation(),
                 new ContactFormManager(),
                 new ScrollAnimations(),
+                new ExperienceLoader(),
+                new SkillsLoader(),
                 new SkillsAnimation(),
+                new ApplicationsLoader(),
+                new AgendaLoader(),
+                new CalendarManager(),
                 new StatsCounter(),
                 new ProjectCardsManager(),
                 new PerformanceOptimizer()

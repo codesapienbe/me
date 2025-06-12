@@ -59,21 +59,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#maincontent" class="skip-link sr-only" data-i18n-key="skip.toContent" role="link">Skip to main content</a>
     <!-- Navigation -->
-    <nav class="nav" id="nav">
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav__content">
                 <div class="nav__brand">
                     <a href="#home" data-i18n-key="nav.brand">Yilmaz Mustafa</a>
                 </div>
-                <ul class="nav__menu" id="navMenu">
-                    <li><a href="#home" class="nav__link active" data-i18n-key="nav.home">Home</a></li>
-                    <li><a href="#about" class="nav__link" data-i18n-key="nav.about">About</a></li>
-                    <li><a href="#experience" class="nav__link" data-i18n-key="nav.experience">Experience</a></li>
-                    <li><a href="#skills" class="nav__link" data-i18n-key="nav.skills">Skills & Technologies</a></li>
-                    <li><a href="#projects" class="nav__link" data-i18n-key="nav.projects">Featured Projects</a></li>
-                    <li><a href="#agenda" class="nav__link" data-i18n-key="nav.agenda">Agenda</a></li>
-                    <li><a href="#contact" class="nav__link" data-i18n-key="nav.contact">Get In Touch</a></li>
+                <ul class="nav__menu" id="navMenu" role="menu">
+                    <li role="none"><a href="#home" class="nav__link active" data-i18n-key="nav.home" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#about" class="nav__link" data-i18n-key="nav.about" role="menuitem">About</a></li>
+                    <li role="none"><a href="#experience" class="nav__link" data-i18n-key="nav.experience" role="menuitem">Experience</a></li>
+                    <li role="none"><a href="#skills" class="nav__link" data-i18n-key="nav.skills" role="menuitem">Skills</a></li>
+                    <li role="none"><a href="#projects" class="nav__link" data-i18n-key="nav.projects" role="menuitem">Projects</a></li>
+                    <li role="none"><a href="#agenda" class="nav__link" data-i18n-key="nav.agenda" role="menuitem">Agenda</a></li>
+                    <li role="none"><a href="#contact" class="nav__link" data-i18n-key="nav.contact" role="menuitem">Contact</a></li>
                 </ul>
                 <div class="nav__actions">
                     <select id="languageSelect" class="form-control nav-language-select" aria-label="Select language">
@@ -86,7 +87,7 @@
                     <button class="btn btn--outline theme-toggle" id="themeToggle" data-i18n-key="nav.toggleTheme" data-i18n-attr="aria-label" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
-                    <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation">
+                    <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -95,7 +96,7 @@
             </div>
         </div>
     </nav>
-
+    <main id="maincontent" role="main">
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
@@ -152,14 +153,8 @@
             <h2 class="section__title" data-i18n-key="section.about">About Me</h2>
             <div class="about__content">
                 <div class="about__text">
-                    <p>
-                        <p data-i18n-key="about.text1">I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, 
-                        AI/ML solutions, and full-stack development. My journey has taken me through the financial sector at SWIFT, 
-                        where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.</p>
-                    <p>
-                        <p data-i18n-key="about.text2">Currently working as a freelance developer, I focus on creating robust enterprise applications, 
-                        real-time processing systems, and AI-powered solutions. I also have experience as a Java instructor, 
-                        having trained over 100 developers and won 3rd prize in a Belgian hackathon.</p>
+                    <p data-i18n-key="about.text1">I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, AI/ML solutions, and full-stack development. My journey has taken me through the financial sector at SWIFT, where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.</p>
+                    <p data-i18n-key="about.text2">Currently working as a freelance developer, I focus on creating robust enterprise applications, real-time processing systems, and AI-powered solutions. I also have experience as a Java instructor, having trained over 100 developers and won 3rd prize in a Belgian hackathon.</p>
                     <div class="about__highlights">
                         <div class="highlight">
                             <span class="highlight__icon">🏆</span>
@@ -868,10 +863,11 @@
     </section>
 
     <!-- Chat Launcher & Popup -->
-    <button id="chatLauncher" class="chat-launcher" data-i18n-key="chat.launcherLabel" data-i18n-attr="aria-label" aria-label="Open chat">💬</button>
-    <div id="chatPopup" class="chat-popup" role="dialog" aria-modal="false">
+    <button id="chatLauncher" class="chat-launcher" data-i18n-key="chat.launcherLabel" data-i18n-attr="aria-label" aria-label="Open chat" aria-controls="chatPopup" aria-expanded="false">💬</button>
+    <button id="listenLauncher" class="listen-launcher" data-i18n-key="listen.launcherLabel" data-i18n-attr="aria-label" aria-label="Listen to site" aria-pressed="false">🔊</button>
+    <div id="chatPopup" class="chat-popup" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="chatTitle">
         <div class="chat-header">
-            <span data-i18n-key="chat.header">Ask Me</span>
+            <span id="chatTitle" data-i18n-key="chat.header">Ask Me</span>
             <button id="chatClose" class="chat-close" data-i18n-key="chat.closeLabel" data-i18n-attr="aria-label" aria-label="Close chat">&times;</button>
         </div>
         <div class="chat-body">
@@ -880,9 +876,9 @@
             <div id="qaAnswer" class="chat__answer" role="region" aria-live="polite"></div>
         </div>
     </div>
-
+    </main>
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer__content">
                 <div class="footer__text">

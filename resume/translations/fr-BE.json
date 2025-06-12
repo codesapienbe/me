@@ -25,6 +25,7 @@
   "calendar.selectTimePlaceholder": "--Sélectionnez une heure--",
 
   "chat.launcherLabel": "Ouvrir le chat",
+  "listen.launcherLabel": "Écouter",
   "chat.header": "Posez-moi une question",
   "chat.inputPlaceholder": "Posez-moi des questions sur mon expérience, mes compétences, mes candidatures ou mes disponibilités",
   "chat.askButton": "Demander",

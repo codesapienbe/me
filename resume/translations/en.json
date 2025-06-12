@@ -25,6 +25,7 @@
   "calendar.selectTimePlaceholder": "--Select a time--",
 
   "chat.launcherLabel": "Open chat",
+  "listen.launcherLabel": "Listen",
   "chat.header": "Ask Me",
   "chat.inputPlaceholder": "Ask me about my experience, skills, applications, or availability",
   "chat.askButton": "Ask",

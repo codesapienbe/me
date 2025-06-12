@@ -24,7 +24,7 @@
   "calendar.selectTime": "Saat Seç:",
   "calendar.selectTimePlaceholder": "--Bir saat seçin--",
 
-  "chat.launcherLabel": "Sohbeti Aç",
+  "chat.launcherLabel": "Sohbete başla",
   "chat.header": "Bana Sorun",
   "chat.inputPlaceholder": "Deneyimim, yeteneklerim, başvurularım veya uygunluğum hakkında soru sorun",
   "chat.askButton": "Sor",
@@ -57,5 +57,7 @@
   "contact.detail.phoneLabel": "Telefon",
   "contact.detail.locationLabel": "Konum",
 
-  "footer.text": "© 2025 Yilmaz Mustafa. Tüm hakları saklıdır."
+  "footer.text": "© 2025 Yilmaz Mustafa. Tüm hakları saklıdır.",
+
+  "listen.launcherLabel": "Dinle"
 } 

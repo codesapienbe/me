@@ -48,9 +48,15 @@ class NavigationManager {
     }
     
     setupMobileNavigation() {
+        // Initialize ARIA attributes
+        this.navToggle.setAttribute('aria-expanded', 'false');
+        this.navToggle.setAttribute('aria-controls', this.navMenu.id);
+        this.navMenu.setAttribute('role', 'menu');
+        this.navLinks.forEach(link => link.setAttribute('role', 'menuitem'));
         this.navToggle.addEventListener('click', () => {
-            this.navMenu.classList.toggle('active');
+            const expanded = this.navMenu.classList.toggle('active');
             this.navToggle.classList.toggle('active');
+            this.navToggle.setAttribute('aria-expanded', expanded);
         });
         
         // Close mobile menu when clicking on links
@@ -603,15 +609,22 @@ class LocalizationManager {
         this.popup = document.getElementById('chatPopup');
         this.closeBtn = document.getElementById('chatClose');
         if (this.launcher && this.popup) {
+            // Initialize ARIA
+            this.launcher.setAttribute('aria-expanded', 'false');
+            this.popup.setAttribute('aria-hidden', 'true');
             this.launcher.addEventListener('click', () => {
                 const isVisible = this.popup.classList.toggle('visible');
                 this.popup.setAttribute('aria-modal', isVisible);
+                this.popup.setAttribute('aria-hidden', !isVisible);
+                this.launcher.setAttribute('aria-expanded', isVisible);
             });
         }
         if (this.closeBtn && this.popup) {
             this.closeBtn.addEventListener('click', () => {
                 this.popup.classList.remove('visible');
                 this.popup.setAttribute('aria-modal', 'false');
+                this.popup.setAttribute('aria-hidden', 'true');
+                this.launcher.setAttribute('aria-expanded', 'false');
             });
         }
     }
@@ -1172,8 +1185,19 @@ class CalendarManager {
 
     init() {
         this.dateElements.forEach(el => {
+            // Make date cells accessible
+            el.setAttribute('role', 'button');
+            el.setAttribute('tabindex', '0');
             el.style.cursor = 'pointer';
+            // Handle click
             el.addEventListener('click', (e) => this.handleDateClick(e));
+            // Handle keyboard activation
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleDateClick({ currentTarget: el });
+                }
+            });
         });
     }
 
@@ -1229,6 +1253,46 @@ class CalendarManager {
     }
 }
 
+// Text-to-Speech Manager for 'Listen' feature
+class TTSManager {
+    constructor() {
+        this.launcher = document.getElementById('listenLauncher');
+        this.speaking = false;
+        this.init();
+    }
+    init() {
+        if (this.launcher) {
+            this.launcher.setAttribute('aria-pressed', 'false');
+            this.launcher.addEventListener('click', () => this.toggleSpeech());
+        }
+    }
+    toggleSpeech() {
+        if (this.speaking) {
+            window.speechSynthesis.cancel();
+            this.speaking = false;
+            this.launcher.setAttribute('aria-pressed', 'false');
+        } else {
+            this.speaking = true;
+            this.launcher.setAttribute('aria-pressed', 'true');
+            const content = this.buildSpeechContent();
+            const utterance = new SpeechSynthesisUtterance(content);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.onend = () => {
+                this.speaking = false;
+                this.launcher.setAttribute('aria-pressed', 'false');
+            };
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+    buildSpeechContent() {
+        const greet = document.querySelector('[data-i18n-key="hero.greeting"]')?.textContent || '';
+        const desc = document.querySelector('[data-i18n-key="hero.description"]')?.textContent || '';
+        const aboutTexts = Array.from(document.querySelectorAll('.about__text p')).map(p => p.textContent).join(' ');
+        return `${greet}. ${desc}. ${aboutTexts}`;
+    }
+}
+
 // Application Initialization
 class PortfolioApp {
     constructor() {
@@ -1257,6 +1321,7 @@ class PortfolioApp {
                 new ApplicationsLoader(),
                 new AgendaLoader(),
                 new LocalQAManager(),
+                new TTSManager(),
                 new CalendarManager(),
                 new StatsCounter(),
                 new ProjectCardsManager(),

@@ -1286,10 +1286,54 @@ class TTSManager {
         }
     }
     buildSpeechContent() {
-        const greet = document.querySelector('[data-i18n-key="hero.greeting"]')?.textContent || '';
-        const desc = document.querySelector('[data-i18n-key="hero.description"]')?.textContent || '';
-        const aboutTexts = Array.from(document.querySelectorAll('.about__text p')).map(p => p.textContent).join(' ');
-        return `${greet}. ${desc}. ${aboutTexts}`;
+        const parts = [];
+        // Greeting and description
+        const greet = document.querySelector('[data-i18n-key="hero.greeting"]')?.textContent.trim();
+        const desc = document.querySelector('[data-i18n-key="hero.description"]')?.textContent.trim();
+        if (greet) parts.push(greet);
+        if (desc) parts.push(desc);
+        // About section
+        const about = Array.from(document.querySelectorAll('.about__text p')).map(p => p.textContent.trim()).join(' ');
+        if (about) parts.push(about);
+        // Experience
+        const experiences = Array.from(document.querySelectorAll('.timeline__item')).map(item => {
+            const title = item.querySelector('.timeline__title')?.textContent.trim();
+            const company = item.querySelector('.timeline__company')?.textContent.trim();
+            return title && company ? `${title} at ${company}` : title;
+        }).filter(Boolean);
+        if (experiences.length) parts.push(`Experience: ${experiences.join(', ')}.`);
+        // Skills
+        const skills = Array.from(document.querySelectorAll('.skill-tag')).map(el => el.textContent.trim());
+        if (skills.length) parts.push(`Skills include ${skills.join(', ')}.`);
+        // Projects (title and short description)
+        const projectSummaries = Array.from(document.querySelectorAll('.project-card__content')).map(card => {
+            const title = card.querySelector('.project-card__title')?.textContent.trim();
+            const desc = card.querySelector('.project-card__description')?.textContent.trim();
+            return title && desc ? `${title}: ${desc}` : title;
+        }).filter(Boolean);
+        if (projectSummaries.length) parts.push(`Projects: ${projectSummaries.join('; ')}.`);
+        // Availability (calendar)
+        const availableDays = Array.from(document.querySelectorAll('.calendar__date.available')).map(el => el.textContent.trim());
+        if (availableDays.length) parts.push(`Available on: ${availableDays.join(', ')}.`);
+        // Applications progress
+        const appStatuses = Array.from(document.querySelectorAll('.agenda__list table tbody tr')).map(row => {
+            const cells = row.querySelectorAll('td');
+            const company = cells[0]?.textContent.trim();
+            const position = cells[1]?.textContent.trim();
+            const status = cells[3]?.textContent.trim();
+            return company && position && status ? `${company} (${position}) is ${status}` : company;
+        }).filter(Boolean);
+        if (appStatuses.length) parts.push(`Applications: ${appStatuses.join('; ')}.`);
+        // Contact information
+        const email = document.querySelector('#contact a[href^="mailto:"]')?.textContent.trim();
+        const phone = document.querySelector('#contact a[href^="tel:"]')?.textContent.trim();
+        if (email || phone) {
+            const contactParts = [];
+            if (email) contactParts.push(`email at ${email}`);
+            if (phone) contactParts.push(`phone at ${phone}`);
+            parts.push(`Contact me via ${contactParts.join(' or ')}.`);
+        }
+        return parts.join(' ');
     }
 }
 

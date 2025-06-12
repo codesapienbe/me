@@ -32,5 +32,28 @@
   "contact.label.email": "E-posta *",
   "contact.label.subject": "Konu",
   "contact.label.message": "Mesaj *",
-  "contact.button.sendMessage": "Gönder"
+  "contact.button.sendMessage": "Gönder",
+
+  "agenda.calendarHeading": "Mülakat Uygunluğu",
+  "calendar.day.sun": "Paz",
+  "calendar.day.mon": "Pzt",
+  "calendar.day.tue": "Sal",
+  "calendar.day.wed": "Çar",
+  "calendar.day.thu": "Per",
+  "calendar.day.fri": "Cum",
+  "calendar.day.sat": "Cts",
+
+  "agenda.table.company": "Şirket",
+  "agenda.table.position": "Pozisyon",
+  "agenda.table.dateApplied": "Başvuru Tarihi",
+  "agenda.table.status": "Durum",
+
+  "contact.introTitle": "Birlikte çalışalım",
+  "contact.introText": "Her zaman yeni fırsatlara ve zorluklara açığım. İster kurumsal Java uygulamaları, ister AI/ML çözümleri ya da full-stack geliştirme olsun, sizden haber almak isterim.",
+
+  "contact.detail.emailLabel": "E-posta",
+  "contact.detail.phoneLabel": "Telefon",
+  "contact.detail.locationLabel": "Konum",
+
+  "footer.text": "© 2025 Yilmaz Mustafa. Tüm hakları saklıdır."
 } 

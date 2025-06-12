@@ -32,5 +32,28 @@
   "contact.label.email": "Email *",
   "contact.label.subject": "Subject",
   "contact.label.message": "Message *",
-  "contact.button.sendMessage": "Send Message"
+  "contact.button.sendMessage": "Send Message",
+
+  "agenda.calendarHeading": "Interview Availability",
+  "calendar.day.sun": "Sun",
+  "calendar.day.mon": "Mon",
+  "calendar.day.tue": "Tue",
+  "calendar.day.wed": "Wed",
+  "calendar.day.thu": "Thu",
+  "calendar.day.fri": "Fri",
+  "calendar.day.sat": "Sat",
+
+  "agenda.table.company": "Company",
+  "agenda.table.position": "Position",
+  "agenda.table.dateApplied": "Date Applied",
+  "agenda.table.status": "Status",
+
+  "contact.introTitle": "Let's Work Together",
+  "contact.introText": "I'm always interested in new opportunities and challenges. Whether you need help with enterprise Java applications, AI/ML solutions, or full-stack development, I'd love to hear from you.",
+
+  "contact.detail.emailLabel": "Email",
+  "contact.detail.phoneLabel": "Phone",
+  "contact.detail.locationLabel": "Location",
+
+  "footer.text": "© 2025 Yilmaz Mustafa. All rights reserved."
 } 

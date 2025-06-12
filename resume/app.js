@@ -711,7 +711,7 @@ class AgendaLoader {
     }
     async init() {
         try {
-            const data = await fetch('agenda.json').then(res => res.json());
+            const data = await fetch('agenda/agenda.json').then(res => res.json());
             const availableDates = data.availableDates;
             const year = data.year;
             const monthTitleElem = document.querySelector('.calendar__title');
@@ -755,7 +755,7 @@ class LocalQAManager {
         this.experience = await fetch('experience/experience.json').then(res => res.json()).catch(() => []);
         this.skills = await fetch('skill/skills.json').then(res => res.json()).catch(() => []);
         this.applications = await fetch('applications/applications.json').then(res => res.json()).catch(() => []);
-        this.agenda = await fetch('agenda.json').then(res => res.json()).catch(() => ({ availableDates: [], month: '', year: 0 }));
+        this.agenda = await fetch('agenda/agenda.json').then(res => res.json()).catch(() => ({ availableDates: [], month: '', year: 0 }));
 
         // Initialize context and conversation memory
         this.context = {
@@ -933,9 +933,30 @@ class LocalQAManager {
         }
     }
 
-    handleQuestion() {
+    async handleQuestion() {
         const question = this.input.value.trim();
         if (!question) return;
+
+        // Enhanced keyword-based category detection (English only)
+        const lang = document.documentElement.getAttribute('lang') || 'en';
+        const normalized = question.toLowerCase().replace(/[^\w\s]/g, ' ');
+        const stopwords = ['what','are','your','do','the','a','an','is','you','me','my','of','to','for'];
+        const words = Array.from(new Set(
+            normalized.split(/\s+/).filter(w => w && !stopwords.includes(w))
+        ));
+        if (lang === 'en' && words.some(w => this.synonyms.skills.includes(w))) {
+            // Skill-related query detected via keywords
+            const specific = this.skills.find(cat =>
+                words.includes(cat.category.toLowerCase()) ||
+                cat.skills.some(skill => words.includes(skill.toLowerCase()))
+            );
+            const resp = specific
+                ? `${specific.category} Skills: ${specific.skills.join(', ')}`
+                : this.skills.map(cat => `${cat.category}: ${cat.skills.join(', ')}`).join('\n\n');
+            this.output.textContent = resp;
+            this.input.value = '';
+            return;
+        }
 
         const q = question.toLowerCase().replace(/[^\w\s?]/g, ' ').replace(/\s+/g, ' ').trim();
         let resp = '';
@@ -1096,7 +1117,33 @@ class LocalQAManager {
             }
         }
 
-        this.output.textContent = resp;
+        if (!matchFound) {
+            this.output.textContent = 'Thinking…';
+            try {
+                // Build context from site content and JSON data
+                const siteText = document.body.innerText;
+                const experienceData = JSON.stringify(this.experience);
+                const skillsData = JSON.stringify(this.skills);
+                const applicationsData = JSON.stringify(this.applications);
+                const agendaData = JSON.stringify(this.agenda);
+                const contextText = [
+                    `Site text:\n${siteText}`,
+                    `Experience JSON:\n${experienceData}`,
+                    `Skills JSON:\n${skillsData}`,
+                    `Applications JSON:\n${applicationsData}`,
+                    `Agenda JSON:\n${agendaData}`
+                ].join('\n\n');
+                const promptWithContext = `You are an assistant for the Yilmaz Mustafa personal website. Use only the context and site content below to answer the question, do not include any information not present in this data.\n\n${contextText}\n\nUser question: ${question}\nAnswer:`;
+                const answer = await askLLM(promptWithContext);
+                this.output.textContent = answer;
+            } catch (e) {
+                console.error(e);
+                // Fallback to original response if LLM call fails
+                this.output.textContent = resp;
+            }
+        } else {
+            this.output.textContent = resp;
+        }
         this.input.value = '';
     }
 }

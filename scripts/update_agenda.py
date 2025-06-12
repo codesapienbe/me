@@ -11,7 +11,7 @@ from datetime import datetime
 # Paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resume'))
 ICS_DIR = os.path.join(BASE_DIR, 'agenda')
-AGENDA_FILE = os.path.join(BASE_DIR, 'agenda.json')
+AGENDA_FILE = os.path.join(ICS_DIR, 'agenda.json')
 
 # Load existing agenda.json
 with open(AGENDA_FILE, 'r', encoding='utf-8') as f:

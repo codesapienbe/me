@@ -576,6 +576,18 @@ class LocalizationManager {
             }
         });
 
+        // Also translate any element without data-i18n-key by using its textContent as the key
+        document.querySelectorAll('body *').forEach(el => {
+            // skip if already handled or has children
+            if (el.hasAttribute('data-i18n-key') || el.children.length > 0) return;
+            const keyText = el.textContent.trim();
+            if (!keyText) return;
+            const translated = this.translations[keyText];
+            if (translated) {
+                el.textContent = translated;
+            }
+        });
+
         // Setup language selector
         const select = document.getElementById('languageSelect');
         if (select) {

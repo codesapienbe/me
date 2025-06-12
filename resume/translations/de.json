@@ -2,17 +2,19 @@
   "nav.home": "Startseite",
   "nav.about": "Über mich",
   "nav.experience": "Erfahrung",
-  "nav.skills": "Fähigkeiten & Technologien",
-  "nav.projects": "Ausgewählte Projekte",
+  "nav.skills": "Fähigkeiten",
+  "nav.projects": "Projekte",
   "nav.agenda": "Agenda",
   "nav.contact": "Kontakt",
 
   "section.about": "Über mich",
   "section.experience": "Erfahrung",
-  "section.skills": "Fähigkeiten & Technologien",
-  "section.projects": "Ausgewählte Projekte",
+  "section.skills": "Fähigkeiten",
+  "section.projects": "Projekte",
   "section.agenda": "Agenda",
   "section.contact": "Kontakt",
+  "section.current": "Aktuell",
+  "section.future": "Zukunft",
 
   "agenda.applicationsProgress": "Bewerbungsfortschritt",
 

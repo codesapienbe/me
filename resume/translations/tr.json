@@ -2,17 +2,19 @@
   "nav.home": "Anasayfa",
   "nav.about": "Hakkımda",
   "nav.experience": "Deneyim",
-  "nav.skills": "Yetenekler & Teknolojiler",
-  "nav.projects": "Öne Çıkan Projeler",
+  "nav.skills": "Yetenekler",
+  "nav.projects": "Projeler",
   "nav.agenda": "Ajanda",
   "nav.contact": "İletişim",
 
   "section.about": "Hakkımda",
   "section.experience": "Deneyim",
-  "section.skills": "Yetenekler & Teknolojiler",
-  "section.projects": "Öne Çıkan Projeler",
+  "section.skills": "Yetenekler",
+  "section.projects": "Projeler",
   "section.agenda": "Ajanda",
   "section.contact": "İletişim",
+  "section.current": "Mevcut",
+  "section.future": "Gelecek",
 
   "agenda.applicationsProgress": "Başvuru Durumu",
 

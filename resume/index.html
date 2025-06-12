@@ -13,7 +13,7 @@
         <div class="container">
             <div class="nav__content">
                 <div class="nav__brand">
-                    <a href="#home">Yilmaz Mustafa</a>
+                    <a href="#home" data-i18n-key="nav.brand">Yilmaz Mustafa</a>
                 </div>
                 <ul class="nav__menu" id="navMenu">
                     <li><a href="#home" class="nav__link active" data-i18n-key="nav.home">Home</a></li>
@@ -32,10 +32,10 @@
                         <option value="de">Deutsch</option>
                         <option value="tr">Türkçe</option>
                     </select>
-                    <button class="btn btn--outline theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <button class="btn btn--outline theme-toggle" id="themeToggle" data-i18n-key="nav.toggleTheme" data-i18n-attr="aria-label" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
-                    <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                    <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -51,32 +51,32 @@
             <div class="hero__content">
                 <div class="hero__text">
                     <h1 class="hero__title">
-                        Hi, I'm <span class="hero__name">Yilmaz Mustafa</span>
+                        <span data-i18n-key="hero.greeting">Hi, I'm</span> <span class="hero__name">Yilmaz Mustafa</span>
                     </h1>
                     <div class="hero__subtitle">
                         <span class="hero__role" id="typingText">Java Developer</span>
                         <span class="hero__cursor">|</span>
                     </div>
-                    <p class="hero__description">
+                    <p class="hero__description" data-i18n-key="hero.description">
                         Passionate Software Engineer with 5+ years of experience in Java enterprise applications, 
                         AI/ML solutions, and full-stack development. Based in Zele, Belgium.
                     </p>
                     <div class="hero__stats">
                         <div class="stat">
                             <div class="stat__number">5+</div>
-                            <div class="stat__label">Years Experience</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.yearsExp">Years Experience</div>
                         </div>
                         <div class="stat">
                             <div class="stat__number">15+</div>
-                            <div class="stat__label">Projects Completed</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.projectsCompleted">Projects Completed</div>
                         </div>
                         <div class="stat">
                             <div class="stat__number">100+</div>
-                            <div class="stat__label">Developers Trained</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.devsTrained">Developers Trained</div>
                         </div>
                         <div class="stat">
                             <div class="stat__number">20+</div>
-                            <div class="stat__label">Technologies Mastered</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.techMastered">Technologies Mastered</div>
                         </div>
                     </div>
                     <div class="hero__actions">
@@ -102,42 +102,40 @@
             <div class="about__content">
                 <div class="about__text">
                     <p>
-                        I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, 
+                        <p data-i18n-key="about.text1">I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, 
                         AI/ML solutions, and full-stack development. My journey has taken me through the financial sector at SWIFT, 
-                        where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.
-                    </p>
+                        where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.</p>
                     <p>
-                        Currently working as a freelance developer, I focus on creating robust enterprise applications, 
+                        <p data-i18n-key="about.text2">Currently working as a freelance developer, I focus on creating robust enterprise applications, 
                         real-time processing systems, and AI-powered solutions. I also have experience as a Java instructor, 
-                        having trained over 100 developers and won 3rd prize in a Belgian hackathon.
-                    </p>
+                        having trained over 100 developers and won 3rd prize in a Belgian hackathon.</p>
                     <div class="about__highlights">
                         <div class="highlight">
                             <span class="highlight__icon">🏆</span>
                             <div>
-                                <h4>3rd Place</h4>
-                                <p>Belgium Hackathon Winner</p>
+                                <h4 data-i18n-key="about.highlight1.title">3rd Place</h4>
+                                <p data-i18n-key="about.highlight1.text">Belgium Hackathon Winner</p>
                             </div>
                         </div>
                         <div class="highlight">
                             <span class="highlight__icon">👨‍🏫</span>
                             <div>
-                                <h4>Teaching Experience</h4>
-                                <p>100+ Developers Trained</p>
+                                <h4 data-i18n-key="about.highlight2.title">Teaching Experience</h4>
+                                <p data-i18n-key="about.highlight2.text">100+ Developers Trained</p>
                             </div>
                         </div>
                         <div class="highlight">
                             <span class="highlight__icon">🏢</span>
                             <div>
-                                <h4>SWIFT Experience</h4>
-                                <p>FinTech Knowledge</p>
+                                <h4 data-i18n-key="about.highlight3.title">SWIFT Experience</h4>
+                                <p data-i18n-key="about.highlight3.text">FinTech Knowledge</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="about__contact">
                     <div class="contact-info">
-                        <h3>Contact Information</h3>
+                        <h3 data-i18n-key="contact.infoTitle">Contact Information</h3>
                         <div class="contact-item">
                             <span class="contact-icon">📧</span>
                             <a href="mailto:ymus@tuta.io">ymus@tuta.io</a>
@@ -148,13 +146,13 @@
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📍</span>
-                            <span>Zele, Belgium</span>
+                            <span data-i18n-key="contact.detail.location">Zele, Belgium</span>
                         </div>
                         <div class="social-links">
-                            <a href="https://github.com/codesapienbe" target="_blank" class="social-link">
+                            <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.github">
                                 <span>GitHub</span>
                             </a>
-                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" class="social-link">
+                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.linkedin">
                                 <span>LinkedIn</span>
                             </a>
                         </div>
@@ -268,8 +266,10 @@
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
-            <h2 class="section__title" data-i18n-key="section.projects">Featured Projects</h2>
-            <div class="projects__grid">
+            <h2 class="section__title" data-i18n-key="section.projects">Projects</h2>
+            <div class="projects__subcategory">
+              <h3 class="section__subtitle" data-i18n-key="section.current">Current</h3>
+              <div class="projects__grid">
                 <div class="project-card">
                     <div class="project-card__content">
                         <h3 class="project-card__title">MCP-Hydra</h3>
@@ -291,7 +291,7 @@
                             </ul>
                         </div>
                         <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/mcp-hydra" target="_blank" class="btn btn--outline btn--sm">
+                            <a href="https://github.com/codesapienbe/mcp-hydra" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
                                 View on GitHub
                             </a>
                         </div>
@@ -319,7 +319,7 @@
                             </ul>
                         </div>
                         <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/aij" target="_blank" class="btn btn--outline btn--sm">
+                            <a href="https://github.com/codesapienbe/aij" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
                                 View on GitHub
                             </a>
                         </div>
@@ -372,7 +372,7 @@
                             </ul>
                         </div>
                         <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/instyper" target="_blank" class="btn btn--outline btn--sm">
+                            <a href="https://github.com/codesapienbe/instyper" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
                                 View on GitHub
                             </a>
                         </div>
@@ -422,12 +422,19 @@
                             </ul>
                         </div>
                         <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/jobops-toolbar" target="_blank" class="btn btn--outline btn--sm">
+                            <a href="https://github.com/codesapienbe/jobops-toolbar" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
                                 View on GitHub
                             </a>
                         </div>
                     </div>
                 </div>
+              </div>
+            </div>
+            <div class="projects__subcategory">
+              <h3 class="section__subtitle" data-i18n-key="section.future">Future</h3>
+              <div class="projects__grid">
+                <!-- Add future project cards here -->
+              </div>
             </div>
         </div>
     </section>
@@ -592,9 +599,9 @@
                     <p data-i18n-key="footer.text">&copy; 2025 Yilmaz Mustafa. All rights reserved.</p>
                 </div>
                 <div class="footer__social">
-                    <a href="https://github.com/codesapienbe" target="_blank" class="footer__link">GitHub</a>
-                    <a href="https://linkedin.com/in/codesapienbe" target="_blank" class="footer__link">LinkedIn</a>
-                    <a href="mailto:ymus@tuta.io" class="footer__link">Email</a>
+                    <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.github">GitHub</a>
+                    <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.linkedin">LinkedIn</a>
+                    <a href="mailto:ymus@tuta.io" class="footer__link" data-i18n-key="footer.link.email">Email</a>
                 </div>
             </div>
         </div>

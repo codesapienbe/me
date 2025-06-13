@@ -4,19 +4,19 @@
   "nav.experience": "Experience",
   "nav.skills": "Skills",
   "nav.projects": "Projects",
-  "nav.agenda": "Agenda",
+  "nav.agenda": "Tasks",
   "nav.contact": "Contact",
 
   "section.about": "About Me",
   "section.experience": "Experience",
-  "section.skills": "Skills & Technologies",
+  "section.skills": "Skills",
   "section.projects": "Projects",
-  "section.agenda": "Agenda",
+  "section.agenda": "Tasks",
   "section.contact": "Contact",
   "section.current": "Current",
   "section.future": "Future",
 
-  "agenda.applicationsProgress": "Tasks and Assignments",
+  "agenda.applicationsProgress": "Tasks",
 
   "hero.getInTouch": "Get In Touch",
   "hero.viewProjects": "View Projects",

@@ -201,6 +201,16 @@ class ContactFormManager {
         this.nameField.addEventListener('input', () => this.clearError('name'));
         this.emailField.addEventListener('input', () => this.clearError('email'));
         this.messageField.addEventListener('input', () => this.clearError('message'));
+        
+        // Setup meeting request controls
+        this.requestMeetingCheckbox = document.getElementById('requestMeeting');
+        this.meetingDetails = document.querySelector('.meeting-details');
+        if (this.requestMeetingCheckbox) {
+            this.requestMeetingCheckbox.addEventListener('change', () => {
+                this.meetingDetails.style.display = this.requestMeetingCheckbox.checked ? 'block' : 'none';
+            });
+            flatpickr('#meetingDateTime', { enableTime: true, dateFormat: 'Y-m-d H:i' });
+        }
     }
     
     handleSubmit(e) {
@@ -276,7 +286,12 @@ class ContactFormManager {
         const email = this.emailField.value.trim();
         const subject = this.subjectField.value.trim();
         const message = this.messageField.value.trim();
-        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+        let body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+        let meetingDateTime;
+        if (this.requestMeetingCheckbox && this.requestMeetingCheckbox.checked) {
+            meetingDateTime = document.getElementById('meetingDateTime').value;
+            body += `\nMeeting Requested: ${meetingDateTime}`;
+        }
         const mailtoLink = `mailto:ymus@tuta.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         // Open mailto link to launch default mail client
         if (!window.open(mailtoLink, '_self')) {
@@ -287,6 +302,10 @@ class ContactFormManager {
             document.body.appendChild(tempLink);
             tempLink.click();
             document.body.removeChild(tempLink);
+        }
+        // If meeting requested, generate an ICS invitation
+        if (meetingDateTime) {
+            this.generateMeetingICS(meetingDateTime, name, email);
         }
     }
     
@@ -333,6 +352,39 @@ class ContactFormManager {
                 document.body.removeChild(notification);
             }, 300);
         }, 5000);
+    }
+    
+    generateMeetingICS(dateTime, name, email) {
+        const date = new Date(dateTime);
+        const pad = num => num.toString().padStart(2, '0');
+        const uid = Date.now();
+        const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const dtStart = `${date.getUTCFullYear()}${pad(date.getUTCMonth()+1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
+        const endDate = new Date(date.getTime() + 60 * 60 * 1000);
+        const dtEnd = `${endDate.getUTCFullYear()}${pad(endDate.getUTCMonth()+1)}${pad(endDate.getUTCDate())}T${pad(endDate.getUTCHours())}${pad(endDate.getUTCMinutes())}00Z`;
+        const lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Yilmaz On Web//Meeting Request//EN',
+            'BEGIN:VEVENT',
+            `UID:${uid}`,
+            `DTSTAMP:${dtStamp}`,
+            `DTSTART:${dtStart}`,
+            `DTEND:${dtEnd}`,
+            `SUMMARY:Meeting with ${name}`,
+            `DESCRIPTION:Requested by ${name} <${email}>`,
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ];
+        const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `meeting-${uid}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 }
 

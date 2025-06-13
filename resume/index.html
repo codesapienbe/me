@@ -730,13 +730,6 @@
         <div class="container">
             <h2 class="section__title" data-i18n-key="section.agenda">Agenda</h2>
             <div class="agenda__grid">
-                <div class="agenda__calendar">
-                    <h3>Schedule a Google Meet</h3>
-                    <input type="text" id="meetingPicker" placeholder="Select date & time" class="form-control" />
-                    <input type="text" id="meetingName" placeholder="Your name" class="form-control" />
-                    <input type="email" id="meetingEmail" placeholder="Your email" class="form-control" />
-                    <button id="scheduleMeetBtn" class="btn btn--primary">Request a Meeting</button>
-                </div>
                 <div class="agenda__list">
                     <h3 data-i18n-key="agenda.applicationsProgress">Tasks and Assignments</h3>
                     <table>
@@ -807,6 +800,14 @@
                         <label for="message" class="form-label" data-i18n-key="contact.label.message">Message *</label>
                         <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                         <div class="form-error" id="messageError" role="alert" aria-live="assertive"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="requestMeeting" name="requestMeeting">
+                        <label for="requestMeeting">Request a Google Meet</label>
+                    </div>
+                    <div class="form-group meeting-details" style="display:none;">
+                        <label for="meetingDateTime">Select Date & Time *</label>
+                        <input type="text" id="meetingDateTime" class="form-control flatpickr-date-time" placeholder="Choose date & time" />
                     </div>
                     <button type="submit" class="btn btn--primary btn--full-width" data-i18n-key="contact.button.sendMessage">Send Message</button>
                 </form>

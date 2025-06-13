@@ -1,0 +1,43 @@
+[
+  {
+    "period": "Feb 2025 - Present",
+    "title": "Freelance Software Engineer",
+    "company": "Self-Employed • Zele, Belgium",
+    "achievements": [
+      "Java/Python Enterprise Applications development",
+      "Real-time image/audio processing implementations",
+      "React Native apps with full DevOps stack",
+      "FastAPI and Spring Boot AI service integration"
+    ]
+  },
+  {
+    "period": "Oct 2024 - Feb 2025",
+    "title": "Software Engineer",
+    "company": "TheMatchBox • Belgium",
+    "achievements": [
+      "ElasticSearch Java plugins for advanced search",
+      "Distributed Computing implementations",
+      "Performance optimization solutions"
+    ]
+  },
+  {
+    "period": "June 2023 - Oct 2024",
+    "title": "Software Engineer",
+    "company": "S.W.I.F.T • Belgium",
+    "achievements": [
+      "MT/MX messaging protocol implementation",
+      "Enterprise security systems in Java",
+      "MQ for high-volume transactions"
+    ]
+  },
+  {
+    "period": "2022 - 2024",
+    "title": "Java Instructor",
+    "company": "INTEC Brussel • Brussels, Belgium",
+    "achievements": [
+      "Dual-language training (Java & Python)",
+      "Won 3rd prize in Hackathon in Belgium",
+      "100+ developers trained in enterprise patterns"
+    ]
+  }
+] 

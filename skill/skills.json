@@ -1,0 +1,32 @@
+[
+  {
+    "category": "AI/ML Development",
+    "skills": [
+      "Computer Vision (OpenCV, MediaPipe, TensorFlow)",
+      "Voice Processing (Whisper, Vosk, DeepSpeech)",
+      "Mobile Apps with AI Integration",
+      "MLOps with Terraform",
+      "AI-Security Integration (MCP Protocol)"
+    ]
+  },
+  {
+    "category": "Enterprise Java",
+    "skills": [
+      "JDK 8, 11, 17, Jakarta EE",
+      "Spring Ecosystem (Boot, Security, Data, Cloud, AI)",
+      "Financial Systems (SWIFT protocols, AMH)",
+      "Microservices/Modulith Architecture",
+      "Jenkins, Nexus, Maven, Gradle, Ant"
+    ]
+  },
+  {
+    "category": "Full-Stack Development",
+    "skills": [
+      "Spring Boot backend with React frontend",
+      "NestJS backend with React Native cross-platform",
+      "FastAPI and PGVector with Streamlit AI-focused UI",
+      "PWA using Vaadin + Spring Boot + Docker",
+      "Automated Deployment for WooCommerce + WP"
+    ]
+  }
+] 

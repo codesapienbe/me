@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yilmaz Mustafa - Software Engineer</title>
+    <meta name="description" content="Yilmaz Mustafa - Software Engineer specializing in Java, AI/ML, and Full-Stack development">
+    <link rel="canonical" href="https://codesapienbe.github.io/me/">
+    <meta name="keywords" content="Java, AI/ML, Machine Learning, Spring Boot, React, Full-Stack Development, Cybersecurity, Software Engineer, Portfolio">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Yilmaz Mustafa - Software Engineer">
+    <meta property="og:description" content="Software Engineer specializing in Java, AI/ML, and Full-Stack development.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://codesapienbe.github.io/me/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/124777905?v=4">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Yilmaz Mustafa - Software Engineer">
+    <meta name="twitter:description" content="Software Engineer specializing in Java, AI/ML, and Full-Stack development.">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/124777905?v=4">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Yilmaz Mustafa",
+      "url": "https://codesapienbe.github.io/me/",
+      "sameAs": [
+        "https://github.com/codesapienbe",
+        "https://linkedin.com/in/codesapienbe",
+        "mailto:ymus@tuta.io"
+      ],
+      "jobTitle": "Software Engineer",
+      "description": "Software Engineer specializing in Java, AI/ML, and Full-Stack development",
+      "email": "ymus@tuta.io",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Zele",
+        "addressCountry": "Belgium"
+      },
+      "knowsAbout": ["Java","Artificial Intelligence","Machine Learning","React","Spring Boot","Cybersecurity"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://codesapienbe.github.io/me/",
+      "name": "Yilmaz Mustafa - Software Engineer",
+      "description": "Personal portfolio website of Yilmaz Mustafa",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://codesapienbe.github.io/me/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <a href="#maincontent" class="skip-link sr-only" data-i18n-key="skip.toContent" role="link">Skip to main content</a>
+    <!-- Navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <div class="nav__content">
+                <div class="nav__brand">
+                    <a href="#home" data-i18n-key="nav.brand">Yilmaz Mustafa</a>
+                </div>
+                <ul class="nav__menu" id="navMenu" role="menu">
+                    <li role="none"><a href="#home" class="nav__link active" data-i18n-key="nav.home" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#about" class="nav__link" data-i18n-key="nav.about" role="menuitem">About</a></li>
+                    <li role="none"><a href="#experience" class="nav__link" data-i18n-key="nav.experience" role="menuitem">Experience</a></li>
+                    <li role="none"><a href="#skills" class="nav__link" data-i18n-key="nav.skills" role="menuitem">Skills</a></li>
+                    <li role="none"><a href="#projects" class="nav__link" data-i18n-key="nav.projects" role="menuitem">Projects</a></li>
+                    <li role="none"><a href="#agenda" class="nav__link" data-i18n-key="nav.agenda" role="menuitem">Tasks</a></li>
+                    <li role="none"><a href="#contact" class="nav__link" data-i18n-key="nav.contact" role="menuitem">Contact</a></li>
+                </ul>
+                <div class="nav__actions">
+                    <select id="languageSelect" class="form-control nav-language-select" aria-label="Select language">
+                        <option value="en">English</option>
+                        <option value="nl-BE">Nederlands</option>
+                        <option value="fr-BE">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                    <button class="btn btn--outline theme-toggle" id="themeToggle" data-i18n-key="nav.toggleTheme" data-i18n-attr="aria-label" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main id="maincontent" role="main">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero__content">
+                <div class="hero__text">
+                    <h1 class="hero__title">
+                        <span data-i18n-key="hero.greeting">Hi, I'm</span> <span class="hero__name">Yilmaz Mustafa</span>
+                    </h1>
+                    <div class="hero__subtitle">
+                        <span class="hero__role" id="typingText">Java Developer</span>
+                        <span class="hero__cursor">|</span>
+                    </div>
+                    <p class="hero__description" data-i18n-key="hero.description">
+                        Passionate Software Engineer with 5+ years of experience in Java enterprise applications, 
+                        AI/ML solutions, and full-stack development. Based in Zele, Belgium.
+                    </p>
+                    <div class="hero__stats">
+                        <div class="stat">
+                            <div class="stat__number">5+</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.yearsExp">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__number">15+</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.projectsCompleted">Projects Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__number">100+</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.devsTrained">Developers Trained</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__number">20+</div>
+                            <div class="stat__label" data-i18n-key="hero.stat.techMastered">Technologies Mastered</div>
+                        </div>
+                    </div>
+                    <div class="hero__actions">
+                        <a href="#contact" class="btn btn--primary btn--lg" data-i18n-key="hero.getInTouch">Get In Touch</a>
+                        <a href="#projects" class="btn btn--outline btn--lg" data-i18n-key="hero.viewProjects">View Projects</a>
+                    </div>
+                </div>
+                <div class="hero__image">
+                    <div class="hero__avatar">
+                        <div class="avatar-placeholder">
+                            <img src="https://avatars.githubusercontent.com/u/124777905?v=4" alt="Profile Image" class="profile-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.about">About Me</h2>
+            <div class="about__content">
+                <div class="about__text">
+                    <p data-i18n-key="about.text1">I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, AI/ML solutions, and full-stack development. My journey has taken me through the financial sector at SWIFT, where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.</p>
+                    <p data-i18n-key="about.text2">Currently working as a freelance developer, I focus on creating robust enterprise applications, real-time processing systems, and AI-powered solutions. I also have experience as a Java instructor, having trained over 100 developers and won 3rd prize in a Belgian hackathon.</p>
+                    <div class="about__highlights">
+                        <div class="highlight">
+                            <span class="highlight__icon">🏆</span>
+                            <div>
+                                <h4 data-i18n-key="about.highlight1.title">3rd Place</h4>
+                                <p data-i18n-key="about.highlight1.text">Belgium Hackathon Winner</p>
+                            </div>
+                        </div>
+                        <div class="highlight">
+                            <span class="highlight__icon">👨‍🏫</span>
+                            <div>
+                                <h4 data-i18n-key="about.highlight2.title">Teaching Experience</h4>
+                                <p data-i18n-key="about.highlight2.text">100+ Developers Trained</p>
+                            </div>
+                        </div>
+                        <div class="highlight">
+                            <span class="highlight__icon">🏢</span>
+                            <div>
+                                <h4 data-i18n-key="about.highlight3.title">SWIFT Experience</h4>
+                                <p data-i18n-key="about.highlight3.text">FinTech Knowledge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__contact">
+                    <div class="contact-info">
+                        <h3 data-i18n-key="contact.infoTitle">Contact Information</h3>
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:ymus@tuta.io">ymus@tuta.io</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <a href="tel:+32467711709">+32 467 71 17 09</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span data-i18n-key="contact.detail.location">Zele, Belgium</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.github">
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.linkedin">
+                                <span>LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.experience">Experience</h2>
+            <div class="timeline">
+                <div class="timeline__item">
+                    <div class="timeline__marker"></div>
+                    <div class="timeline__content">
+                        <div class="timeline__period">Feb 2025 - Present</div>
+                        <h3 class="timeline__title">Freelance Software Engineer</h3>
+                        <div class="timeline__company">Self-Employed • Zele, Belgium</div>
+                        <ul class="timeline__achievements">
+                            <li>Java/Python Enterprise Applications development</li>
+                            <li>Real-time image/audio processing implementations</li>
+                            <li>React Native apps with full DevOps stack</li>
+                            <li>FastAPI and Spring Boot AI service integration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline__item">
+                    <div class="timeline__marker"></div>
+                    <div class="timeline__content">
+                        <div class="timeline__period">Oct 2024 - Feb 2025</div>
+                        <h3 class="timeline__title">Software Engineer</h3>
+                        <div class="timeline__company">TheMatchBox • Belgium</div>
+                        <ul class="timeline__achievements">
+                            <li>ElasticSearch Java plugins for advanced search</li>
+                            <li>Distributed Computing implementations</li>
+                            <li>Performance optimization solutions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline__item">
+                    <div class="timeline__marker"></div>
+                    <div class="timeline__content">
+                        <div class="timeline__period">June 2023 - Oct 2024</div>
+                        <h3 class="timeline__title">Software Engineer</h3>
+                        <div class="timeline__company">S.W.I.F.T • Belgium</div>
+                        <ul class="timeline__achievements">
+                            <li>MT/MX messaging protocol implementation</li>
+                            <li>Enterprise security systems in Java</li>
+                            <li>MQ for high-volume transactions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline__item">
+                    <div class="timeline__marker"></div>
+                    <div class="timeline__content">
+                        <div class="timeline__period">2022 - 2024</div>
+                        <h3 class="timeline__title">Java Instructor</h3>
+                        <div class="timeline__company">INTEC Brussel • Brussels, Belgium</div>
+                        <ul class="timeline__achievements">
+                            <li>Dual-language training (Java & Python)</li>
+                            <li>Won 3rd prize in Hackathon in Belgium</li>
+                            <li>100+ developers trained in enterprise patterns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.skills">Skills & Technologies</h2>
+            <div class="skills__grid">
+                <div class="skill-category">
+                    <h3 class="skill-category__title" data-i18n-key="skills.category.ai-ml">AI/ML Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag" data-i18n-key="skills.ai-ml.computer-vision-opencv-mediapipe-tensorflow">Computer Vision (OpenCV, MediaPipe, TensorFlow)</span>
+                        <span class="skill-tag" data-i18n-key="skills.ai-ml.voice-processing-whisper-vosk-deepspeech">Voice Processing (Whisper, Vosk, DeepSpeech)</span>
+                        <span class="skill-tag" data-i18n-key="skills.ai-ml.mobile-apps-with-ai-integration">Mobile Apps with AI Integration</span>
+                        <span class="skill-tag" data-i18n-key="skills.ai-ml.mlops-with-terraform">MLOps with Terraform</span>
+                        <span class="skill-tag" data-i18n-key="skills.ai-ml.ai-security-integration-mcp-protocol">AI-Security Integration (MCP Protocol)</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category__title" data-i18n-key="skills.category.enterprise-java">Enterprise Java</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.jdk-8-11-17-jakarta-ee">JDK 8, 11, 17, Jakarta EE</span>
+                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.spring-ecosystem-boot-security-data-cloud-ai">Spring Ecosystem (Boot, Security, Data, Cloud, AI)</span>
+                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.financial-systems-swift-protocols-amh">Financial Systems (SWIFT protocols, AMH)</span>
+                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.microservices-modulith-architecture">Microservices/Modulith Architecture</span>
+                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.jenkins-nexus-maven-gradle-ant">Jenkins, Nexus, Maven, Gradle, Ant</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category__title" data-i18n-key="skills.category.full-stack-development">Full-Stack Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.spring-boot-backend-with-react-frontend">Spring Boot backend with React frontend</span>
+                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.nestjs-backend-with-react-native-cross-platform">NestJS backend with React Native cross-platform</span>
+                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.fastapi-and-pgvector-with-streamlit-ai-focused-ui">FastAPI and PGVector with Streamlit AI-focused UI</span>
+                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.pwa-using-vaadin-spring-boot-docker">PWA using Vaadin + Spring Boot + Docker</span>
+                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.automated-deployment-for-woocommerce-wp">Automated Deployment for WooCommerce + WP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.projects">Projects</h2>
+            <div class="projects__subcategory">
+              <h3 class="section__subtitle" data-i18n-key="section.current">Current</h3>
+              <div class="projects__grid">
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.mcp-hydra.title">MCP-Hydra</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.mcp-hydra.description">
+                            Lightweight, extensible cybersecurity toolkit connecting AI assistants to security tools via the Model Context Protocol (MCP)
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.python">Python</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.mcp-protocol">MCP Protocol</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.ai-integration">AI Integration</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.cybersecurity">Cybersecurity</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.mcp-hydra.feature.ai-powered-security-analysis">AI-powered security analysis</li>
+                                <li data-i18n-key="projects.current.mcp-hydra.feature.protocol-based-tool-integration">Protocol-based tool integration</li>
+                                <li data-i18n-key="projects.current.mcp-hydra.feature.automated-scanning-capabilities">Automated scanning capabilities</li>
+                                <li data-i18n-key="projects.current.mcp-hydra.feature.security-research-automation">Security research automation</li>
+                            </ul>
+                        </div>
+                        <div class="project-card__actions">
+                            <a href="https://github.com/codesapienbe/mcp-hydra" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.mcp-hydra.action.view-on-github">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.aij-ai-journalist.title">AIJ - AI Journalist</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.aij-ai-journalist.description">
+                            Revolutionary AI journalist platform with multimodal analysis and ethical standards
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.jupyter-notebook">Jupyter Notebook</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.python">Python</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.machine-learning">Machine Learning</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.nlp">NLP</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.speech-categorization-and-analysis">Speech categorization and analysis</li>
+                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.intelligent-question-generation">Intelligent question generation</li>
+                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.multimodal-content-processing">Multimodal content processing</li>
+                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.ethical-ai-journalism-standards">Ethical AI journalism standards</li>
+                            </ul>
+                        </div>
+                        <div class="project-card__actions">
+                            <a href="https://github.com/codesapienbe/aij" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.aij-ai-journalist.action.view-on-github">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.mlpops.title">MLPOps</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.mlpops.description">
+                            Belgian Job Analysis MLOps with automated scraping and ML pipeline
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.python">Python</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.fastapi">FastAPI</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.streamlit">Streamlit</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.terraform">Terraform</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.aws">AWS</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.docker">Docker</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.mlpops.feature.job-scraping-vdab-jobat-ictjobs">Job scraping (VDAB, Jobat, ICTJobs)</li>
+                                <li data-i18n-key="projects.current.mlpops.feature.complete-ml-pipeline-automation">Complete ML pipeline automation</li>
+                                <li data-i18n-key="projects.current.mlpops.feature.interactive-dashboard">Interactive dashboard</li>
+                                <li data-i18n-key="projects.current.mlpops.feature.cloud-deployment-with-terraform">Cloud deployment with Terraform</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.instyper.title">Instyper</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.instyper.description">
+                            Desktop-based cross-platform voice recognition toolbar application
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.python">Python</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.openai-whisper">OpenAI Whisper</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.vosk">Vosk</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.qt">Qt</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.instyper.feature.multi-language-voice-typing">Multi-language voice typing</li>
+                                <li data-i18n-key="projects.current.instyper.feature.95-accuracy-across-10-plus-languages">95% accuracy across 10+ languages</li>
+                                <li data-i18n-key="projects.current.instyper.feature.cross-platform-desktop-support">Cross-platform desktop support</li>
+                                <li data-i18n-key="projects.current.instyper.feature.real-time-speech-processing">Real-time speech processing</li>
+                            </ul>
+                        </div>
+                        <div class="project-card__actions">
+                            <a href="https://github.com/codesapienbe/instyper" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.instyper.action.view-on-github">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.foodlama.title">FoodLama</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.foodlama.description">
+                            LLM-powered food platform for comprehensive food domain solutions
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.java">Java</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.spring-boot">Spring Boot</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.llm-integration">LLM Integration</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.foodlama.feature.food-recommendations-engine">Food recommendations engine</li>
+                                <li data-i18n-key="projects.current.foodlama.feature.nutritional-analysis-system">Nutritional analysis system</li>
+                                <li data-i18n-key="projects.current.foodlama.feature.recipe-generation-with-ai">Recipe generation with AI</li>
+                                <li data-i18n-key="projects.current.foodlama.feature.advanced-food-industry-applications">Advanced food industry applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card__content">
+                        <h3 class="project-card__title" data-i18n-key="projects.current.jobops-toolbar.title">JobOps Toolbar</h3>
+                        <p class="project-card__description" data-i18n-key="projects.current.jobops-toolbar.description">
+                            Toolkit for automating and enhancing job operations workflows
+                        </p>
+                        <div class="project-card__tech">
+                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.python">Python</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.fastapi">FastAPI</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.qt">Qt</span>
+                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.sqlite">SQLite</span>
+                        </div>
+                        <div class="project-card__features">
+                            <ul>
+                                <li data-i18n-key="projects.current.jobops-toolbar.feature.ai-powered-motivation-letters">AI-powered motivation letters</li>
+                                <li data-i18n-key="projects.current.jobops-toolbar.feature.intelligent-job-matching">Intelligent job matching</li>
+                                <li data-i18n-key="projects.current.jobops-toolbar.feature.backend-automation-tools">Backend automation tools</li>
+                                <li data-i18n-key="projects.current.jobops-toolbar.feature.llm-integration-for-career-optimization">LLM integration for career optimization</li>
+                            </ul>
+                        </div>
+                        <div class="project-card__actions">
+                            <a href="https://github.com/codesapienbe/jobops-toolbar" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.jobops-toolbar.action.view-on-github">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="projects__subcategory">
+              <h3 class="section__subtitle" data-i18n-key="section.future">Future</h3>
+              <div class="projects__grid">
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.smart-document-qa-system.title">Smart Document Q&A System</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.smart-document-qa-system.description">Upload PDFs, create embeddings, and ask questions about document content using RAG pattern. Virtual threads handle concurrent document processing efficiently.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.react">React</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.upload-pdfs-and-create-embeddings">Upload PDFs and create embeddings</li>
+                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.question-answering-with-rag">Question answering with RAG</li>
+                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.concurrent-processing-via-virtual-threads">Concurrent processing via virtual threads</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.personal-knowledge-assistant.title">Personal Knowledge Assistant</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.personal-knowledge-assistant.description">Simple note-taking app with AI-powered search and summarization. Uses vector similarity search for finding related notes.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.vaadin">Vaadin</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.note-taking-with-ai-support">Note-taking with AI support</li>
+                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.search-and-summarization">Search and summarization</li>
+                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.vector-similarity-search">Vector similarity search</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.code-review-assistant.title">Code Review Assistant</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.code-review-assistant.description">Analyze code snippets, provide suggestions, and maintain a knowledge base of coding patterns using embeddings.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.react">React</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.code-review-assistant.feature.code-snippet-analysis">Code snippet analysis</li>
+                        <li data-i18n-key="projects.future.code-review-assistant.feature.ai-powered-suggestions">AI-powered suggestions</li>
+                        <li data-i18n-key="projects.future.code-review-assistant.feature.knowledge-base-of-patterns">Knowledge base of patterns</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.smart-inventory-tracker.title">Smart Inventory Tracker</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.smart-inventory-tracker.description">Track inventory with AI-powered demand prediction based on historical data patterns.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.vaadin">Vaadin</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.demand-prediction">Demand prediction</li>
+                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.crud-operations">CRUD operations</li>
+                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.intelligent-insights">Intelligent insights</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.meeting-minutes-analyzer.title">Meeting Minutes Analyzer</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.meeting-minutes-analyzer.description">Upload meeting transcripts, extract action items, and search through historical meetings using vector search.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.gluon">Gluon</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.transcript-upload">Transcript upload</li>
+                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.action-item-extraction">Action item extraction</li>
+                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.historical-search">Historical search</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.customer-feedback-insights.title">Customer Feedback Insights</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.customer-feedback-insights.description">Collect customer feedback, categorize using AI, and provide a sentiment analysis dashboard.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.react">React</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.feedback-collection">Feedback collection</li>
+                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.ai-categorization">AI categorization</li>
+                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.sentiment-dashboard">Sentiment dashboard</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.recipe-recommendation-engine.title">Recipe Recommendation Engine</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.recipe-recommendation-engine.description">Store recipes, find similar dishes using vector embeddings, and get cooking suggestions based on available ingredients.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.vaadin">Vaadin</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.recipe-storage">Recipe storage</li>
+                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.similarity-search">Similarity search</li>
+                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.ingredient-based-suggestions">Ingredient-based suggestions</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.learning-path-generator.title">Learning Path Generator</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.learning-path-generator.description">Create personalized learning paths based on user goals and existing knowledge, using AI to recommend next steps.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.react">React</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.learning-path-generator.feature.personalized-paths">Personalized paths</li>
+                        <li data-i18n-key="projects.future.learning-path-generator.feature.ai-recommendations">AI recommendations</li>
+                        <li data-i18n-key="projects.future.learning-path-generator.feature.goal-based-planning">Goal-based planning</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.travel-itinerary-planner.title">Travel Itinerary Planner</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.travel-itinerary-planner.description">Plan trips with AI-powered recommendations based on preferences and budget. Use vector search for similar destinations.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.gluon">Gluon</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.ai-travel-suggestions">AI travel suggestions</li>
+                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.budget-planning">Budget planning</li>
+                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.destination-similarity">Destination similarity</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.api-documentation-assistant.title">API Documentation Assistant</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.api-documentation-assistant.description">Generate and maintain API documentation with AI-powered examples and usage patterns.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.vaadin">Vaadin</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.ai-documentation-examples">AI documentation examples</li>
+                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.usage-pattern-generation">Usage pattern generation</li>
+                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.maintained-docs">Maintained docs</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.code-snippet-manager.title">Code Snippet Manager</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.code-snippet-manager.description">Store and search code snippets using semantic search with embeddings. Tag and categorize snippets automatically.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.spring-ai">Spring AI</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.react">React</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.code-snippet-manager.feature.snippet-storage">Snippet storage</li>
+                        <li data-i18n-key="projects.future.code-snippet-manager.feature.semantic-search">Semantic search</li>
+                        <li data-i18n-key="projects.future.code-snippet-manager.feature.auto-tagging">Auto tagging</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.future.project-idea-generator.title">Project Idea Generator</h3>
+                    <p class="project-card__description" data-i18n-key="projects.future.project-idea-generator.description">Generate project ideas based on tech stack preferences and skill level. Use vector similarity to find related project concepts.</p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.java-21">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.langchain4j">LangChain4J</span>
+                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.gluon">Gluon</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.future.project-idea-generator.feature.ai-project-ideas">AI project ideas</li>
+                        <li data-i18n-key="projects.future.project-idea-generator.feature.preference-based-suggestions">Preference-based suggestions</li>
+                        <li data-i18n-key="projects.future.project-idea-generator.feature.concept-similarity">Concept similarity</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section class="agenda" id="agenda">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.agenda">Tasks</h2>
+            <div class="agenda__grid">
+                <div class="agenda__list">
+                    <h3 data-i18n-key="agenda.applicationsProgress">Tasks</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Tasks will be dynamically populated from Linear issues -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section__title" data-i18n-key="section.contact">Get In Touch</h2>
+            <div class="contact__content">
+                <div class="contact__info">
+                    <h3 data-i18n-key="contact.introTitle">Let's Work Together</h3>
+                    <p data-i18n-key="contact.introText">I'm always interested in new opportunities and challenges. Whether you need help with enterprise Java applications, AI/ML solutions, or full-stack development, I'd love to hear from you.</p>
+                    <div class="contact__details">
+                        <div class="contact__item">
+                            <span class="contact__icon">📧</span>
+                            <div>
+                                <strong data-i18n-key="contact.detail.emailLabel">Email</strong>
+                                <a href="mailto:ymus@tuta.io">ymus@tuta.io</a>
+                            </div>
+                        </div>
+                        <div class="contact__item">
+                            <span class="contact__icon">📱</span>
+                            <div>
+                                <strong data-i18n-key="contact.detail.phoneLabel">Phone</strong>
+                                <a href="tel:+32467711709">+32 467 71 17 09</a>
+                            </div>
+                        </div>
+                        <div class="contact__item">
+                            <span class="contact__icon">📍</span>
+                            <div>
+                                <strong data-i18n-key="contact.detail.locationLabel">Location</strong>
+                                <span>Zele, Belgium</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact__form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label" data-i18n-key="contact.label.name">Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                        <div class="form-error" id="nameError" role="alert" aria-live="assertive"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label" data-i18n-key="contact.label.email">Email *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="form-error" id="emailError" role="alert" aria-live="assertive"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="form-label" data-i18n-key="contact.label.subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label" data-i18n-key="contact.label.message">Message *</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                        <div class="form-error" id="messageError" role="alert" aria-live="assertive"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="requestMeeting" name="requestMeeting">
+                        <label for="requestMeeting">Request a Google Meet</label>
+                    </div>
+                    <div class="form-group meeting-details" style="display:none;">
+                        <label for="meetingDateTime">Select Date & Time *</label>
+                        <input type="text" id="meetingDateTime" class="form-control flatpickr-date-time" placeholder="Choose date & time" />
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width" data-i18n-key="contact.button.sendMessage">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Launcher & Popup -->
+    <button id="chatLauncher" class="chat-launcher" data-i18n-key="chat.launcherLabel" data-i18n-attr="aria-label" aria-label="Open chat" aria-controls="chatPopup" aria-expanded="false">💬</button>
+    <button id="listenLauncher" class="listen-launcher" data-i18n-key="listen.launcherLabel" data-i18n-attr="aria-label" aria-label="Listen to site" aria-pressed="false">🔊</button>
+    <div id="chatPopup" class="chat-popup" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="chatTitle">
+        <div class="chat-header">
+            <span id="chatTitle" data-i18n-key="chat.header">Ask Me</span>
+            <button id="chatClose" class="chat-close" data-i18n-key="chat.closeLabel" data-i18n-attr="aria-label" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="chat-body">
+            <input type="text" id="qaInput" class="form-control" data-i18n-key="chat.inputPlaceholder" placeholder="Ask me about my experience, skills, applications, or availability">
+            <button id="qaButton" class="btn btn--primary" data-i18n-key="chat.askButton">Ask</button>
+            <div id="qaAnswer" class="chat__answer" role="region" aria-live="polite"></div>
+        </div>
+    </div>
+    </main>
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__text">
+                    <p data-i18n-key="footer.text">&copy; 2025 Yilmaz Mustafa. All rights reserved.</p>
+                </div>
+                <div class="footer__social">
+                    <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.github">GitHub</a>
+                    <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.linkedin">LinkedIn</a>
+                    <a href="mailto:ymus@tuta.io" class="footer__link" data-i18n-key="footer.link.email">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI in-browser LLM -->
+    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers/dist/transformers.min.js"></script>
+    <script>
+      let pipeline;
+      async function askLLM(prompt) {
+        if (!pipeline) {
+          pipeline = await window.transformers.pipeline(
+            'text-generation',
+            'distilgpt2',
+            { progress: true }
+          );
+        }
+        const [{ generated_text }] = await pipeline(prompt, { max_new_tokens: 50 });
+        return generated_text;
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

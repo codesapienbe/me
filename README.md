@@ -17,16 +17,17 @@ This repository contains my personal website, deployed using GitHub Pages. The s
 ├── style.css             # Stylesheet
 ├── .github/
 │   └── workflows/
-│       └── static.yml    # GitHub Actions workflow for deployment
+│       ├── static.yml    # Agenda update workflow
+│       └── deploy.yml    # Site deployment workflow
 └── README.md
 ```
 
 ## 🛠️ Deployment
 
-Deployment is handled by [GitHub Actions](.github/workflows/static.yml):
+- Agenda update: [`.github/workflows/static.yml`](.github/workflows/static.yml) updates the agenda data via a Python script.
+- Site deployment: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) generates `config.js` with your `LINEAR_API_KEY` and publishes the repository root to GitHub Pages.
 
-- On every push to `main`, the repository root is uploaded and published to GitHub Pages.
-- You can trigger deployment manually from the Actions tab as well.
+Both workflows run automatically on pushes to `main`. You can also trigger them manually from the Actions tab.
 
 ## 📄 Usage
 

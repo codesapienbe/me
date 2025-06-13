@@ -58,5 +58,23 @@
   "contact.detail.phoneLabel": "Téléphone",
   "contact.detail.locationLabel": "Emplacement",
 
-  "footer.text": "© 2025 Yilmaz Mustafa. Tous droits réservés."
+  "footer.text": "© 2025 Yilmaz Mustafa. Tous droits réservés.",
+  "skills.category.ai-ml": "Développement IA/ML",
+  "skills.category.enterprise-java": "Java d'entreprise",
+  "skills.category.full-stack-development": "Développement Full-Stack",
+  "skills.ai-ml.computer-vision-opencv-mediapipe-tensorflow": "Vision par ordinateur (OpenCV, MediaPipe, TensorFlow)",
+  "skills.ai-ml.voice-processing-whisper-vosk-deepspeech": "Traitement vocal (Whisper, Vosk, DeepSpeech)",
+  "skills.ai-ml.mobile-apps-with-ai-integration": "Applications mobiles avec intégration IA",
+  "skills.ai-ml.mlops-with-terraform": "MLOps avec Terraform",
+  "skills.ai-ml.ai-security-integration-mcp-protocol": "Intégration sécurité IA (protocole MCP)",
+  "skills.enterprise-java.jdk-8-11-17-jakarta-ee": "JDK 8, 11, 17, Jakarta EE",
+  "skills.enterprise-java.spring-ecosystem-boot-security-data-cloud-ai": "Écosystème Spring (Boot, Security, Data, Cloud, IA)",
+  "skills.enterprise-java.financial-systems-swift-protocols-amh": "Systèmes financiers (protocoles SWIFT, AMH)",
+  "skills.enterprise-java.microservices-modulith-architecture": "Architecture microservices/modulith",
+  "skills.enterprise-java.jenkins-nexus-maven-gradle-ant": "Jenkins, Nexus, Maven, Gradle, Ant",
+  "skills.full-stack-development.spring-boot-backend-with-react-frontend": "Backend Spring Boot avec frontend React",
+  "skills.full-stack-development.nestjs-backend-with-react-native-cross-platform": "Backend NestJS avec React Native multiplateforme",
+  "skills.full-stack-development.fastapi-and-pgvector-with-streamlit-ai-focused-ui": "FastAPI et PGVector avec interface Streamlit axée IA",
+  "skills.full-stack-development.pwa-using-vaadin-spring-boot-docker": "PWA utilisant Vaadin, Spring Boot et Docker",
+  "skills.full-stack-development.automated-deployment-for-woocommerce-wp": "Déploiement automatisé pour WooCommerce et WordPress"
 } 

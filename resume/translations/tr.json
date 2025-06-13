@@ -59,5 +59,23 @@
 
   "footer.text": "© 2025 Yilmaz Mustafa. Tüm hakları saklıdır.",
 
-  "listen.launcherLabel": "Dinle"
+  "listen.launcherLabel": "Dinle",
+  "skills.category.ai-ml": "YZ/ML Geliştirme",
+  "skills.category.enterprise-java": "Kurumsal Java",
+  "skills.category.full-stack-development": "Full-Stack Geliştirme",
+  "skills.ai-ml.computer-vision-opencv-mediapipe-tensorflow": "Bilgisayar Görüşü (OpenCV, MediaPipe, TensorFlow)",
+  "skills.ai-ml.voice-processing-whisper-vosk-deepspeech": "Ses İşleme (Whisper, Vosk, DeepSpeech)",
+  "skills.ai-ml.mobile-apps-with-ai-integration": "Yapay Zeka Entegrasyonlu Mobil Uygulamalar",
+  "skills.ai-ml.mlops-with-terraform": "Terraform ile MLOps",
+  "skills.ai-ml.ai-security-integration-mcp-protocol": "YZ Güvenlik Entegrasyonu (MCP Protokolü)",
+  "skills.enterprise-java.jdk-8-11-17-jakarta-ee": "JDK 8, 11, 17, Jakarta EE",
+  "skills.enterprise-java.spring-ecosystem-boot-security-data-cloud-ai": "Spring Ekosistemi (Boot, Security, Data, Cloud, YZ)",
+  "skills.enterprise-java.financial-systems-swift-protocols-amh": "Finansal Sistemler (SWIFT protokolleri, AMH)",
+  "skills.enterprise-java.microservices-modulith-architecture": "Microservices/Modulith Mimarisi",
+  "skills.enterprise-java.jenkins-nexus-maven-gradle-ant": "Jenkins, Nexus, Maven, Gradle, Ant",
+  "skills.full-stack-development.spring-boot-backend-with-react-frontend": "React Ön Yüzlü Spring Boot Arka Uç",
+  "skills.full-stack-development.nestjs-backend-with-react-native-cross-platform": "Çapraz Platform NestJS Arka Uç ile React Native",
+  "skills.full-stack-development.fastapi-and-pgvector-with-streamlit-ai-focused-ui": "AI Odaklı UI için FastAPI ve PGVector ile Streamlit",
+  "skills.full-stack-development.pwa-using-vaadin-spring-boot-docker": "Vaadin, Spring Boot ve Docker ile PWA",
+  "skills.full-stack-development.automated-deployment-for-woocommerce-wp": "WooCommerce ve WP için Otomatik Dağıtım"
 } 

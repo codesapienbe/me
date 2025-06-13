@@ -1,18 +1,20 @@
 # Personal Site
 
-This repository contains my personal website, deployed using GitHub Pages. The static site content is located in the `resume` directory and is automatically deployed whenever changes are pushed to the `main` branch.
+This repository contains my personal website, deployed using GitHub Pages. The static site content is located in the repository root and is automatically deployed whenever changes are pushed to the `main` branch.
 
 ## 🚀 Features
 
 - Static site generated with HTML, CSS, and JavaScript
 - Automatic deployment to GitHub Pages via GitHub Actions
-- Only the `resume` directory is published as the website
+- Only the repository root is published as the website
 
 ## 📦 Project Structure
 
 ```
 .
-├── resume/               # Static site files (HTML, CSS, JS)
+├── index.html            # Static site entry point
+├── app.js                # Application JavaScript
+├── style.css             # Stylesheet
 ├── .github/
 │   └── workflows/
 │       └── static.yml    # GitHub Actions workflow for deployment
@@ -23,12 +25,12 @@ This repository contains my personal website, deployed using GitHub Pages. The s
 
 Deployment is handled by [GitHub Actions](.github/workflows/static.yml):
 
-- On every push to `main`, the `resume` directory is uploaded and published to GitHub Pages.
+- On every push to `main`, the repository root is uploaded and published to GitHub Pages.
 - You can trigger deployment manually from the Actions tab as well.
 
 ## 📄 Usage
 
-1. Make your changes in the `resume` directory.
+1. Make your changes in the repository root.
 2. Commit and push to the `main` branch.
 3. Your changes will be automatically published to your GitHub Pages site.
 

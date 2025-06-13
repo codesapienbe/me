@@ -14,7 +14,7 @@ jobs:
 
       - name: Generate config.js from secret
         run: |
-          echo "window.LINEAR_API_KEY='${{ secrets.LINEAR_API_KEY }}';" > resume/config.js
+          echo "window.LINEAR_API_KEY='${{ secrets.LINEAR_API_KEY }}';" > config.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

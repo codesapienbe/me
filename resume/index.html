@@ -57,6 +57,7 @@
     }
     </script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <a href="#maincontent" class="skip-link sr-only" data-i18n-key="skip.toContent" role="link">Skip to main content</a>
@@ -730,73 +731,24 @@
             <h2 class="section__title" data-i18n-key="section.agenda">Agenda</h2>
             <div class="agenda__grid">
                 <div class="agenda__calendar">
-                    <h3 data-i18n-key="agenda.calendarHeading">Interview Availability</h3>
-                    <div class="calendar">
-                        <div class="calendar__header">
-                            <button class="calendar__prev">&lt;</button>
-                            <div class="calendar__title">June 2025</div>
-                            <button class="calendar__next">&gt;</button>
-                        </div>
-                        <div class="calendar__days">
-                            <div data-i18n-key="calendar.day.sun">Sun</div><div data-i18n-key="calendar.day.mon">Mon</div><div data-i18n-key="calendar.day.tue">Tue</div><div data-i18n-key="calendar.day.wed">Wed</div><div data-i18n-key="calendar.day.thu">Thu</div><div data-i18n-key="calendar.day.fri">Fri</div><div data-i18n-key="calendar.day.sat">Sat</div>
-                        </div>
-                        <div class="calendar__dates">
-                            <!-- Example dates, mark available and unavailable -->
-                            <div class="calendar__date unavailable">1</div>
-                            <div class="calendar__date unavailable">2</div>
-                            <div class="calendar__date available">3</div>
-                            <div class="calendar__date available">4</div>
-                            <div class="calendar__date available">5</div>
-                            <div class="calendar__date unavailable">6</div>
-                            <div class="calendar__date unavailable">7</div>
-                            <!-- Add more dates as needed -->
-                        </div>
-                    </div>
-                    <div class="time-selector" style="margin-top: 1em;">
-                        <label for="timeSelect" data-i18n-key="calendar.selectTime">Select Time:</label>
-                        <select id="timeSelect" class="form-control">
-                            <option value="" data-i18n-key="calendar.selectTimePlaceholder">--Select a time--</option>
-                            <option value="09:00">09:00</option>
-                            <option value="10:00">10:00</option>
-                            <option value="11:00">11:00</option>
-                            <option value="13:00">13:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="15:00">15:00</option>
-                            <option value="16:00">16:00</option>
-                        </select>
-                    </div>
+                    <h3>Schedule a Google Meet</h3>
+                    <input type="text" id="meetingPicker" placeholder="Select date & time" class="form-control" />
+                    <input type="text" id="meetingName" placeholder="Your name" class="form-control" />
+                    <input type="email" id="meetingEmail" placeholder="Your email" class="form-control" />
+                    <button id="scheduleMeetBtn" class="btn btn--primary">Request a Meeting</button>
                 </div>
                 <div class="agenda__list">
-                    <h3 data-i18n-key="agenda.applicationsProgress">Applications Progress</h3>
+                    <h3 data-i18n-key="agenda.applicationsProgress">Tasks and Assignments</h3>
                     <table>
                         <thead>
                             <tr>
-                                <th data-i18n-key="agenda.table.company">Company</th>
-                                <th data-i18n-key="agenda.table.position">Position</th>
-                                <th data-i18n-key="agenda.table.dateApplied">Date Applied</th>
-                                <th data-i18n-key="agenda.table.status">Status</th>
+                                <th>Task</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Company A</td>
-                                <td>Software Engineer</td>
-                                <td>2025-05-10</td>
-                                <td>Interview Scheduled</td>
-                            </tr>
-                            <tr>
-                                <td>Company B</td>
-                                <td>Full-Stack Developer</td>
-                                <td>2025-05-04</td>
-                                <td>Application Submitted</td>
-                            </tr>
-                            <tr>
-                                <td>Company C</td>
-                                <td>Backend Developer</td>
-                                <td>2025-04-28</td>
-                                <td>Offer Received</td>
-                            </tr>
-                            <!-- Add more rows as needed -->
+                            <!-- Tasks will be dynamically populated from Linear issues -->
                         </tbody>
                     </table>
                 </div>
@@ -909,6 +861,8 @@
         return generated_text;
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="config.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

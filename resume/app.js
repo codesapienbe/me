@@ -704,29 +704,77 @@ class SkillsLoader {
     }
 }
 
-class ApplicationsLoader {
+// Replace ApplicationsLoader with dynamic TasksAndAssignmentsLoader using Linear API
+class TasksAndAssignmentsLoader {
     constructor() {
         this.init();
     }
     async init() {
+        const apiKey = window.LINEAR_API_KEY;
+        const endpoint = 'https://api.linear.app/graphql';
+
+        // Fetch viewer ID
+        let viewerId;
         try {
-            const data = await fetch('applications/applications.json').then(res => res.json());
-            const tbody = document.querySelector('.agenda__list table tbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            data.forEach(app => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${app.company}</td>
-                    <td>${app.position}</td>
-                    <td>${app.dateApplied}</td>
-                    <td>${app.status}</td>
-                `;
-                tbody.appendChild(tr);
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': apiKey
+                },
+                body: JSON.stringify({ query: `query { viewer { id } }` })
             });
+            const json = await res.json();
+            viewerId = json.data.viewer.id;
         } catch (error) {
-            console.error('Error loading applications data:', error);
+            console.error('Error fetching Linear viewer ID:', error);
+            return;
         }
+
+        // Fetch tasks assigned to the user
+        const issuesQuery = `
+            query Issues($assigneeId: String!) {
+                issues(filter: { assignee: { id: { eq: $assigneeId } } }, orderBy: { createdAt: DESC }) {
+                    nodes {
+                        id
+                        title
+                        createdAt
+                        state { name }
+                        url
+                    }
+                }
+            }
+        `;
+        let tasks = [];
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': apiKey
+                },
+                body: JSON.stringify({ query: issuesQuery, variables: { assigneeId: viewerId } })
+            });
+            const json = await res.json();
+            tasks = json.data.issues.nodes;
+        } catch (error) {
+            console.error('Error fetching Linear tasks:', error);
+            return;
+        }
+
+        // Populate table
+        const tbody = document.querySelector('.agenda__list table tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        tasks.forEach(task => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><a href="${task.url}" target="_blank" rel="noopener">${task.title}</a></td>
+                <td>${new Date(task.createdAt).toLocaleDateString()}</td>
+                <td>${task.state.name}</td>
+            `;
+            tbody.appendChild(tr);
+        });
     }
 }
 
@@ -1362,7 +1410,7 @@ class PortfolioApp {
                 new ExperienceLoader(),
                 new SkillsLoader(),
                 new SkillsAnimation(),
-                new ApplicationsLoader(),
+                new TasksAndAssignmentsLoader(),
                 new AgendaLoader(),
                 new LocalQAManager(),
                 new TTSManager(),

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "AI/ML-ontwikkeling",
+    "skills": [
+      "Computervisie (OpenCV, MediaPipe, TensorFlow)",
+      "Spraakverwerking (Whisper, Vosk, DeepSpeech)",
+      "Mobiele apps met AI-integratie",
+      "MLOps met Terraform",
+      "AI-beveiligingsintegratie (MCP-protocol)"
+    ]
+  },
+  {
+    "category": "Enterprise Java",
+    "skills": [
+      "JDK 8, 11, 17, Jakarta EE",
+      "Spring-ecosysteem (Boot, Security, Data, Cloud, AI)",
+      "Financiële systemen (SWIFT-protocollen, AMH)",
+      "Microservices/Modulith-architectuur",
+      "Jenkins, Nexus, Maven, Gradle, Ant"
+    ]
+  },
+  {
+    "category": "Full-Stack-ontwikkeling",
+    "skills": [
+      "Spring Boot-backend met React-frontend",
+      "NestJS-backend met React Native voor meerdere platforms",
+      "FastAPI en PGVector met Streamlit UI gericht op AI",
+      "PWA met Vaadin, Spring Boot en Docker",
+      "Geautomatiseerde implementatie voor WooCommerce en WordPress"
+    ]
+  }
+] 

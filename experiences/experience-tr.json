@@ -1,0 +1,47 @@
+[
+  {
+    "year": "2025",
+    "period": "Şub 2025 - Şimdi",
+    "title": "Freelance Yazılım Mühendisi",
+    "company": "Serbest • Zele, Belçika",
+    "achievements": [
+      "Java/Python Kurumsal Uygulama Geliştirme",
+      "Gerçek zamanlı görüntü/ses işleme uygulamaları",
+      "Tam DevOps yığını ile React Native uygulamaları",
+      "FastAPI ve Spring Boot AI servis entegrasyonu"
+    ]
+  },
+  {
+    "year": "2024",
+    "period": "Eki 2024 - Şub 2025",
+    "title": "Yazılım Mühendisi",
+    "company": "TheMatchBox • Belçika",
+    "achievements": [
+      "Gelişmiş arama için ElasticSearch Java eklentileri",
+      "Dağıtık Hesaplama uygulamaları",
+      "Performans optimizasyon çözümleri"
+    ]
+  },
+  {
+    "year": "2023",
+    "period": "Haz 2023 - Eki 2024",
+    "title": "Yazılım Mühendisi",
+    "company": "S.W.I.F.T • Belçika",
+    "achievements": [
+      "MT/MX mesajlaşma protokolü uygulaması",
+      "Java'da kurumsal güvenlik sistemleri",
+      "Yüksek hacimli işlemler için MQ"
+    ]
+  },
+  {
+    "year": "2022",
+    "period": "2022 - 2024",
+    "title": "Java Eğitmeni",
+    "company": "INTEC Brussel • Brüksel, Belçika",
+    "achievements": [
+      "Çift dilli eğitim (Java & Python)",
+      "Belçika'da Hackathon'da 3.'lük ödülü",
+      "Kurumsal desenlerde 100+ geliştirici eğitildi"
+    ]
+  }
+] 

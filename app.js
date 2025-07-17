@@ -17,7 +17,20 @@ class ThemeManager {
     
     setTheme(theme) {
         document.documentElement.setAttribute('data-color-scheme', theme);
-        this.themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        const themeText = this.themeToggle.querySelector('.theme-text');
+        if (themeText) {
+            if (theme === 'dark') {
+                themeText.textContent = 'Light Mode';
+                themeText.setAttribute('data-i18n-key', 'nav.themeMode.light');
+            } else {
+                themeText.textContent = 'Dark Mode';
+                themeText.setAttribute('data-i18n-key', 'nav.themeMode.dark');
+            }
+            // Re-apply i18n translation to the themeText
+            if (window.localizationManager && typeof window.localizationManager.init === 'function') {
+                window.localizationManager.init();
+            }
+        }
         this.currentTheme = theme;
         localStorage.setItem('theme', theme);
     }
@@ -292,7 +305,7 @@ class ContactFormManager {
             meetingDateTime = document.getElementById('meetingDateTime').value;
             body += `\nMeeting Requested: ${meetingDateTime}`;
         }
-        const mailtoLink = `mailto:ymus@tuta.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoLink = `mailto:yilmaz@codesapien.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         // Open mailto link to launch default mail client
         if (!window.open(mailtoLink, '_self')) {
             // Fallback: create and click a temporary link
@@ -698,7 +711,7 @@ class ExperienceLoader {
     }
     async init() {
         try {
-            const data = await fetch('experience/experience.json').then(res => res.json());
+            const data = await fetch(`experiences/experience-${window.localizationManager?.lang || 'en'}.json`).then(res => res.json());
             const container = document.querySelector('.experience .timeline');
             if (!container) return;
             container.innerHTML = '';
@@ -710,17 +723,21 @@ class ExperienceLoader {
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'timeline__content';
                 contentDiv.innerHTML = `
-                    <div class="timeline__period">${item.period}</div>
-                    <h3 class="timeline__title">${item.title}</h3>
-                    <div class="timeline__company">${item.company}</div>
+                    <div class="timeline__period" data-i18n-key="timeline.${item.year}.period">${item.period}</div>
+                    <h3 class="timeline__title" data-i18n-key="timeline.${item.year}.title">${item.title}</h3>
+                    <div class="timeline__company" data-i18n-key="timeline.${item.year}.company">${item.company}</div>
                     <ul class="timeline__achievements">
-                        ${item.achievements.map(a => `<li>${a}</li>`).join('')}
+                        ${item.achievements.map((a, i) => `<li data-i18n-key="timeline.${item.year}.achievement${i+1}">${a}</li>`).join('')}
                     </ul>
                 `;
                 itemDiv.appendChild(markerDiv);
                 itemDiv.appendChild(contentDiv);
                 container.appendChild(itemDiv);
             });
+            // Re-apply i18n translation to new elements
+            if (window.localizationManager && typeof window.localizationManager.init === 'function') {
+                window.localizationManager.init();
+            }
         } catch (error) {
             console.error('Error loading experience data:', error);
         }
@@ -733,7 +750,7 @@ class SkillsLoader {
     }
     async init() {
         try {
-            const data = await fetch('skill/skills.json').then(res => res.json());
+            const data = await fetch(`skills/skills-${window.localizationManager?.lang || 'en'}.json`).then(res => res.json());
             const grid = document.querySelector('.skills__grid');
             if (!grid) return;
             grid.innerHTML = '';
@@ -877,8 +894,8 @@ class LocalQAManager {
 
     async init() {
         // Load JSON data for QA
-        this.experience = await fetch('experience/experience.json').then(res => res.json()).catch(() => []);
-        this.skills = await fetch('skill/skills.json').then(res => res.json()).catch(() => []);
+        this.experience = await fetch(`experiences/experience-${document.documentElement.getAttribute('lang') || 'en'}.json`).then(res => res.json()).catch(() => []);
+        this.skills = await fetch(`skills/skills-${document.documentElement.getAttribute('lang') || 'en'}.json`).then(res => res.json()).catch(() => []);
         this.applications = await fetch('applications/applications.json').then(res => res.json()).catch(() => []);
         this.agenda = await fetch('agenda/agenda.json').then(res => res.json()).catch(() => ({ availableDates: [], month: '', year: 0 }));
 
@@ -1097,13 +1114,13 @@ class LocalQAManager {
                         // Handle specific categories with custom logic
                         if (category === 'contact') {
                             if (/email/i.test(q)) {
-                                resp = "You can reach me at ymus@tuta.io";
+                                resp = "You can reach me at yilmaz@codesapien.net";
                             } else if (/phone|mobile|cell|telephone|call/i.test(q)) {
                                 resp = "My phone number is +32 467 71 17 09";
                             } else if (/contact/i.test(q)) {
-                                resp = "Contact Information:\n• Email: ymus@tuta.io\n• Phone: +32 467 71 17 09";
+                                resp = "Contact Information:\n• Email: yilmaz@codesapien.net\n• Phone: +32 467 71 17 09";
                             } else {
-                                resp = "For professional inquiries, please contact me at ymus@tuta.io or +32 467 71 17 09";
+                                resp = "For professional inquiries, please contact me at yilmaz@codesapien.net or +32 467 71 17 09";
                             }
                         } else if (category === 'experience') {
                             if (/companies|employers/i.test(q)) {
@@ -1191,7 +1208,7 @@ class LocalQAManager {
             if (/who are you\??/.test(q)) {
                 resp = "I'm Yilmaz Mustafa, a Software Engineer specializing in Java, AI/ML, and Full-Stack development.";
             } else if (/what(?:'s| is) your email\??/.test(q)) {
-                resp = 'You can reach me at ymus@tuta.io';
+                resp = 'You can reach me at yilmaz@codesapien.net';
             } else if (/what(?:'s| is) your phone number\??/.test(q)) {
                 resp = 'My phone number is +32 467 71 17 09';
             } else if (/\bcompany\b|\bcompanies\b/.test(q)) {
@@ -1378,6 +1395,24 @@ class TTSManager {
             const utterance = new SpeechSynthesisUtterance(content);
             utterance.rate = 1;
             utterance.pitch = 1;
+            // Select language and male voice
+            const lang = document.documentElement.getAttribute('lang') || 'en';
+            const voices = window.speechSynthesis.getVoices();
+            // Try to find a male voice for the current language
+            let selectedVoice = voices.find(v => v.lang.startsWith(lang) && v.gender === 'male');
+            // If no gender info, try by name heuristics
+            if (!selectedVoice) {
+                selectedVoice = voices.find(v => v.lang.startsWith(lang) && /male|man|boy|guy|fred|paul|alex|eric|daniel|james|tom|bruce|carlos|enrique|frank|jorge|luciano|maged|paolo|sergio|xander/i.test(v.name));
+            }
+            // Fallback: any voice in the language
+            if (!selectedVoice) {
+                selectedVoice = voices.find(v => v.lang.startsWith(lang));
+            }
+            // Fallback: default
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            utterance.lang = lang;
             utterance.onend = () => {
                 this.speaking = false;
                 this.launcher.setAttribute('aria-pressed', 'false');

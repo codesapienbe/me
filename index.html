@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yilmaz Mustafa - Software Engineer</title>
     <meta name="description" content="Yilmaz Mustafa - Software Engineer specializing in Java, AI/ML, and Full-Stack development">
-    <link rel="canonical" href="https://codesapienbe.github.io/me/">
+    <link rel="canonical" href="https://codesapien.net">
     <meta name="keywords" content="Java, AI/ML, Machine Learning, Spring Boot, React, Full-Stack Development, Cybersecurity, Software Engineer, Portfolio">
     <meta name="robots" content="index, follow">
     <!-- Open Graph -->
     <meta property="og:title" content="Yilmaz Mustafa - Software Engineer">
     <meta property="og:description" content="Software Engineer specializing in Java, AI/ML, and Full-Stack development.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://codesapienbe.github.io/me/">
+    <meta property="og:url" content="https://codesapien.net">
     <meta property="og:image" content="https://avatars.githubusercontent.com/u/124777905?v=4">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -25,15 +25,15 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Yilmaz Mustafa",
-      "url": "https://codesapienbe.github.io/me/",
+      "url": "https://codesapien.net",
       "sameAs": [
         "https://github.com/codesapienbe",
         "https://linkedin.com/in/codesapienbe",
-        "mailto:ymus@tuta.io"
+        "mailto:yilmaz@codesapien.net"
       ],
       "jobTitle": "Software Engineer",
       "description": "Software Engineer specializing in Java, AI/ML, and Full-Stack development",
-      "email": "ymus@tuta.io",
+      "email": "yilmaz@codesapien.net",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Zele",
@@ -46,12 +46,12 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "url": "https://codesapienbe.github.io/me/",
+      "url": "https://codesapien.net",
       "name": "Yilmaz Mustafa - Software Engineer",
       "description": "Personal portfolio website of Yilmaz Mustafa",
       "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://codesapienbe.github.io/me/?q={search_term_string}",
+        "@type": "SearchAction", 
+        "target": "https://codesapien.net/?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -79,14 +79,12 @@
                 </ul>
                 <div class="nav__actions">
                     <select id="languageSelect" class="form-control nav-language-select" aria-label="Select language">
-                        <option value="en">English</option>
-                        <option value="nl-BE">Nederlands</option>
-                        <option value="fr-BE">Français</option>
-                        <option value="de">Deutsch</option>
-                        <option value="tr">Türkçe</option>
+                        <option value="en" data-i18n-key="language.english">English</option>
+                        <option value="nl-BE" data-i18n-key="language.dutch">Nederlands</option>
+                        <option value="tr" data-i18n-key="language.turkish">Türkçe</option>
                     </select>
                     <button class="btn btn--outline theme-toggle" id="themeToggle" data-i18n-key="nav.toggleTheme" data-i18n-attr="aria-label" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
+                        <span class="theme-text" data-i18n-key="nav.themeMode">Dark Mode</span>
                     </button>
                     <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
                         <span></span>
@@ -107,7 +105,7 @@
                         <span data-i18n-key="hero.greeting">Hi, I'm</span> <span class="hero__name">Yilmaz Mustafa</span>
                     </h1>
                     <div class="hero__subtitle">
-                        <span class="hero__role" id="typingText">Java Developer</span>
+                        <span class="hero__role" id="typingText" data-i18n-key="hero.role">Java Developer</span>
                         <span class="hero__cursor">|</span>
                     </div>
                     <p class="hero__description" data-i18n-key="hero.description">
@@ -185,21 +183,21 @@
                         <h3 data-i18n-key="contact.infoTitle">Contact Information</h3>
                         <div class="contact-item">
                             <span class="contact-icon">📧</span>
-                            <a href="mailto:ymus@tuta.io">ymus@tuta.io</a>
+                            <a href="mailto:yilmaz@codesapien.net" data-i18n-key="about.contact.email">yilmaz@codesapien.net</a>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📱</span>
-                            <a href="tel:+32467711709">+32 467 71 17 09</a>
+                            <a href="tel:+32467711709" data-i18n-key="about.contact.phone">+32 467 71 17 09</a>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📍</span>
-                            <span data-i18n-key="contact.detail.location">Zele, Belgium</span>
+                            <span data-i18n-key="about.contact.location">Zele, Belgium</span>
                         </div>
                         <div class="social-links">
-                            <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.github">
+                            <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="about.contact.github">
                                 <span>GitHub</span>
                             </a>
-                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="social.linkedin">
+                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="about.contact.linkedin">
                                 <span>LinkedIn</span>
                             </a>
                         </div>
@@ -217,53 +215,53 @@
                 <div class="timeline__item">
                     <div class="timeline__marker"></div>
                     <div class="timeline__content">
-                        <div class="timeline__period">Feb 2025 - Present</div>
-                        <h3 class="timeline__title">Freelance Software Engineer</h3>
-                        <div class="timeline__company">Self-Employed • Zele, Belgium</div>
+                        <div class="timeline__period" data-i18n-key="timeline.2025.period">Feb 2025 - Present</div>
+                        <h3 class="timeline__title" data-i18n-key="timeline.2025.title">Freelance Software Engineer</h3>
+                        <div class="timeline__company" data-i18n-key="timeline.2025.company">Self-Employed • Zele, Belgium</div>
                         <ul class="timeline__achievements">
-                            <li>Java/Python Enterprise Applications development</li>
-                            <li>Real-time image/audio processing implementations</li>
-                            <li>React Native apps with full DevOps stack</li>
-                            <li>FastAPI and Spring Boot AI service integration</li>
+                            <li data-i18n-key="timeline.2025.achievement1">Java/Python Enterprise Applications development</li>
+                            <li data-i18n-key="timeline.2025.achievement2">Real-time image/audio processing implementations</li>
+                            <li data-i18n-key="timeline.2025.achievement3">React Native apps with full DevOps stack</li>
+                            <li data-i18n-key="timeline.2025.achievement4">FastAPI and Spring Boot AI service integration</li>
                         </ul>
                     </div>
                 </div>
                 <div class="timeline__item">
                     <div class="timeline__marker"></div>
                     <div class="timeline__content">
-                        <div class="timeline__period">Oct 2024 - Feb 2025</div>
-                        <h3 class="timeline__title">Software Engineer</h3>
-                        <div class="timeline__company">TheMatchBox • Belgium</div>
+                        <div class="timeline__period" data-i18n-key="timeline.2024.period">Oct 2024 - Feb 2025</div>
+                        <h3 class="timeline__title" data-i18n-key="timeline.2024.title">Software Engineer</h3>
+                        <div class="timeline__company" data-i18n-key="timeline.2024.company">TheMatchBox • Belgium</div>
                         <ul class="timeline__achievements">
-                            <li>ElasticSearch Java plugins for advanced search</li>
-                            <li>Distributed Computing implementations</li>
-                            <li>Performance optimization solutions</li>
+                            <li data-i18n-key="timeline.2024.achievement1">ElasticSearch Java plugins for advanced search</li>
+                            <li data-i18n-key="timeline.2024.achievement2">Distributed Computing implementations</li>
+                            <li data-i18n-key="timeline.2024.achievement3">Performance optimization solutions</li>
                         </ul>
                     </div>
                 </div>
                 <div class="timeline__item">
                     <div class="timeline__marker"></div>
                     <div class="timeline__content">
-                        <div class="timeline__period">June 2023 - Oct 2024</div>
-                        <h3 class="timeline__title">Software Engineer</h3>
-                        <div class="timeline__company">S.W.I.F.T • Belgium</div>
+                        <div class="timeline__period" data-i18n-key="timeline.2023.period">June 2023 - Oct 2024</div>
+                        <h3 class="timeline__title" data-i18n-key="timeline.2023.title">Software Engineer</h3>
+                        <div class="timeline__company" data-i18n-key="timeline.2023.company">S.W.I.F.T • Belgium</div>
                         <ul class="timeline__achievements">
-                            <li>MT/MX messaging protocol implementation</li>
-                            <li>Enterprise security systems in Java</li>
-                            <li>MQ for high-volume transactions</li>
+                            <li data-i18n-key="timeline.2023.achievement1">MT/MX messaging protocol implementation</li>
+                            <li data-i18n-key="timeline.2023.achievement2">Enterprise security systems in Java</li>
+                            <li data-i18n-key="timeline.2023.achievement3">MQ for high-volume transactions</li>
                         </ul>
                     </div>
                 </div>
                 <div class="timeline__item">
                     <div class="timeline__marker"></div>
                     <div class="timeline__content">
-                        <div class="timeline__period">2022 - 2024</div>
-                        <h3 class="timeline__title">Java Instructor</h3>
-                        <div class="timeline__company">INTEC Brussel • Brussels, Belgium</div>
+                        <div class="timeline__period" data-i18n-key="timeline.2022.period">2022 - 2024</div>
+                        <h3 class="timeline__title" data-i18n-key="timeline.2022.title">Java Instructor</h3>
+                        <div class="timeline__company" data-i18n-key="timeline.2022.company">INTEC Brussel • Brussels, Belgium</div>
                         <ul class="timeline__achievements">
-                            <li>Dual-language training (Java & Python)</li>
-                            <li>Won 3rd prize in Hackathon in Belgium</li>
-                            <li>100+ developers trained in enterprise patterns</li>
+                            <li data-i18n-key="timeline.2022.achievement1">Dual-language training (Java & Python)</li>
+                            <li data-i18n-key="timeline.2022.achievement2">Won 3rd prize in Hackathon in Belgium</li>
+                            <li data-i18n-key="timeline.2022.achievement3">100+ developers trained in enterprise patterns</li>
                         </ul>
                     </div>
                 </div>
@@ -317,163 +315,175 @@
             <div class="projects__subcategory">
               <h3 class="section__subtitle" data-i18n-key="section.current">Current</h3>
               <div class="projects__grid">
+                <!-- TEXT TO NEXT -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.mcp-hydra.title">MCP-Hydra</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.mcp-hydra.description">
-                            Lightweight, extensible cybersecurity toolkit connecting AI assistants to security tools via the Model Context Protocol (MCP)
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.python">Python</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.mcp-protocol">MCP Protocol</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.ai-integration">AI Integration</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mcp-hydra.tech.cybersecurity">Cybersecurity</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.mcp-hydra.feature.ai-powered-security-analysis">AI-powered security analysis</li>
-                                <li data-i18n-key="projects.current.mcp-hydra.feature.protocol-based-tool-integration">Protocol-based tool integration</li>
-                                <li data-i18n-key="projects.current.mcp-hydra.feature.automated-scanning-capabilities">Automated scanning capabilities</li>
-                                <li data-i18n-key="projects.current.mcp-hydra.feature.security-research-automation">Security research automation</li>
-                            </ul>
-                        </div>
-                        <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/mcp-hydra" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.mcp-hydra.action.view-on-github">
-                                View on GitHub
-                            </a>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.text-to-next.title">TEXT TO NEXT</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.text-to-next.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.java">Java</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.vaadin">Vaadin Flow</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.spring-boot">Spring Boot 3</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.virtual-threads">Java 21 Virtual Threads</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.docker">Docker</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.text-to-next.feature.modular-event-platform"></li>
+                        <li data-i18n-key="projects.current.text-to-next.feature.accessibility"></li>
+                        <li data-i18n-key="projects.current.text-to-next.feature.single-jar-deployment"></li>
+                        <li data-i18n-key="projects.current.text-to-next.feature.github-actions"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- LUISTER -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.aij-ai-journalist.title">AIJ - AI Journalist</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.aij-ai-journalist.description">
-                            Revolutionary AI journalist platform with multimodal analysis and ethical standards
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.jupyter-notebook">Jupyter Notebook</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.python">Python</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.machine-learning">Machine Learning</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.aij-ai-journalist.tech.nlp">NLP</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.speech-categorization-and-analysis">Speech categorization and analysis</li>
-                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.intelligent-question-generation">Intelligent question generation</li>
-                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.multimodal-content-processing">Multimodal content processing</li>
-                                <li data-i18n-key="projects.current.aij-ai-journalist.feature.ethical-ai-journalism-standards">Ethical AI journalism standards</li>
-                            </ul>
-                        </div>
-                        <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/aij" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.aij-ai-journalist.action.view-on-github">
-                                View on GitHub
-                            </a>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.luister.title">LUISTER</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.luister.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.luister.tech.python">Python</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.luister.tech.pyqt">PyQt</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.luister.feature.winamp-experience"></li>
+                        <li data-i18n-key="projects.current.luister.feature.cross-platform"></li>
+                        <li data-i18n-key="projects.current.luister.feature.single-wheel"></li>
+                        <li data-i18n-key="projects.current.luister.feature.open-source"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- FOODLAMA -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.mlpops.title">MLPOps</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.mlpops.description">
-                            Belgian Job Analysis MLOps with automated scraping and ML pipeline
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.python">Python</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.fastapi">FastAPI</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.streamlit">Streamlit</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.terraform">Terraform</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.aws">AWS</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.docker">Docker</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.mlpops.feature.job-scraping-vdab-jobat-ictjobs">Job scraping (VDAB, Jobat, ICTJobs)</li>
-                                <li data-i18n-key="projects.current.mlpops.feature.complete-ml-pipeline-automation">Complete ML pipeline automation</li>
-                                <li data-i18n-key="projects.current.mlpops.feature.interactive-dashboard">Interactive dashboard</li>
-                                <li data-i18n-key="projects.current.mlpops.feature.cloud-deployment-with-terraform">Cloud deployment with Terraform</li>
-                            </ul>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.foodlama.title">FOODLAMA</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.foodlama.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.spring-boot">Spring Boot 3</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.java">Java 21</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.ollama">Ollama</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.vector-db">Vector DB</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.docker">Docker</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.foodlama.feature.food-ai-platform"></li>
+                        <li data-i18n-key="projects.current.foodlama.feature.compliance-checks"></li>
+                        <li data-i18n-key="projects.current.foodlama.feature.multimodal-recognition"></li>
+                        <li data-i18n-key="projects.current.foodlama.feature.devops-stack"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- INSTYPER -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.instyper.title">Instyper</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.instyper.description">
-                            Desktop-based cross-platform voice recognition toolbar application
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.python">Python</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.openai-whisper">OpenAI Whisper</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.vosk">Vosk</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.qt">Qt</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.instyper.feature.multi-language-voice-typing">Multi-language voice typing</li>
-                                <li data-i18n-key="projects.current.instyper.feature.95-accuracy-across-10-plus-languages">95% accuracy across 10+ languages</li>
-                                <li data-i18n-key="projects.current.instyper.feature.cross-platform-desktop-support">Cross-platform desktop support</li>
-                                <li data-i18n-key="projects.current.instyper.feature.real-time-speech-processing">Real-time speech processing</li>
-                            </ul>
-                        </div>
-                        <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/instyper" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.instyper.action.view-on-github">
-                                View on GitHub
-                            </a>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.instyper.title">INSTYPER</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.instyper.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.cross-platform">Cross-Platform</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.asr">Local ASR</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.ci">CI/CD</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.instyper.feature.voice-typing"></li>
+                        <li data-i18n-key="projects.current.instyper.feature.auto-translate"></li>
+                        <li data-i18n-key="projects.current.instyper.feature.privacy"></li>
+                        <li data-i18n-key="projects.current.instyper.feature.quick-onboarding"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- JOBOPS -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.foodlama.title">FoodLama</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.foodlama.description">
-                            LLM-powered food platform for comprehensive food domain solutions
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.java">Java</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.spring-boot">Spring Boot</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.llm-integration">LLM Integration</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.foodlama.feature.food-recommendations-engine">Food recommendations engine</li>
-                                <li data-i18n-key="projects.current.foodlama.feature.nutritional-analysis-system">Nutritional analysis system</li>
-                                <li data-i18n-key="projects.current.foodlama.feature.recipe-generation-with-ai">Recipe generation with AI</li>
-                                <li data-i18n-key="projects.current.foodlama.feature.advanced-food-industry-applications">Advanced food industry applications</li>
-                            </ul>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.jobops.title">JOBOPS</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.jobops.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.cross-platform">Cross-Platform</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.openai">OpenAI</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.groq">Groq</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.ollama">Ollama</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.local-models">Local Models</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.jobops.feature.motivation-letters"></li>
+                        <li data-i18n-key="projects.current.jobops.feature.cv-editor"></li>
+                        <li data-i18n-key="projects.current.jobops.feature.offline"></li>
+                        <li data-i18n-key="projects.current.jobops.feature.dashboard"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- MLPOPS -->
                 <div class="project-card">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title" data-i18n-key="projects.current.jobops-toolbar.title">JobOps Toolbar</h3>
-                        <p class="project-card__description" data-i18n-key="projects.current.jobops-toolbar.description">
-                            Toolkit for automating and enhancing job operations workflows
-                        </p>
-                        <div class="project-card__tech">
-                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.python">Python</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.fastapi">FastAPI</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.qt">Qt</span>
-                            <span class="tech-tag" data-i18n-key="projects.current.jobops-toolbar.tech.sqlite">SQLite</span>
-                        </div>
-                        <div class="project-card__features">
-                            <ul>
-                                <li data-i18n-key="projects.current.jobops-toolbar.feature.ai-powered-motivation-letters">AI-powered motivation letters</li>
-                                <li data-i18n-key="projects.current.jobops-toolbar.feature.intelligent-job-matching">Intelligent job matching</li>
-                                <li data-i18n-key="projects.current.jobops-toolbar.feature.backend-automation-tools">Backend automation tools</li>
-                                <li data-i18n-key="projects.current.jobops-toolbar.feature.llm-integration-for-career-optimization">LLM integration for career optimization</li>
-                            </ul>
-                        </div>
-                        <div class="project-card__actions">
-                            <a href="https://github.com/codesapienbe/jobops-toolbar" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm" data-i18n-key="projects.current.jobops-toolbar.action.view-on-github">
-                                View on GitHub
-                            </a>
-                        </div>
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.mlpops.title">MLPOPS</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.mlpops.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.ml">ML</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.terraform">Terraform</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.cloud">Cloud</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.dashboard">Dashboard</span>
                     </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.mlpops.feature.salary-prediction"></li>
+                        <li data-i18n-key="projects.current.mlpops.feature.skills-demand"></li>
+                        <li data-i18n-key="projects.current.mlpops.feature.cloud-deployment"></li>
+                        <li data-i18n-key="projects.current.mlpops.feature.interactive-dashboard"></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- CVGAMES -->
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.cvgames.title">CVGAMES</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.cvgames.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.java">Java</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.spring-boot">Spring Boot</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.vaadin">Vaadin</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.pgvector">PGVector</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.docker">Docker</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.cvgames.feature.event-platform"></li>
+                        <li data-i18n-key="projects.current.cvgames.feature.accessibility"></li>
+                        <li data-i18n-key="projects.current.cvgames.feature.analytics"></li>
+                        <li data-i18n-key="projects.current.cvgames.feature.one-click-deployment"></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- BESTEKAR -->
+                <div class="project-card">
+                  <div class="project-card__content">
+                    <h3 class="project-card__title" data-i18n-key="projects.current.bestekar.title">BESTEKAR</h3>
+                    <p class="project-card__description" data-i18n-key="projects.current.bestekar.description"></p>
+                    <div class="project-card__tech">
+                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.kivy">Kivy</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.meta-musicgen">Meta MusicGen</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.rvc">RVC</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.celery">Celery</span>
+                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.gpu">GPU</span>
+                    </div>
+                    <div class="project-card__features">
+                      <ul>
+                        <li data-i18n-key="projects.current.bestekar.feature.turkish-ai-composer"></li>
+                        <li data-i18n-key="projects.current.bestekar.feature.voice-conversion"></li>
+                        <li data-i18n-key="projects.current.bestekar.feature.kivy-gui"></li>
+                        <li data-i18n-key="projects.current.bestekar.feature.generation-modes"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -735,9 +745,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Task</th>
-                                <th>Date Created</th>
-                                <th>Status</th>
+                                <th data-i18n-key="agenda.table.task">Task</th>
+                                <th data-i18n-key="agenda.table.dateCreated">Date Created</th>
+                                <th data-i18n-key="agenda.table.status">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -762,21 +772,21 @@
                             <span class="contact__icon">📧</span>
                             <div>
                                 <strong data-i18n-key="contact.detail.emailLabel">Email</strong>
-                                <a href="mailto:ymus@tuta.io">ymus@tuta.io</a>
+                                <a href="mailto:yilmaz@codesapien.net" data-i18n-key="about.contact.email">yilmaz@codesapien.net</a>
                             </div>
                         </div>
                         <div class="contact__item">
                             <span class="contact__icon">📱</span>
                             <div>
                                 <strong data-i18n-key="contact.detail.phoneLabel">Phone</strong>
-                                <a href="tel:+32467711709">+32 467 71 17 09</a>
+                                <a href="tel:+32467711709" data-i18n-key="about.contact.phone">+32 467 71 17 09</a>
                             </div>
                         </div>
                         <div class="contact__item">
                             <span class="contact__icon">📍</span>
                             <div>
                                 <strong data-i18n-key="contact.detail.locationLabel">Location</strong>
-                                <span>Zele, Belgium</span>
+                                <span data-i18n-key="about.contact.location">Zele, Belgium</span>
                             </div>
                         </div>
                     </div>
@@ -803,11 +813,11 @@
                     </div>
                     <div class="form-group">
                         <input type="checkbox" id="requestMeeting" name="requestMeeting">
-                        <label for="requestMeeting">Request a Google Meet</label>
+                        <label for="requestMeeting" data-i18n-key="contact.requestMeeting">Request a Google Meet</label>
                     </div>
                     <div class="form-group meeting-details" style="display:none;">
-                        <label for="meetingDateTime">Select Date & Time *</label>
-                        <input type="text" id="meetingDateTime" class="form-control flatpickr-date-time" placeholder="Choose date & time" />
+                        <label for="meetingDateTime" data-i18n-key="contact.selectDateTime">Select Date & Time *</label>
+                        <input type="text" id="meetingDateTime" class="form-control flatpickr-date-time" data-i18n-key="contact.meetingDateTimePlaceholder" placeholder="Choose date & time" />
                     </div>
                     <button type="submit" class="btn btn--primary btn--full-width" data-i18n-key="contact.button.sendMessage">Send Message</button>
                 </form>
@@ -840,7 +850,7 @@
                 <div class="footer__social">
                     <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.github">GitHub</a>
                     <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.linkedin">LinkedIn</a>
-                    <a href="mailto:ymus@tuta.io" class="footer__link" data-i18n-key="footer.link.email">Email</a>
+                    <a href="mailto:yilmaz@codesapien.net" class="footer__link" data-i18n-key="footer.link.email">Email</a>
                 </div>
             </div>
         </div>

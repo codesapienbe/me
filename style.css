@@ -146,7 +146,7 @@
 
 /* Data attribute for manual theme switching */
 [data-color-scheme="dark"] {
-  --color-background: rgba(31, 33, 33, 1);
+  --color-background: rgba(35, 39, 47, 1); /* dark gray instead of almost black */
   --color-surface: rgba(38, 40, 40, 1);
   --color-text: rgba(245, 245, 245, 1);
   --color-text-secondary: rgba(167, 169, 169, 0.7);
@@ -1164,6 +1164,9 @@ select.form-control {
   box-shadow: var(--shadow-sm);
   transition: all var(--duration-normal) var(--ease-standard);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
 }
 
 .project-card:hover {
@@ -1173,6 +1176,10 @@ select.form-control {
 
 .project-card__content {
   padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: flex-start;
 }
 
 .project-card__title {
@@ -1204,6 +1211,7 @@ select.form-control {
 }
 
 .project-card__features {
+  margin-top: auto;
   margin-bottom: var(--space-20);
 }
 

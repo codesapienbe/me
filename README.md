@@ -55,8 +55,6 @@ Java & Spring Software Engineer
 ## Key Open Source Projects
 
 - Spring Vision Framework — Spring Boot starter for computer vision (OpenCV). https://github.com/codesapienbe/spring-vision
-- Spring Finqube ISO 20022 Starter — financial messaging tooling. https://github.com/codesapienbe/spring-finqube
-- Food Score MLOps Pipeline — enterprise app + MLOps integration. https://github.com/codesapienbe/food-score
 - Instyper — offline/online voice-to-text desktop app. https://github.com/codesapienbe/Instyper
 - Stegnocchi — EXIF steganography tool. https://github.com/codesapienbe/Stegnocchi
 - DeepVoice — voice analysis and speaker identification library. https://github.com/codesapienbe/DeepVoice

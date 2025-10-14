@@ -121,11 +121,23 @@
                 grid-template-columns: none !important;
                 width: 100% !important;
             }
+
+            /* Print-only interviewer notes block: hidden on screen, visible in print */
+            .print-only { display: block !important; }
+            .print-notes-wrapper { border: 1px dashed #cfcfcf; padding: 10px; margin: 8px 0 12px 0; background: #fff; }
+            .print-note-grid { display: flex; gap: 10px; }
+            .print-note-block { flex: 1 1 0; min-height: 110px; border: 1px solid #e6e6e6; padding: 8px; font-size: 10pt; }
+            .print-note-title { font-weight: 700; color: #005F73; margin-bottom: 6px; font-size: 11pt; }
+            /* Make handwritten-style lines for notes */
+            .print-note-block .line { border-bottom: 1px dashed #ddd; height: 18px; margin-bottom: 8px; }
+            /* Ensure the notes area stays with header on first page */
+            header { page-break-after: avoid; }
         }
         /* Added class for project cards to ensure proper styling across environments */
         .project-card-border {
             border-left-width: 4px;
         }
+
         /* Styling for the Analysis Output */
         .analysis-content ul {
             list-style-type: disc;
@@ -141,24 +153,33 @@
             background-color: #f7f7f7;
         }
 
-        @media print {
-            /* ... existing styles ... */
-            #gemini-analysis, #exportResumeButton {
-                display: none;
-            }
-            /* Add page breaks between sections for better print layout */
-            section {
-                page-break-before: always;
-            }
-            header, footer {
-                page-break-before: auto;
-                page-break-after: auto;
-            }
-            main > section:first-of-type {
-                page-break-before: auto;
-            }
-            /* ... existing styles ... */
+        /* --- NEW: Improved responsive layout for Architectural Competencies --- */
+        /* Dedicated class so other grids aren't affected */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            align-items: stretch; /* ensure grid items stretch to equal heights */
         }
+        /* Ensure cards stretch to equal heights and content flows vertically */
+        .architecture-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 160px; /* small min-height fix to ensure cards have a minimum height */
+        }
+        /* Slightly larger card padding on desktop for better readability */
+        @media (min-width: 1024px) {
+            #architecture .bg-white, .architecture-card { padding: 1.25rem !important; border-radius: 0.75rem !important; }
+            #architecture .text-2xl { font-size: 1.6rem !important; }
+            #architecture .text-lg { font-size: 1.05rem !important; }
+        }
+        /* Ensure badges wrap nicely instead of overflowing */
+        .architecture-grid .flex-wrap { flex-wrap: wrap; }
+        .architecture-grid .flex-wrap span { margin-bottom: 6px; }
+
+        /* Keep existing print rules and other styles unchanged */
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -185,6 +206,46 @@
         </div>
     </header>
 
+    <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
+    <div class="print-only" aria-hidden="true">
+        <div class="container max-w-4xl mx-auto print-notes-wrapper">
+            <div class="print-note-grid">
+                <div class="print-note-block">
+                    <div class="print-note-title">Contact & First Impressions</div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="print-note-block">
+                    <div class="print-note-title">Candidate Expectations</div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="print-note-block">
+                    <div class="print-note-title">Interviewer Observations</div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:8px;">
+                <div class="print-note-block" style="flex:2;">
+                    <div class="print-note-title">Action Items / Follow-up</div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="print-note-block" style="flex:1;">
+                    <div class="print-note-title">Rating / Next Steps</div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <section id="summary" class="mb-16">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
@@ -196,9 +257,9 @@
                         <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
                     </div>
                     <div>
-                        <p class="text-6xl font-extrabold text-[#BB3E03]">4</p>
+                        <p class="text-6xl font-extrabold text-[#BB3E03]">6</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Core Architectures</p>
-                        <p class="text-slate-500 mt-1">Monolith, Microservices, Modulith, and SCS.</p>
+                        <p class="text-slate-500 mt-1">Monolith, Microservices, Modulith, SCS, Event-Driven Architecture, and Asynchronous Messaging Patterns.</p>
                     </div>
                     <div>
                         <p class="text-6xl font-extrabold text-[#AE2012]">10k+</p>
@@ -391,9 +452,9 @@
         <section id="architecture" class="mb-16">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Architectural Competencies</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="architecture-grid grid gap-6">
                     <!-- Monolith Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#0A9396]">
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#0A9396] architecture-card">
                         <div class="flex items-start gap-3">
                             <div class="text-2xl" aria-hidden="true">🏛️</div>
                             <div>
@@ -407,7 +468,7 @@
                         </div>
                     </div>
                     <!-- Microservices Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#EE9B00]">
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#EE9B00] architecture-card">
                         <div class="flex items-start gap-3">
                             <div class="text-2xl" aria-hidden="true">🧩</div>
                             <div>
@@ -422,7 +483,7 @@
                         </div>
                     </div>
                     <!-- Modulith Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#94D2BD]">
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#94D2BD] architecture-card">
                         <div class="flex items-start gap-3">
                             <div class="text-2xl" aria-hidden="true">🧱</div>
                             <div>
@@ -437,7 +498,7 @@
                         </div>
                     </div>
                     <!-- SCS Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#CA6702]">
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#CA6702] architecture-card">
                         <div class="flex items-start gap-3">
                             <div class="text-2xl" aria-hidden="true">📦</div>
                             <div>
@@ -451,8 +512,37 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Event-Driven Architecture Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#BB3E03] architecture-card">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">🏗️</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Event-Driven Architecture</h3>
+                                <p class="text-slate-600 text-sm mt-1">Intermediate knowledge in designing systems that react to events for decoupled and scalable applications.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Event Sourcing</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Message Brokers</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Reactive Systems</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Asynchronous Messaging Patterns Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#AE2012] architecture-card">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">📨</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Asynchronous Messaging Patterns</h3>
+                                <p class="text-slate-600 text-sm mt-1">Intermediate proficiency in implementing non-blocking communication for resilient and high-performance systems.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Pub/Sub</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Queues</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">ZeroMQ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p class="text-xs text-slate-500 mt-4 text-center">Also familiar with: Event-Driven Architecture, Service Mesh, and asynchronous messaging patterns.</p>
             </div>
         </section>
 

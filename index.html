@@ -47,9 +47,10 @@
                 color: #000 !important;
                 margin: 0;
                 padding: 0;
+                font-size: 10pt; /* slightly smaller for print */
             }
             .container {
-                padding: 0;
+                padding: 0.4rem !important;
                 margin: 0;
                 max-width: none;
             }
@@ -62,63 +63,63 @@
             h1, h2, h3, h4, p, span, a, time {
                 color: #000 !important;
             }
-            /* Hide the interactive tool for printing */
-            #gemini-analysis, #exportResumeButton {
-                display: none;
-            }
-            /* Add page breaks between sections for better print layout */
-            section {
-                page-break-before: always;
-            }
-            header, footer {
-                page-break-before: auto;
-                page-break-after: auto;
-            }
-            main > section:first-of-type {
-                page-break-before: auto;
-            }
-            /* Ensure charts have enough space vertically */
-            .chart-container {
-                height: 300px !important;
-                max-height: 350px !important;
-            }
-            /* Simplify project cards */
-            .project-card {
-                page-break-inside: avoid;
-            }
-            /* Make link colors black but retain underline */
-            a {
-                text-decoration: underline;
+
+            /* Hide interactive-only blocks and the export resume button (removed from UI) */
+            #gemini-analysis {
+                display: none !important;
             }
 
-            /* --- New: Force single-column layouts on print to avoid two-column/timeline issues --- */
-            /* Tailwind responsive utility classes include colons in class names; escape them here. */
-            .md\:grid, .md\:grid-cols-2, .md\:grid-cols-3, .md\:gap-8, .md\:col-span-2, .md\:col-span-3 {
+            /* Hide personal snapshot and architecture cards for print as requested */
+            #summary, #architecture {
+                display: none !important;
+            }
+
+            /* Shrink heading sizes for compact print */
+            h1 { font-size: 18pt !important; }
+            h2 { font-size: 13pt !important; }
+            h3 { font-size: 11pt !important; }
+            p, li { font-size: 10pt !important; }
+
+            /* Reduce large gaps and card paddings */
+            .mb-16 { margin-bottom: 6px !important; }
+            .p-8 { padding: 8px !important; }
+            .p-6 { padding: 6px !important; }
+            .p-4 { padding: 6px !important; }
+
+            /* Hide heavy visuals (charts) to save space on paper; keep textual information */
+            .chart-container, canvas { display: none !important; }
+
+            /* Make project cards compact and avoid breaking across pages */
+            .project-card-border, .rounded-xl, .bg-white {
+                page-break-inside: avoid;
+                padding: 8px !important;
+                margin-bottom: 6px !important;
+            }
+
+            /* Make links appear in black with underline for print */
+            a { color: #000 !important; text-decoration: underline !important; }
+
+            /* Force explicit page breaks between the main printable sections only */
+            /* Keep first visible section on the first printed page */
+            #skills, #experience, #projects, #development, #education {
+                page-break-before: always;
+            }
+
+            /* Small table/text adjustments for print */
+            table { page-break-inside: avoid; width: 100% !important; }
+
+            /* Ensure right-aligned items render left in print */
+            .md\:text-right { text-align: left !important; }
+
+            /* Neutralize left margins used for timeline visuals */
+            .ml-8, .ml-6, .md\:ml-0 { margin-left: 0 !important; }
+
+            /* Stack grids into single column for print */
+            .md\:grid, .md\:grid-cols-2, .md\:grid-cols-3, .md\:gap-8, .md\:col-span-2, .md\:col-span-3,
+            .grid, .grid-cols-1, .sm\:grid-cols-2, .lg\:grid-cols-3, .xl\:grid-cols-4 {
                 display: block !important;
                 grid-template-columns: none !important;
                 width: 100% !important;
-            }
-            /* Ensure items that were right-aligned on desktop are left-aligned in print */
-            .md\:text-right {
-                text-align: left !important;
-                padding-right: 0 !important;
-            }
-            /* Neutralize left margins introduced for timeline visuals */
-            .ml-8, .ml-6, .md\:ml-0 {
-                margin-left: 0 !important;
-            }
-            /* Prevent small date columns from compressing the main content */
-            .experience-list .p-4, .experience-list [style*="min-width"] {
-                min-width: 0 !important;
-            }
-            /* Ensure grid-based development/education cards stack vertically */
-            .grid, .grid-cols-1, .sm\:grid-cols-2, .lg\:grid-cols-3, .xl\:grid-cols-4 {
-                display: block !important;
-                width: 100% !important;
-            }
-            /* Avoid breaking cards across pages */
-            .rounded-xl, .project-card-border, .bg-white {
-                page-break-inside: avoid;
             }
         }
         /* Added class for project cards to ensure proper styling across environments */

@@ -1048,70 +1048,199 @@
         return html;
     };
 
-    const runLocalMatch = (jobDescription, companyName, companyUrl) => {
-        const jdLower = jobDescription.toLowerCase();
-        const skillHits = {};
-        let totalMatchCount = 0;
+    // --- NEW: Advanced content extraction and matching helpers ---
+    // Attempt to fetch a URL and extract the main textual content. This can fail due to CORS.
+    const extractPageContent = async (url) => {
+        try {
+            const res = await fetch(url, { method: 'GET' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const html = await res.text();
+            // Parse and extract likely article/main content by selecting <main>, <article>, then fallback to largest <div> or collection of <p>
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const selectors = ['main', 'article', 'div[id*=content]', 'div[class*=content]', 'div[class*=main]'];
+            let text = '';
+            for (const sel of selectors) {
+                const el = doc.querySelector(sel);
+                if (el) {
+                    text = Array.from(el.querySelectorAll('p'))
+                        .map(p => p.textContent.trim())
+                        .filter(t => t.length > 30)
+                        .join('\n\n');
+                    if (text && text.split('\n').length > 3) break;
+                }
+            }
+            if (!text) {
+                // fallback: gather the largest paragraph blocks in the body
+                const ps = Array.from(doc.body.querySelectorAll('p'))
+                    .map(p => p.textContent.trim())
+                    .filter(t => t.length > 20);
+                // take the top 30 paragraphs or up to 4000 chars
+                text = ps.slice(0, 30).join('\n\n').substring(0, 4000);
+            }
+            // If still empty, fallback to the entire body text (limited)
+            if (!text) {
+                text = doc.body.textContent.trim().replace(/\s{2,}/g, ' ').substring(0, 4000);
+            }
+            return text;
+        } catch (err) {
+            console.warn('Failed to fetch/extract page content:', err.message);
+            throw err;
+        }
+    };
+
+    // Normalize text: lowercase, remove non-word characters (keep + and #), normalize spaces
+    const normalizeText = (s) => s.toLowerCase().replace(/[\u2018\u2019\u201c\u201d]/g, "'").replace(/[^\w\s+#/\-.]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    const tokenize = (s) => normalizeText(s).split(/\s+/).filter(Boolean);
+
+    // Simple fuzzy substring check (case-insensitive normalized) and small edit-distance fallback
+    const fuzzyMatch = (hay, needle) => {
+        hay = normalizeText(hay);
+        needle = normalizeText(needle);
+        if (!needle) return false;
+        if (hay.includes(needle)) return true;
+        // word-by-word fallback: check if most words of needle appear in hay
+        const nTokens = needle.split(/\s+/).filter(Boolean);
+        const hits = nTokens.filter(t => hay.includes(t)).length;
+        if (nTokens.length > 0 && hits / nTokens >= 0.6) return true;
+        return false;
+    };
+
+    // Common synonyms map to improve matching
+    const synonyms = {
+        'k8s': 'kubernetes',
+        'ci/cd': 'ci',
+        'ci cd': 'ci',
+        'micro-services': 'microservices',
+        'postgres': 'postgresql',
+        'mq': 'message queue',
+        'message queue': 'mq'
+    };
+
+    const applySynonyms = (s) => {
+        let out = s;
+        for (const [k, v] of Object.entries(synonyms)) {
+            out = out.replace(new RegExp('\\b' + k.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b', 'gi'), v);
+        }
+        return out;
+    };
+
+    // Score skills by token overlap, fuzzy match and occurrences
+    const computeSkillScores = (jobText, skills) => {
+        const jd = applySynonyms(jobText);
+        const jdTokens = tokenize(jd);
+        const tokenSet = new Set(jdTokens);
+        const scores = {};
+        skills.forEach(skill => {
+            const s = applySynonyms(skill.toLowerCase());
+            let score = 0;
+            // Exact word match
+            const regex = new RegExp('\\b' + s.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b', 'g');
+            if (jd.match(regex)) score += 3;
+            // Token overlap
+            const skillTokens = tokenize(s);
+            const overlap = skillTokens.filter(t => tokenSet.has(t)).length;
+            score += overlap;
+            // Fuzzy substring
+            if (fuzzyMatch(jd, s)) score += 2;
+            // Increase for multi-word skill matches
+            if (skillTokens.length > 1 && overlap === skillTokens.length) score += 1;
+            if (score > 0) scores[skill] = score;
+        });
+        // Normalize ordering
+        return Object.entries(scores).sort(([,a],[,b]) => b - a).map(([skill]) => skill);
+    };
+
+    // Optional remote LLM analysis wrapper: sends job + candidate profile to a provided endpoint and expects structured JSON
+    const runRemoteLLMAnalysis = async (apiUrl, apiKey, jobDescription, candidateProfile) => {
+        try {
+            const payload = {
+                jobDescription,
+                candidateProfile
+            };
+            const res = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': apiKey ? `Bearer ${apiKey}` : undefined
+                },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error('LLM endpoint returned ' + res.status);
+            const json = await res.json();
+            return json; // Expect { matchScore, matchedSkills, alignmentHits, notes }
+        } catch (err) {
+            console.warn('LLM analysis failed:', err.message);
+            throw err;
+        }
+    };
+
+    // --- IMPROVED MATCHING FUNCTION (replaces runLocalMatch) ---
+    const runLocalMatch = async (jobDescription, companyName, companyUrl) => {
+        // Try to extract page content when a URL is provided and the jobDescription seems short
+        let sourceText = jobDescription;
+        const shouldFetchPage = companyUrl && jobDescription.split(/\s+/).length < 50; // heuristic
+
+        if (shouldFetchPage) {
+            try {
+                const pageContent = await extractPageContent(companyUrl);
+                // Prefer the fetched page content if it looks substantial
+                if (pageContent && pageContent.split(/\s+/).length > 50) {
+                    sourceText = pageContent;
+                    // show a small note to the user in the input preview
+                    jobDescriptionInput.value = '--- Extracted content from: ' + companyUrl + '\n\n' + pageContent.substring(0, 2000);
+                }
+            } catch (err) {
+                // If fetch fails (likely due to CORS), leave jobDescription as-is and show a note
+                console.info('Skipping remote content extraction; using provided job description.');
+            }
+        }
+
+        const jdLower = sourceText.toLowerCase();
 
         // 1. Convert Job Description for display (Preview logic)
-        const formattedJobDescription = markdownToHtml(jobDescription);
-
-        // Set input field as preview and read-only
+        const formattedJobDescription = markdownToHtml(sourceText);
         jobDescriptionInput.innerHTML = formattedJobDescription;
         jobDescriptionInput.readOnly = true;
         companyNameInput.readOnly = true;
         companyUrlInput.readOnly = true;
 
+        // 2. Compute matching using improved scoring
+        const matchedSkills = computeSkillScores(sourceText, candidateSkills).slice(0, 8);
 
-        // 2. Calculate Skill Matches
-        candidateSkills.forEach(skill => {
-            const skillLower = skill.toLowerCase();
-            // Use word boundary to prevent partial matches (e.g., 'java' matching 'javascript')
-            const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
-            if (jdLower.match(regex)) {
-                skillHits[skill] = (skillHits[skill] || 0) + 1;
-                totalMatchCount++;
-            }
-        });
-
-        // Sort matched skills by hit count (and then alphabetically)
-        const matchedSkills = Object.entries(skillHits)
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 5)
-            .map(([skill]) => skill);
-
-        // 3. Calculate Contextual Alignment
+        // 3. Contextual alignment using fuzzy checks against experiencePoints
         const alignmentHits = [];
+        const jdNorm = normalizeText(sourceText);
         experiencePoints.forEach(point => {
-            if (jdLower.includes(point.keyword.toLowerCase())) {
+            if (fuzzyMatch(jdNorm, point.keyword) || fuzzyMatch(point.context, jdNorm)) {
                 alignmentHits.push(point.context);
             }
         });
 
-        // 4. Generate Output and Update Cache
-        const matchScore = Math.min(Math.round((totalMatchCount / 10) * 100), 100);
+        // 4. Derive a match score: weighted combination of unique matched skills and alignment hits
+        const skillFactor = Math.min(matchedSkills.length, 10) / 10; // 0..1
+        const alignmentFactor = Math.min(alignmentHits.length, 5) / 5; // 0..1
+        const matchScore = Math.round((0.75 * skillFactor + 0.25 * alignmentFactor) * 100);
 
         lastAnalysisResult = {
             matchScore,
             matchedSkills,
             alignmentHits,
-            jobDescription,
+            jobDescription: sourceText,
             companyName,
             companyUrl
         };
 
-        // Generate Simulated Security Report
         const securityReport = generateSimulatedSecurityReport(companyUrl);
 
-        // Format HTML Output
         const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
         const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
         const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('');
 
-
         const analysisOutput = `
                 <p><strong>Match Score: ${matchScore}% 🎯</strong><br>
-                (Based on alignment of top 20 prioritized keywords)</p>
+                (Improved analysis using token overlap, synonyms and content extraction)</p>
 
                 <hr class="my-3 border-t border-slate-300">
 
@@ -1133,9 +1262,8 @@
                 <ul class="space-y-1">
                     ${formattedSecurity}
                 </ul>
-                <p class="text-xs text-slate-500 mt-2"><em>*This is a simulated report for presentation purposes only, based on assumed security best practices.</em></p>
+                <p class="text-xs text-slate-500 mt-2"><em>*This is an improved, local analysis. For higher-quality results, you can configure an external LLM endpoint in the UI to perform semantic matching (not enabled by default).</em></p>
             `;
-
 
         outputContent.innerHTML = `<div class="bg-slate-50 p-4 rounded-lg border border-slate-200 overflow-x-auto text-sm">${analysisOutput}</div>`;
         exportContainer.classList.remove('hidden');

@@ -41,8 +41,8 @@
         }
 
         /* FIX: Ensure print-only block is hidden by default on screen */
-        .print-only { 
-            display: none; 
+        .print-only {
+            display: none;
         }
 
         /* --- PDF Print Optimization Styles --- */
@@ -211,7 +211,7 @@
             border: none;
             cursor: pointer;
         }
-        
+
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -266,6 +266,48 @@
             font-size: 0.875rem;
         }
 
+        /* Custom Styling for responsive contact bar */
+        .responsive-contact-bar {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        @media (min-width: 640px) {
+            .responsive-contact-bar {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            .responsive-contact-bar > span:nth-child(even) {
+                display: inline; /* Show separators on desktop */
+            }
+            .responsive-contact-bar > span {
+                display: block;
+            }
+        }
+
+        /* Custom Styling for Language/Domain visualization */
+        .lang-progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e6f1f4; /* Light background for the track */
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .lang-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Hide separators on mobile */
+        .separator {
+            display: none;
+        }
+        @media (min-width: 640px) {
+            .separator {
+                display: inline;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -283,14 +325,14 @@
     <header class="text-center mb-12">
         <h1 class="text-5xl font-extrabold text-[#005F73]">YILMAZ MUSTAFA</h1>
         <p class="text-2xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
-        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600">
+        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600 responsive-contact-bar">
             <span>📧 yilmaz@codesapien.net</span>
-            <span class="text-[#94D2BD]">|</span>
+            <span class="text-[#94D2BD] separator">|</span>
             <span>🌐 codesapien.net</span>
-            <span class="text-[#94D2BD]">|</span>
+            <span class="text-[#94D2BD] separator">|</span>
             <span>💼 codesapienbe (LinkedIn)</span>
         </div>
-        
+
         <!-- NEW: Export Full Resume Button below Contact Info -->
         <div class="flex justify-center">
             <button id="exportFullCVButton" class="bg-[#94D2BD] hover:bg-[#0A9396] text-white font-bold rounded-lg transition duration-200 shadow-md flex items-center justify-center space-x-2">
@@ -448,7 +490,7 @@
                         <div class="md:text-right md:pr-8">
                             <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Feb 2025 – May 2025 (4 mos)</time>
                             <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <span class="text-sm font-medium text-[#0A9396]">(Freelance—Python AI Focus)</span>
+                            <span class="text-sm font-medium text-[#0A9396]">(Freelance - Python AI Focus)</span>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
                             <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
@@ -738,7 +780,7 @@
                     <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
                         <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
                         <h3 class="text-sm font-bold text-slate-800 mt-1">System and Networking</h3>
-                        <p class="text-xs text-slate-500">Bursa, Turkiye</p>
+                        <p class="text-xs text-slate-500">Bursa, Türkiye</p>
                         <div class="mt-3 flex flex-wrap gap-2">
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Networking</span>
                             <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Linux</span>
@@ -771,39 +813,89 @@
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Academic History Card (Spanning 2 columns) -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning (Completed)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+                        <div class="space-y-1">
+                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning</p>
                             <p class="text-sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
+                            <span class="text-xs font-semibold text-[#005F73] px-2 py-0.5 bg-[#eef2ff] rounded">Completed</span>
                         </div>
-                        <div>
-                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems (Incomplete)</p>
+                        <div class="space-y-1">
+                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems</p>
                             <p class="text-sm text-slate-600">Queen Mary, University of London, UK (2013)</p>
+                            <span class="text-xs font-semibold text-[#AE2012] px-2 py-0.5 bg-[#fce8e8] rounded">Incomplete Study</span>
                         </div>
-                        <div>
+                        <div class="space-y-1">
                             <p class="text-lg font-semibold text-slate-800">Bachelor Degree, Tourism and Hotel Management</p>
                             <p class="text-sm text-slate-600">Beykent University, Istanbul, Turkiye (2010)</p>
+                            <span class="text-xs font-semibold text-[#0A9396] px-2 py-0.5 bg-[#e9f7f9] rounded">Completed</span>
                         </div>
                     </div>
                 </div>
-                <!-- Languages & Domain Card -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73]">
+
+                <!-- Languages & Domain Card (Full Width in its own row) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
-                    <div class="space-y-3">
-                        <p class="text-base font-semibold text-slate-800">Language Proficiency</p>
-                        <ul class="list-none space-y-1 text-sm text-slate-700">
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>Turkish</strong>: Native</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>English</strong>: Fluent</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>Dutch</strong>: Professional</li>
-                        </ul>
-                        <p class="text-base font-semibold text-slate-800 mt-4">Domain Expertise</p>
-                        <ul class="list-none space-y-1 text-sm text-slate-700">
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Financial Messaging (SWIFT, ISO 20022)</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Enterprise Software & SaaS</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Technical Training</li>
-                        </ul>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
+                        <div>
+                            <p class="text-base font-semibold text-slate-800 mb-2">Language Proficiency</p>
+
+                            <!-- Language: Turkish (Native / 100%) -->
+                            <div class="mb-3">
+                                <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
+                                    <span>Turkish (Native)</span>
+                                    <span class="text-xs text-[#005F73]">100%</span>
+                                </p>
+                                <div class="lang-progress-bar">
+                                    <div class="lang-progress-fill bg-[#005F73]" style="width: 100%;" title="Native Proficiency"></div>
+                                </div>
+                            </div>
+
+                            <!-- Language: English (Fluent / 85%) -->
+                            <div class="mb-3">
+                                <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
+                                    <span>English (Fluent)</span>
+                                    <span class="text-xs text-[#0A9396]">85%</span>
+                                </p>
+                                <div class="lang-progress-bar">
+                                    <div class="lang-progress-fill bg-[#0A9396]" style="width: 85%;" title="Fluent Proficiency"></div>
+                                </div>
+                            </div>
+
+                            <!-- Language: Dutch (Professional / 70%) -->
+                            <div class="mb-3">
+                                <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
+                                    <span>Dutch (Professional)</span>
+                                    <span class="text-xs text-[#94D2BD]">70%</span>
+                                </p>
+                                <div class="lang-progress-bar">
+                                    <div class="lang-progress-fill bg-[#94D2BD]" style="width: 70%;" title="Professional Proficiency"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-base font-semibold text-slate-800 mb-2">Domain Expertise</p>
+                            <div class="grid grid-cols-2 gap-3 text-sm text-slate-700">
+                                <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
+                                    <span class="text-[#005F73]">🏦</span>
+                                    <span class="font-medium">Financial Messaging</span>
+                                </div>
+                                <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
+                                    <span class="text-[#0A9396]">⚙️</span>
+                                    <span class="font-medium">Enterprise Software</span>
+                                </div>
+                                <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
+                                    <span class="text-[#005F73]">👨‍🏫</span>
+                                    <span class="font-medium">Technical Training</span>
+                                </div>
+                                <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
+                                    <span class="text-[#0A9396]">🧠</span>
+                                    <span class="font-medium">AI/ML Concepts</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -820,7 +912,7 @@
         </div>
         <p class="text-sm text-slate-500 mt-4">Visual Resume for Yilmaz Mustafa.</p>
     </footer>
-    
+
     <!-- NEW: Floating Action Button Group -->
     <div id="floating-buttons" role="group" aria-label="Multimedia Resume Options">
         <button onclick="openPlayerModal('audio')" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
@@ -964,24 +1056,26 @@
     const modal = document.getElementById('multimedia-modal');
     const mediaContainer = document.getElementById('media-container');
 
-    const audioUrl = 'https://mockup.codesapien.net/resume-audio.mp3';
+    // UPDATED AUDIO URL
+    const audioUrl = 'https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a';
     const videoUrl = 'https://mockup.codesapien.net/resume-video-walkthrough.mp4';
-    
+
     window.openPlayerModal = function(type) {
         let mediaTag = '';
         if (type === 'audio') {
-            mediaTag = `<audio controls autoplay style="max-width: 100%;"><source src="${audioUrl}" type="audio/mp3">Your browser does not support the audio element.</audio>`;
+            // Using type audio/mp4 for m4a compatibility
+            mediaTag = `<audio controls autoplay style="max-width: 100%;"><source src="${audioUrl}" type="audio/mp4">Your browser does not support the audio element.</audio>`;
         } else if (type === 'video') {
             mediaTag = `<video controls autoplay style="max-width: 100%; max-height: 80vh;"><source src="${videoUrl}" type="video/mp4">Your browser does not support the video element.</video>`;
         }
-        
+
         mediaContainer.innerHTML = mediaTag;
         modal.style.display = 'flex';
     }
 
     window.closePlayerModal = function() {
         // Stop playback
-        mediaContainer.innerHTML = ''; 
+        mediaContainer.innerHTML = '';
         modal.style.display = 'none';
     }
 
@@ -1048,199 +1142,70 @@
         return html;
     };
 
-    // --- NEW: Advanced content extraction and matching helpers ---
-    // Attempt to fetch a URL and extract the main textual content. This can fail due to CORS.
-    const extractPageContent = async (url) => {
-        try {
-            const res = await fetch(url, { method: 'GET' });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const html = await res.text();
-            // Parse and extract likely article/main content by selecting <main>, <article>, then fallback to largest <div> or collection of <p>
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const selectors = ['main', 'article', 'div[id*=content]', 'div[class*=content]', 'div[class*=main]'];
-            let text = '';
-            for (const sel of selectors) {
-                const el = doc.querySelector(sel);
-                if (el) {
-                    text = Array.from(el.querySelectorAll('p'))
-                        .map(p => p.textContent.trim())
-                        .filter(t => t.length > 30)
-                        .join('\n\n');
-                    if (text && text.split('\n').length > 3) break;
-                }
-            }
-            if (!text) {
-                // fallback: gather the largest paragraph blocks in the body
-                const ps = Array.from(doc.body.querySelectorAll('p'))
-                    .map(p => p.textContent.trim())
-                    .filter(t => t.length > 20);
-                // take the top 30 paragraphs or up to 4000 chars
-                text = ps.slice(0, 30).join('\n\n').substring(0, 4000);
-            }
-            // If still empty, fallback to the entire body text (limited)
-            if (!text) {
-                text = doc.body.textContent.trim().replace(/\s{2,}/g, ' ').substring(0, 4000);
-            }
-            return text;
-        } catch (err) {
-            console.warn('Failed to fetch/extract page content:', err.message);
-            throw err;
-        }
-    };
-
-    // Normalize text: lowercase, remove non-word characters (keep + and #), normalize spaces
-    const normalizeText = (s) => s.toLowerCase().replace(/[\u2018\u2019\u201c\u201d]/g, "'").replace(/[^\w\s+#/\-.]/g, ' ').replace(/\s+/g, ' ').trim();
-
-    const tokenize = (s) => normalizeText(s).split(/\s+/).filter(Boolean);
-
-    // Simple fuzzy substring check (case-insensitive normalized) and small edit-distance fallback
-    const fuzzyMatch = (hay, needle) => {
-        hay = normalizeText(hay);
-        needle = normalizeText(needle);
-        if (!needle) return false;
-        if (hay.includes(needle)) return true;
-        // word-by-word fallback: check if most words of needle appear in hay
-        const nTokens = needle.split(/\s+/).filter(Boolean);
-        const hits = nTokens.filter(t => hay.includes(t)).length;
-        if (nTokens.length > 0 && hits / nTokens >= 0.6) return true;
-        return false;
-    };
-
-    // Common synonyms map to improve matching
-    const synonyms = {
-        'k8s': 'kubernetes',
-        'ci/cd': 'ci',
-        'ci cd': 'ci',
-        'micro-services': 'microservices',
-        'postgres': 'postgresql',
-        'mq': 'message queue',
-        'message queue': 'mq'
-    };
-
-    const applySynonyms = (s) => {
-        let out = s;
-        for (const [k, v] of Object.entries(synonyms)) {
-            out = out.replace(new RegExp('\\b' + k.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b', 'gi'), v);
-        }
-        return out;
-    };
-
-    // Score skills by token overlap, fuzzy match and occurrences
-    const computeSkillScores = (jobText, skills) => {
-        const jd = applySynonyms(jobText);
-        const jdTokens = tokenize(jd);
-        const tokenSet = new Set(jdTokens);
-        const scores = {};
-        skills.forEach(skill => {
-            const s = applySynonyms(skill.toLowerCase());
-            let score = 0;
-            // Exact word match
-            const regex = new RegExp('\\b' + s.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b', 'g');
-            if (jd.match(regex)) score += 3;
-            // Token overlap
-            const skillTokens = tokenize(s);
-            const overlap = skillTokens.filter(t => tokenSet.has(t)).length;
-            score += overlap;
-            // Fuzzy substring
-            if (fuzzyMatch(jd, s)) score += 2;
-            // Increase for multi-word skill matches
-            if (skillTokens.length > 1 && overlap === skillTokens.length) score += 1;
-            if (score > 0) scores[skill] = score;
-        });
-        // Normalize ordering
-        return Object.entries(scores).sort(([,a],[,b]) => b - a).map(([skill]) => skill);
-    };
-
-    // Optional remote LLM analysis wrapper: sends job + candidate profile to a provided endpoint and expects structured JSON
-    const runRemoteLLMAnalysis = async (apiUrl, apiKey, jobDescription, candidateProfile) => {
-        try {
-            const payload = {
-                jobDescription,
-                candidateProfile
-            };
-            const res = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': apiKey ? `Bearer ${apiKey}` : undefined
-                },
-                body: JSON.stringify(payload)
-            });
-            if (!res.ok) throw new Error('LLM endpoint returned ' + res.status);
-            const json = await res.json();
-            return json; // Expect { matchScore, matchedSkills, alignmentHits, notes }
-        } catch (err) {
-            console.warn('LLM analysis failed:', err.message);
-            throw err;
-        }
-    };
-
-    // --- IMPROVED MATCHING FUNCTION (replaces runLocalMatch) ---
-    const runLocalMatch = async (jobDescription, companyName, companyUrl) => {
-        // Try to extract page content when a URL is provided and the jobDescription seems short
-        let sourceText = jobDescription;
-        const shouldFetchPage = companyUrl && jobDescription.split(/\s+/).length < 50; // heuristic
-
-        if (shouldFetchPage) {
-            try {
-                const pageContent = await extractPageContent(companyUrl);
-                // Prefer the fetched page content if it looks substantial
-                if (pageContent && pageContent.split(/\s+/).length > 50) {
-                    sourceText = pageContent;
-                    // show a small note to the user in the input preview
-                    jobDescriptionInput.value = '--- Extracted content from: ' + companyUrl + '\n\n' + pageContent.substring(0, 2000);
-                }
-            } catch (err) {
-                // If fetch fails (likely due to CORS), leave jobDescription as-is and show a note
-                console.info('Skipping remote content extraction; using provided job description.');
-            }
-        }
-
-        const jdLower = sourceText.toLowerCase();
+    const runLocalMatch = (jobDescription, companyName, companyUrl) => {
+        const jdLower = jobDescription.toLowerCase();
+        const skillHits = {};
+        let totalMatchCount = 0;
 
         // 1. Convert Job Description for display (Preview logic)
-        const formattedJobDescription = markdownToHtml(sourceText);
+        const formattedJobDescription = markdownToHtml(jobDescription);
+
+        // Set input field as preview and read-only
         jobDescriptionInput.innerHTML = formattedJobDescription;
         jobDescriptionInput.readOnly = true;
         companyNameInput.readOnly = true;
         companyUrlInput.readOnly = true;
 
-        // 2. Compute matching using improved scoring
-        const matchedSkills = computeSkillScores(sourceText, candidateSkills).slice(0, 8);
 
-        // 3. Contextual alignment using fuzzy checks against experiencePoints
+        // 2. Calculate Skill Matches
+        candidateSkills.forEach(skill => {
+            const skillLower = skill.toLowerCase();
+            // Use word boundary to prevent partial matches (e.g., 'java' matching 'javascript')
+            const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
+            if (jdLower.match(regex)) {
+                skillHits[skill] = (skillHits[skill] || 0) + 1;
+                totalMatchCount++;
+            }
+        });
+
+        // Sort matched skills by hit count (and then alphabetically)
+        const matchedSkills = Object.entries(skillHits)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .map(([skill]) => skill);
+
+        // 3. Calculate Contextual Alignment
         const alignmentHits = [];
-        const jdNorm = normalizeText(sourceText);
         experiencePoints.forEach(point => {
-            if (fuzzyMatch(jdNorm, point.keyword) || fuzzyMatch(point.context, jdNorm)) {
+            if (jdLower.includes(point.keyword.toLowerCase())) {
                 alignmentHits.push(point.context);
             }
         });
 
-        // 4. Derive a match score: weighted combination of unique matched skills and alignment hits
-        const skillFactor = Math.min(matchedSkills.length, 10) / 10; // 0..1
-        const alignmentFactor = Math.min(alignmentHits.length, 5) / 5; // 0..1
-        const matchScore = Math.round((0.75 * skillFactor + 0.25 * alignmentFactor) * 100);
+        // 4. Generate Output and Update Cache
+        const matchScore = Math.min(Math.round((totalMatchCount / 10) * 100), 100);
 
         lastAnalysisResult = {
             matchScore,
             matchedSkills,
             alignmentHits,
-            jobDescription: sourceText,
+            jobDescription,
             companyName,
             companyUrl
         };
 
+        // Generate Simulated Security Report
         const securityReport = generateSimulatedSecurityReport(companyUrl);
 
+        // Format HTML Output
         const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
         const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
         const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('');
 
+
         const analysisOutput = `
                 <p><strong>Match Score: ${matchScore}% 🎯</strong><br>
-                (Improved analysis using token overlap, synonyms and content extraction)</p>
+                (Based on alignment of top 20 prioritized keywords)</p>
 
                 <hr class="my-3 border-t border-slate-300">
 
@@ -1262,8 +1227,9 @@
                 <ul class="space-y-1">
                     ${formattedSecurity}
                 </ul>
-                <p class="text-xs text-slate-500 mt-2"><em>*This is an improved, local analysis. For higher-quality results, you can configure an external LLM endpoint in the UI to perform semantic matching (not enabled by default).</em></p>
+                <p class="text-xs text-slate-500 mt-2"><em>*This is a simulated report for presentation purposes only, based on assumed security best practices.</em></p>
             `;
+
 
         outputContent.innerHTML = `<div class="bg-slate-50 p-4 rounded-lg border border-slate-200 overflow-x-auto text-sm">${analysisOutput}</div>`;
         exportContainer.classList.remove('hidden');
@@ -1524,15 +1490,15 @@
                     <h1>YILMAZ MUSTAFA</h1>
                     <p>Java & Spring Software Engineer</p>
                     <div class="contact-bar">
-                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">yilmaz@codesapien.net</a> | 
-                        <a href="https://codesapien.net" style="color: #0A9396;">codesapien.net</a> | 
+                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">yilmaz@codesapien.net</a> |
+                        <a href="https://codesapien.net" style="color: #0A9396;">codesapien.net</a> |
                         <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">codesapienbe (LinkedIn)</a>
                     </div>
                 </div>
 
                 <div class="section-title">PROFESSIONAL SUMMARY</div>
                 <p style="margin-bottom: 10pt;">Software Engineer with <strong>8+ years of expertise</strong> in enterprise application development using <strong>Java</strong> and <strong>Spring Boot</strong>. Proven track record delivering scalable, high-performance applications and <strong>CI/CD automation</strong> across Monolith, <strong>Microservices</strong>, and <strong>Modulith</strong> architectures. Supported <strong>10k+ concurrent users</strong> and specialized in <strong>REST/SOAP APIs</strong>, data integration, and <strong>messaging protocols</strong> (SWIFT MT/MX).</p>
-                
+
                 <div class="section-title">CORE TECHNICAL EXPERTISE</div>
                 <table>
                     <tr>
@@ -1569,7 +1535,7 @@
                 <div class="section-title">EDUCATION & DEVELOPMENT</div>
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 50%; padding-right: 15pt; vertical-align: top;">
+                        <td colspan="2" style="padding-bottom: 15pt;">
                             <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Academic History</p>
                             <div style="margin-bottom: 10pt;">
                                 <p style="font-size: 11pt; font-weight: bold; color: #333;">Postgraduate AI & Machine Learning (Completed)</p>
@@ -1584,7 +1550,9 @@
                                 <p style="font-size: 10pt; color: #555;">Beykent University, Istanbul, Turkiye (2010)</p>
                             </div>
                         </td>
-                        <td style="width: 50%; vertical-align: top;">
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding-right: 15pt; vertical-align: top;">
                             <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Certifications & Training</p>
                             <ul style="margin: 0; padding-left: 20pt; list-style-type: disc; margin-bottom: 10pt;">
                                 <li style="margin-bottom: 4pt;"><strong>SWIFT Messaging Systems</strong> (MX/MT, ISO 20022, AMH)</li>
@@ -1592,6 +1560,8 @@
                                 <li style="margin-bottom: 4pt;">Spring Boot and Angular (VDAB)</li>
                                 <li style="margin-bottom: 4pt;">C and System Programming</li>
                             </ul>
+                        </td>
+                        <td style="width: 50%; vertical-align: top;">
                             <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Global Competencies</p>
                             <p style="font-size: 10pt; color: #555;"><strong>Languages:</strong> Turkish (Native), English (Fluent), Dutch (Professional)</p>
                             <p style="font-size: 10pt; color: #555;"><strong>Domains:</strong> Financial Messaging, Enterprise Software & SaaS, Technical Training</p>
@@ -1619,4 +1589,3 @@
 </script>
 </body>
 </html>
-

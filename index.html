@@ -79,6 +79,36 @@
             a {
                 text-decoration: underline;
             }
+
+            /* --- New: Force single-column layouts on print to avoid two-column/timeline issues --- */
+            /* Tailwind responsive utility classes include colons in class names; escape them here. */
+            .md\:grid, .md\:grid-cols-2, .md\:grid-cols-3, .md\:gap-8, .md\:col-span-2, .md\:col-span-3 {
+                display: block !important;
+                grid-template-columns: none !important;
+                width: 100% !important;
+            }
+            /* Ensure items that were right-aligned on desktop are left-aligned in print */
+            .md\:text-right {
+                text-align: left !important;
+                padding-right: 0 !important;
+            }
+            /* Neutralize left margins introduced for timeline visuals */
+            .ml-8, .ml-6, .md\:ml-0 {
+                margin-left: 0 !important;
+            }
+            /* Prevent small date columns from compressing the main content */
+            .experience-list .p-4, .experience-list [style*="min-width"] {
+                min-width: 0 !important;
+            }
+            /* Ensure grid-based development/education cards stack vertically */
+            .grid, .grid-cols-1, .sm\:grid-cols-2, .lg\:grid-cols-3, .xl\:grid-cols-4 {
+                display: block !important;
+                width: 100% !important;
+            }
+            /* Avoid breaking cards across pages */
+            .rounded-xl, .project-card-border, .bg-white {
+                page-break-inside: avoid;
+            }
         }
         /* Added class for project cards to ensure proper styling across environments */
         .project-card-border {
@@ -134,14 +164,14 @@
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Professional Snapshot</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div>
-                        <p class="text-6xl font-extrabold text-[#CA6702]">5+</p>
-                        <p class="text-xl font-medium text-slate-700 mt-2">Years of Experience</p>
-                        <p class="text-slate-500 mt-1">In enterprise application development.</p>
+                        <p class="text-6xl font-extrabold text-[#CA6702]">8+</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Years of Development</p>
+                        <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
                     </div>
                     <div>
-                        <p class="text-6xl font-extrabold text-[#BB3E03]">3</p>
+                        <p class="text-6xl font-extrabold text-[#BB3E03]">4</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Core Architectures</p>
-                        <p class="text-slate-500 mt-1">Monolith, Microservices, and Modulith.</p>
+                        <p class="text-slate-500 mt-1">Monolith, Microservices, Modulith, and SCS.</p>
                     </div>
                     <div>
                         <p class="text-6xl font-extrabold text-[#AE2012]">10k+</p>
@@ -219,55 +249,111 @@
         <section id="experience" class="mb-16">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Professional Journey</h2>
             <div class="relative border-l-4 border-[#94D2BD] ml-6 md:ml-0 md:mx-auto">
+                <!-- EXPERIENCE 1: Python AI Applications (Freelance) -->
                 <div class="mb-10 ml-8 md:ml-0">
                     <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div class="md:text-right md:pr-8">
-                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Feb 2025 – Aug 2025</time>
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Feb 2025 – May 2025 (4 mos)</time>
                             <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <span class="text-sm font-medium text-[#0A9396]">(Freelance)</span>
+                            <span class="text-sm font-medium text-[#0A9396]">(Freelance - Python AI Focus)</span>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
-                            <p class="text-base font-normal text-slate-600">Developed and deployed high-performance Spring Boot 3.x apps, orchestrating CI/CD pipelines with Docker and Terraform.</p>
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Developed <strong>Python AI Applications</strong> using <strong>OpenCV</strong> and <strong>TensorFlow</strong> for computer vision systems, integrating them via <strong>FastAPI</strong> backends.</li>
+                                <li>Implemented cross-platform mobile applications using <strong>React Native</strong> with embedded AI capabilities (<strong>TensorFlow Lite</strong>).</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: Python, Computer Vision, FastAPI, React Native, TensorFlow, NestJS, Software Design.</p>
                         </div>
                     </div>
                 </div>
+                <!-- EXPERIENCE 2: Java Software Engineer (theMatchBox) -->
                 <div class="mb-10 ml-8 md:ml-0">
                     <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div class="md:text-right md:pr-8">
-                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Oct 2024 – Feb 2025</time>
-                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <p class="text-sm font-normal text-slate-500">TheMatchBox, Brussels</p>
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Oct 2024 – Feb 2025 (5 mos)</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Java Software Engineer</h3>
+                            <p class="text-sm font-normal text-slate-500">theMatchBox, Antwerp</p>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
-                            <p class="text-base font-normal text-slate-600">Enhanced search algorithms with ZeroMQ, improving latency by 15%, and implemented robust automated testing strategies.</p>
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Developed custom **ElasticSearch Java Plugins** for advanced search and matching algorithms, improving accuracy and relevance.</li>
+                                <li>Performed JVM tuning and Spring application performance enhancement, achieving measurable latency reduction using **ZeroMQ** for communication.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: Java, Spring Boot, Elasticsearch, ZeroMQ, Distributed Systems, Performance Optimization.</p>
                         </div>
                     </div>
                 </div>
+                <!-- EXPERIENCE 3: Java Software Engineer (SWIFT) -->
                 <div class="mb-10 ml-8 md:ml-0">
                     <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div class="md:text-right md:pr-8">
-                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Jun 2023 – Oct 2024</time>
-                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <p class="text-sm font-normal text-slate-500">SWIFT, La Hulpe</p>
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Jun 2023 – Oct 2024 (1 yr 5 mos)</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Java Software Engineer</h3>
+                            <p class="text-sm font-normal text-slate-500">SWIFT, Brussels</p>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
-                            <p class="text-base font-normal text-slate-600">Maintained mission-critical financial messaging systems and upgraded security infrastructure with modern cryptographic standards.</p>
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Implemented and maintained <strong>SWIFT MT/MX messaging protocols</strong> on the Alliance Messaging Hub (AMH) for secure financial communication.</li>
+                                <li>Contributed to <strong>Microservices design</strong> and enterprise security upgrades for high-volume, mission-critical transaction processing systems (using <strong>Java EE/Oracle SQL</strong>).</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: Java EE, Messaging Protocols, Data Security, Oracle SQL, IBM MQ, API Development, Agile.</p>
                         </div>
                     </div>
                 </div>
+                <!-- EXPERIENCE 4: Software Engineer & Instructor (INTEC BRUSSEL) -->
+                <div class="mb-10 ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Mar 2020 – Jun 2023 (3 yrs 4 mos)</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
+                            <span class="text-sm font-medium text-[#0A9396]">& Instructor (INTEC)</span>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Developed and maintained full-stack internal applications (<strong>Student Management, QR Attendance</strong>) using <strong>Spring Boot</strong>, <strong>Spring Cloud</strong>, and <strong>Vaadin</strong>.</li>
+                                <li>Delivered dual-language curriculum (<strong>Java EE, Spring Boot, Python</strong>) to over 100 professional developers, achieving a <strong>95% job placement rate</strong>.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: Spring Boot, Microservices, Spring Cloud, Java EE, Angular, REST Services, Powershell, Mentoring.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- EXPERIENCE 5: Java Software Engineer (VDAB) -->
+                <div class="mb-10 ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Apr 2019 – Oct 2019 (7 mos)</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Java Software Engineer</h3>
+                            <p class="text-sm font-normal text-slate-500">VDAB, Brussels</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Migrated legacy employment system data formats and schemas to modern RESTful <strong>Spring Boot Applications</strong>.</li>
+                                <li>Contributed to Java development of <strong>matching algorithms</strong> and API services for candidate processing against the specialized <strong>Elise</strong> database.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: Spring Boot, REST APIs, Java EE, Data Migration, JDBC, Scrum.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- EXPERIENCE 6: Software Engineer (VKODIT) -->
                 <div class="ml-8 md:ml-0">
                     <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div class="md:text-right md:pr-8">
-                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Mar 2020 – Jun 2023</time>
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Jan 2017 – Dec 2018 (2 yrs)</time>
                             <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <span class="text-sm font-medium text-[#0A9396]">& Instructor</span>
+                            <span class="text-sm font-medium text-[#0A9396]">(Self-employed, VKODIT)</span>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
-                            <p class="text-base font-normal text-slate-600">Delivered enterprise Java and Spring Boot curriculum to over 100 developers and built CI/CD environments for training.</p>
+                            <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
+                                <li>Developed <strong>C# .Net desktop applications</strong> and powershell automation tools with robust <strong>MSSQL</strong> database integration for small enterprises.</li>
+                                <li>Managed development, project delivery, and client acquisition for <strong>E-Commerce solutions</strong> (WordPress/WooCommerce with custom PHP plugins).</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-2">Skills: C#, MSSQL, Java, PHP, E-Commerce, Software Project Management, Entrepreneurship.</p>
                         </div>
                     </div>
                 </div>
@@ -278,7 +364,7 @@
         <section id="architecture" class="mb-16">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Architectural Competencies</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Monolith Card -->
                     <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#0A9396]">
                         <div class="flex items-start gap-3">
@@ -288,7 +374,6 @@
                                 <p class="text-slate-600 text-sm mt-1">Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.</p>
                                 <div class="mt-3 flex flex-wrap gap-2">
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Layered</span>
-                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Vertical Slices</span>
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Modularization</span>
                                 </div>
                             </div>
@@ -303,8 +388,7 @@
                                 <p class="text-slate-600 text-sm mt-1">Design resilient, independently deployable services with strong observability.</p>
                                 <div class="mt-3 flex flex-wrap gap-2">
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Service Discovery</span>
-                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Circuit Breaker</span>
-                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">API Gateway</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">API Gateway</span>
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Observability</span>
                                 </div>
                             </div>
@@ -325,6 +409,21 @@
                             </div>
                         </div>
                     </div>
+                    <!-- SCS Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#CA6702]">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">📦</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Self-Contained Services (SCS)</h3>
+                                <p class="text-slate-600 text-sm mt-1">Expertise in developing vertically integrated services with dedicated frontend/backend stacks.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Java EE</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#eef2ff] text-[#005F73] font-semibold">Vaadin</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Independent Stack</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <p class="text-xs text-slate-500 mt-4 text-center">Also familiar with: Event-Driven Architecture, Service Mesh, and asynchronous messaging patterns.</p>
             </div>
@@ -340,7 +439,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #005F73;">
                     <h4 class="text-lg font-semibold text-[#005F73]">1. Spring Vision Framework 👁️</h4>
                     <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot 3.x, Java 21, OpenCV | <a href="https://github.com/codesapienbe/spring-vision" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
-                    <p class="text-slate-600 text-sm">A production-ready computer vision framework delivered as a **Spring Boot Starter**, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.</p>
+                    <p class="text-slate-600 text-sm">A production-ready computer vision framework delivered as a <strong>Spring Boot Starter</strong>, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #0A9396;">
                     <h4 class="text-lg font-semibold text-[#005F73]">2. Spring Finqube ISO 20022 Starter 💰</h4>
@@ -350,7 +449,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #94D2BD;">
                     <h4 class="text-lg font-semibold text-[#005F73]">3. Food Score MLOps Pipeline 📊</h4>
                     <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot, PostgreSQL, OpenAPI | <a href="https://github.com/codesapienbe/food-score" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
-                    <p class="text-slate-600 text-sm">Architected a complete enterprise application with structured JSON logging and **OpenAPI** documentation, demonstrating a full-cycle **MLOps** pipeline integration.</p>
+                    <p class="text-slate-600 text-sm">Architected a complete enterprise application with structured JSON logging and <strong>OpenAPI</strong> documentation, demonstrating a full-cycle <strong>MLOps</strong> pipeline integration.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #EE9B00;">
                     <h4 class="text-lg font-semibold text-[#005F73]">4. Instyper - Voice-to-Text Desktop App 🎙️</h4>
@@ -365,7 +464,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #AE2012;">
                     <h4 class="text-lg font-semibold text-[#005F73]">6. DeepVoice - Voice Analysis Library 🎤</h4>
                     <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Python, AI/ML, Signal Processing | <a href="https://github.com/codesapienbe/DeepVoice" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
-                    <p class="text-slate-600 text-sm">A comprehensive **Python library** for voice analysis, processing, and **speaker identification**, reinforcing active interest and competency in the AI/ML domain.</p>
+                    <p class="text-slate-600 text-sm">A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.</p>
                 </div>
             </div>
         </section>
@@ -376,7 +475,16 @@
             <div class="max-w-5xl mx-auto">
                 <!-- Grid of small detailed cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch auto-rows-fr">
-                    <!-- Each card -->
+                    <!-- Certifications -->
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#AE2012]">Expert Certification</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">SWIFT Messaging Systems</h3>
+                        <p class="text-xs text-slate-500">Internal Training (MX/MT, ISO 20022, AMH)</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">SWIFT</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">ISO 20022</span>
+                        </div>
+                    </div>
                     <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
                         <div class="text-[12px] font-semibold text-[#0A9396]">Certification</div>
                         <h3 class="text-sm font-bold text-slate-800 mt-1">Agile in Software Engineering</h3>
@@ -404,15 +512,7 @@
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">Spring</span>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
-                        <div class="text-[12px] font-semibold text-[#0A9396]">Self-Study</div>
-                        <h3 class="text-sm font-bold text-slate-800 mt-1">Agile & Security Foundations</h3>
-                        <p class="text-xs text-slate-500">Independent</p>
-                        <div class="mt-3 flex flex-wrap gap-2">
-                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Agile</span>
-                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Security</span>
-                        </div>
-                    </div>
+                    <!-- Coursework -->
                     <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
                         <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
                         <h3 class="text-sm font-bold text-slate-800 mt-1">C and System Programming</h3>
@@ -439,6 +539,58 @@
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#eef2ff] text-[#005F73] font-semibold">Web</span>
                             <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Design</span>
                         </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Self-Study</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Agile & Security Foundations</h3>
+                        <p class="text-xs text-slate-500">Independent</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Agile</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENHANCED BLOCK: Education & Languages -->
+        <section id="education" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Academic History Card (Spanning 2 columns) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-2">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning (Completed)</p>
+                            <p class="text-sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems (Incomplete)</p>
+                            <p class="text-sm text-slate-600">Queen Mary, University of London, UK (2013)</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">Bachelor Degree, Tourism and Hotel Management</p>
+                            <p class="text-sm text-slate-600">Beykent University, Istanbul, Turkiye (2010)</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Languages & Domain Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73]">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
+                    <div class="space-y-3">
+                        <p class="text-base font-semibold text-slate-800">Language Proficiency</p>
+                        <ul class="list-none space-y-1 text-sm text-slate-700">
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Turkish**: Native</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**English**: Fluent</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Dutch**: Professional</li>
+                        </ul>
+                        <p class="text-base font-semibold text-slate-800 mt-4">Domain Expertise</p>
+                        <ul class="list-none space-y-1 text-sm text-slate-700">
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Financial Messaging (SWIFT, ISO 20022)</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Enterprise Software & SaaS</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Technical Training</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -589,8 +741,9 @@
     const candidateSkills = [
         'Java 21', 'Java 17', 'Spring Boot 3.x', 'Spring Cloud', 'Spring Security', 'REST', 'SOAP',
         'PostgreSQL', 'Oracle', 'JPA', 'Hibernate', 'GraphQL', 'Docker', 'Kubernetes',
-        'Terraform', 'Jenkins', 'CI/CD', 'DevOps', 'Microservices', 'Modulith', 'Monolith',
-        'TDD', 'JUnit 5', 'Mockito', 'OpenAPI', 'Swagger', 'Messaging', 'MQ', 'Python', 'Computer Vision'
+        'Terraform', 'Jenkins', 'CI/CD', 'DevOps', 'Microservices', 'Modulith', 'Monolith', 'SCS',
+        'TDD', 'JUnit 5', 'Mockito', 'OpenAPI', 'Swagger', 'Messaging', 'MQ', 'Python', 'Computer Vision',
+        'ElasticSearch', 'ZeroMQ', 'C#', 'MSSQL', 'Vaadin', 'React'
     ];
 
     const experiencePoints = [
@@ -599,10 +752,12 @@
         { keyword: 'financial messaging', context: 'Maintained mission-critical financial messaging systems (SWIFT AMH).' },
         { keyword: 'security', context: 'Executed security upgrades using cryptographic standards (SWIFT).' },
         { keyword: 'testing', context: 'Implemented robust automated testing strategies (TheMatchBox).' },
-        { keyword: 'algorithms', context: 'Enhanced search algorithms using ZeroMQ (15% latency reduction).' },
+        { keyword: 'ElasticSearch', context: 'Developed custom ElasticSearch Java Plugins for search algorithms (TheMatchBox).' },
+        { keyword: 'ZeroMQ', context: 'Used ZeroMQ for inter-service communication to reduce latency (TheMatchBox).' },
+        { keyword: 'C#', context: 'Developed C# desktop applications with MSSQL database integration (VKODIT).' },
+        { keyword: 'Python AI', context: 'Developed Python AI/Computer Vision systems with TensorFlow (Freelance AI).' },
         { keyword: 'starter', context: 'Developed Spring Boot Starter frameworks (Spring Vision, Finqube).' },
-        { keyword: 'AI/ML', context: 'Experience building AI/ML applications (Spring Vision, DeepVoice).' },
-        { keyword: 'Docker', context: 'Used Docker and Terraform for deployment (Freelance).' }
+        { keyword: 'MQ', context: 'Experienced with IBM MQ and other messaging protocols (SWIFT).' }
     ];
 
     const companyNameInput = document.getElementById('companyNameInput');
@@ -699,6 +854,7 @@
         const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
         const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
         const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('');
+
 
         const analysisOutput = `
                 <p><strong>Match Score: ${matchScore}% 🎯</strong><br>
@@ -1012,7 +1168,7 @@
                     <div class="job-desc">${htmlJobDescription}</div>
 
                     <h2>💡 Technical Skills Match <span class="section-badge">${matchedSkills.length} Skills Identified</span></h2>
-                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">The following technical skills from Yilmaz's profile align with requirements in the job description:</p>
+                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">The following technical skills from Yilmaz Mustafa's profile align with requirements in the job description:</p>
                     <ul>${htmlSkills || '<li style="color: #AE2012;">No direct keyword matches found in the job description.</li>'}</ul>
 
                     <h2>⭐ Experience Alignment <span class="section-badge">${alignmentHits.length} Matches</span></h2>
@@ -1046,7 +1202,7 @@
                 </html>
             `;
 
-        const filename = `YilmazMustafa_SkillMatch_${companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.doc`;
+        const filename = `Yilmaz_Mustafa_Match_Report_${companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.doc`;
         const blob = new Blob(['\ufeff', docContent], {
             type: 'application/msword'
         });
@@ -1069,13 +1225,15 @@
             title: "Yilmaz Mustafa",
             subtitle: "Java & Spring Software Engineer",
             contact: "Email: yilmaz@codesapien.net | Portfolio: codesapien.net | LinkedIn: codesapienbe",
-            summary: "Software Engineer with 5+ years of expertise in enterprise application development using Spring Boot and modern software architecture (Monolith, Microservices, Modulith). Proven track record delivering scalable, high-performance applications and CI/CD automation. Supported 10k+ concurrent users and specialized in REST/SOAP APIs and data integration.",
+            summary: "Software Engineer with 8+ years of expertise in enterprise application development using Java and Spring Boot. Proven track record delivering scalable, high-performance applications and CI/CD automation across Monolith, Microservices, and Modulith architectures. Supported 10k+ concurrent users and specialized in REST/SOAP APIs, data integration, and messaging protocols.",
             skills: candidateSkills, // Reuse core skill list
             experience: [
-                { company: "Freelance", title: "Software Engineer", dates: "Feb 2025 – Aug 2025", desc: "Developed and deployed high-performance Spring Boot 3.x apps, orchestrating CI/CD pipelines with Docker and Terraform." },
-                { company: "TheMatchBox, Brussels", title: "Software Engineer", dates: "Oct 2024 – Feb 2025", desc: "Enhanced search algorithms with ZeroMQ, improving latency by 15%, and implemented robust automated testing strategies." },
-                { company: "SWIFT, La Hulpe", title: "Software Engineer", dates: "Jun 2023 – Oct 2024", desc: "Maintained mission-critical financial messaging systems (AMH) and upgraded security infrastructure with modern cryptographic standards." },
-                { company: "INTEC Brussel", title: "Software Engineer & Instructor", dates: "Mar 2020 – Jun 2023", desc: "Delivered enterprise Java and Spring Boot curriculum to over 100 developers and built CI/CD environments for training." },
+                { company: "Freelance", title: "Software Engineer", dates: "Feb 2025 – May 2025 (4 mos)", desc: "Developed **Python AI Applications** (Computer Vision, TensorFlow) and integrated them into **React Native** mobile frontends via FastAPI backends." },
+                { company: "theMatchBox, Antwerp", title: "Java Software Engineer", dates: "Oct 2024 – Feb 2025 (5 mos)", desc: "Developed custom **ElasticSearch Java Plugins** for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing **ZeroMQ**." },
+                { company: "SWIFT, Brussels", title: "Java Software Engineer", dates: "Jun 2023 – Oct 2024 (1 yr 5 mos)", desc: "Implemented and maintained **SWIFT MT/MX messaging protocols** (ISO 20022) on Alliance Messaging Hub (AMH) and contributed to enterprise security upgrades and Microservices design." },
+                { company: "INTEC Brussel", title: "Software Engineer & Instructor", dates: "Mar 2020 – Jun 2023 (3 yrs 4 mos)", desc: "Developed internal Spring Boot/Spring Cloud applications (Management, Attendance) using **Vaadin** and delivered dual-language Java/Python curriculum to over 100 developers (**95% job placement rate**)." },
+                { company: "VDAB, Brussels", title: "Java Software Engineer", dates: "Apr 2019 – Oct 2019 (7 mos)", desc: "Migrated legacy employment data systems to modern **RESTful Spring Boot Applications** and contributed to Java matching algorithm development against specialized database." },
+                { company: "VKODIT (Self-employed), Bursa", title: "Software Engineer", dates: "Jan 2017 – Dec 2018 (2 yrs)", desc: "Developed **C# desktop applications** and Java automation tools with robust **MSSQL** database integration for enterprise clients. Managed **E-Commerce solutions** (WordPress/PHP)." },
             ],
             projects: [
                 { name: "Spring Vision Framework", tech: "Spring Boot 3.x, Java 21, OpenCV", desc: "A production-ready computer vision framework delivered as a Spring Boot Starter, enabling zero-configuration object detection and intelligent applications." },
@@ -1089,34 +1247,42 @@
                 { title: "Bachelor Degree, Tourism and Hotel Management", institution: "Beykent University, Istanbul, Turkiye (2010)" },
             ],
             certifications: [
+                "SWIFT Messaging Systems (MX/MT, ISO 20022, AMH) - Expert Training",
                 "Agile in Software Engineering (SWIFT Internal Training)",
                 "Spring Boot and Angular (VDAB Internal Training)",
                 "Enterprise Java Development (INTEC Brussel Training)",
-                "Certifications in Agile and Security",
             ]
+        };
+
+        // Helper function to replace **markdown** with <strong> HTML for Word export
+        const markdownToHtmlExport = (text) => {
+            if (!text) return '';
+            // Replace **bold** with <strong>bold</strong>
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         };
 
         // Build experience as single-column full-width cards (no narrow date column)
         const htmlExperience = exportData.experience.map((exp, index) => {
             const colors = ['#005F73', '#0A9396', '#94D2BD', '#EE9B00'];
-            const bgColors = ['#ffffff', '#ffffff', '#ffffff', '#fffef8'];
             const color = colors[index % colors.length];
-            const bgColor = bgColors[index % bgColors.length];
+
+            // Convert bullet points from array to HTML list, applying markdown conversion
+            const descHtml = exp.desc.split('. ').filter(s => s.trim().length > 0).map(s => {
+                return `<li>${markdownToHtmlExport(s.trim())}</li>`;
+            }).join('');
 
             return `
-                <div style="width:100%; margin-bottom:18px; background-color:${bgColor}; padding:16px; border-radius:8px; border:1px solid #eef8f8; page-break-inside:avoid;">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
-                        <div style="flex:1 1 auto; min-width:220px;">
-                            <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
-                                <div style="font-size:13pt; font-weight:700; color:${color};">${exp.title}</div>
-                                <div style="font-size:10pt; font-weight:600; color:#666;">• ${exp.company}</div>
-                            </div>
-                            <div style="margin-top:8px; color:#333; font-size:10pt; line-height:1.6;">${exp.desc}</div>
-                        </div>
-                        <div style="flex:0 0 auto; min-width:120px; text-align:right;">
-                            <div style="display:inline-block; padding:6px 10px; border-radius:14px; background:#ffffff; border:1px solid #e6e6e6; font-size:9pt; font-weight:700; color:#333;">${exp.dates}</div>
-                        </div>
-                    </div>
+                <div style="width:100%; margin-bottom:18px; background-color:#ffffff; padding:16px; border-radius:8px; border:1px solid #eef8f8; page-break-inside:avoid; border-left:4px solid ${color};">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="vertical-align: top;">
+                            <td style="width: 75%; padding-right: 15px;">
+                                <div style="font-size:12pt; font-weight:700; color:#005F73; margin-bottom:2px;">${exp.title}</div>
+                                <div style="font-size:10pt; font-weight:600; color:#666; margin-bottom:4px;">${exp.company}</div>
+                            </td>
+                            <td style="width: 25%; text-align: right; font-size: 9pt; color: #666; font-weight: bold; padding-top:2px;">${exp.dates}</td>
+                        </tr>
+                    </table>
+                    <ul style="margin-top:8px; color:#333; font-size:10pt; line-height:1.6; padding-left: 20px; list-style-type: disc;">${descHtml}</ul>
                 </div>
             `;
         }).join('');
@@ -1140,9 +1306,9 @@
 
         // Education entries: keep stacked full-width cards
         const htmlEducation = exportData.education.map((edu) => `
-            <div style="width:100%; margin-bottom:12px; padding:14px; background:#ffffff; border-left:5px solid #0A9396; border-radius:8px; box-shadow:0 0 0 1px rgba(10,147,150,0.03);">
+            <div style="width:100%; margin-bottom:12px; padding:10px; background:#ffffff; border-left:4px solid #0A9396; border-radius:6px; box-shadow:0 0 0 1px rgba(10,147,150,0.03);">
                 <div style="font-weight:700; color:#005F73; font-size:11pt;">${edu.title}</div>
-                <div style="font-size:10pt; color:#666; margin-top:6px;">${edu.institution}</div>
+                <div style="font-size:10pt; color:#666; margin-top:4px;">${edu.institution}</div>
             </div>
         `).join('');
 
@@ -1155,60 +1321,53 @@
 
         // Architectural competencies block for export (fix undefined var)
         const htmlArchitecturalCompetencies = `
-            <div style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px;">
+            <div style="display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:10px; margin-top:15px;">
                 <div style="border-top:4px solid #0A9396; background:#ffffff; padding:12px; border-radius:8px;">
-                    <div style="font-weight:700; color:#005F73;">Monolith</div>
+                    <div style="font-weight:700; color:#005F73; font-size:11pt;">Monolith</div>
                     <div style="color:#555; font-size:10pt; margin-top:4px;">Cohesive app with layered design and modularization.</div>
-                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
-                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">Layered</span>
-                        <span style="font-size:9pt; background:#fef7ec; color:#EE9B00; padding:3px 8px; border-radius:999px;">Vertical Slices</span>
-                    </div>
                 </div>
                 <div style="border-top:4px solid #EE9B00; background:#ffffff; padding:12px; border-radius:8px;">
-                    <div style="font-weight:700; color:#005F73;">Microservices</div>
+                    <div style="font-weight:700; color:#005F73; font-size:11pt;">Microservices</div>
                     <div style="color:#555; font-size:10pt; margin-top:4px;">Resilient services with discovery, gateway, and observability.</div>
-                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
-                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">Discovery</span>
-                        <span style="font-size:9pt; background:#fff2e6; color:#CA6702; padding:3px 8px; border-radius:999px;">Circuit Breaker</span>
-                        <span style="font-size:9pt; background:#f6f7fb; color:#005F73; padding:3px 8px; border-radius:999px;">API Gateway</span>
-                    </div>
                 </div>
                 <div style="border-top:4px solid #94D2BD; background:#ffffff; padding:12px; border-radius:8px;">
-                    <div style="font-weight:700; color:#005F73;">Modulith</div>
+                    <div style="font-weight:700; color:#005F73; font-size:11pt;">Modulith</div>
                     <div style="color:#555; font-size:10pt; margin-top:4px;">Explicit module boundaries using DDD and Spring Modulith.</div>
-                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
-                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">DDD</span>
-                        <span style="font-size:9pt; background:#fef7ec; color:#EE9B00; padding:3px 8px; border-radius:999px;">Bounded Contexts</span>
-                    </div>
+                </div>
+                <div style="border-top:4px solid #CA6702; background:#ffffff; padding:12px; border-radius:8px;">
+                    <div style="font-weight:700; color:#005F73; font-size:11pt;">SCS (Self-contained)</div>
+                    <div style="color:#555; font-size:10pt; margin-top:4px;">Vertically integrated services via Java EE + Spring Boot + Vaadin.</div>
                 </div>
             </div>
+             <p style="font-size: 9pt; margin-top: 10px; color: #666;">Key concepts: Domain-Driven Design (DDD), Event-Driven Architecture, API Gateway, Service Mesh.</p>
         `;
 
         // Education & Development: stacked full-width sections instead of two-column layout
         const htmlEducationDevelopment = `
-            <div style="display:block; width:100%; gap:18px;">
-                <div style="width:100%; background:#f7fcfc; padding:18px; border-radius:8px; border:1px solid #e6f6f7; margin-bottom:14px;">
-                    <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🎓 Academic History</div>
-                    ${htmlEducation}
-                </div>
-
-                <div style="width:100%; background:#fff7ec; padding:18px; border-radius:8px; border:1px solid #fff0df; margin-bottom:14px;">
-                    <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🏆 Certifications & Training</div>
-                    ${htmlCertifications}
-                </div>
-
-                <div style="width:100%; background:#ffffff; padding:14px; border-radius:8px; border:1px solid #f0e9de;">
-                    <div style="font-size:12pt; font-weight:700; color:#005F73; margin-bottom:10px;">🗣️ Languages & Domain</div>
-                    <div style="font-size:10pt; color:#333;">
-                        <strong>Language Proficiency:</strong><br>
-                        Turkish (Native) · English (Fluent) · Dutch (Professional)
-                        <br><br>
-                        <strong>Domain Expertise:</strong><br>
-                        Financial Messaging (SWIFT, ISO 20022) · Enterprise Software & SaaS · Technical Training
-                    </div>
-                </div>
-            </div>
+            <table style="width: 100%; border-collapse: collapse; margin-top:15px;">
+                <tr style="vertical-align: top;">
+                    <td style="width: 50%; padding-right: 15px;">
+                         <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🎓 Academic History</div>
+                        ${htmlEducation}
+                    </td>
+                    <td style="width: 50%; padding-left: 15px; border-left: 1px solid #ddd;">
+                        <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🏆 Certifications & Training</div>
+                        <div style="background:#f7fcfc; padding:12px; border-radius:6px; margin-bottom:12px;">
+                             ${htmlCertifications}
+                        </div>
+                        <div style="font-size:12pt; font-weight:700; color:#0A9396; margin-bottom:10px; margin-top:10px;">🗣️ Languages & Domain</div>
+                        <div style="font-size:10pt; color:#333; background:#fff; padding:10px; border-radius:6px;">
+                            <strong>Language Proficiency:</strong><br>
+                            Turkish (Native) · English (Fluent) · Dutch (Professional)
+                            <br><br>
+                            <strong>Domain Expertise:</strong><br>
+                            Financial Messaging (SWIFT, ISO 20022) · Enterprise Software & SaaS · Technical Training
+                        </div>
+                    </td>
+                </tr>
+            </table>
         `;
+
 
         const docContent = `
             <html lang="en">
@@ -1220,7 +1379,8 @@
                     .container { max-width:920px; margin:20px auto; padding:18px; }
                     .header { background: linear-gradient(135deg, #005F73 0%, #0A9396 100%); color:white; padding:28px; border-radius:8px; text-align:center; }
                     .header h1 { margin:0; font-size:28pt; }
-                    .header p { margin:6px 0 0 0; color:#E9D8A6; font-size:13pt; }
+                    /* Ensure header subtitle/contact use a darker contrasting color when exported to Word/PDF (some renderers ignore background gradients) */
+                    .header p { margin:6px 0 0 0; color:#94D2BD; font-size:13pt; font-weight:700; }
                     .section { margin-top:22px; }
                     .section-title { display:block; background:linear-gradient(90deg, #f0f9fa, #eef9f9); border-left:6px solid #0A9396; padding:10px 14px; font-weight:700; color:#005F73; border-radius:6px; }
                     .summary { background:#fafafa; padding:14px; border-left:4px solid #94D2BD; margin-top:12px; border-radius:6px; }
@@ -1234,14 +1394,15 @@
             <body>
                 <div class="container">
                     <div class="header">
-                        <h1>${exportData.title}</h1>
-                        <p>${exportData.subtitle}</p>
-                        <div style="margin-top:10px; font-size:10.5pt; color:#f0f9fa;">${exportData.contact}</div>
+                        <h1 style="color:white; font-weight:800;">${exportData.title}</h1>
+                        <p style="color:white; font-weight:400; font-size:18pt;">${exportData.subtitle}</p>
+                        <!-- Make contact info use a darker color to remain visible if header background is not shown by the exporter -->
+                        <div style="margin-top:10px; font-size:10.5pt; color:#94D2BD;">${exportData.contact}</div>
                     </div>
 
                     <div class="section">
                         <div class="section-title">📝 PROFESSIONAL SUMMARY</div>
-                        <div class="summary">${exportData.summary}</div>
+                        <p class="summary">${exportData.summary}</p>
                     </div>
 
                     <div class="section">
@@ -1265,8 +1426,12 @@
                     </div>
 
                     <div class="section">
-                        <div class="section-title">🎓 EDUCATION & PROFESSIONAL DEVELOPMENT</div>
+                        <div class="section-title">🎓 EDUCATION & DEVELOPMENT</div>
                         <div class="edu-dev">${htmlEducationDevelopment}</div>
+                    </div>
+
+                    <div style="margin-top: 40px; font-size: 9pt; color: #999; text-align: center;">
+                        Visualizations and Job Alignment Tool available at: ${window.location.href || 'codesapien.net'}
                     </div>
 
                 </div>

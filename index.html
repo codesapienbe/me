@@ -158,20 +158,23 @@
                 <p class="text-slate-600 mb-2 text-center">Enter company details and paste a job description below for an instant analysis.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input type="text" id="companyNameInput" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Target Company Name (e.g., Acme Corp)">
-                    <input type="url" id="companyUrlInput" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Website URL (e.g., https://example.com)">
+                    <label for="companyNameInput" class="sr-only">Company Name</label>
+                    <input type="text" id="companyNameInput" aria-label="Company Name" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Target Company Name (e.g., Acme Corp)">
+                    <label for="companyUrlInput" class="sr-only">Company Website URL</label>
+                    <input type="url" id="companyUrlInput" aria-label="Company Website URL" class="w-full p-4 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Website URL (e.g., https://example.com)">
                 </div>
 
-                <textarea id="jobDescriptionInput" rows="6" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Paste the job description (e.g., Backend Engineer, Java/Kubernetes)..."></textarea>
+                <label for="jobDescriptionInput" class="sr-only">Job Description</label>
+                <textarea id="jobDescriptionInput" aria-label="Job Description" rows="6" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Paste the job description (e.g., Backend Engineer, Java/Kubernetes)..."></textarea>
 
                 <div class="flex justify-center mt-4 space-x-4">
-                    <button id="analyzeButton" class="flex items-center space-x-2 bg-[#EE9B00] hover:bg-[#CA6702] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-[200px]">
+                    <button id="analyzeButton" class="flex items-center space-x-2 bg-[#EE9B00] hover:bg-[#CA6702] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-[200px]" type="button">
                         <span>Run Match 🚀</span>
-                        <div id="loadingSpinner" class="loading-spinner"></div>
+                        <span id="loadingSpinner" class="loading-spinner"></span>
                     </button>
 
                     <div id="exportContainer" class="hidden w-full max-w-[200px]">
-                        <button id="exportButton" class="w-full flex items-center justify-center bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md">
+                        <button id="exportButton" class="w-full flex items-center justify-center bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md" type="button">
                             Export Match Report 📄
                         </button>
                     </div>
@@ -273,23 +276,57 @@
 
         <!-- NEW BLOCK: Architectural Competencies -->
         <section id="architecture" class="mb-16">
-            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Architectural Competencies</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                    <div>
-                        <p class="text-xl font-extrabold text-[#0A9396]">Monolith</p>
-                        <p class="text-slate-600 mt-1 text-sm">Experience maintaining and enhancing core enterprise applications.</p>
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Architectural Competencies</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Monolith Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#0A9396]">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">🏛️</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Monolith</h3>
+                                <p class="text-slate-600 text-sm mt-1">Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Layered</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Vertical Slices</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Modularization</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-xl font-extrabold text-[#0A9396]">Microservices</p>
-                        <p class="text-slate-600 mt-1 text-sm">Designed and deployed resilient, independently scalable service clusters.</p>
+                    <!-- Microservices Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#EE9B00]">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">🧩</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Microservices</h3>
+                                <p class="text-slate-600 text-sm mt-1">Design resilient, independently deployable services with strong observability.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Service Discovery</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Circuit Breaker</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">API Gateway</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Observability</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-xl font-extrabold text-[#0A9396]">Modulith</p>
-                        <p class="text-slate-600 mt-1 text-sm">Proficient in building well-structured, modular Spring applications (Spring Starters).</p>
+                    <!-- Modulith Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#94D2BD]">
+                        <div class="flex items-start gap-3">
+                            <div class="text-2xl" aria-hidden="true">🧱</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#005F73]">Modulith</h3>
+                                <p class="text-slate-600 text-sm mt-1">Build well-structured Spring applications with explicit module boundaries.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">DDD</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Bounded Contexts</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Spring Modulith</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p class="text-sm text-slate-500 mt-4 text-center">Key concepts: Domain-Driven Design (DDD), Event-Driven Architecture, API Gateway, Service Mesh.</p>
+                <p class="text-xs text-slate-500 mt-4 text-center">Also familiar with: Event-Driven Architecture, Service Mesh, and asynchronous messaging patterns.</p>
             </div>
         </section>
 
@@ -336,85 +373,72 @@
         <!-- ENHANCED BLOCK: Professional Development & Training -->
         <section id="development" class="mb-16">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Professional Development & Training</h2>
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Certifications Card -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#EE9B00]">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4 flex items-center">
-                        Certifications & Internal Training 🏆
-                    </h3>
-                    <ul class="list-none space-y-3 text-sm text-slate-700">
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
-                            **Agile in Software Engineering** (SWIFT Internal Training)
-                        </li>
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
-                            **Spring Boot and Angular** (VDAB Internal Training)
-                        </li>
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
-                            **Enterprise Java Development** (INTEC Brussel Training)
-                        </li>
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
-                            Certifications in Agile and Security (Self-Study)
-                        </li>
-                    </ul>
-                </div>
-                <!-- Coursework Card -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#CA6702]">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4 flex items-center">
-                        Specialized Coursework 💻
-                    </h3>
-                    <ul class="list-none space-y-3 text-sm text-slate-700">
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
-                            **C and System Programming** (Istanbul, Turkiye)
-                        </li>
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
-                            **System and Networking** (Bursa, Turkiye)
-                        </li>
-                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
-                            **Graphical and Web Design** (Istanbul, Turkiye)
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- ENHANCED BLOCK: Education & Languages -->
-        <section id="education" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Academic History Card (Spanning 2 columns) -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-2">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning (Completed)</p>
-                            <p class="text-sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
-                        </div>
-                        <div>
-                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems (Incomplete)</p>
-                            <p class="text-sm text-slate-600">Queen Mary, University of London, UK (2013)</p>
-                        </div>
-                        <div>
-                            <p class="text-lg font-semibold text-slate-800">Bachelor Degree, Tourism and Hotel Management</p>
-                            <p class="text-sm text-slate-600">Beykent University, Istanbul, Turkiye (2010)</p>
+            <div class="max-w-5xl mx-auto">
+                <!-- Grid of small detailed cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch auto-rows-fr">
+                    <!-- Each card -->
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Certification</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Agile in Software Engineering</h3>
+                        <p class="text-xs text-slate-500">SWIFT • Internal Training</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Agile</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Team Practices</span>
                         </div>
                     </div>
-                </div>
-                <!-- Languages & Domain Card -->
-                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73]">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
-                    <div class="space-y-3">
-                        <p class="text-base font-semibold text-slate-800">Language Proficiency</p>
-                        <ul class="list-none space-y-1 text-sm text-slate-700">
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Turkish**: Native</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**English**: Fluent</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Dutch**: Professional</li>
-                        </ul>
-                        <p class="text-base font-semibold text-slate-800 mt-4">Domain Expertise</p>
-                        <ul class="list-none space-y-1 text-sm text-slate-700">
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Financial Messaging (SWIFT, ISO 20022)</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Enterprise Software & SaaS</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Technical Training</li>
-                        </ul>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Certification</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Spring Boot and Angular</h3>
+                        <p class="text-xs text-slate-500">VDAB • Internal Training</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Spring</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#eef2ff] text-[#005F73] font-semibold">Angular</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Certification</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Enterprise Java Development</h3>
+                        <p class="text-xs text-slate-500">INTEC Brussel • Training</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Java</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">Spring</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Self-Study</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Agile & Security Foundations</h3>
+                        <p class="text-xs text-slate-500">Independent</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Agile</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">Security</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">C and System Programming</h3>
+                        <p class="text-xs text-slate-500">Istanbul, Turkiye</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">C</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold">Systems</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">System and Networking</h3>
+                        <p class="text-xs text-slate-500">Bursa, Turkiye</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Networking</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Linux</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
+                        <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
+                        <h3 class="text-sm font-bold text-slate-800 mt-1">Graphical and Web Design</h3>
+                        <p class="text-xs text-slate-500">Istanbul, Turkiye</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-[#eef2ff] text-[#005F73] font-semibold">Web</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Design</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -674,8 +698,7 @@
         // Format HTML Output
         const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
         const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
-        const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('\n');
-
+        const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('');
 
         const analysisOutput = `
                 <p><strong>Match Score: ${matchScore}% 🎯</strong><br>
@@ -784,7 +807,7 @@
             // If the user starts typing in the read-only preview, reset the state
             resetState();
         } else if (jobDescriptionInput.value.trim() === '') {
-            // If input is cleared, ensure full reset
+            // If input is cleared, ensure a full reset
             resetState();
         }
     });
@@ -792,6 +815,13 @@
     // Also allow clearing if name/url change after analysis
     companyNameInput.addEventListener('input', () => { if (jobDescriptionInput.readOnly) resetState(); });
     companyUrlInput.addEventListener('input', () => { if (jobDescriptionInput.readOnly) resetState(); });
+
+    // Hook up export button for match report
+    if (exportButton) {
+        exportButton.addEventListener('click', () => {
+            exportMatchReport();
+        });
+    }
 
 
     // --- WORD EXPORT LOGIC ---
@@ -801,92 +831,222 @@
         // Convert raw job description using markdownToHtml for the Word document
         const htmlJobDescription = markdownToHtml(jobDescription);
 
-        const htmlSkills = matchedSkills.map(s => `<li>${s}</li>`).join('');
-        const htmlAlignment = alignmentHits.map(h => `<li>${h}</li>`).join('');
+        const htmlSkills = matchedSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: #f0f9fa; border-left: 3px solid #0A9396;">${s}</li>`).join('');
+        const htmlAlignment = alignmentHits.map(h => `<li style="margin-bottom: 8px; padding: 5px; background-color: #fef7ec; border-left: 3px solid #EE9B00;">${h}</li>`).join('');
 
         const securityReport = generateSimulatedSecurityReport(companyUrl);
         const htmlSecurity = securityReport.map(item => `
-                <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 8px 0; font-size: 10pt; width: 20%;">${item.status}</td>
-                    <td style="padding: 8px 0; font-size: 10pt; width: 35%; font-weight: bold;">${item.check}</td>
-                    <td style="padding: 8px 0; font-size: 10pt; width: 45%;">${item.result}</td>
-                </tr>`).join('');
+                <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 8px; border-bottom:1px solid #eee;">
+                    <div style="width:8%; font-size:16px; text-align:center;">${item.status}</div>
+                    <div style="width:35%; font-weight:700; color:#005F73;">${item.check}</div>
+                    <div style="flex:1 1 auto; color:#333;">${item.result}</div>
+                </div>
+            `).join('');
 
+        // Create a visual score indicator
+        const scoreColor = matchScore >= 80 ? '#2D6A4F' : matchScore >= 60 ? '#EE9B00' : matchScore >= 40 ? '#CA6702' : '#AE2012';
+        const scoreLabel = matchScore >= 80 ? 'Excellent Match' : matchScore >= 60 ? 'Good Match' : matchScore >= 40 ? 'Moderate Match' : 'Limited Match';
 
         const docContent = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <title>Skill Match Report - Yilmaz Mustafa</title>
                     <style>
-                        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; color: #333; }
-                        h1 { color: #005F73; border-bottom: 3px solid #005F73; padding-bottom: 10px; margin-top: 0; }
-                        h2 { color: #0A9396; border-bottom: 1px solid #0A9396; padding-bottom: 5px; margin-top: 30px; }
-                        h3 { margin-top: 20px; font-size: 12pt; color: #005F73; }
-                        .header { text-align: center; margin-bottom: 40px; }
-                        .header h1 { font-size: 28pt; border: none; }
-                        .contact { font-size: 10pt; color: #666; }
-                        .score { font-size: 20pt; font-weight: bold; color: #AE2012; margin: 15px 0; text-align: center;}
-                        .job-desc { border: 1px solid #ddd; padding: 15px; background: #f9f9f9; margin-bottom: 20px; }
-                        ul { padding-left: 20px; list-style-type: disc; }
-                        li { margin-bottom: 5px; }
-                        .table-container { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                        body {
+                            font-family: 'Segoe UI', Arial, sans-serif;
+                            line-height: 1.6;
+                            max-width: 850px;
+                            margin: 30px auto;
+                            color: #333;
+                            background-color: #fff;
+                        }
+                        h1 {
+                            color: #005F73;
+                            border-bottom: 4px solid #005F73;
+                            padding-bottom: 12px;
+                            margin-top: 0;
+                            font-size: 28pt;
+                            letter-spacing: -0.5px;
+                        }
+                        h2 {
+                            color: #0A9396;
+                            border-left: 5px solid #0A9396;
+                            margin-top: 30px;
+                            margin-bottom: 15px;
+                            font-size: 16pt;
+                            background-color: #f7fcfc;
+                            padding: 10px 12px;
+                        }
+                        h3 {
+                            margin-top: 20px;
+                            font-size: 12pt;
+                            color: #005F73;
+                        }
+                        .header {
+                            text-align: center;
+                            margin-bottom: 40px;
+                            background: linear-gradient(135deg, #f0f9fa 0%, #fef7ec 100%);
+                            padding: 30px;
+                            border-radius: 8px;
+                        }
+                        .header h1 {
+                            font-size: 32pt;
+                            border: none;
+                            margin-bottom: 8px;
+                        }
+                        .contact {
+                            font-size: 11pt;
+                            color: #666;
+                            margin-top: 10px;
+                            line-height: 1.8;
+                        }
+                        .score-container {
+                            text-align: center;
+                            background-color: ${scoreColor};
+                            color: white;
+                            padding: 25px;
+                            border-radius: 8px;
+                            margin: 20px 0;
+                        }
+                        .score {
+                            font-size: 48pt;
+                            font-weight: bold;
+                            margin: 0;
+                            line-height: 1;
+                        }
+                        .score-label {
+                            font-size: 14pt;
+                            margin-top: 8px;
+                            opacity: 0.95;
+                        }
+                        .company-info {
+                            background-color: #f7f7f7;
+                            padding: 15px;
+                            border-radius: 6px;
+                            border-left: 4px solid #94D2BD;
+                        }
+                        .job-desc {
+                            border: 2px solid #e0e0e0;
+                            padding: 20px;
+                            background: #fafafa;
+                            margin-bottom: 20px;
+                            border-radius: 6px;
+                            line-height: 1.7;
+                        }
+                        ul {
+                            padding-left: 0;
+                            list-style-type: none;
+                        }
+                        li {
+                            margin-bottom: 8px;
+                        }
+                        .table-container {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 15px;
+                            border: 1px solid #ddd;
+                            border-radius: 6px;
+                            overflow: hidden;
+                        }
+                        .table-container thead {
+                            background-color: #005F73;
+                            color: white;
+                        }
+                        .table-container th {
+                            padding: 12px 8px;
+                            text-align: left;
+                            font-weight: bold;
+                        }
+                        .footer-note {
+                            margin-top: 40px;
+                            padding: 15px;
+                            background-color: #fef7ec;
+                            border-left: 4px solid #EE9B00;
+                            font-size: 10pt;
+                            color: #666;
+                            border-radius: 4px;
+                        }
+                        .section-badge {
+                            display: inline-block;
+                            background-color: #94D2BD;
+                            color: #005F73;
+                            padding: 4px 12px;
+                            border-radius: 12px;
+                            font-size: 9pt;
+                            font-weight: bold;
+                            margin-left: 10px;
+                        }
                     </style>
                 </head>
                 <body>
                     <div class="header">
-                        <h1>Yilmaz Mustafa - Job Match Report</h1>
+                        <h1>Skill Match Analysis Report</h1>
+                        <p style="font-size: 14pt; color: #0A9396; font-weight: 600; margin: 5px 0;">Yilmaz Mustafa</p>
+                        <p style="font-size: 12pt; color: #005F73; margin: 5px 0;">Java & Spring Software Engineer</p>
                         <p class="contact">
-                            Email: yilmaz@codesapien.net | LinkedIn: codesapienbe | Portfolio: codesapien.net
+                            📧 yilmaz@codesapien.net | 💼 LinkedIn: codesapienbe | 🌐 codesapien.net
                         </p>
                     </div>
 
-                    <h2>Target Company Profile</h2>
-                    <table style="width: 100%; font-size: 11pt;">
-                        <tr><td style="width: 30%; font-weight: bold;">Company Name:</td><td>${companyName}</td></tr>
-                        <tr><td style="font-weight: bold;">Website:</td><td><a href="${companyUrl}">${companyUrl}</a></td></tr>
-                    </table>
+                    <h2>🏢 Target Company Profile</h2>
+                    <div class="company-info" style="padding:12px; border-radius:6px;">
+                        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                            <div style="width:28%; font-weight:700; color:#005F73;">Company Name:</div>
+                            <div style="flex:1 1 auto; color:#333;">${companyName}</div>
+                        </div>
+                        <div style="height:8px;"></div>
+                        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                            <div style="width:28%; font-weight:700; color:#005F73;">Website:</div>
+                            <div style="flex:1 1 auto;"><a href="${companyUrl}" style="color:#0A9396; text-decoration:none;">${companyUrl}</a></div>
+                        </div>
+                    </div>
 
-                    <h2>Job Alignment Summary</h2>
-                    <div class="score">Match Score: ${matchScore}%</div>
+                    <h2>🎯 Overall Match Score</h2>
+                    <div class="score-container">
+                        <div class="score">${matchScore}%</div>
+                        <div class="score-label">${scoreLabel}</div>
+                    </div>
 
-                    <h3>Job Description Provided</h3>
+                    <h2>📋 Job Description Analysis</h2>
                     <div class="job-desc">${htmlJobDescription}</div>
 
-                    <h2>Matched Technical Skills</h2>
-                    <p>The following top technical skills from Yilmaz Mustafa's profile were identified in the job description:</p>
-                    <ul>${htmlSkills}</ul>
+                    <h2>💡 Technical Skills Match <span class="section-badge">${matchedSkills.length} Skills Identified</span></h2>
+                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">The following technical skills from Yilmaz's profile align with requirements in the job description:</p>
+                    <ul>${htmlSkills || '<li style="color: #AE2012;">No direct keyword matches found in the job description.</li>'}</ul>
 
-                    <h2>Contextual Experience Alignment</h2>
-                    <p>Yilmaz Mustafa possesses direct experience relevant to these key requirements mentioned in the job description:</p>
-                    <ul>${htmlAlignment}</ul>
+                    <h2>⭐ Experience Alignment <span class="section-badge">${alignmentHits.length} Matches</span></h2>
+                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">Direct professional experience relevant to the job requirements:</p>
+                    <ul>${htmlAlignment || '<li style="color: #AE2012;">No contextual experience matches found.</li>'}</ul>
 
-                    <h2>Initial Security Assessment (Simulated)</h2>
-                    <table class="table-container">
-                        <thead>
-                            <tr style="background-color: #f0f0f0;">
-                                <th style="text-align: left; padding: 8px 0;">Status</th>
-                                <th style="text-align: left; padding: 8px 0;">Security Check</th>
-                                <th style="text-align: left; padding: 8px 0;">Finding</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${htmlSecurity}
-                        </tbody>
-                    </table>
-                    <p style="margin-top: 15px; font-size: 9pt; color: #AE2012;">
-                        *This security assessment is simulated and intended for professional presentation only. Live security auditing requires dedicated services and server-side processing.*
-                    </p>
+                    <h2>🔒 Preliminary Security Assessment</h2>
+                    <div style="margin-top:10px; border:1px solid #e6e6e6; border-radius:6px; overflow:hidden;">
+                        <div style="background:#005F73; color:white; padding:10px 12px; font-weight:700; display:flex; gap:12px;">
+                            <div style="width:8%; text-align:center;">Status</div>
+                            <div style="width:35%;">Security Check</div>
+                            <div style="flex:1 1 auto;">Assessment Result</div>
+                        </div>
+                        <div style="padding:8px 12px; background:#fff;">${htmlSecurity}</div>
+                    </div>
+                    <div class="footer-note">
+                        <strong>⚠️ Note:</strong> This security assessment is simulated for demonstration purposes. A comprehensive security audit requires dedicated tools and server-side analysis.
+                    </div>
 
-
-                    <p style="margin-top: 40px; font-size: 10pt; color: #666;">
-                        This report was generated automatically based on a proprietary client-side keyword matching algorithm.
-                    </p>
+                    <div class="footer-note" style="background-color: #f0f9fa; border-left-color: #0A9396; margin-top: 15px;">
+                        <strong>📊 Report Metadata:</strong><br>
+                        Generated: ${new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })}<br>
+                        Analysis Method: Proprietary client-side keyword matching algorithm<br>
+                        Candidate: Yilmaz Mustafa | Contact: yilmaz@codesapien.net
+                    </div>
                 </body>
                 </html>
             `;
 
-        const filename = `Yilmaz_Mustafa_Match_Report_${companyName.replace(/\s/g, '_')}.doc`;
+        const filename = `YilmazMustafa_SkillMatch_${companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.doc`;
         const blob = new Blob(['\ufeff', docContent], {
             type: 'application/msword'
         });
@@ -936,143 +1096,186 @@
             ]
         };
 
-        // Fix 1: Professional Experience layout using reliable divs/spans
-        const htmlExperience = exportData.experience.map(exp => `
-                <div style="margin-bottom: 18px; border-left: 3px solid #94D2BD; padding-left: 10px;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr style="vertical-align: top;">
-                            <td style="width: 75%;">
-                                <h3 style="margin: 0; font-size: 11pt; color: #005F73; font-weight: bold;">${exp.title}</h3>
-                                <p style="margin: 0; font-size: 9pt; color: #0A9396; font-weight: normal;">${exp.company}</p>
-                            </td>
-                            <td style="width: 25%; text-align: right; font-size: 9pt; color: #666; font-weight: bold;">${exp.dates}</td>
-                        </tr>
-                    </table>
-                    <p style="margin: 5px 0 0 0; font-size: 10pt; color: #333;">- ${exp.desc}</p>
-                </div>
-            `).join('');
+        // Build experience as single-column full-width cards (no narrow date column)
+        const htmlExperience = exportData.experience.map((exp, index) => {
+            const colors = ['#005F73', '#0A9396', '#94D2BD', '#EE9B00'];
+            const bgColors = ['#ffffff', '#ffffff', '#ffffff', '#fffef8'];
+            const color = colors[index % colors.length];
+            const bgColor = bgColors[index % bgColors.length];
 
-        const htmlProjects = exportData.projects.map(proj => `
-                <div style="margin-bottom: 12px; border-left: 3px solid #E9D8A6; padding-left: 8px;">
-                    <h3 style="margin: 0; font-size: 10.5pt; color: #005F73; font-weight: bold;">${proj.name}</h3>
-                    <p style="font-size: 9pt; color: #0A9396; margin: 2px 0;">Tech: ${proj.tech}</p>
-                    <p style="font-size: 10pt; margin: 2px 0;">- ${proj.desc}</p>
+            return `
+                <div style="width:100%; margin-bottom:18px; background-color:${bgColor}; padding:16px; border-radius:8px; border:1px solid #eef8f8; page-break-inside:avoid;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+                        <div style="flex:1 1 auto; min-width:220px;">
+                            <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+                                <div style="font-size:13pt; font-weight:700; color:${color};">${exp.title}</div>
+                                <div style="font-size:10pt; font-weight:600; color:#666;">• ${exp.company}</div>
+                            </div>
+                            <div style="margin-top:8px; color:#333; font-size:10pt; line-height:1.6;">${exp.desc}</div>
+                        </div>
+                        <div style="flex:0 0 auto; min-width:120px; text-align:right;">
+                            <div style="display:inline-block; padding:6px 10px; border-radius:14px; background:#ffffff; border:1px solid #e6e6e6; font-size:9pt; font-weight:700; color:#333;">${exp.dates}</div>
+                        </div>
+                    </div>
                 </div>
-            `).join('');
+            `;
+        }).join('');
+
+        // Projects remain as-is (full-width stacked cards)
+        const htmlProjects = exportData.projects.map((proj, index) => {
+            const colors = ['#005F73', '#0A9396', '#EE9B00', '#CA6702'];
+            const color = colors[index % colors.length];
+            return `
+                <div style="margin-bottom:12px; padding:12px; border-radius:6px; background:#fbfcfd; border-left:4px solid ${color}; page-break-inside: avoid;">
+                    <div style="font-weight:700; color:#005F73; font-size:11pt; margin-bottom:4px;">${proj.name}</div>
+                    <div style="font-size:9pt; color:${color}; font-weight:600; margin-bottom:6px;">Technologies: ${proj.tech}</div>
+                    <div style="font-size:10pt; color:#444;">${proj.desc}</div>
+                </div>
+            `;
+        }).join('');
 
         const htmlSkillsList = exportData.skills.map(s => `
-                <span style="background-color: #f0f0f0; padding: 3px 8px; border-radius: 3px; margin: 0 5px 5px 0; font-size: 9pt; display: inline-block;">${s}</span>
+                <span style="background-color:#0A9396; color:white; padding:6px 10px; border-radius:16px; margin:0 8px 8px 0; font-size:9pt; display:inline-block; font-weight:600;">${s}</span>
             `).join('');
 
-        const htmlEducation = exportData.education.map(edu => `
-                 <h3 style="margin: 10px 0 0 0; font-size: 10pt; color: #0A9396; font-weight: bold;">${edu.title}</h3>
-                 <p style="margin: 0 0 5px 0; font-size: 9pt; color: #666;">${edu.institution}</p>
-            `).join('');
+        // Education entries: keep stacked full-width cards
+        const htmlEducation = exportData.education.map((edu) => `
+            <div style="width:100%; margin-bottom:12px; padding:14px; background:#ffffff; border-left:5px solid #0A9396; border-radius:8px; box-shadow:0 0 0 1px rgba(10,147,150,0.03);">
+                <div style="font-weight:700; color:#005F73; font-size:11pt;">${edu.title}</div>
+                <div style="font-size:10pt; color:#666; margin-top:6px;">${edu.institution}</div>
+            </div>
+        `).join('');
 
-        const htmlCertifications = exportData.certifications.map(cert => `
-                <li>${cert}</li>
-            `).join('');
+        const htmlCertifications = exportData.certifications.map((cert) => `
+            <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:8px;">
+                <div style="color:#EE9B00; font-weight:700; font-size:12px; line-height:1;">▸</div>
+                <div style="font-size:10pt; color:#333;">${cert}</div>
+            </div>
+        `).join('');
 
+        // Architectural competencies block for export (fix undefined var)
         const htmlArchitecturalCompetencies = `
-                <p style="font-size: 10pt; margin: 5px 0 10px 0; color: #005F73; font-weight: bold;">Architectures:</p>
-                <ul style="padding-left: 20px; list-style-type: disc; font-size: 10pt; margin-bottom: 5px;">
-                    <li>Monolith (Experience maintaining and enhancing core enterprise applications)</li>
-                    <li>Microservices (Designed and deployed resilient, independently scalable service clusters)</li>
-                    <li>Modulith (Proficient in building well-structured, modular Spring applications)</li>
-                </ul>
-                <p style="font-size: 9pt; margin-top: 10px; color: #666;">Key concepts: Domain-Driven Design (DDD), Event-Driven Architecture, API Gateway, Service Mesh.</p>
-            `;
+            <div style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px;">
+                <div style="border-top:4px solid #0A9396; background:#ffffff; padding:12px; border-radius:8px;">
+                    <div style="font-weight:700; color:#005F73;">Monolith</div>
+                    <div style="color:#555; font-size:10pt; margin-top:4px;">Cohesive app with layered design and modularization.</div>
+                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
+                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">Layered</span>
+                        <span style="font-size:9pt; background:#fef7ec; color:#EE9B00; padding:3px 8px; border-radius:999px;">Vertical Slices</span>
+                    </div>
+                </div>
+                <div style="border-top:4px solid #EE9B00; background:#ffffff; padding:12px; border-radius:8px;">
+                    <div style="font-weight:700; color:#005F73;">Microservices</div>
+                    <div style="color:#555; font-size:10pt; margin-top:4px;">Resilient services with discovery, gateway, and observability.</div>
+                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
+                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">Discovery</span>
+                        <span style="font-size:9pt; background:#fff2e6; color:#CA6702; padding:3px 8px; border-radius:999px;">Circuit Breaker</span>
+                        <span style="font-size:9pt; background:#f6f7fb; color:#005F73; padding:3px 8px; border-radius:999px;">API Gateway</span>
+                    </div>
+                </div>
+                <div style="border-top:4px solid #94D2BD; background:#ffffff; padding:12px; border-radius:8px;">
+                    <div style="font-weight:700; color:#005F73;">Modulith</div>
+                    <div style="color:#555; font-size:10pt; margin-top:4px;">Explicit module boundaries using DDD and Spring Modulith.</div>
+                    <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
+                        <span style="font-size:9pt; background:#f0f9fa; color:#0A9396; padding:3px 8px; border-radius:999px;">DDD</span>
+                        <span style="font-size:9pt; background:#fef7ec; color:#EE9B00; padding:3px 8px; border-radius:999px;">Bounded Contexts</span>
+                    </div>
+                </div>
+            </div>
+        `;
 
-        // Fix 2: Education and Development section using robust table structure
+        // Education & Development: stacked full-width sections instead of two-column layout
         const htmlEducationDevelopment = `
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr style="vertical-align: top;">
-                        <!-- Left Column: Education and Languages -->
-                        <td style="width: 50%; padding-right: 20px;">
-                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px;">Education</h3>
-                            ${htmlEducation}
+            <div style="display:block; width:100%; gap:18px;">
+                <div style="width:100%; background:#f7fcfc; padding:18px; border-radius:8px; border:1px solid #e6f6f7; margin-bottom:14px;">
+                    <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🎓 Academic History</div>
+                    ${htmlEducation}
+                </div>
 
-                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px; margin-top: 15px;">Languages & Domain</h3>
-                             <p style="font-size: 10pt; font-weight: bold; margin: 5px 0 3px 0;">Language Proficiency:</p>
-                             <ul style="padding-left: 20px; list-style-type: disc; margin-top: 0; font-size: 10pt;">
-                                <li>Turkish (Native), English (Fluent), Dutch (Professional)</li>
-                            </ul>
-                             <p style="font-size: 10pt; font-weight: bold; margin: 5px 0 3px 0;">Domain Expertise:</p>
-                             <ul style="padding-left: 20px; list-style-type: disc; margin-top: 0; font-size: 10pt;">
-                                <li>Financial Messaging, Enterprise Software, Technical Training</li>
-                            </ul>
-                        </td>
-                        <!-- Right Column: Certifications & Training -->
-                        <td style="width: 50%; padding-left: 10px; border-left: 1px solid #ddd;">
-                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px;">Certifications & Training</h3>
-                            <ul style="padding-left: 20px; list-style-type: disc; margin-top: 5px; font-size: 10pt;">
-                                ${htmlCertifications}
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-            `;
+                <div style="width:100%; background:#fff7ec; padding:18px; border-radius:8px; border:1px solid #fff0df; margin-bottom:14px;">
+                    <div style="font-size:13pt; font-weight:700; color:#005F73; margin-bottom:12px;">🏆 Certifications & Training</div>
+                    ${htmlCertifications}
+                </div>
 
+                <div style="width:100%; background:#ffffff; padding:14px; border-radius:8px; border:1px solid #f0e9de;">
+                    <div style="font-size:12pt; font-weight:700; color:#005F73; margin-bottom:10px;">🗣️ Languages & Domain</div>
+                    <div style="font-size:10pt; color:#333;">
+                        <strong>Language Proficiency:</strong><br>
+                        Turkish (Native) · English (Fluent) · Dutch (Professional)
+                        <br><br>
+                        <strong>Domain Expertise:</strong><br>
+                        Financial Messaging (SWIFT, ISO 20022) · Enterprise Software & SaaS · Technical Training
+                    </div>
+                </div>
+            </div>
+        `;
 
         const docContent = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head>
-                    <meta charset='utf-8'>
-                    <title>Resume - Yilmaz Mustafa</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; line-height: 1.4; max-width: 850px; margin: 0; color: #333; }
-                        .section-header { color: #005F73; border-bottom: 2px solid #005F73; padding: 5px 0 3px 0; margin-top: 25px; margin-bottom: 15px; font-size: 15pt; font-weight: bold; }
-                        .header-block { background-color: #f7f7f7; padding: 20px; text-align: center; margin-bottom: 20px; border-radius: 5px;}
-                        .contact { font-size: 10pt; color: #666; margin-top: 5px; }
-                        .summary { font-size: 11pt; margin-top: 15px; margin-bottom: 20px; line-height: 1.5; }
-                    </style>
-                </head>
-                <body>
-                    <div class="header-block">
-                        <h1 style="font-size: 24pt; font-weight: bold; color: #005F73; margin: 0;">${exportData.title}</h1>
-                        <p style="font-size: 14pt; color: #0A9396; margin: 0;">${exportData.subtitle}</p>
-                        <p class="contact">${exportData.contact}</p>
+            <html lang="en">
+            <head>
+                <meta charset='utf-8'>
+                <title>Resume - Yilmaz Mustafa</title>
+                <style>
+                    body { font-family: 'Segoe UI', 'Calibri', Arial, sans-serif; color:#333; margin:0; padding:0; background:#fff; }
+                    .container { max-width:920px; margin:20px auto; padding:18px; }
+                    .header { background: linear-gradient(135deg, #005F73 0%, #0A9396 100%); color:white; padding:28px; border-radius:8px; text-align:center; }
+                    .header h1 { margin:0; font-size:28pt; }
+                    .header p { margin:6px 0 0 0; color:#E9D8A6; font-size:13pt; }
+                    .section { margin-top:22px; }
+                    .section-title { display:block; background:linear-gradient(90deg, #f0f9fa, #eef9f9); border-left:6px solid #0A9396; padding:10px 14px; font-weight:700; color:#005F73; border-radius:6px; }
+                    .summary { background:#fafafa; padding:14px; border-left:4px solid #94D2BD; margin-top:12px; border-radius:6px; }
+                    .skills { padding:12px; background:#fafafa; border-radius:6px; }
+                    .experience-list { margin-top:12px; }
+                    .projects-list { margin-top:12px; }
+                    .architect { margin-top:12px; }
+                    .edu-dev { margin-top:12px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>${exportData.title}</h1>
+                        <p>${exportData.subtitle}</p>
+                        <div style="margin-top:10px; font-size:10.5pt; color:#f0f9fa;">${exportData.contact}</div>
                     </div>
 
-                    <div style="padding: 0 20px;">
-
-                        <div class="section-header">PROFESSIONAL SUMMARY</div>
-                        <p class="summary">${exportData.summary}</p>
-
-                        <div class="section-header">CORE TECHNICAL SKILLS</div>
-                        <p style="font-size: 11pt; margin-bottom: 8px;"><strong>Core Stack:</strong> Java 17-21, Spring Boot 3.x, REST/SOAP APIs, PostgreSQL, Docker, Kubernetes, CI/CD.</p>
-                        <div style="margin-top: 5px; margin-bottom: 20px;">
-                            ${htmlSkillsList}
-                        </div>
-
-                        <div class="section-header">PROFESSIONAL EXPERIENCE</div>
-                        <div style="margin-top: 10px;">
-                            ${htmlExperience}
-                        </div>
-
-                        <div class="section-header">ARCHITECTURAL COMPETENCIES</div>
-                        ${htmlArchitecturalCompetencies}
-
-                        <div class="section-header">KEY OPEN SOURCE PROJECTS</div>
-                        <div style="margin-top: 10px;">
-                            ${htmlProjects}
-                        </div>
-
-                        <div class="section-header">EDUCATION & DEVELOPMENT</div>
-                        ${htmlEducationDevelopment}
-
-                        <div style="margin-top: 40px; font-size: 9pt; color: #999; text-align: center;">
-                            Visualizations and Job Alignment Tool available at: ${window.location.href || 'codesapien.net'}
-                        </div>
+                    <div class="section">
+                        <div class="section-title">📝 PROFESSIONAL SUMMARY</div>
+                        <div class="summary">${exportData.summary}</div>
                     </div>
-                </body>
-                </html>
-            `;
+
+                    <div class="section">
+                        <div class="section-title">💻 CORE TECHNICAL SKILLS</div>
+                        <div class="skills">${htmlSkillsList}</div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">💼 PROFESSIONAL EXPERIENCE</div>
+                        <div class="experience-list">${htmlExperience}</div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🏗️ ARCHITECTURAL COMPETENCIES</div>
+                        <div class="architect">${htmlArchitecturalCompetencies}</div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🚀 KEY OPEN SOURCE PROJECTS</div>
+                        <div class="projects-list">${htmlProjects}</div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🎓 EDUCATION & PROFESSIONAL DEVELOPMENT</div>
+                        <div class="edu-dev">${htmlEducationDevelopment}</div>
+                    </div>
+
+                </div>
+            </body>
+            </html>
+        `;
 
         const filename = `Yilmaz_Mustafa_Resume_Full.doc`;
-        const blob = new Blob(['\ufeff', docContent], {
-            type: 'application/msword'
-        });
+        const blob = new Blob(['\ufeff', docContent], { type: 'application/msword' });
 
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1083,9 +1286,6 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
-
-    document.getElementById('exportButton').addEventListener('click', exportMatchReport);
-    document.getElementById('exportResumeButton').addEventListener('click', exportFullResume);
 </script>
 </body>
 </html>

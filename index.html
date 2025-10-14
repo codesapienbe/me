@@ -3,877 +3,1089 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yilmaz Mustafa - Software Engineer</title>
-    <meta name="description" content="Yilmaz Mustafa - Software Engineer specializing in Java, AI/ML, and Full-Stack development">
-    <link rel="canonical" href="https://codesapien.net">
-    <meta name="keywords" content="Java, AI/ML, Machine Learning, Spring Boot, React, Full-Stack Development, Cybersecurity, Software Engineer, Portfolio">
-    <meta name="robots" content="index, follow">
-    <!-- Open Graph -->
-    <meta property="og:title" content="Yilmaz Mustafa - Software Engineer">
-    <meta property="og:description" content="Software Engineer specializing in Java, AI/ML, and Full-Stack development.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://codesapien.net">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/124777905?v=4">
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Yilmaz Mustafa - Software Engineer">
-    <meta name="twitter:description" content="Software Engineer specializing in Java, AI/ML, and Full-Stack development.">
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/124777905?v=4">
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Yilmaz Mustafa",
-      "url": "https://codesapien.net",
-      "sameAs": [
-        "https://github.com/codesapienbe",
-        "https://linkedin.com/in/codesapienbe",
-        "mailto:yilmaz@codesapien.net"
-      ],
-      "jobTitle": "Software Engineer",
-      "description": "Software Engineer specializing in Java, AI/ML, and Full-Stack development",
-      "email": "yilmaz@codesapien.net",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Zele",
-        "addressCountry": "Belgium"
-      },
-      "knowsAbout": ["Java","Artificial Intelligence","Machine Learning","React","Spring Boot","Cybersecurity"]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "url": "https://codesapien.net",
-      "name": "Yilmaz Mustafa - Software Engineer",
-      "description": "Personal portfolio website of Yilmaz Mustafa",
-      "potentialAction": {
-        "@type": "SearchAction", 
-        "target": "https://codesapien.net/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <title>Visual Resume | Yilmaz Mustafa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #005F73;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- PDF Print Optimization Styles --- */
+        @media print {
+            body {
+                background-color: #fff !important;
+                color: #000 !important;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                padding: 0;
+                margin: 0;
+                max-width: none;
+            }
+            /* Remove shadows, which look bad on print */
+            .shadow-lg, .shadow-sm {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            /* Ensure text is black and headings are legible */
+            h1, h2, h3, h4, p, span, a, time {
+                color: #000 !important;
+            }
+            /* Hide the interactive tool for printing */
+            #gemini-analysis, #exportResumeButton {
+                display: none;
+            }
+            /* Ensure charts have enough space vertically */
+            .chart-container {
+                height: 300px !important;
+                max-height: 350px !important;
+            }
+            /* Simplify project cards */
+            .project-card {
+                page-break-inside: avoid;
+            }
+            /* Make link colors black but retain underline */
+            a {
+                text-decoration: underline;
+            }
+        }
+        /* Added class for project cards to ensure proper styling across environments */
+        .project-card-border {
+            border-left-width: 4px;
+        }
+        /* Styling for the Analysis Output */
+        .analysis-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .analysis-content strong {
+            font-weight: 700;
+        }
+        /* Input styling for read-only state */
+        textarea[readonly], input[readonly] {
+            cursor: not-allowed;
+            background-color: #f7f7f7;
+        }
+    </style>
 </head>
-<body>
-    <a href="#maincontent" class="skip-link sr-only" data-i18n-key="skip.toContent" role="link">Skip to main content</a>
-    <!-- Navigation -->
-    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-        <div class="container">
-            <div class="nav__content">
-                <div class="nav__brand">
-                    <a href="#home" data-i18n-key="nav.brand">Yilmaz Mustafa</a>
+<body class="bg-slate-50 text-slate-800">
+<!--
+    Color Palette Selection: Brilliant Blues
+    - Primary: #005F73
+    - Secondary: #0A9396
+    - Accent: #94D2BD
+    - Highlight: #E9D8A6
+    - Background/Text: #EE9B00, #CA6702, #BB3E03, #AE2012, #9B2226
+-->
+<!-- Plan Narrative: 1. Snapshot (KPIs) 2. Contextual Skill Aligner (Offline Analysis). 3. Skills (Visual Charts) 4. Experience (Timeline) 5. Projects (List of cards). -->
+<!-- Visualization Choices: KPIs (Single Big Number), Skills (Doughnut, Bar, Radar for different categories - Comparison/Inform), Projects (List of cards - Organization/Inform). Confirmed NO SVG. -->
+<div class="container mx-auto p-4 md:p-8">
+    <header class="text-center mb-12">
+        <h1 class="text-5xl font-extrabold text-[#005F73]">YILMAZ MUSTAFA</h1>
+        <p class="text-2xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
+        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600">
+            <span>📧 yilmaz@codesapien.net</span>
+            <span class="text-[#94D2BD]">|</span>
+            <span>🌐 codesapien.net</span>
+            <span class="text-[#94D2BD]">|</span>
+            <span>💼 codesapienbe (LinkedIn)</span>
+        </div>
+        <!-- New Export Resume Button -->
+        <button id="exportResumeButton" onclick="exportFullResume()" class="mt-6 flex items-center justify-center mx-auto space-x-2 bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-sm md:max-w-xs">
+            Export Resume as Word (DOC) 📄
+        </button>
+    </header>
+
+    <main>
+        <section id="summary" class="mb-16">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Professional Snapshot</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <p class="text-6xl font-extrabold text-[#CA6702]">5+</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Years of Experience</p>
+                        <p class="text-slate-500 mt-1">In enterprise application development.</p>
+                    </div>
+                    <div>
+                        <p class="text-6xl font-extrabold text-[#BB3E03]">3</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Core Architectures</p>
+                        <p class="text-slate-500 mt-1">Monolith, Microservices, and Modulith.</p>
+                    </div>
+                    <div>
+                        <p class="text-6xl font-extrabold text-[#AE2012]">10k+</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Concurrent Users</p>
+                        <p class="text-slate-500 mt-1">Supported in high-performance apps.</p>
+                    </div>
                 </div>
-                <ul class="nav__menu" id="navMenu" role="menu">
-                    <li role="none"><a href="#home" class="nav__link active" data-i18n-key="nav.home" role="menuitem">Home</a></li>
-                    <li role="none"><a href="#about" class="nav__link" data-i18n-key="nav.about" role="menuitem">About</a></li>
-                    <li role="none"><a href="#experience" class="nav__link" data-i18n-key="nav.experience" role="menuitem">Experience</a></li>
-                    <li role="none"><a href="#skills" class="nav__link" data-i18n-key="nav.skills" role="menuitem">Skills</a></li>
-                    <li role="none"><a href="#projects" class="nav__link" data-i18n-key="nav.projects" role="menuitem">Projects</a></li>
-                    <li role="none"><a href="#agenda" class="nav__link" data-i18n-key="nav.agenda" role="menuitem">Tasks</a></li>
-                    <li role="none"><a href="#contact" class="nav__link" data-i18n-key="nav.contact" role="menuitem">Contact</a></li>
+            </div>
+        </section>
+
+        <section id="gemini-analysis" class="mb-16">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Contextual Skill Match 🎯</h2>
+                <p class="text-slate-600 mb-2 text-center">Enter company details and paste a job description below for an instant analysis.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="companyNameInput" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Target Company Name (e.g., Acme Corp)">
+                    <input type="url" id="companyUrlInput" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Website URL (e.g., https://example.com)">
+                </div>
+
+                <textarea id="jobDescriptionInput" rows="6" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Paste the job description (e.g., Backend Engineer, Java/Kubernetes)..."></textarea>
+
+                <div class="flex justify-center mt-4 space-x-4">
+                    <button id="analyzeButton" class="flex items-center space-x-2 bg-[#EE9B00] hover:bg-[#CA6702] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-[200px]">
+                        <span>Run Match 🚀</span>
+                        <div id="loadingSpinner" class="loading-spinner"></div>
+                    </button>
+
+                    <div id="exportContainer" class="hidden w-full max-w-[200px]">
+                        <button id="exportButton" class="w-full flex items-center justify-center bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md">
+                            Export Match Report 📄
+                        </button>
+                    </div>
+                </div>
+
+                <div id="analysisOutput" class="mt-8 pt-4 border-t border-slate-200">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-2">Analysis Results:</h3>
+                    <p id="outputPlaceholder" class="text-slate-500 italic">Results will appear here after analysis.</p>
+                    <!-- Analysis Results are injected here -->
+                    <div id="outputContent" class="text-slate-700 analysis-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Core Technical Expertise</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Java & Enterprise Core</h3>
+                    <p class="text-slate-600 mb-4">Deep expertise in the Java ecosystem, focusing on modern, high-performance backend development with the Spring Framework.</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="javaSkillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">APIs & Database Tech</h3>
+                    <p class="text-slate-600 mb-4">Strong command of API design and a wide range of database technologies, ensuring efficient data persistence and integration.</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="apiDbSkillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 md:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">DevOps, Cloud & Architecture</h3>
+                    <p class="text-slate-600 mb-4">Proficient in modern DevOps practices, cloud platforms, and software architecture principles for building resilient systems.</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="devopsSkillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Professional Journey</h2>
+            <div class="relative border-l-4 border-[#94D2BD] ml-6 md:ml-0 md:mx-auto">
+                <div class="mb-10 ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Feb 2025 – Aug 2025</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
+                            <span class="text-sm font-medium text-[#0A9396]">(Freelance)</span>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <p class="text-base font-normal text-slate-600">Developed and deployed high-performance Spring Boot 3.x apps, orchestrating CI/CD pipelines with Docker and Terraform.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-10 ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Oct 2024 – Feb 2025</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
+                            <p class="text-sm font-normal text-slate-500">TheMatchBox, Brussels</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <p class="text-base font-normal text-slate-600">Enhanced search algorithms with ZeroMQ, improving latency by 15%, and implemented robust automated testing strategies.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-10 ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Jun 2023 – Oct 2024</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
+                            <p class="text-sm font-normal text-slate-500">SWIFT, La Hulpe</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <p class="text-base font-normal text-slate-600">Maintained mission-critical financial messaging systems and upgraded security infrastructure with modern cryptographic standards.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-8 md:ml-0">
+                    <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#005F73] rounded-full"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div class="md:text-right md:pr-8">
+                            <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Mar 2020 – Jun 2023</time>
+                            <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
+                            <span class="text-sm font-medium text-[#0A9396]">& Instructor</span>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
+                            <p class="text-base font-normal text-slate-600">Delivered enterprise Java and Spring Boot curriculum to over 100 developers and built CI/CD environments for training.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW BLOCK: Architectural Competencies -->
+        <section id="architecture" class="mb-16">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Architectural Competencies</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <p class="text-xl font-extrabold text-[#0A9396]">Monolith</p>
+                        <p class="text-slate-600 mt-1 text-sm">Experience maintaining and enhancing core enterprise applications.</p>
+                    </div>
+                    <div>
+                        <p class="text-xl font-extrabold text-[#0A9396]">Microservices</p>
+                        <p class="text-slate-600 mt-1 text-sm">Designed and deployed resilient, independently scalable service clusters.</p>
+                    </div>
+                    <div>
+                        <p class="text-xl font-extrabold text-[#0A9396]">Modulith</p>
+                        <p class="text-slate-600 mt-1 text-sm">Proficient in building well-structured, modular Spring applications (Spring Starters).</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-500 mt-4 text-center">Key concepts: Domain-Driven Design (DDD), Event-Driven Architecture, API Gateway, Service Mesh.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Top 6 GitHub Open Source Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 md:col-span-2">
+                    <p class="text-slate-600">Highlighting contributions across core Java frameworks, financial integration, and applied AI/ML in high-performance contexts (GitHub: codesapienbe).</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #005F73;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">1. Spring Vision Framework 👁️</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot 3.x, Java 21, OpenCV | <a href="https://github.com/codesapienbe/spring-vision" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">A production-ready computer vision framework delivered as a **Spring Boot Starter**, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #0A9396;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">2. Spring Finqube ISO 20022 Starter 💰</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot 3.2, Financial Integration | <a href="https://github.com/codesapienbe/spring-finqube" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">Developed a production-ready Spring Boot starter for **financial messaging** (ISO 20022 standard), featuring enterprise-grade security, auto-configuration, and a pluggable transport protocol pipeline.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #94D2BD;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">3. Food Score MLOps Pipeline 📊</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot, PostgreSQL, OpenAPI | <a href="https://github.com/codesapienbe/food-score" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">Architected a complete enterprise application with structured JSON logging and **OpenAPI** documentation, demonstrating a full-cycle **MLOps** pipeline integration.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #EE9B00;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">4. Instyper - Voice-to-Text Desktop App 🎙️</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Java, Vosk, Whisper, GUI | <a href="https://github.com/codesapienbe/Instyper" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">A lightweight, privacy-first desktop application that turns your voice into text instantly. It works offline (Vosk) and supports modern online models (Whisper) and live translation.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #CA6702;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">5. Stegnocchi - EXIF Steganography App 🖼️</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Core Java, Image Processing, Security | <a href="https://github.com/codesapienbe/Stegnocchi" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">A security tool built in **Core Java** focused on hiding data within image metadata (**EXIF Steganography**), showcasing low-level data manipulation and security principles.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #AE2012;">
+                    <h4 class="text-lg font-semibold text-[#005F73]">6. DeepVoice - Voice Analysis Library 🎤</h4>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Python, AI/ML, Signal Processing | <a href="https://github.com/codesapienbe/DeepVoice" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-slate-600 text-sm">A comprehensive **Python library** for voice analysis, processing, and **speaker identification**, reinforcing active interest and competency in the AI/ML domain.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENHANCED BLOCK: Professional Development & Training -->
+        <section id="development" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Professional Development & Training</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Certifications Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#EE9B00]">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4 flex items-center">
+                        Certifications & Internal Training 🏆
+                    </h3>
+                    <ul class="list-none space-y-3 text-sm text-slate-700">
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
+                            **Agile in Software Engineering** (SWIFT Internal Training)
+                        </li>
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
+                            **Spring Boot and Angular** (VDAB Internal Training)
+                        </li>
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
+                            **Enterprise Java Development** (INTEC Brussel Training)
+                        </li>
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#EE9B00] before:font-bold">
+                            Certifications in Agile and Security (Self-Study)
+                        </li>
+                    </ul>
+                </div>
+                <!-- Coursework Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#CA6702]">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4 flex items-center">
+                        Specialized Coursework 💻
+                    </h3>
+                    <ul class="list-none space-y-3 text-sm text-slate-700">
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
+                            **C and System Programming** (Istanbul, Turkiye)
+                        </li>
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
+                            **System and Networking** (Bursa, Turkiye)
+                        </li>
+                        <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#CA6702] before:font-bold">
+                            **Graphical and Web Design** (Istanbul, Turkiye)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENHANCED BLOCK: Education & Languages -->
+        <section id="education" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Academic History Card (Spanning 2 columns) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-2">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning (Completed)</p>
+                            <p class="text-sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems (Incomplete)</p>
+                            <p class="text-sm text-slate-600">Queen Mary, University of London, UK (2013)</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold text-slate-800">Bachelor Degree, Tourism and Hotel Management</p>
+                            <p class="text-sm text-slate-600">Beykent University, Istanbul, Turkiye (2010)</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Languages & Domain Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73]">
+                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
+                    <div class="space-y-3">
+                        <p class="text-base font-semibold text-slate-800">Language Proficiency</p>
+                        <ul class="list-none space-y-1 text-sm text-slate-700">
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Turkish**: Native</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**English**: Fluent</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Dutch**: Professional</li>
+                        </ul>
+                        <p class="text-base font-semibold text-slate-800 mt-4">Domain Expertise</p>
+                        <ul class="list-none space-y-1 text-sm text-slate-700">
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Financial Messaging (SWIFT, ISO 20022)</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Enterprise Software & SaaS</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">Technical Training</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center mt-12 pt-8 border-t border-slate-200">
+        <div class="flex justify-center space-x-6 text-slate-600">
+            <a href="mailto:yilmaz@codesapien.net" class="hover:text-[#0A9396] transition duration-200" title="Email: yilmaz@codesapien.net">📧 Email</a>
+            <a href="https://codesapien.net" target="_blank" class="hover:text-[#0A9396] transition duration-200" title="Portfolio: codesapien.net">🌐 Portfolio</a>
+            <a href="https://www.linkedin.com/in/codesapienbe" target="_blank" class="hover:text-[#0A9396] transition duration-200" title="LinkedIn: codesapienbe">💼 LinkedIn</a>
+            <a href="https://github.com/codesapienbe" target="_blank" class="hover:text-[#0A9396] transition duration-200" title="GitHub: codesapienbe">🐙 GitHub</a>
+        </div>
+        <p class="text-sm text-slate-500 mt-4">Visual Resume for Yilmaz Mustafa.</p>
+    </footer>
+</div>
+
+<script>
+    // --- CHART.JS CONFIGURATION ---
+    const tooltipTitleCallback = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        }
+                        return label;
+                    }
+                }
+            }
+        }
+    };
+
+    const colors = {
+        primary: '#005F73',
+        secondary: '#0A9396',
+        accent: '#94D2BD',
+        highlight: '#E9D8A6',
+        danger1: '#EE9B00',
+        danger2: '#CA6702',
+        danger3: '#BB3E03',
+        danger4: '#AE2012'
+    };
+
+    new Chart(document.getElementById('javaSkillsChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Spring Boot 3.x', 'Java 17-21+', 'Spring Security', 'Java EE'],
+            datasets: [{
+                label: 'Java & Enterprise Core',
+                data: [40, 45, 10, 5],
+                backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.highlight],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        }
+    });
+
+    new Chart(document.getElementById('apiDbSkillsChart'), {
+        type: 'bar',
+        data: {
+            labels: ['REST APIs', 'PostgreSQL', ['JPA', 'Hibernate'], 'Oracle', 'GraphQL', 'MongoDB'],
+            datasets: [{
+                label: 'Proficiency',
+                data: [95, 85, 90, 75, 70, 65],
+                backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.danger2, colors.highlight, colors.danger3],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { display: false }
+                },
+                y: { grid: { display: false } }
+            },
+            plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('devopsSkillsChart'), {
+        type: 'radar',
+        data: {
+            labels: ['Docker', 'Kubernetes', 'Jenkins', 'Terraform', 'CI/CD', 'Architecture'],
+            datasets: [{
+                label: 'DevOps & Architecture Skills',
+                data: [90, 70, 85, 80, 95, 88],
+                fill: true,
+                backgroundColor: 'rgba(10, 147, 150, 0.2)',
+                borderColor: colors.secondary,
+                pointBackgroundColor: colors.secondary,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: colors.secondary
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    pointLabels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // --- LOCAL SKILL MATCHER DATA & LOGIC ---
+    const candidateSkills = [
+        'Java 21', 'Java 17', 'Spring Boot 3.x', 'Spring Cloud', 'Spring Security', 'REST', 'SOAP',
+        'PostgreSQL', 'Oracle', 'JPA', 'Hibernate', 'GraphQL', 'Docker', 'Kubernetes',
+        'Terraform', 'Jenkins', 'CI/CD', 'DevOps', 'Microservices', 'Modulith', 'Monolith',
+        'TDD', 'JUnit 5', 'Mockito', 'OpenAPI', 'Swagger', 'Messaging', 'MQ', 'Python', 'Computer Vision'
+    ];
+
+    const experiencePoints = [
+        { keyword: 'concurrent users', context: 'Supported 10k+ concurrent users in high-performance Spring Boot apps (Freelance).' },
+        { keyword: 'CI/CD', context: 'Orchestrated CI/CD pipelines with Docker and Terraform (Freelance).' },
+        { keyword: 'financial messaging', context: 'Maintained mission-critical financial messaging systems (SWIFT AMH).' },
+        { keyword: 'security', context: 'Executed security upgrades using cryptographic standards (SWIFT).' },
+        { keyword: 'testing', context: 'Implemented robust automated testing strategies (TheMatchBox).' },
+        { keyword: 'algorithms', context: 'Enhanced search algorithms using ZeroMQ (15% latency reduction).' },
+        { keyword: 'starter', context: 'Developed Spring Boot Starter frameworks (Spring Vision, Finqube).' },
+        { keyword: 'AI/ML', context: 'Experience building AI/ML applications (Spring Vision, DeepVoice).' },
+        { keyword: 'Docker', context: 'Used Docker and Terraform for deployment (Freelance).' }
+    ];
+
+    const companyNameInput = document.getElementById('companyNameInput');
+    const companyUrlInput = document.getElementById('companyUrlInput');
+    const analyzeButton = document.getElementById('analyzeButton');
+    const jobDescriptionInput = document.getElementById('jobDescriptionInput');
+    const outputContent = document.getElementById('outputContent');
+    const outputPlaceholder = document.getElementById('outputPlaceholder');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const exportContainer = document.getElementById('exportContainer');
+    const exportButton = document.getElementById('exportButton');
+
+    let lastAnalysisResult = {
+        matchScore: 0,
+        matchedSkills: [],
+        alignmentHits: [],
+        jobDescription: '',
+        companyName: '',
+        companyUrl: ''
+    };
+
+    const markdownToHtml = (markdownText) => {
+        let html = markdownText;
+
+        // Convert newlines to <br> for basic formatting
+        html = html.replace(/(\r\n|\n|\r)/gm, '<br>');
+
+        // Bold: **text** or __text__ to <strong>
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        html = html.replace(/\_\_(.*?)\_\_/g, '<strong>$1</strong>');
+
+        // Italic: *text* or _text_ to <em>
+        html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        html = html.replace(/\_(.*?)\_/g, '<em>$1</em>');
+
+        return html;
+    };
+
+    const runLocalMatch = (jobDescription, companyName, companyUrl) => {
+        const jdLower = jobDescription.toLowerCase();
+        const skillHits = {};
+        let totalMatchCount = 0;
+
+        // 1. Convert Job Description for display (Preview logic)
+        const formattedJobDescription = markdownToHtml(jobDescription);
+
+        // Set input field as preview and read-only
+        jobDescriptionInput.innerHTML = formattedJobDescription;
+        jobDescriptionInput.readOnly = true;
+        companyNameInput.readOnly = true;
+        companyUrlInput.readOnly = true;
+
+
+        // 2. Calculate Skill Matches
+        candidateSkills.forEach(skill => {
+            const skillLower = skill.toLowerCase();
+            const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
+            if (jdLower.match(regex)) {
+                skillHits[skill] = (skillHits[skill] || 0) + 1;
+                totalMatchCount++;
+            }
+        });
+
+        // Sort matched skills by hit count (and then alphabetically)
+        const matchedSkills = Object.entries(skillHits)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .map(([skill]) => skill);
+
+        // 3. Calculate Contextual Alignment
+        const alignmentHits = [];
+        experiencePoints.forEach(point => {
+            if (jdLower.includes(point.keyword.toLowerCase())) {
+                alignmentHits.push(point.context);
+            }
+        });
+
+        // 4. Generate Output and Update Cache
+        const matchScore = Math.min(Math.round((totalMatchCount / 10) * 100), 100);
+
+        lastAnalysisResult = {
+            matchScore,
+            matchedSkills,
+            alignmentHits,
+            jobDescription,
+            companyName,
+            companyUrl
+        };
+
+        // Generate Simulated Security Report
+        const securityReport = generateSimulatedSecurityReport(companyUrl);
+
+        // Format HTML Output
+        const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
+        const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
+        const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('\n');
+
+
+        const analysisOutput = `
+                <p><strong>Match Score: ${matchScore}% 🎯</strong><br>
+                (Based on alignment of top 20 prioritized keywords)</p>
+
+                <hr class="my-3 border-t border-slate-300">
+
+                <p><strong>Top ${matchedSkills.length} Matching Skills/Keywords:</strong></p>
+                <ul>
+                    ${formattedSkills}
                 </ul>
-                <div class="nav__actions">
-                    <select id="languageSelect" class="form-control nav-language-select" aria-label="Select language">
-                        <option value="en" data-i18n-key="language.english">English</option>
-                        <option value="nl-BE" data-i18n-key="language.dutch">Nederlands</option>
-                        <option value="tr" data-i18n-key="language.turkish">Türkçe</option>
-                    </select>
-                    <button class="btn btn--outline theme-toggle" id="themeToggle" data-i18n-key="nav.toggleTheme" data-i18n-attr="aria-label" aria-label="Toggle theme">
-                        <span class="theme-text" data-i18n-key="nav.themeMode">Dark Mode</span>
-                    </button>
-                    <button class="nav__toggle" id="navToggle" data-i18n-key="nav.toggleNavigation" data-i18n-attr="aria-label" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <main id="maincontent" role="main">
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero__content">
-                <div class="hero__text">
-                    <h1 class="hero__title">
-                        <span data-i18n-key="hero.greeting">Hi, I'm</span> <span class="hero__name">Yilmaz Mustafa</span>
-                    </h1>
-                    <div class="hero__subtitle">
-                        <span class="hero__role" id="typingText" data-i18n-key="hero.role">Java Developer</span>
-                        <span class="hero__cursor">|</span>
-                    </div>
-                    <p class="hero__description" data-i18n-key="hero.description">
-                        Passionate Software Engineer with 5+ years of experience in Java enterprise applications, 
-                        AI/ML solutions, and full-stack development. Based in Zele, Belgium.
-                    </p>
-                    <div class="hero__stats">
-                        <div class="stat">
-                            <div class="stat__number">5+</div>
-                            <div class="stat__label" data-i18n-key="hero.stat.yearsExp">Years Experience</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat__number">15+</div>
-                            <div class="stat__label" data-i18n-key="hero.stat.projectsCompleted">Projects Completed</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat__number">100+</div>
-                            <div class="stat__label" data-i18n-key="hero.stat.devsTrained">Developers Trained</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat__number">20+</div>
-                            <div class="stat__label" data-i18n-key="hero.stat.techMastered">Technologies Mastered</div>
-                        </div>
-                    </div>
-                    <div class="hero__actions">
-                        <a href="#contact" class="btn btn--primary btn--lg" data-i18n-key="hero.getInTouch">Get In Touch</a>
-                        <a href="#projects" class="btn btn--outline btn--lg" data-i18n-key="hero.viewProjects">View Projects</a>
-                    </div>
-                </div>
-                <div class="hero__image">
-                    <div class="hero__avatar">
-                        <div class="avatar-placeholder">
-                            <img src="https://avatars.githubusercontent.com/u/124777905?v=4" alt="Profile Image" class="profile-image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.about">About Me</h2>
-            <div class="about__content">
-                <div class="about__text">
-                    <p data-i18n-key="about.text1">I'm a passionate Software Engineer with over 5 years of experience specializing in Java enterprise applications, AI/ML solutions, and full-stack development. My journey has taken me through the financial sector at SWIFT, where I worked on critical messaging protocols, to innovative AI integrations and cybersecurity solutions.</p>
-                    <p data-i18n-key="about.text2">Currently working as a freelance developer, I focus on creating robust enterprise applications, real-time processing systems, and AI-powered solutions. I also have experience as a Java instructor, having trained over 100 developers and won 3rd prize in a Belgian hackathon.</p>
-                    <div class="about__highlights">
-                        <div class="highlight">
-                            <span class="highlight__icon">🏆</span>
-                            <div>
-                                <h4 data-i18n-key="about.highlight1.title">3rd Place</h4>
-                                <p data-i18n-key="about.highlight1.text">Belgium Hackathon Winner</p>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <span class="highlight__icon">👨‍🏫</span>
-                            <div>
-                                <h4 data-i18n-key="about.highlight2.title">Teaching Experience</h4>
-                                <p data-i18n-key="about.highlight2.text">100+ Developers Trained</p>
-                            </div>
-                        </div>
-                        <div class="highlight">
-                            <span class="highlight__icon">🏢</span>
-                            <div>
-                                <h4 data-i18n-key="about.highlight3.title">SWIFT Experience</h4>
-                                <p data-i18n-key="about.highlight3.text">FinTech Knowledge</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about__contact">
-                    <div class="contact-info">
-                        <h3 data-i18n-key="contact.infoTitle">Contact Information</h3>
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <a href="mailto:yilmaz@codesapien.net" data-i18n-key="about.contact.email">yilmaz@codesapien.net</a>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <a href="tel:+32467711709" data-i18n-key="about.contact.phone">+32 467 71 17 09</a>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <span data-i18n-key="about.contact.location">Zele, Belgium</span>
-                        </div>
-                        <div class="social-links">
-                            <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="about.contact.github">
-                                <span>GitHub</span>
-                            </a>
-                            <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n-key="about.contact.linkedin">
-                                <span>LinkedIn</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <hr class="my-3 border-t border-slate-300">
 
-    <!-- Experience Section -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.experience">Experience</h2>
-            <div class="timeline">
-                <div class="timeline__item">
-                    <div class="timeline__marker"></div>
-                    <div class="timeline__content">
-                        <div class="timeline__period" data-i18n-key="timeline.2025.period">Feb 2025 - Present</div>
-                        <h3 class="timeline__title" data-i18n-key="timeline.2025.title">Freelance Software Engineer</h3>
-                        <div class="timeline__company" data-i18n-key="timeline.2025.company">Self-Employed • Zele, Belgium</div>
-                        <ul class="timeline__achievements">
-                            <li data-i18n-key="timeline.2025.achievement1">Java/Python Enterprise Applications development</li>
-                            <li data-i18n-key="timeline.2025.achievement2">Real-time image/audio processing implementations</li>
-                            <li data-i18n-key="timeline.2025.achievement3">React Native apps with full DevOps stack</li>
-                            <li data-i18n-key="timeline.2025.achievement4">FastAPI and Spring Boot AI service integration</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline__item">
-                    <div class="timeline__marker"></div>
-                    <div class="timeline__content">
-                        <div class="timeline__period" data-i18n-key="timeline.2024.period">Oct 2024 - Feb 2025</div>
-                        <h3 class="timeline__title" data-i18n-key="timeline.2024.title">Software Engineer</h3>
-                        <div class="timeline__company" data-i18n-key="timeline.2024.company">TheMatchBox • Belgium</div>
-                        <ul class="timeline__achievements">
-                            <li data-i18n-key="timeline.2024.achievement1">ElasticSearch Java plugins for advanced search</li>
-                            <li data-i18n-key="timeline.2024.achievement2">Distributed Computing implementations</li>
-                            <li data-i18n-key="timeline.2024.achievement3">Performance optimization solutions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline__item">
-                    <div class="timeline__marker"></div>
-                    <div class="timeline__content">
-                        <div class="timeline__period" data-i18n-key="timeline.2023.period">June 2023 - Oct 2024</div>
-                        <h3 class="timeline__title" data-i18n-key="timeline.2023.title">Software Engineer</h3>
-                        <div class="timeline__company" data-i18n-key="timeline.2023.company">S.W.I.F.T • Belgium</div>
-                        <ul class="timeline__achievements">
-                            <li data-i18n-key="timeline.2023.achievement1">MT/MX messaging protocol implementation</li>
-                            <li data-i18n-key="timeline.2023.achievement2">Enterprise security systems in Java</li>
-                            <li data-i18n-key="timeline.2023.achievement3">MQ for high-volume transactions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline__item">
-                    <div class="timeline__marker"></div>
-                    <div class="timeline__content">
-                        <div class="timeline__period" data-i18n-key="timeline.2022.period">2022 - 2024</div>
-                        <h3 class="timeline__title" data-i18n-key="timeline.2022.title">Java Instructor</h3>
-                        <div class="timeline__company" data-i18n-key="timeline.2022.company">INTEC Brussel • Brussels, Belgium</div>
-                        <ul class="timeline__achievements">
-                            <li data-i18n-key="timeline.2022.achievement1">Dual-language training (Java & Python)</li>
-                            <li data-i18n-key="timeline.2022.achievement2">Won 3rd prize in Hackathon in Belgium</li>
-                            <li data-i18n-key="timeline.2022.achievement3">100+ developers trained in enterprise patterns</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <p><strong>Key Experience Alignment:</strong></p>
+                <ul>
+                    ${formattedAlignment}
+                </ul>
 
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.skills">Skills & Technologies</h2>
-            <div class="skills__grid">
-                <div class="skill-category">
-                    <h3 class="skill-category__title" data-i18n-key="skills.category.ai-ml">AI/ML Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag" data-i18n-key="skills.ai-ml.computer-vision-opencv-mediapipe-tensorflow">Computer Vision (OpenCV, MediaPipe, TensorFlow)</span>
-                        <span class="skill-tag" data-i18n-key="skills.ai-ml.voice-processing-whisper-vosk-deepspeech">Voice Processing (Whisper, Vosk, DeepSpeech)</span>
-                        <span class="skill-tag" data-i18n-key="skills.ai-ml.mobile-apps-with-ai-integration">Mobile Apps with AI Integration</span>
-                        <span class="skill-tag" data-i18n-key="skills.ai-ml.mlops-with-terraform">MLOps with Terraform</span>
-                        <span class="skill-tag" data-i18n-key="skills.ai-ml.ai-security-integration-mcp-protocol">AI-Security Integration (MCP Protocol)</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="skill-category__title" data-i18n-key="skills.category.enterprise-java">Enterprise Java</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.jdk-8-11-17-jakarta-ee">JDK 8, 11, 17, Jakarta EE</span>
-                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.spring-ecosystem-boot-security-data-cloud-ai">Spring Ecosystem (Boot, Security, Data, Cloud, AI)</span>
-                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.financial-systems-swift-protocols-amh">Financial Systems (SWIFT protocols, AMH)</span>
-                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.microservices-modulith-architecture">Microservices/Modulith Architecture</span>
-                        <span class="skill-tag" data-i18n-key="skills.enterprise-java.jenkins-nexus-maven-gradle-ant">Jenkins, Nexus, Maven, Gradle, Ant</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="skill-category__title" data-i18n-key="skills.category.full-stack-development">Full-Stack Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.spring-boot-backend-with-react-frontend">Spring Boot backend with React frontend</span>
-                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.nestjs-backend-with-react-native-cross-platform">NestJS backend with React Native cross-platform</span>
-                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.fastapi-and-pgvector-with-streamlit-ai-focused-ui">FastAPI and PGVector with Streamlit AI-focused UI</span>
-                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.pwa-using-vaadin-spring-boot-docker">PWA using Vaadin + Spring Boot + Docker</span>
-                        <span class="skill-tag" data-i18n-key="skills.full-stack-development.automated-deployment-for-woocommerce-wp">Automated Deployment for WooCommerce + WP</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <hr class="my-3 border-t border-slate-300">
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.projects">Projects</h2>
-            <div class="projects__subcategory">
-              <h3 class="section__subtitle" data-i18n-key="section.current">Current</h3>
-              <div class="projects__grid">
-                <!-- TEXT TO NEXT -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.text-to-next.title">TEXT TO NEXT</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.text-to-next.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.java">Java</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.vaadin">Vaadin Flow</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.spring-boot">Spring Boot 3</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.virtual-threads">Java 21 Virtual Threads</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.text-to-next.tech.docker">Docker</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.text-to-next.feature.modular-event-platform"></li>
-                        <li data-i18n-key="projects.current.text-to-next.feature.accessibility"></li>
-                        <li data-i18n-key="projects.current.text-to-next.feature.single-jar-deployment"></li>
-                        <li data-i18n-key="projects.current.text-to-next.feature.github-actions"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- LUISTER -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.luister.title">LUISTER</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.luister.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.luister.tech.python">Python</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.luister.tech.pyqt">PyQt</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.luister.feature.winamp-experience"></li>
-                        <li data-i18n-key="projects.current.luister.feature.cross-platform"></li>
-                        <li data-i18n-key="projects.current.luister.feature.single-wheel"></li>
-                        <li data-i18n-key="projects.current.luister.feature.open-source"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- FOODLAMA -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.foodlama.title">FOODLAMA</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.foodlama.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.spring-boot">Spring Boot 3</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.java">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.ollama">Ollama</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.vector-db">Vector DB</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.foodlama.tech.docker">Docker</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.foodlama.feature.food-ai-platform"></li>
-                        <li data-i18n-key="projects.current.foodlama.feature.compliance-checks"></li>
-                        <li data-i18n-key="projects.current.foodlama.feature.multimodal-recognition"></li>
-                        <li data-i18n-key="projects.current.foodlama.feature.devops-stack"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- INSTYPER -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.instyper.title">INSTYPER</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.instyper.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.cross-platform">Cross-Platform</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.asr">Local ASR</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.instyper.tech.ci">CI/CD</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.instyper.feature.voice-typing"></li>
-                        <li data-i18n-key="projects.current.instyper.feature.auto-translate"></li>
-                        <li data-i18n-key="projects.current.instyper.feature.privacy"></li>
-                        <li data-i18n-key="projects.current.instyper.feature.quick-onboarding"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- JOBOPS -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.jobops.title">JOBOPS</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.jobops.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.cross-platform">Cross-Platform</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.openai">OpenAI</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.groq">Groq</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.ollama">Ollama</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.jobops.tech.local-models">Local Models</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.jobops.feature.motivation-letters"></li>
-                        <li data-i18n-key="projects.current.jobops.feature.cv-editor"></li>
-                        <li data-i18n-key="projects.current.jobops.feature.offline"></li>
-                        <li data-i18n-key="projects.current.jobops.feature.dashboard"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- MLPOPS -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.mlpops.title">MLPOPS</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.mlpops.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.ml">ML</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.terraform">Terraform</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.cloud">Cloud</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.mlpops.tech.dashboard">Dashboard</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.mlpops.feature.salary-prediction"></li>
-                        <li data-i18n-key="projects.current.mlpops.feature.skills-demand"></li>
-                        <li data-i18n-key="projects.current.mlpops.feature.cloud-deployment"></li>
-                        <li data-i18n-key="projects.current.mlpops.feature.interactive-dashboard"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- CVGAMES -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.cvgames.title">CVGAMES</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.cvgames.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.java">Java</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.vaadin">Vaadin</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.pgvector">PGVector</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.cvgames.tech.docker">Docker</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.cvgames.feature.event-platform"></li>
-                        <li data-i18n-key="projects.current.cvgames.feature.accessibility"></li>
-                        <li data-i18n-key="projects.current.cvgames.feature.analytics"></li>
-                        <li data-i18n-key="projects.current.cvgames.feature.one-click-deployment"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- BESTEKAR -->
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.current.bestekar.title">BESTEKAR</h3>
-                    <p class="project-card__description" data-i18n-key="projects.current.bestekar.description"></p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.kivy">Kivy</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.meta-musicgen">Meta MusicGen</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.rvc">RVC</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.celery">Celery</span>
-                      <span class="tech-tag" data-i18n-key="projects.current.bestekar.tech.gpu">GPU</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.current.bestekar.feature.turkish-ai-composer"></li>
-                        <li data-i18n-key="projects.current.bestekar.feature.voice-conversion"></li>
-                        <li data-i18n-key="projects.current.bestekar.feature.kivy-gui"></li>
-                        <li data-i18n-key="projects.current.bestekar.feature.generation-modes"></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="projects__subcategory">
-              <h3 class="section__subtitle" data-i18n-key="section.future">Future</h3>
-              <div class="projects__grid">
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.smart-document-qa-system.title">Smart Document Q&A System</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.smart-document-qa-system.description">Upload PDFs, create embeddings, and ask questions about document content using RAG pattern. Virtual threads handle concurrent document processing efficiently.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-document-qa-system.tech.react">React</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.upload-pdfs-and-create-embeddings">Upload PDFs and create embeddings</li>
-                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.question-answering-with-rag">Question answering with RAG</li>
-                        <li data-i18n-key="projects.future.smart-document-qa-system.feature.concurrent-processing-via-virtual-threads">Concurrent processing via virtual threads</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.personal-knowledge-assistant.title">Personal Knowledge Assistant</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.personal-knowledge-assistant.description">Simple note-taking app with AI-powered search and summarization. Uses vector similarity search for finding related notes.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.personal-knowledge-assistant.tech.vaadin">Vaadin</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.note-taking-with-ai-support">Note-taking with AI support</li>
-                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.search-and-summarization">Search and summarization</li>
-                        <li data-i18n-key="projects.future.personal-knowledge-assistant.feature.vector-similarity-search">Vector similarity search</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.code-review-assistant.title">Code Review Assistant</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.code-review-assistant.description">Analyze code snippets, provide suggestions, and maintain a knowledge base of coding patterns using embeddings.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-review-assistant.tech.react">React</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.code-review-assistant.feature.code-snippet-analysis">Code snippet analysis</li>
-                        <li data-i18n-key="projects.future.code-review-assistant.feature.ai-powered-suggestions">AI-powered suggestions</li>
-                        <li data-i18n-key="projects.future.code-review-assistant.feature.knowledge-base-of-patterns">Knowledge base of patterns</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.smart-inventory-tracker.title">Smart Inventory Tracker</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.smart-inventory-tracker.description">Track inventory with AI-powered demand prediction based on historical data patterns.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.smart-inventory-tracker.tech.vaadin">Vaadin</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.demand-prediction">Demand prediction</li>
-                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.crud-operations">CRUD operations</li>
-                        <li data-i18n-key="projects.future.smart-inventory-tracker.feature.intelligent-insights">Intelligent insights</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.meeting-minutes-analyzer.title">Meeting Minutes Analyzer</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.meeting-minutes-analyzer.description">Upload meeting transcripts, extract action items, and search through historical meetings using vector search.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.meeting-minutes-analyzer.tech.gluon">Gluon</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.transcript-upload">Transcript upload</li>
-                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.action-item-extraction">Action item extraction</li>
-                        <li data-i18n-key="projects.future.meeting-minutes-analyzer.feature.historical-search">Historical search</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.customer-feedback-insights.title">Customer Feedback Insights</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.customer-feedback-insights.description">Collect customer feedback, categorize using AI, and provide a sentiment analysis dashboard.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.customer-feedback-insights.tech.react">React</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.feedback-collection">Feedback collection</li>
-                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.ai-categorization">AI categorization</li>
-                        <li data-i18n-key="projects.future.customer-feedback-insights.feature.sentiment-dashboard">Sentiment dashboard</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.recipe-recommendation-engine.title">Recipe Recommendation Engine</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.recipe-recommendation-engine.description">Store recipes, find similar dishes using vector embeddings, and get cooking suggestions based on available ingredients.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.recipe-recommendation-engine.tech.vaadin">Vaadin</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.recipe-storage">Recipe storage</li>
-                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.similarity-search">Similarity search</li>
-                        <li data-i18n-key="projects.future.recipe-recommendation-engine.feature.ingredient-based-suggestions">Ingredient-based suggestions</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.learning-path-generator.title">Learning Path Generator</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.learning-path-generator.description">Create personalized learning paths based on user goals and existing knowledge, using AI to recommend next steps.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.learning-path-generator.tech.react">React</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.learning-path-generator.feature.personalized-paths">Personalized paths</li>
-                        <li data-i18n-key="projects.future.learning-path-generator.feature.ai-recommendations">AI recommendations</li>
-                        <li data-i18n-key="projects.future.learning-path-generator.feature.goal-based-planning">Goal-based planning</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.travel-itinerary-planner.title">Travel Itinerary Planner</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.travel-itinerary-planner.description">Plan trips with AI-powered recommendations based on preferences and budget. Use vector search for similar destinations.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.travel-itinerary-planner.tech.gluon">Gluon</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.ai-travel-suggestions">AI travel suggestions</li>
-                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.budget-planning">Budget planning</li>
-                        <li data-i18n-key="projects.future.travel-itinerary-planner.feature.destination-similarity">Destination similarity</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.api-documentation-assistant.title">API Documentation Assistant</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.api-documentation-assistant.description">Generate and maintain API documentation with AI-powered examples and usage patterns.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.api-documentation-assistant.tech.vaadin">Vaadin</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.ai-documentation-examples">AI documentation examples</li>
-                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.usage-pattern-generation">Usage pattern generation</li>
-                        <li data-i18n-key="projects.future.api-documentation-assistant.feature.maintained-docs">Maintained docs</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.code-snippet-manager.title">Code Snippet Manager</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.code-snippet-manager.description">Store and search code snippets using semantic search with embeddings. Tag and categorize snippets automatically.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.java-21-virtual-threads">Java 21 (Virtual Threads)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.spring-ai">Spring AI</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.code-snippet-manager.tech.react">React</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.code-snippet-manager.feature.snippet-storage">Snippet storage</li>
-                        <li data-i18n-key="projects.future.code-snippet-manager.feature.semantic-search">Semantic search</li>
-                        <li data-i18n-key="projects.future.code-snippet-manager.feature.auto-tagging">Auto tagging</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card">
-                  <div class="project-card__content">
-                    <h3 class="project-card__title" data-i18n-key="projects.future.project-idea-generator.title">Project Idea Generator</h3>
-                    <p class="project-card__description" data-i18n-key="projects.future.project-idea-generator.description">Generate project ideas based on tech stack preferences and skill level. Use vector similarity to find related project concepts.</p>
-                    <div class="project-card__tech">
-                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.java-21">Java 21</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.spring-boot">Spring Boot</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.postgresql-pgvector">PostgreSQL (PGVector)</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.langchain4j">LangChain4J</span>
-                      <span class="tech-tag" data-i18n-key="projects.future.project-idea-generator.tech.gluon">Gluon</span>
-                    </div>
-                    <div class="project-card__features">
-                      <ul>
-                        <li data-i18n-key="projects.future.project-idea-generator.feature.ai-project-ideas">AI project ideas</li>
-                        <li data-i18n-key="projects.future.project-idea-generator.feature.preference-based-suggestions">Preference-based suggestions</li>
-                        <li data-i18n-key="projects.future.project-idea-generator.feature.concept-similarity">Concept similarity</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-    </section>
+                <p><strong>Simulated Initial Security Assessment:</strong></p>
+                <ul class="space-y-1">
+                    ${formattedSecurity}
+                </ul>
+                <p class="text-xs text-slate-500 mt-2"><em>*This is a simulated report for presentation purposes only, based on assumed security best practices.</em></p>
+            `;
 
-    <!-- Applications Section -->
-    <section class="agenda" id="agenda">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.agenda">Tasks</h2>
-            <div class="agenda__grid">
-                <div class="agenda__list">
-                    <h3 data-i18n-key="agenda.applicationsProgress">Tasks</h3>
-                    <table>
+
+        outputContent.innerHTML = `<div class="bg-slate-50 p-4 rounded-lg border border-slate-200 overflow-x-auto text-sm">${analysisOutput}</div>`;
+        exportContainer.classList.remove('hidden');
+    };
+
+    // --- SIMULATED SECURITY CHECK LOGIC ---
+    const generateSimulatedSecurityReport = (url) => {
+        const isHttps = url.toLowerCase().startsWith('https');
+        const domain = url.replace(/https?:\/\//i, '').split('/')[0];
+
+        const results = [
+            {
+                check: 'HTTPS Encryption (TLS/SSL)',
+                result: isHttps ? 'Strong baseline security detected.' : 'Missing. Recommended: Implement HTTPS (TLS 1.2+).',
+                status: isHttps ? '✅' : '⚠️'
+            },
+            {
+                check: 'HSTS Header Enforcement',
+                result: 'Assumed strong. Promotes use of secure connections only.',
+                status: '✅'
+            },
+            {
+                check: 'Content Security Policy (CSP)',
+                result: 'Assumed basic. Reduces risks from cross-site scripting (XSS) and injection attacks.',
+                status: '☑️'
+            },
+            {
+                check: 'Subresource Integrity (SRI) Check',
+                result: 'Assumed compliance. Verifies external scripts haven\'t been tampered with.',
+                status: '✅'
+            },
+            {
+                check: 'Domain Security Health',
+                result: `Domain ${domain} is assumed to have standard security headers.`,
+                status: 'ℹ️'
+            },
+        ];
+        return results;
+    };
+
+    analyzeButton.addEventListener('click', () => {
+        const jobDescription = jobDescriptionInput.value.trim();
+        const companyName = companyNameInput.value.trim();
+        const companyUrl = companyUrlInput.value.trim();
+
+        if (!jobDescription || !companyName || !companyUrl) {
+            outputContent.innerHTML = '<span class="text-[#AE2012]">Please fill in the Company Name, URL, and Job Description to run the analysis.</span>';
+            outputPlaceholder.style.display = 'none';
+            exportContainer.classList.add('hidden');
+            return;
+        }
+
+        loadingSpinner.style.display = 'inline-block';
+        analyzeButton.disabled = true;
+        outputPlaceholder.style.display = 'none';
+        outputContent.innerHTML = '';
+
+        setTimeout(() => {
+            runLocalMatch(jobDescription, companyName, companyUrl);
+            loadingSpinner.style.display = 'none';
+            analyzeButton.disabled = false;
+        }, 100);
+    });
+
+    // Add handler to reset state when user clears the input
+    const resetState = () => {
+        jobDescriptionInput.readOnly = false;
+        companyNameInput.readOnly = false;
+        companyUrlInput.readOnly = false;
+        jobDescriptionInput.innerHTML = jobDescriptionInput.value; // Restore raw text content
+        outputPlaceholder.style.display = 'block';
+        outputContent.innerHTML = '';
+        exportContainer.classList.add('hidden');
+    }
+
+    jobDescriptionInput.addEventListener('input', () => {
+        if (jobDescriptionInput.readOnly && jobDescriptionInput.value.trim() !== '') {
+            // If the user starts typing in the read-only preview, reset the state
+            resetState();
+        } else if (jobDescriptionInput.value.trim() === '') {
+            // If input is cleared, ensure full reset
+            resetState();
+        }
+    });
+
+    // Also allow clearing if name/url change after analysis
+    companyNameInput.addEventListener('input', () => { if (jobDescriptionInput.readOnly) resetState(); });
+    companyUrlInput.addEventListener('input', () => { if (jobDescriptionInput.readOnly) resetState(); });
+
+
+    // --- WORD EXPORT LOGIC ---
+    const exportMatchReport = () => {
+        const { matchScore, matchedSkills, alignmentHits, jobDescription, companyName, companyUrl } = lastAnalysisResult;
+
+        // Convert raw job description using markdownToHtml for the Word document
+        const htmlJobDescription = markdownToHtml(jobDescription);
+
+        const htmlSkills = matchedSkills.map(s => `<li>${s}</li>`).join('');
+        const htmlAlignment = alignmentHits.map(h => `<li>${h}</li>`).join('');
+
+        const securityReport = generateSimulatedSecurityReport(companyUrl);
+        const htmlSecurity = securityReport.map(item => `
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 8px 0; font-size: 10pt; width: 20%;">${item.status}</td>
+                    <td style="padding: 8px 0; font-size: 10pt; width: 35%; font-weight: bold;">${item.check}</td>
+                    <td style="padding: 8px 0; font-size: 10pt; width: 45%;">${item.result}</td>
+                </tr>`).join('');
+
+
+        const docContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Skill Match Report - Yilmaz Mustafa</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; color: #333; }
+                        h1 { color: #005F73; border-bottom: 3px solid #005F73; padding-bottom: 10px; margin-top: 0; }
+                        h2 { color: #0A9396; border-bottom: 1px solid #0A9396; padding-bottom: 5px; margin-top: 30px; }
+                        h3 { margin-top: 20px; font-size: 12pt; color: #005F73; }
+                        .header { text-align: center; margin-bottom: 40px; }
+                        .header h1 { font-size: 28pt; border: none; }
+                        .contact { font-size: 10pt; color: #666; }
+                        .score { font-size: 20pt; font-weight: bold; color: #AE2012; margin: 15px 0; text-align: center;}
+                        .job-desc { border: 1px solid #ddd; padding: 15px; background: #f9f9f9; margin-bottom: 20px; }
+                        ul { padding-left: 20px; list-style-type: disc; }
+                        li { margin-bottom: 5px; }
+                        .table-container { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Yilmaz Mustafa - Job Match Report</h1>
+                        <p class="contact">
+                            Email: yilmaz@codesapien.net | LinkedIn: codesapienbe | Portfolio: codesapien.net
+                        </p>
+                    </div>
+
+                    <h2>Target Company Profile</h2>
+                    <table style="width: 100%; font-size: 11pt;">
+                        <tr><td style="width: 30%; font-weight: bold;">Company Name:</td><td>${companyName}</td></tr>
+                        <tr><td style="font-weight: bold;">Website:</td><td><a href="${companyUrl}">${companyUrl}</a></td></tr>
+                    </table>
+
+                    <h2>Job Alignment Summary</h2>
+                    <div class="score">Match Score: ${matchScore}%</div>
+
+                    <h3>Job Description Provided</h3>
+                    <div class="job-desc">${htmlJobDescription}</div>
+
+                    <h2>Matched Technical Skills</h2>
+                    <p>The following top technical skills from Yilmaz Mustafa's profile were identified in the job description:</p>
+                    <ul>${htmlSkills}</ul>
+
+                    <h2>Contextual Experience Alignment</h2>
+                    <p>Yilmaz Mustafa possesses direct experience relevant to these key requirements mentioned in the job description:</p>
+                    <ul>${htmlAlignment}</ul>
+
+                    <h2>Initial Security Assessment (Simulated)</h2>
+                    <table class="table-container">
                         <thead>
-                            <tr>
-                                <th data-i18n-key="agenda.table.task">Task</th>
-                                <th data-i18n-key="agenda.table.dateCreated">Date Created</th>
-                                <th data-i18n-key="agenda.table.status">Status</th>
+                            <tr style="background-color: #f0f0f0;">
+                                <th style="text-align: left; padding: 8px 0;">Status</th>
+                                <th style="text-align: left; padding: 8px 0;">Security Check</th>
+                                <th style="text-align: left; padding: 8px 0;">Finding</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Tasks will be dynamically populated from Linear issues -->
+                            ${htmlSecurity}
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <p style="margin-top: 15px; font-size: 9pt; color: #AE2012;">
+                        *This security assessment is simulated and intended for professional presentation only. Live security auditing requires dedicated services and server-side processing.*
+                    </p>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section__title" data-i18n-key="section.contact">Get In Touch</h2>
-            <div class="contact__content">
-                <div class="contact__info">
-                    <h3 data-i18n-key="contact.introTitle">Let's Work Together</h3>
-                    <p data-i18n-key="contact.introText">I'm always interested in new opportunities and challenges. Whether you need help with enterprise Java applications, AI/ML solutions, or full-stack development, I'd love to hear from you.</p>
-                    <div class="contact__details">
-                        <div class="contact__item">
-                            <span class="contact__icon">📧</span>
-                            <div>
-                                <strong data-i18n-key="contact.detail.emailLabel">Email</strong>
-                                <a href="mailto:yilmaz@codesapien.net" data-i18n-key="about.contact.email">yilmaz@codesapien.net</a>
-                            </div>
-                        </div>
-                        <div class="contact__item">
-                            <span class="contact__icon">📱</span>
-                            <div>
-                                <strong data-i18n-key="contact.detail.phoneLabel">Phone</strong>
-                                <a href="tel:+32467711709" data-i18n-key="about.contact.phone">+32 467 71 17 09</a>
-                            </div>
-                        </div>
-                        <div class="contact__item">
-                            <span class="contact__icon">📍</span>
-                            <div>
-                                <strong data-i18n-key="contact.detail.locationLabel">Location</strong>
-                                <span data-i18n-key="about.contact.location">Zele, Belgium</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact__form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name" class="form-label" data-i18n-key="contact.label.name">Name *</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                        <div class="form-error" id="nameError" role="alert" aria-live="assertive"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label" data-i18n-key="contact.label.email">Email *</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                        <div class="form-error" id="emailError" role="alert" aria-live="assertive"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject" class="form-label" data-i18n-key="contact.label.subject">Subject</label>
-                        <input type="text" id="subject" name="subject" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="form-label" data-i18n-key="contact.label.message">Message *</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                        <div class="form-error" id="messageError" role="alert" aria-live="assertive"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="requestMeeting" name="requestMeeting">
-                        <label for="requestMeeting" data-i18n-key="contact.requestMeeting">Request a Google Meet</label>
-                    </div>
-                    <div class="form-group meeting-details" style="display:none;">
-                        <label for="meetingDateTime" data-i18n-key="contact.selectDateTime">Select Date & Time *</label>
-                        <input type="text" id="meetingDateTime" class="form-control flatpickr-date-time" data-i18n-key="contact.meetingDateTimePlaceholder" placeholder="Choose date & time" />
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full-width" data-i18n-key="contact.button.sendMessage">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
 
-    <!-- Chat Launcher & Popup -->
-    <button id="chatLauncher" class="chat-launcher" data-i18n-key="chat.launcherLabel" data-i18n-attr="aria-label" aria-label="Open chat" aria-controls="chatPopup" aria-expanded="false">💬</button>
-    <button id="listenLauncher" class="listen-launcher" data-i18n-key="listen.launcherLabel" data-i18n-attr="aria-label" aria-label="Listen to site" aria-pressed="false">🔊</button>
-    <div id="chatPopup" class="chat-popup" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="chatTitle">
-        <div class="chat-header">
-            <span id="chatTitle" data-i18n-key="chat.header">Ask Me</span>
-            <button id="chatClose" class="chat-close" data-i18n-key="chat.closeLabel" data-i18n-attr="aria-label" aria-label="Close chat">&times;</button>
-        </div>
-        <div class="chat-body">
-            <input type="text" id="qaInput" class="form-control" data-i18n-key="chat.inputPlaceholder" placeholder="Ask me about my experience, skills, applications, or availability">
-            <button id="qaButton" class="btn btn--primary" data-i18n-key="chat.askButton">Ask</button>
-            <div id="qaAnswer" class="chat__answer" role="region" aria-live="polite"></div>
-        </div>
-    </div>
-    </main>
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer__content">
-                <div class="footer__text">
-                    <p data-i18n-key="footer.text">&copy; 2025 Yilmaz Mustafa. All rights reserved.</p>
-                </div>
-                <div class="footer__social">
-                    <a href="https://github.com/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.github">GitHub</a>
-                    <a href="https://linkedin.com/in/codesapienbe" target="_blank" rel="noopener noreferrer" class="footer__link" data-i18n-key="footer.link.linkedin">LinkedIn</a>
-                    <a href="mailto:yilmaz@codesapien.net" class="footer__link" data-i18n-key="footer.link.email">Email</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+                    <p style="margin-top: 40px; font-size: 10pt; color: #666;">
+                        This report was generated automatically based on a proprietary client-side keyword matching algorithm.
+                    </p>
+                </body>
+                </html>
+            `;
 
-    <!-- AI in-browser LLM -->
-    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers/dist/transformers.min.js"></script>
-    <script>
-      let pipeline;
-      async function askLLM(prompt) {
-        if (!pipeline) {
-          pipeline = await window.transformers.pipeline(
-            'text-generation',
-            'distilgpt2',
-            { progress: true }
-          );
-        }
-        const [{ generated_text }] = await pipeline(prompt, { max_new_tokens: 50 });
-        return generated_text;
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="config.js"></script>
-    <script src="app.js"></script>
+        const filename = `Yilmaz_Mustafa_Match_Report_${companyName.replace(/\s/g, '_')}.doc`;
+        const blob = new Blob(['\ufeff', docContent], {
+            type: 'application/msword'
+        });
+
+        // Use the standard download method
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    // --- FULL RESUME EXPORT LOGIC (Enhanced Visual Design) ---
+    const exportFullResume = () => {
+        // Define the simple, non-interactive resume content for export
+        const exportData = {
+            title: "Yilmaz Mustafa",
+            subtitle: "Java & Spring Software Engineer",
+            contact: "Email: yilmaz@codesapien.net | Portfolio: codesapien.net | LinkedIn: codesapienbe",
+            summary: "Software Engineer with 5+ years of expertise in enterprise application development using Spring Boot and modern software architecture (Monolith, Microservices, Modulith). Proven track record delivering scalable, high-performance applications and CI/CD automation. Supported 10k+ concurrent users and specialized in REST/SOAP APIs and data integration.",
+            skills: candidateSkills, // Reuse core skill list
+            experience: [
+                { company: "Freelance", title: "Software Engineer", dates: "Feb 2025 – Aug 2025", desc: "Developed and deployed high-performance Spring Boot 3.x apps, orchestrating CI/CD pipelines with Docker and Terraform." },
+                { company: "TheMatchBox, Brussels", title: "Software Engineer", dates: "Oct 2024 – Feb 2025", desc: "Enhanced search algorithms with ZeroMQ, improving latency by 15%, and implemented robust automated testing strategies." },
+                { company: "SWIFT, La Hulpe", title: "Software Engineer", dates: "Jun 2023 – Oct 2024", desc: "Maintained mission-critical financial messaging systems (AMH) and upgraded security infrastructure with modern cryptographic standards." },
+                { company: "INTEC Brussel", title: "Software Engineer & Instructor", dates: "Mar 2020 – Jun 2023", desc: "Delivered enterprise Java and Spring Boot curriculum to over 100 developers and built CI/CD environments for training." },
+            ],
+            projects: [
+                { name: "Spring Vision Framework", tech: "Spring Boot 3.x, Java 21, OpenCV", desc: "A production-ready computer vision framework delivered as a Spring Boot Starter, enabling zero-configuration object detection and intelligent applications." },
+                { name: "Spring Finqube ISO 20022 Starter", tech: "Spring Boot 3.2, Financial Integration", desc: "Developed a Spring Boot starter for financial messaging (ISO 20022 standard), featuring enterprise-grade security and auto-configuration." },
+                { name: "Instyper - Voice-to-Text Desktop App", tech: "Java, Vosk, Whisper, GUI", desc: "A lightweight, privacy-first desktop application that turns your voice into text instantly, working offline and supporting modern online models." },
+                { name: "Food Score MLOps Pipeline", tech: "Spring Boot, PostgreSQL, OpenAPI", desc: "Architected an enterprise application with structured JSON logging and OpenAPI documentation, demonstrating a full-cycle MLOps pipeline integration." },
+            ],
+            education: [
+                { title: "Postgraduate AI & Machine Learning (Completed)", institution: "Erasmushogeschool Brussel, Belgium" },
+                { title: "MSc in Computing and Information Systems (Incomplete)", institution: "Queen Mary, University of London, UK (2013)" },
+                { title: "Bachelor Degree, Tourism and Hotel Management", institution: "Beykent University, Istanbul, Turkiye (2010)" },
+            ],
+            certifications: [
+                "Agile in Software Engineering (SWIFT Internal Training)",
+                "Spring Boot and Angular (VDAB Internal Training)",
+                "Enterprise Java Development (INTEC Brussel Training)",
+                "Certifications in Agile and Security",
+            ]
+        };
+
+        // Fix 1: Professional Experience layout using reliable divs/spans
+        const htmlExperience = exportData.experience.map(exp => `
+                <div style="margin-bottom: 18px; border-left: 3px solid #94D2BD; padding-left: 10px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="vertical-align: top;">
+                            <td style="width: 75%;">
+                                <h3 style="margin: 0; font-size: 11pt; color: #005F73; font-weight: bold;">${exp.title}</h3>
+                                <p style="margin: 0; font-size: 9pt; color: #0A9396; font-weight: normal;">${exp.company}</p>
+                            </td>
+                            <td style="width: 25%; text-align: right; font-size: 9pt; color: #666; font-weight: bold;">${exp.dates}</td>
+                        </tr>
+                    </table>
+                    <p style="margin: 5px 0 0 0; font-size: 10pt; color: #333;">- ${exp.desc}</p>
+                </div>
+            `).join('');
+
+        const htmlProjects = exportData.projects.map(proj => `
+                <div style="margin-bottom: 12px; border-left: 3px solid #E9D8A6; padding-left: 8px;">
+                    <h3 style="margin: 0; font-size: 10.5pt; color: #005F73; font-weight: bold;">${proj.name}</h3>
+                    <p style="font-size: 9pt; color: #0A9396; margin: 2px 0;">Tech: ${proj.tech}</p>
+                    <p style="font-size: 10pt; margin: 2px 0;">- ${proj.desc}</p>
+                </div>
+            `).join('');
+
+        const htmlSkillsList = exportData.skills.map(s => `
+                <span style="background-color: #f0f0f0; padding: 3px 8px; border-radius: 3px; margin: 0 5px 5px 0; font-size: 9pt; display: inline-block;">${s}</span>
+            `).join('');
+
+        const htmlEducation = exportData.education.map(edu => `
+                 <h3 style="margin: 10px 0 0 0; font-size: 10pt; color: #0A9396; font-weight: bold;">${edu.title}</h3>
+                 <p style="margin: 0 0 5px 0; font-size: 9pt; color: #666;">${edu.institution}</p>
+            `).join('');
+
+        const htmlCertifications = exportData.certifications.map(cert => `
+                <li>${cert}</li>
+            `).join('');
+
+        const htmlArchitecturalCompetencies = `
+                <p style="font-size: 10pt; margin: 5px 0 10px 0; color: #005F73; font-weight: bold;">Architectures:</p>
+                <ul style="padding-left: 20px; list-style-type: disc; font-size: 10pt; margin-bottom: 5px;">
+                    <li>Monolith (Experience maintaining and enhancing core enterprise applications)</li>
+                    <li>Microservices (Designed and deployed resilient, independently scalable service clusters)</li>
+                    <li>Modulith (Proficient in building well-structured, modular Spring applications)</li>
+                </ul>
+                <p style="font-size: 9pt; margin-top: 10px; color: #666;">Key concepts: Domain-Driven Design (DDD), Event-Driven Architecture, API Gateway, Service Mesh.</p>
+            `;
+
+        // Fix 2: Education and Development section using robust table structure
+        const htmlEducationDevelopment = `
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="vertical-align: top;">
+                        <!-- Left Column: Education and Languages -->
+                        <td style="width: 50%; padding-right: 20px;">
+                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px;">Education</h3>
+                            ${htmlEducation}
+
+                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px; margin-top: 15px;">Languages & Domain</h3>
+                             <p style="font-size: 10pt; font-weight: bold; margin: 5px 0 3px 0;">Language Proficiency:</p>
+                             <ul style="padding-left: 20px; list-style-type: disc; margin-top: 0; font-size: 10pt;">
+                                <li>Turkish (Native), English (Fluent), Dutch (Professional)</li>
+                            </ul>
+                             <p style="font-size: 10pt; font-weight: bold; margin: 5px 0 3px 0;">Domain Expertise:</p>
+                             <ul style="padding-left: 20px; list-style-type: disc; margin-top: 0; font-size: 10pt;">
+                                <li>Financial Messaging, Enterprise Software, Technical Training</li>
+                            </ul>
+                        </td>
+                        <!-- Right Column: Certifications & Training -->
+                        <td style="width: 50%; padding-left: 10px; border-left: 1px solid #ddd;">
+                            <h3 style="font-size: 12pt; color: #0A9396; margin-bottom: 5px;">Certifications & Training</h3>
+                            <ul style="padding-left: 20px; list-style-type: disc; margin-top: 5px; font-size: 10pt;">
+                                ${htmlCertifications}
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            `;
+
+
+        const docContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Resume - Yilmaz Mustafa</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.4; max-width: 850px; margin: 0; color: #333; }
+                        .section-header { color: #005F73; border-bottom: 2px solid #005F73; padding: 5px 0 3px 0; margin-top: 25px; margin-bottom: 15px; font-size: 15pt; font-weight: bold; }
+                        .header-block { background-color: #f7f7f7; padding: 20px; text-align: center; margin-bottom: 20px; border-radius: 5px;}
+                        .contact { font-size: 10pt; color: #666; margin-top: 5px; }
+                        .summary { font-size: 11pt; margin-top: 15px; margin-bottom: 20px; line-height: 1.5; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header-block">
+                        <h1 style="font-size: 24pt; font-weight: bold; color: #005F73; margin: 0;">${exportData.title}</h1>
+                        <p style="font-size: 14pt; color: #0A9396; margin: 0;">${exportData.subtitle}</p>
+                        <p class="contact">${exportData.contact}</p>
+                    </div>
+
+                    <div style="padding: 0 20px;">
+
+                        <div class="section-header">PROFESSIONAL SUMMARY</div>
+                        <p class="summary">${exportData.summary}</p>
+
+                        <div class="section-header">CORE TECHNICAL SKILLS</div>
+                        <p style="font-size: 11pt; margin-bottom: 8px;"><strong>Core Stack:</strong> Java 17-21, Spring Boot 3.x, REST/SOAP APIs, PostgreSQL, Docker, Kubernetes, CI/CD.</p>
+                        <div style="margin-top: 5px; margin-bottom: 20px;">
+                            ${htmlSkillsList}
+                        </div>
+
+                        <div class="section-header">PROFESSIONAL EXPERIENCE</div>
+                        <div style="margin-top: 10px;">
+                            ${htmlExperience}
+                        </div>
+
+                        <div class="section-header">ARCHITECTURAL COMPETENCIES</div>
+                        ${htmlArchitecturalCompetencies}
+
+                        <div class="section-header">KEY OPEN SOURCE PROJECTS</div>
+                        <div style="margin-top: 10px;">
+                            ${htmlProjects}
+                        </div>
+
+                        <div class="section-header">EDUCATION & DEVELOPMENT</div>
+                        ${htmlEducationDevelopment}
+
+                        <div style="margin-top: 40px; font-size: 9pt; color: #999; text-align: center;">
+                            Visualizations and Job Alignment Tool available at: ${window.location.href || 'codesapien.net'}
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+
+        const filename = `Yilmaz_Mustafa_Resume_Full.doc`;
+        const blob = new Blob(['\ufeff', docContent], {
+            type: 'application/msword'
+        });
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('exportButton').addEventListener('click', exportMatchReport);
+    document.getElementById('exportResumeButton').addEventListener('click', exportFullResume);
+</script>
 </body>
 </html>

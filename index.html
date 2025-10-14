@@ -66,6 +66,17 @@
             #gemini-analysis, #exportResumeButton {
                 display: none;
             }
+            /* Add page breaks between sections for better print layout */
+            section {
+                page-break-before: always;
+            }
+            header, footer {
+                page-break-before: auto;
+                page-break-after: auto;
+            }
+            main > section:first-of-type {
+                page-break-before: auto;
+            }
             /* Ensure charts have enough space vertically */
             .chart-container {
                 height: 300px !important;
@@ -128,6 +139,25 @@
             cursor: not-allowed;
             background-color: #f7f7f7;
         }
+
+        @media print {
+            /* ... existing styles ... */
+            #gemini-analysis, #exportResumeButton {
+                display: none;
+            }
+            /* Add page breaks between sections for better print layout */
+            section {
+                page-break-before: always;
+            }
+            header, footer {
+                page-break-before: auto;
+                page-break-after: auto;
+            }
+            main > section:first-of-type {
+                page-break-before: auto;
+            }
+            /* ... existing styles ... */
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -152,10 +182,6 @@
             <span class="text-[#94D2BD]">|</span>
             <span>💼 codesapienbe (LinkedIn)</span>
         </div>
-        <!-- New Export Resume Button -->
-        <button id="exportResumeButton" onclick="exportFullResume()" class="mt-6 flex items-center justify-center mx-auto space-x-2 bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-sm md:max-w-xs">
-            Export Resume as Word (DOC) 📄
-        </button>
     </header>
 
     <main>
@@ -970,7 +996,7 @@
         exportButton.addEventListener('click', () => {
             exportMatchReport();
         });
-    }
+    };
 
 
     // --- WORD EXPORT LOGIC ---
@@ -1000,390 +1026,71 @@
                 <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
-                    <title>Skill Match Report - Yilmaz Mustafa</title>
+                    <title>Skill Match Report</title>
                     <style>
-                        body {
-                            font-family: 'Segoe UI', Arial, sans-serif;
-                            line-height: 1.6;
-                            max-width: 850px;
-                            margin: 30px auto;
-                            color: #333;
-                            background-color: #fff;
-                        }
-                        h1 {
-                            color: #005F73;
-                            border-bottom: 4px solid #005F73;
-                            padding-bottom: 12px;
-                            margin-top: 0;
-                            font-size: 28pt;
-                            letter-spacing: -0.5px;
-                        }
-                        h2 {
-                            color: #0A9396;
-                            border-left: 5px solid #0A9396;
-                            margin-top: 30px;
-                            margin-bottom: 15px;
-                            font-size: 16pt;
-                            background-color: #f7fcfc;
-                            padding: 10px 12px;
-                        }
-                        h3 {
-                            margin-top: 20px;
-                            font-size: 12pt;
-                            color: #005F73;
-                        }
-                        .header {
-                            text-align: center;
-                            margin-bottom: 40px;
-                            background: linear-gradient(135deg, #f0f9fa 0%, #fef7ec 100%);
-                            padding: 30px;
-                            border-radius: 8px;
-                        }
-                        .header h1 {
-                            font-size: 32pt;
-                            border: none;
-                            margin-bottom: 8px;
-                        }
-                        .contact {
-                            font-size: 11pt;
-                            color: #666;
-                            margin-top: 10px;
-                            line-height: 1.8;
-                        }
-                        .score-container {
-                            text-align: center;
-                            background-color: ${scoreColor};
-                            color: white;
-                            padding: 25px;
-                            border-radius: 8px;
-                            margin: 20px 0;
-                        }
-                        .score {
-                            font-size: 48pt;
-                            font-weight: bold;
-                            margin: 0;
-                            line-height: 1;
-                        }
-                        .score-label {
-                            font-size: 14pt;
-                            margin-top: 8px;
-                            opacity: 0.95;
-                        }
-                        .company-info {
-                            background-color: #f7f7f7;
-                            padding: 15px;
-                            border-radius: 6px;
-                            border-left: 4px solid #94D2BD;
-                        }
-                        .job-desc {
-                            border: 2px solid #e0e0e0;
-                            padding: 20px;
-                            background: #fafafa;
-                            margin-bottom: 20px;
-                            border-radius: 6px;
-                            line-height: 1.7;
-                        }
-                        ul {
-                            padding-left: 0;
-                            list-style-type: none;
-                        }
-                        li {
-                            margin-bottom: 8px;
-                        }
-                        .table-container {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 15px;
-                        }
-                        .table-container thead {
-                            background-color: #005F73;
-                            color: white;
-                        }
-                        .table-container th {
-                            padding: 12px 8px;
-                            text-align: left;
-                            font-weight: bold;
-                        }
-                        .footer-note {
-                            margin-top: 40px;
-                            padding: 15px;
-                            background-color: #fef7ec;
-                            border-left: 4px solid #EE9B00;
-                            font-size: 10pt;
-                            color: #666;
-                            border-radius: 4px;
-                        }
-                        .section-badge {
-                            display: inline-block;
-                            background-color: #94D2BD;
-                            color: #005F73;
-                            padding: 4px 12px;
-                            border-radius: 12px;
-                            font-size: 9pt;
-                            font-weight: bold;
-                            margin-left: 10px;
-                        }
+                        body { font-family: 'Arial', sans-serif; color: #333; }
+                        h1, h2, h3 { color: #005F73; }
+                        h1 { font-size: 24pt; }
+                        h2 { font-size: 18pt; border-bottom: 2px solid #0A9396; padding-bottom: 5px; margin-top: 20px; }
+                        h3 { font-size: 14pt; color: #0A9396; }
+                        p, li { font-size: 11pt; line-height: 1.5; }
+                        ul { padding-left: 20px; list-style-type: disc; }
+                        .section { margin-bottom: 25px; }
+                        .job-description { padding: 15px; background-color: #f7f9fa; border: 1px solid #e1e8ed; border-radius: 5px; }
+                        .score-indicator { padding: 15px; text-align: center; font-size: 18pt; font-weight: bold; color: white; background-color: ${scoreColor}; border-radius: 5px; }
                     </style>
                 </head>
                 <body>
-                    <div class="header">
-                        <h1>Skill Match Analysis Report</h1>
-                        <p style="font-size: 14pt; color: #0A9396; font-weight: 600; margin: 5px 0;">Yilmaz Mustafa</p>
-                        <p style="font-size: 12pt; color: #005F73; margin: 5px 0;">Java & Spring Software Engineer</p>
-                        <p class="contact">
-                            📧 yilmaz@codesapien.net | 💼 LinkedIn: codesapienbe | 🌐 codesapien.net
-                        </p>
+                    <div class='section'>
+                        <h1>Skill Match & Alignment Report</h1>
+                        <p><strong>Company:</strong> ${companyName}</p>
+                        <p><strong>Candidate:</strong> Yilmaz Mustafa</p>
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
                     </div>
 
-                    <h2>🏢 Target Company Profile</h2>
-                    <div class="company-info" style="padding:12px; border-radius:6px;">
-                        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                            <div style="width:28%; font-weight:700; color:#005F73;">Company Name:</div>
-                            <div style="flex:1 1 auto; color:#333;">${companyName}</div>
-                        </div>
-                        <div style="height:8px;"></div>
-                        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                            <div style="width:28%; font-weight:700; color:#005F73;">Website:</div>
-                            <div style="flex:1 1 auto;"><a href="${companyUrl}" style="color:#0A9396; text-decoration:none;">${companyUrl}</a></div>
+                    <div class='section'>
+                        <div class='score-indicator'>
+                            ${matchScore}% Match (${scoreLabel})
                         </div>
                     </div>
 
-                    <h2>🎯 Overall Match Score</h2>
-                    <div class="score-container">
-                        <div class="score">${matchScore}%</div>
-                        <div class="score-label">${scoreLabel}</div>
+                    <div class='section'>
+                        <h2>Top Matching Skills</h2>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlSkills}</ul>
                     </div>
 
-                    <h2>📋 Job Description Analysis</h2>
-                    <div class="job-desc">${htmlJobDescription}</div>
-
-                    <h2>💡 Technical Skills Match <span class="section-badge">${matchedSkills.length} Skills Identified</span></h2>
-                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">The following technical skills from Yilmaz Mustafa's profile align with requirements in the job description:</p>
-                    <ul>${htmlSkills || '<li style="color: #AE2012;">No direct keyword matches found in the job description.</li>'}</ul>
-
-                    <h2>⭐ Experience Alignment <span class="section-badge">${alignmentHits.length} Matches</span></h2>
-                    <p style="font-size: 10pt; color: #666; margin-bottom: 12px;">Direct professional experience relevant to the job requirements:</p>
-                    <ul>${htmlAlignment || '<li style="color: #AE2012;">No contextual experience matches found.</li>'}</ul>
-
-                    <h2>🔒 Preliminary Security Assessment</h2>
-                    <div style="margin-top:10px; border:1px solid #e6e6e6; border-radius:6px; overflow:hidden;">
-                        <div style="background:#005F73; color:white; padding:10px 12px; font-weight:700; display:flex; gap:12px;">
-                            <div style="width:8%; text-align:center;">Status</div>
-                            <div style="width:35%;">Security Check</div>
-                            <div style="flex:1 1 auto;">Assessment Result</div>
-                        </div>
-                        <div style="padding:8px 12px; background:#fff;">${htmlSecurity}</div>
-                    </div>
-                    <div class="footer-note">
-                        <strong>⚠️ Note:</strong> This security assessment is simulated for demonstration purposes. A comprehensive security audit requires dedicated tools and server-side analysis.
+                    <div class='section'>
+                        <h2>Relevant Experience Highlights</h2>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlAlignment}</ul>
                     </div>
 
-                    <div class="footer-note" style="background-color: #f0f9fa; border-left-color: #0A9396; margin-top: 15px;">
-                        <strong>📊 Report Metadata:</strong><br>
-                        Generated: ${new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        })}<br>
-                        Analysis Method: Proprietary client-side keyword matching algorithm<br>
-                        Candidate: Yilmaz Mustafa | Contact: yilmaz@codesapien.net
+                    <div class='section'>
+                        <h2>Simulated Security Assessment</h2>
+                        <div style="border:1px solid #ddd; border-radius:5px; overflow:hidden;">${htmlSecurity}</div>
+                    </div>
+
+                    <div class='section'>
+                        <h2>Original Job Description</h2>
+                        <div class='job-description'>${htmlJobDescription}</div>
                     </div>
                 </body>
                 </html>
             `;
 
-        const filename = `Yilmaz_Mustafa_Match_Report_${companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.doc`;
         const blob = new Blob(['\ufeff', docContent], {
             type: 'application/msword'
         });
 
-        // Use the standard download method
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        const filename = 'Resume_Yilmaz_Mustafa.doc';
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         URL.revokeObjectURL(url);
     };
-
-    // --- FULL RESUME EXPORT LOGIC (Enhanced Visual Design, Light Theme & Stability) ---
-    const exportFullResume = () => {
-        // Defensive fallbacks
-        const skillsArray = Array.isArray(candidateSkills) ? candidateSkills : (window.candidateSkills || ['Java', 'Spring Boot', 'REST', 'SQL']);
-
-        const exportData = {
-            title: "Yilmaz Mustafa",
-            subtitle: "Java & Spring Software Engineer",
-            contact: "yilmaz@codesapien.net · codesapien.net · LinkedIn: codesapienbe",
-            summary: "Software Engineer with 8+ years of expertise in enterprise application development using Java and Spring Boot. Proven track record delivering scalable, high-performance applications and CI/CD automation across Monolith, Microservices, and Modulith architectures.",
-            skills: skillsArray,
-            experience: [
-                { company: "Freelance", title: "Software Engineer", dates: "Feb 2025 – May 2025", desc: "Developed **Python AI Applications** (Computer Vision, TensorFlow) and integrated them into **React Native** mobile frontends via FastAPI backends." },
-                { company: "theMatchBox, Antwerp", title: "Java Software Engineer", dates: "Oct 2024 – Feb 2025", desc: "Developed custom **ElasticSearch Java Plugins** and performed JVM tuning and Spring application performance enhancements, utilizing **ZeroMQ**." },
-                { company: "SWIFT, Brussels", title: "Java Software Engineer", dates: "Jun 2023 – Oct 2024", desc: "Implemented and maintained **SWIFT MT/MX messaging protocols** on Alliance Messaging Hub (AMH) and contributed to enterprise security upgrades and Microservices design." },
-                { company: "INTEC Brussel", title: "Software Engineer & Instructor", dates: "Mar 2020 – Jun 2023", desc: "Built Spring Boot/Spring Cloud apps and delivered curriculum to professional developers (Java, Python)." },
-                { company: "VDAB, Brussels", title: "Java Software Engineer", dates: "Apr 2019 – Oct 2019", desc: "Migrated legacy systems to modern RESTful Spring Boot applications and contributed to matching algorithms." },
-                { company: "VKODIT (Self-employed)", title: "Software Engineer", dates: "Jan 2017 – Dec 2018", desc: "Developed C# desktop applications, Java automation tools, and managed small enterprise projects (E-Commerce, PHP)." },
-            ],
-            projects: [
-                { name: "Spring Vision Framework", tech: "Spring Boot, Java, OpenCV", desc: "Production-ready computer vision framework as a Spring Boot Starter." },
-                { name: "Instyper - Voice-to-Text Desktop App", tech: "Java, Vosk, Whisper", desc: "Privacy-first offline voice transcription desktop app." },
-                { name: "Stegnocchi - EXIF Steganography App", tech: "Core Java, Image Processing", desc: "Security tool for hiding data in EXIF metadata and image-based steganography." },
-                { name: "DeepVoice - Voice Analysis Library", tech: "Python, AI/ML, Signal Processing", desc: "Voice analysis and speaker identification library for research and production." },
-            ],
-            education: [
-                { title: "Postgraduate AI & Machine Learning", institution: "Erasmushogeschool Brussel" },
-                { title: "MSc in Computing and Information Systems (Incomplete)", institution: "Queen Mary, University of London" },
-                { title: "Bachelor Degree, Tourism and Hotel Management", institution: "Beykent University" },
-            ],
-            certifications: [
-                "SWIFT Messaging Systems (MX/MT, ISO 20022)",
-                "Agile in Software Engineering",
-                "Spring Boot and Angular",
-            ]
-        };
-
-        // Convert **bold** to <strong> for Word HTML compatibility
-        const markdownToHtmlExport = (text) => {
-            if (!text) return '';
-            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        };
-
-        // Build experience HTML blocks (single column, page-break safe)
-        const htmlExperience = exportData.experience.map((exp, i) => {
-            const accentColors = ['#0A9396', '#005F73', '#94D2BD', '#EE9B00'];
-            const accent = accentColors[i % accentColors.length];
-            const descHtml = markdownToHtmlExport(exp.desc).split(/\.\s+/).filter(Boolean).map(s => `<li style="margin-bottom:6px;">${s.trim()}</li>`).join('');
-
-            return `
-                <div style="width:100%; margin-bottom:14px; background:#ffffff; padding:12px; border-radius:6px; border:1px solid #eee; page-break-inside:avoid; border-left:5px solid ${accent};">
-                    <table style="width:100%; border-collapse:collapse;">
-                        <tr style="vertical-align:top;">
-                            <td style="width:70%; padding-right:12px;">
-                                <div style="font-size:11pt; font-weight:700; color:#0A9396;">${exp.title}</div>
-                                <div style="font-size:10pt; color:#444; margin-top:4px;">${exp.company}</div>
-                            </td>
-                            <td style="width:30%; text-align:right; font-size:9pt; color:#666;">${exp.dates}</td>
-                        </tr>
-                    </table>
-                    <ul style="margin-top:8px; padding-left:18px; color:#333; font-size:10pt; line-height:1.5;">${descHtml}</ul>
-                </div>
-            `;
-        }).join('');
-
-        const htmlProjects = exportData.projects.map((p, i) => {
-            const accentColors = ['#0A9396', '#005F73', '#EE9B00'];
-            const accent = accentColors[i % accentColors.length];
-            return `
-                <div style="margin-bottom:10px; padding:10px; border-radius:6px; background:#fbfcfd; border-left:5px solid ${accent}; page-break-inside:avoid;">
-                    <div style="font-weight:700; color:#0A9396; font-size:11pt;">${p.name}</div>
-                    <div style="font-size:9pt; color:${accent}; margin-top:4px; font-weight:600;">Tech: ${p.tech}</div>
-                    <div style="font-size:10pt; color:#333; margin-top:6px;">${p.desc}</div>
-                </div>
-            `;
-        }).join('');
-
-        const htmlSkills = exportData.skills.map(s => `<span style="display:inline-block; background:#eef9f8; color:#0A9396; padding:6px 10px; border-radius:16px; margin:0 8px 8px 0; font-size:9pt;">${s}</span>`).join('');
-
-        const htmlEducation = exportData.education.map(e => `
-            <div style="margin-bottom:8px; padding:10px; background:#ffffff; border-left:5px solid #0A9396; border-radius:6px;">
-                <div style="font-weight:700; color:#0A9396; font-size:11pt;">${e.title}</div>
-                <div style="font-size:10pt; color:#444; margin-top:4px;">${e.institution}</div>
-            </div>
-        `).join('');
-
-        const htmlCerts = exportData.certifications.map(c => `<div style="font-size:10pt; color:#333; margin-bottom:6px;">• ${c}</div>`).join('');
-
-        const safeUrl = (typeof window !== 'undefined' && window.location && window.location.href) ? window.location.href : 'codesapien.net';
-
-        // Build the complete HTML document for Word
-        const docHtml = `
-            <!doctype html>
-            <html>
-            <head>
-                <meta charset="utf-8">
-                <title>Resume - ${exportData.title}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    @page { margin:20mm }
-                    body { font-family: 'Segoe UI', 'Calibri', Arial, sans-serif; color:#222; background:#fff; }
-                    .container { max-width:900px; margin:18px auto; padding:12px; }
-                    .header { padding:18px 12px; border-radius:6px; background:transparent; text-align:left; }
-                    .name { font-size:22pt; font-weight:800; color:#0A9396; margin:0 0 4px 0; }
-                    .subtitle { font-size:11pt; color:#005F73; margin:0 0 8px 0; font-weight:600; }
-                    .contact { font-size: 9.5pt; color: #555; margin-bottom: 12px; }
-                    .section-title { display:block; padding:8px 10px; font-weight:700; color:#0A9396; border-left:6px solid #0A9396; background:#fbfcfd; border-radius:4px; margin-bottom:8px; }
-                    .card { background:#fff; padding:10px; border-radius:6px; border:1px solid #eee; margin-bottom:10px; }
-                    .small { font-size:9.5pt; color:#666; }
-                    .muted { color:#666 }
-                    /* Avoid breaking important blocks across pages */
-                    .no-break { page-break-inside: avoid; }
-                    .skills { padding:8px; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <div class="name">${exportData.title}</div>
-                        <div class="subtitle">${exportData.subtitle}</div>
-                        <div class="contact small">${exportData.contact}</div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Professional Summary</div>
-                        <div class="card small">${exportData.summary}</div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Core Technical Skills</div>
-                        <div class="card skills">${htmlSkills}</div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Professional Experience</div>
-                        <div>${htmlExperience}</div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Key Projects</div>
-                        <div>${htmlProjects}</div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Education & Certifications</div>
-                        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                            <div style="flex:1 1 45%;">${htmlEducation}</div>
-                            <div style="flex:1 1 45%;">${htmlCerts}</div>
-                        </div>
-                    </div>
-
-                    <div style="margin-top:18px; font-size:9pt; color:#888; text-align:center;">Generated from ${safeUrl}</div>
-                </div>
-            </body>
-            </html>
-        `;
-
-        // Filename with date for traceability
-        const datePart = new Date().toISOString().split('T')[0];
-        const filename = `Yilmaz_Mustafa_Resume_${datePart}.doc`;
-
-        try {
-            const blob = new Blob(['\ufeff', docHtml], { type: 'application/msword' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        } catch (err) {
-            console.error('Resume export failed:', err);
-            alert('Export failed: ' + (err && err.message ? err.message : 'Unknown error'));
-        }
-    }
 </script>
 </body>
 </html>

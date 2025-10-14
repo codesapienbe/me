@@ -40,6 +40,11 @@
             to { transform: rotate(360deg); }
         }
 
+        /* FIX: Ensure print-only block is hidden by default on screen */
+        .print-only { 
+            display: none; 
+        }
+
         /* --- PDF Print Optimization Styles --- */
         @media print {
             body {
@@ -132,6 +137,9 @@
             .print-note-block .line { border-bottom: 1px dashed #ddd; height: 18px; margin-bottom: 8px; }
             /* Ensure the notes area stays with header on first page */
             header { page-break-after: avoid; }
+
+            /* Hide the floating action button group */
+            #floating-buttons { display: none !important; }
         }
         /* Added class for project cards to ensure proper styling across environments */
         .project-card-border {
@@ -178,7 +186,85 @@
         .architecture-grid .flex-wrap { flex-wrap: wrap; }
         .architecture-grid .flex-wrap span { margin-bottom: 6px; }
 
-        /* Keep existing print rules and other styles unchanged */
+        /* Floating Button Styles (Larger Icons) */
+        #floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 50;
+        }
+        #floating-buttons button {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px; /* Larger icon size */
+            line-height: 1; /* Fix vertical alignment */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        .modal-content audio, .modal-content video {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ae2012;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Export Resume Button Styling for Header */
+        #exportFullCVButton {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.875rem;
+        }
 
     </style>
 </head>
@@ -204,7 +290,25 @@
             <span class="text-[#94D2BD]">|</span>
             <span>💼 codesapienbe (LinkedIn)</span>
         </div>
+        
+        <!-- NEW: Export Full Resume Button below Contact Info -->
+        <div class="flex justify-center">
+            <button id="exportFullCVButton" class="bg-[#94D2BD] hover:bg-[#0A9396] text-white font-bold rounded-lg transition duration-200 shadow-md flex items-center justify-center space-x-2">
+                Export Resume to Word 📄
+            </button>
+        </div>
     </header>
+
+    <!-- Multimedia Player Modal -->
+    <div id="multimedia-modal" class="modal-overlay" onclick="if (event.target === this) closePlayerModal()">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closePlayerModal()">×</button>
+            <div id="media-container" class="relative">
+                <!-- Media will be inserted here -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
     <div class="print-only" aria-hidden="true">
@@ -344,7 +448,7 @@
                         <div class="md:text-right md:pr-8">
                             <time class="block mb-1 text-sm font-normal leading-none text-slate-500">Feb 2025 – May 2025 (4 mos)</time>
                             <h3 class="text-xl font-semibold text-[#005F73]">Software Engineer</h3>
-                            <span class="text-sm font-medium text-[#0A9396]">(Freelance - Python AI Focus)</span>
+                            <span class="text-sm font-medium text-[#0A9396]">(Freelance—Python AI Focus)</span>
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
                             <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
@@ -366,8 +470,7 @@
                         </div>
                         <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm mt-2 md:mt-0">
                             <ul class="list-disc ml-4 text-base font-normal text-slate-600 space-y-1">
-                                <li>Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search and matching algorithms, improving accuracy and relevance.</li>
-                                <li>Performed JVM tuning and Spring application performance enhancement, achieving measurable latency reduction using <strong>ZeroMQ</strong> for communication.</li>
+                                <li>Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing <strong>ZeroMQ</strong>.</li>
                             </ul>
                             <p class="text-xs text-slate-500 mt-2">Skills: Java, Spring Boot, Elasticsearch, ZeroMQ, Distributed Systems, Performance Optimization.</p>
                         </div>
@@ -691,9 +794,9 @@
                     <div class="space-y-3">
                         <p class="text-base font-semibold text-slate-800">Language Proficiency</p>
                         <ul class="list-none space-y-1 text-sm text-slate-700">
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Turkish**: Native</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**English**: Fluent</li>
-                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold">**Dutch**: Professional</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>Turkish</strong>: Native</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>English</strong>: Fluent</li>
+                            <li class="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[#005F73] before:font-bold"><strong>Dutch</strong>: Professional</li>
                         </ul>
                         <p class="text-base font-semibold text-slate-800 mt-4">Domain Expertise</p>
                         <ul class="list-none space-y-1 text-sm text-slate-700">
@@ -717,6 +820,16 @@
         </div>
         <p class="text-sm text-slate-500 mt-4">Visual Resume for Yilmaz Mustafa.</p>
     </footer>
+    
+    <!-- NEW: Floating Action Button Group -->
+    <div id="floating-buttons" role="group" aria-label="Multimedia Resume Options">
+        <button onclick="openPlayerModal('audio')" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
+            <span aria-hidden="true">🎤</span>
+        </button>
+        <button onclick="openPlayerModal('video')" title="Watch Video Walkthrough (Visual Resume Demo)" class="bg-[#EE9B00] hover:bg-[#CA6702]">
+            <span aria-hidden="true">🎬</span>
+        </button>
+    </div>
 </div>
 
 <script>
@@ -847,6 +960,31 @@
         }
     });
 
+    // --- MULTIMEDIA MODAL LOGIC ---
+    const modal = document.getElementById('multimedia-modal');
+    const mediaContainer = document.getElementById('media-container');
+
+    const audioUrl = 'https://mockup.codesapien.net/resume-audio.mp3';
+    const videoUrl = 'https://mockup.codesapien.net/resume-video-walkthrough.mp4';
+    
+    window.openPlayerModal = function(type) {
+        let mediaTag = '';
+        if (type === 'audio') {
+            mediaTag = `<audio controls autoplay style="max-width: 100%;"><source src="${audioUrl}" type="audio/mp3">Your browser does not support the audio element.</audio>`;
+        } else if (type === 'video') {
+            mediaTag = `<video controls autoplay style="max-width: 100%; max-height: 80vh;"><source src="${videoUrl}" type="video/mp4">Your browser does not support the video element.</video>`;
+        }
+        
+        mediaContainer.innerHTML = mediaTag;
+        modal.style.display = 'flex';
+    }
+
+    window.closePlayerModal = function() {
+        // Stop playback
+        mediaContainer.innerHTML = ''; 
+        modal.style.display = 'none';
+    }
+
     // --- LOCAL SKILL MATCHER DATA & LOGIC ---
     const candidateSkills = [
         'Java 21', 'Java 17', 'Spring Boot 3.x', 'Spring Cloud', 'Spring Security', 'REST', 'SOAP',
@@ -879,6 +1017,10 @@
     const loadingSpinner = document.getElementById('loadingSpinner');
     const exportContainer = document.getElementById('exportContainer');
     const exportButton = document.getElementById('exportButton');
+
+    // Button to export full CV from header
+    const exportFullCVButton = document.getElementById('exportFullCVButton');
+
 
     let lastAnalysisResult = {
         matchScore: 0,
@@ -924,6 +1066,7 @@
         // 2. Calculate Skill Matches
         candidateSkills.forEach(skill => {
             const skillLower = skill.toLowerCase();
+            // Use word boundary to prevent partial matches (e.g., 'java' matching 'javascript')
             const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
             if (jdLower.match(regex)) {
                 skillHits[skill] = (skillHits[skill] || 0) + 1;
@@ -986,7 +1129,7 @@
 
                 <hr class="my-3 border-t border-slate-300">
 
-                <p><strong>Simulated Initial Security Assessment:</strong></p>
+                <p><strong>Simulated Security Assessment:</strong></p>
                 <ul class="space-y-1">
                     ${formattedSecurity}
                 </ul>
@@ -1062,7 +1205,7 @@
         jobDescriptionInput.readOnly = false;
         companyNameInput.readOnly = false;
         companyUrlInput.readOnly = false;
-        jobDescriptionInput.innerHTML = jobDescriptionInput.value; // Restore raw text content
+        jobDescriptionInput.value = jobDescriptionInput.value.replace(/<br>/g, '\n').replace(/<strong>(.*?)<\/strong>/g, '**$1**'); // Restore raw text for editing
         outputPlaceholder.style.display = 'block';
         outputContent.innerHTML = '';
         exportContainer.classList.add('hidden');
@@ -1086,6 +1229,13 @@
     if (exportButton) {
         exportButton.addEventListener('click', () => {
             exportMatchReport();
+        });
+    };
+
+    // Hook up export button for full CV
+    if (exportFullCVButton) {
+        exportFullCVButton.addEventListener('click', () => {
+            exportFullResume();
         });
     };
 
@@ -1135,6 +1285,7 @@
                     <div class='section'>
                         <h1>Skill Match & Alignment Report</h1>
                         <p><strong>Company:</strong> ${companyName}</p>
+                        <p><strong>URL:</strong> ${companyUrl}</p>
                         <p><strong>Candidate:</strong> Yilmaz Mustafa</p>
                         <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
                     </div>
@@ -1173,6 +1324,161 @@
         });
 
         const url = URL.createObjectURL(blob);
+        const filename = 'Match_Report_Yilmaz_Mustafa.doc';
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
+    const exportFullResume = () => {
+        const professionalExperienceHTML = [
+            // EXPERIENCE 1
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Feb 2025 – May 2025</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">Freelance - Python AI Focus</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed <strong>Python AI Applications</strong> using <strong>OpenCV</strong> and <strong>TensorFlow</strong> for computer vision systems, integrating them via <strong>FastAPI</strong> backends.</li><li style="margin-bottom: 6pt;">Implemented cross-platform mobile applications using <strong>React Native</strong> with embedded AI capabilities (<strong>TensorFlow Lite</strong>).</li></ul></td></tr>`,
+            // EXPERIENCE 2
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Oct 2024 – Feb 2025</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">theMatchBox, Antwerp</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing <strong>ZeroMQ</strong>.</li></ul></td></tr>`,
+            // EXPERIENCE 3
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Jun 2023 – Oct 2024</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">SWIFT, Brussels</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Implemented and maintained <strong>SWIFT MT/MX messaging protocols</strong> on the Alliance Messaging Hub (AMH) for secure financial communication.</li><li style="margin-bottom: 6pt;">Contributed to <strong>Microservices design</strong> and enterprise security upgrades for high-volume, mission-critical transaction processing systems (using <strong>Java EE/Oracle SQL</strong>).</li></ul></td></tr>`,
+            // EXPERIENCE 4
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Mar 2020 – Jun 2023</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">& Instructor (INTEC)</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed and maintained full-stack internal applications (<strong>Student Management, QR Attendance</strong>) using <strong>Spring Boot</strong>, <strong>Spring Cloud</strong>, and <strong>Vaadin</strong>.</li><li style="margin-bottom: 6pt;">Delivered dual-language curriculum (<strong>Java EE, Spring Boot, Python</strong>) to over 100 professional developers, achieving a <strong>95% job placement rate</strong>.</li></ul></td></tr>`,
+            // EXPERIENCE 5
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Apr 2019 – Oct 2019</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">VDAB, Brussels</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Migrated legacy employment system data formats and schemas to modern RESTful <strong>Spring Boot Applications</strong>.</li><li style="margin-bottom: 6pt;">Contributed to Java development of <strong>matching algorithms</strong> and API services for candidate processing against the specialized <strong>Elise</strong> database.</li></ul></td></tr>`,
+            // EXPERIENCE 6
+            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Jan 2017 – Dec 2018</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">Self-employed, VKODIT</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed <strong>C# .Net desktop applications</strong> and powershell automation tools with robust <strong>MSSQL</strong> database integration for small enterprises.</li><li style="margin-bottom: 6pt;">Managed development, project delivery, and client acquisition for <strong>E-Commerce solutions</strong> (WordPress/WooCommerce with custom PHP plugins).</li></ul></td></tr>`
+        ].join('');
+
+        const architectureCompetencies = [
+            'Monolith: Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.',
+            'Microservices: Design resilient, independently deployable services with strong observability.',
+            'Modulith: Build well-structured Spring applications with explicit module boundaries.',
+            'SCS (Self-Contained Services): Expertise in developing vertically integrated services via Java EE + Spring Boot + Vaadin.',
+            'Event-Driven Architecture: Intermediate knowledge in designing systems that react to events for decoupled and scalable applications.',
+            'Asynchronous Messaging Patterns: Intermediate proficiency in implementing non-blocking communication for resilient and high-performance systems.'
+        ].map(item => `<li style="margin-bottom: 4pt;">${item}</li>`).join('');
+
+        const projectsHTML = [
+            { title: 'Spring Vision Framework', desc: 'A production-ready computer vision framework delivered as a <strong>Spring Boot Starter</strong>, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.', link: 'https://github.com/codesapienbe/spring-vision' },
+            { title: 'Instyper - Voice-to-Text Desktop App', desc: 'A lightweight, privacy-first desktop application that turns your voice into text instantly. It works offline (Vosk) and supports modern online models (Whisper) and live translation.', link: 'https://github.com/codesapienbe/Instyper' },
+            { title: 'Stegnocchi - EXIF Steganography App', desc: 'A security tool built in <strong>Core Java</strong> focused on hiding data within image metadata (<strong>EXIF Steganography</strong>), showcasing low-level data manipulation and security principles.', link: 'https://github.com/codesapienbe/Stegnocchi' },
+            { title: 'DeepVoice - Voice Analysis Library', desc: 'A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.', link: 'https://github.com/codesapienbe/DeepVoice' }
+        ].map(p => `
+            <div style="margin-bottom: 12pt; border-left: 3pt solid #0A9396; padding-left: 8pt;">
+                <p style="font-size: 11pt; font-weight: bold; color: #005F73; margin-bottom: 2pt;">${p.title}</p>
+                <p style="font-size: 10pt; color: #555555; margin-bottom: 4pt;">${p.desc}</p>
+                <p style="font-size: 9pt; color: #EE9B00;"><a href="${p.link}" style="color: #EE9B00;">GitHub Link</a></p>
+            </div>
+        `).join('');
+
+        const docContent = `
+            <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <meta charset='utf-8'>
+                <title>Yilmaz Mustafa Resume</title>
+                <style>
+                    body { font-family: 'Arial', sans-serif; color: #333; margin: 0; padding: 0; }
+                    .header-info { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73; }
+                    .header-info h1 { font-size: 20pt; color: #005F73; margin: 0; }
+                    .header-info p { font-size: 13pt; color: #0A9396; margin: 2pt 0 5pt 0; }
+                    .contact-bar { font-size: 10pt; color: #555; }
+                    .section-title { font-size: 16pt; font-weight: bold; color: #005F73; margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid #0A9396; }
+                    strong { font-weight: bold; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 15pt; }
+                    td { padding: 0; vertical-align: top; }
+                    .skills-list { display: flex; flex-wrap: wrap; margin-top: 5pt; }
+                    .skill-item { background-color: #f0f9fa; color: #0A9396; padding: 3pt 6pt; margin-right: 5pt; margin-bottom: 5pt; border-radius: 3pt; font-size: 9pt; display: inline-block; }
+                </style>
+            </head>
+            <body>
+                <div class="header-info">
+                    <h1>YILMAZ MUSTAFA</h1>
+                    <p>Java & Spring Software Engineer</p>
+                    <div class="contact-bar">
+                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">yilmaz@codesapien.net</a> | 
+                        <a href="https://codesapien.net" style="color: #0A9396;">codesapien.net</a> | 
+                        <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">codesapienbe (LinkedIn)</a>
+                    </div>
+                </div>
+
+                <div class="section-title">PROFESSIONAL SUMMARY</div>
+                <p style="margin-bottom: 10pt;">Software Engineer with <strong>8+ years of expertise</strong> in enterprise application development using <strong>Java</strong> and <strong>Spring Boot</strong>. Proven track record delivering scalable, high-performance applications and <strong>CI/CD automation</strong> across Monolith, <strong>Microservices</strong>, and <strong>Modulith</strong> architectures. Supported <strong>10k+ concurrent users</strong> and specialized in <strong>REST/SOAP APIs</strong>, data integration, and <strong>messaging protocols</strong> (SWIFT MT/MX).</p>
+                
+                <div class="section-title">CORE TECHNICAL EXPERTISE</div>
+                <table>
+                    <tr>
+                        <td style="width: 33%; padding-right: 15pt;">
+                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">Languages & Frameworks</p>
+                            <p style="font-size: 10pt; color: #555555;">Java 17-21+, Spring Boot 3.x, Spring Cloud, Spring Security, Java EE, Python, C#, Vaadin, React</p>
+                        </td>
+                        <td style="width: 33%; padding-right: 15pt;">
+                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">APIs & Data</p>
+                            <p style="font-size: 10pt; color: #555555;">REST APIs, SOAP, GraphQL, PostgreSQL, Oracle, JPA/Hibernate, ElasticSearch, ZeroMQ, IBM MQ</p>
+                        </td>
+                        <td style="width: 33%;">
+                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">DevOps & Architecture</p>
+                            <p style="font-size: 10pt; color: #555555;">Docker, Kubernetes, Jenkins, Terraform, CI/CD, Microservices, Modulith, Monolith, SCS</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="section-title">PROFESSIONAL JOURNEY</div>
+                <table style="margin-top: 5pt; border-bottom: 1px solid #e1e1e1;">
+                    ${professionalExperienceHTML}
+                </table>
+
+                <div class="section-title">ARCHITECTURAL COMPETENCIES</div>
+                <ul style="padding-left: 15pt; list-style-type: square; margin-bottom: 15pt;">
+                    ${architectureCompetencies}
+                </ul>
+
+                <div class="section-title">KEY OPEN SOURCE PROJECTS</div>
+                <div style="margin-bottom: 15pt;">
+                    ${projectsHTML}
+                </div>
+
+                <div class="section-title">EDUCATION & DEVELOPMENT</div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 50%; padding-right: 15pt; vertical-align: top;">
+                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Academic History</p>
+                            <div style="margin-bottom: 10pt;">
+                                <p style="font-size: 11pt; font-weight: bold; color: #333;">Postgraduate AI & Machine Learning (Completed)</p>
+                                <p style="font-size: 10pt; color: #555;">Erasmushogeschool Brussel, Belgium</p>
+                            </div>
+                            <div style="margin-bottom: 10pt;">
+                                <p style="font-size: 11pt; font-weight: bold; color: #333;">MSc in Computing and Information Systems (Incomplete)</p>
+                                <p style="font-size: 10pt; color: #555;">Queen Mary, University of London, UK (2013)</p>
+                            </div>
+                            <div style="margin-bottom: 10pt;">
+                                <p style="font-size: 11pt; font-weight: bold; color: #333;">Bachelor Degree, Tourism and Hotel Management</p>
+                                <p style="font-size: 10pt; color: #555;">Beykent University, Istanbul, Turkiye (2010)</p>
+                            </div>
+                        </td>
+                        <td style="width: 50%; vertical-align: top;">
+                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Certifications & Training</p>
+                            <ul style="margin: 0; padding-left: 20pt; list-style-type: disc; margin-bottom: 10pt;">
+                                <li style="margin-bottom: 4pt;"><strong>SWIFT Messaging Systems</strong> (MX/MT, ISO 20022, AMH)</li>
+                                <li style="margin-bottom: 4pt;">Agile in Software Engineering (SWIFT)</li>
+                                <li style="margin-bottom: 4pt;">Spring Boot and Angular (VDAB)</li>
+                                <li style="margin-bottom: 4pt;">C and System Programming</li>
+                            </ul>
+                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Global Competencies</p>
+                            <p style="font-size: 10pt; color: #555;"><strong>Languages:</strong> Turkish (Native), English (Fluent), Dutch (Professional)</p>
+                            <p style="font-size: 10pt; color: #555;"><strong>Domains:</strong> Financial Messaging, Enterprise Software & SaaS, Technical Training</p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+        `;
+
+        const blob = new Blob(['\ufeff', docContent], {
+            type: 'application/msword'
+        });
+
+        const url = URL.createObjectURL(blob);
         const filename = 'Resume_Yilmaz_Mustafa.doc';
         const link = document.createElement('a');
         link.href = url;
@@ -1185,3 +1491,4 @@
 </script>
 </body>
 </html>
+

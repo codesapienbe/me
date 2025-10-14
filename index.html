@@ -12,6 +12,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            padding-bottom: 70px; /* Space for the fixed audio player */
         }
         .chart-container {
             position: relative;
@@ -194,7 +195,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            z-index: 50;
+            z-index: 95; /* Above Z-index 50, below modal */
         }
         #floating-buttons button {
             transition: all 0.2s ease-in-out;
@@ -212,49 +213,43 @@
             cursor: pointer;
         }
 
-        /* Modal Styles */
-        .modal-overlay {
+        /* --- AUDIO PLAYER BAR STYLES --- */
+        #audio-player-bar {
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
+            background-color: #005F73; /* Primary color */
+            color: white;
+            padding: 8px 16px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            display: none; /* Controlled by JS */
+            z-index: 90;
             align-items: center;
-            justify-content: center;
-            z-index: 100;
+            justify-content: space-between;
+        }
+        #audio-player-bar button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.1s;
+        }
+        #audio-player-bar button:hover {
+            color: #94D2BD; /* Accent color on hover */
+        }
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .audio-title {
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .modal-content {
-            background: #1f1f1f;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-        }
-        .modal-content audio, .modal-content video {
-            display: block;
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-        }
-        .modal-close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ae2012;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 18px;
-            cursor: pointer;
-            line-height: 1;
-        }
 
         /* Export Resume Button Styling for Header */
         #exportFullCVButton {
@@ -340,17 +335,6 @@
             </button>
         </div>
     </header>
-
-    <!-- Multimedia Player Modal -->
-    <div id="multimedia-modal" class="modal-overlay" onclick="if (event.target === this) closePlayerModal()">
-        <div class="modal-content">
-            <button class="modal-close-btn" onclick="closePlayerModal()">×</button>
-            <div id="media-container" class="relative">
-                <!-- Media will be inserted here -->
-            </div>
-        </div>
-    </div>
-
 
     <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
     <div class="print-only" aria-hidden="true">
@@ -780,7 +764,7 @@
                     <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
                         <div class="text-[12px] font-semibold text-[#0A9396]">Coursework</div>
                         <h3 class="text-sm font-bold text-slate-800 mt-1">System and Networking</h3>
-                        <p class="text-xs text-slate-500">Bursa, Türkiye</p>
+                        <p class="text-xs text-slate-500">Bursa, Turkiye</p>
                         <div class="mt-3 flex flex-wrap gap-2">
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Networking</span>
                             <span class="text-[10px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Linux</span>
@@ -812,7 +796,7 @@
         <section id="education" class="mb-16">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Academic History Card (Spanning 2 columns) -->
+                <!-- Academic History Card (Spanning 3 columns) -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
@@ -915,13 +899,37 @@
 
     <!-- NEW: Floating Action Button Group -->
     <div id="floating-buttons" role="group" aria-label="Multimedia Resume Options">
-        <button onclick="openPlayerModal('audio')" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
+        <button id="audio-toggle-btn" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
             <span aria-hidden="true">🎤</span>
         </button>
         <button onclick="openPlayerModal('video')" title="Watch Video Walkthrough (Visual Resume Demo)" class="bg-[#EE9B00] hover:bg-[#CA6702]">
             <span aria-hidden="true">🎬</span>
         </button>
     </div>
+
+    <!-- NEW: Sticky Audio Player Bar -->
+    <div id="audio-player-bar">
+        <p class="audio-title mr-4">Resume Audio Summary</p>
+        <div class="audio-controls">
+            <audio id="resume-audio" style="display:none;" controls preload="none">
+                <source src="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a" type="audio/mp4">
+                Your browser does not support the audio element.
+            </audio>
+
+            <!-- Custom Play/Pause Button -->
+            <button id="play-pause-btn" title="Play/Pause">▶️</button>
+
+            <!-- Go to Beginning Button -->
+            <button id="restart-btn" title="Go to Beginning">⏮️</button>
+
+            <!-- Download Button -->
+            <a id="download-link" href="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a" download="Resume_Summary.m4a" title="Download Audio">💾</a>
+
+            <!-- Close Button -->
+            <button id="close-audio-btn" title="Close Player">❌</button>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -1052,32 +1060,96 @@
         }
     });
 
-    // --- MULTIMEDIA MODAL LOGIC ---
-    const modal = document.getElementById('multimedia-modal');
-    const mediaContainer = document.getElementById('media-container');
-
-    // UPDATED AUDIO URL
-    const audioUrl = 'https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a';
-    const videoUrl = 'https://mockup.codesapien.net/resume-video-walkthrough.mp4';
-
+    // --- MULTIMEDIA MODAL (Video) LOGIC ---
+    // Placeholder function for video player (still uses a modal)
     window.openPlayerModal = function(type) {
-        let mediaTag = '';
-        if (type === 'audio') {
-            // Using type audio/mp4 for m4a compatibility
-            mediaTag = `<audio controls autoplay style="max-width: 100%;"><source src="${audioUrl}" type="audio/mp4">Your browser does not support the audio element.</audio>`;
-        } else if (type === 'video') {
-            mediaTag = `<video controls autoplay style="max-width: 100%; max-height: 80vh;"><source src="${videoUrl}" type="video/mp4">Your browser does not support the video element.</video>`;
-        }
+        if (type !== 'video') return;
 
-        mediaContainer.innerHTML = mediaTag;
-        modal.style.display = 'flex';
+        // Create a temporary modal structure for the video
+        const modalHtml = `
+            <div id="video-modal-overlay" class="modal-overlay" style="display:flex;" onclick="if (event.target.id === 'video-modal-overlay') closePlayerModal()">
+                <div class="modal-content">
+                    <button class="modal-close-btn" onclick="closePlayerModal()">×</button>
+                    <div id="media-container" class="relative">
+                        <video id="resume-video" controls autoplay style="max-width: 100%; max-height: 80vh;">
+                            <source src="${videoUrl}" type="video/mp4">
+                            Your browser does not support the video element.
+                        </video>
+                    </div>
+                </div>
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
     }
 
     window.closePlayerModal = function() {
-        // Stop playback
-        mediaContainer.innerHTML = '';
-        modal.style.display = 'none';
+        const videoModal = document.getElementById('video-modal-overlay');
+        if (videoModal) {
+            const video = document.getElementById('resume-video');
+            if (video) video.pause();
+            videoModal.remove();
+        }
     }
+
+
+    // --- AUDIO PLAYER LOGIC ---
+    const audioBar = document.getElementById('audio-player-bar');
+    const audioToggleBtn = document.getElementById('audio-toggle-btn');
+    const resumeAudio = document.getElementById('resume-audio');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const restartBtn = document.getElementById('restart-btn');
+
+    let isAudioPlayerVisible = false;
+
+    const updatePlayButton = () => {
+        playPauseBtn.innerHTML = resumeAudio.paused || resumeAudio.ended ? '▶️' : '⏸️';
+        playPauseBtn.title = resumeAudio.paused || resumeAudio.ended ? 'Play' : 'Pause';
+    };
+
+    const toggleAudioBar = () => {
+        if (isAudioPlayerVisible) {
+            // Hide and stop
+            resumeAudio.pause();
+            resumeAudio.currentTime = 0;
+            audioBar.style.display = 'none';
+            audioToggleBtn.classList.remove('bg-[#CA6702]', 'hover:bg-[#BB3E03]');
+            audioToggleBtn.classList.add('bg-[#005F73]', 'hover:bg-[#0A9396]');
+            audioToggleBtn.title = "Listen to Resume Summary (Audio)";
+        } else {
+            // Show and play
+            audioBar.style.display = 'flex';
+            resumeAudio.play().catch(e => console.error("Audio playback failed:", e));
+            audioToggleBtn.classList.remove('bg-[#005F73]', 'hover:bg-[#0A9396]');
+            audioToggleBtn.classList.add('bg-[#CA6702]', 'hover:bg-[#BB3E03]');
+            audioToggleBtn.title = "Pause and Close Audio Player";
+        }
+        isAudioPlayerVisible = !isAudioPlayerVisible;
+        updatePlayButton();
+    };
+
+    audioToggleBtn.addEventListener('click', toggleAudioBar);
+    document.getElementById('close-audio-btn').addEventListener('click', toggleAudioBar);
+
+    playPauseBtn.addEventListener('click', () => {
+        if (resumeAudio.paused || resumeAudio.ended) {
+            resumeAudio.play().catch(e => console.error("Play failed:", e));
+        } else {
+            resumeAudio.pause();
+        }
+        updatePlayButton();
+    });
+
+    restartBtn.addEventListener('click', () => {
+        resumeAudio.currentTime = 0;
+        if (resumeAudio.paused) {
+            resumeAudio.play().catch(e => console.error("Play failed:", e));
+        }
+        updatePlayButton();
+    });
+
+    resumeAudio.addEventListener('play', updatePlayButton);
+    resumeAudio.addEventListener('pause', updatePlayButton);
+    resumeAudio.addEventListener('ended', updatePlayButton);
+
 
     // --- LOCAL SKILL MATCHER DATA & LOGIC ---
     const candidateSkills = [

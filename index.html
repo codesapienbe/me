@@ -42,8 +42,8 @@
         }
 
         /* FIX: Ensure print-only block is hidden by default on screen */
-        .print-only {
-            display: none;
+        .print-only { 
+            display: none; 
         }
 
         /* --- PDF Print Optimization Styles --- */
@@ -107,7 +107,7 @@
 
             /* Force explicit page breaks between the main printable sections only */
             /* Keep first visible section on the first printed page */
-            #skills, #experience, #projects, #development, #education {
+            #skills, #experience, #projects, #development, #education, #roadmap {
                 page-break-before: always;
             }
 
@@ -212,6 +212,31 @@
             border: none;
             cursor: pointer;
         }
+        /* New: Separate Floating Button for Export to Word (bottom left) */
+        #export-resume-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 95;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #005F73; /* Primary color */
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        #export-resume-float:hover {
+            background-color: #0A9396;
+        }
+        @media print {
+            #export-resume-float { display: none !important; }
+        }
 
         /* --- AUDIO PLAYER BAR STYLES --- */
         #audio-player-bar {
@@ -252,20 +277,13 @@
 
 
         /* Export Resume Button Styling for Header */
-        #exportFullCVButton {
-            width: 100%;
-            max-width: 300px;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            padding: 0.6rem 1rem;
-            font-size: 0.875rem;
-        }
-
+        /* Removed as requested: #exportFullCVButton */
+        
         /* Custom Styling for responsive contact bar */
         .responsive-contact-bar {
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.5rem; /* Added vertical gap for mobile readability */
         }
         @media (min-width: 640px) {
             .responsive-contact-bar {
@@ -279,7 +297,7 @@
                 display: block;
             }
         }
-
+        
         /* Custom Styling for Language/Domain visualization */
         .lang-progress-bar {
             height: 8px;
@@ -292,7 +310,7 @@
             height: 100%;
             border-radius: 4px;
         }
-
+        
         /* Hide separators on mobile */
         .separator {
             display: none;
@@ -319,7 +337,7 @@
 <div class="container mx-auto p-4 md:p-8">
     <header class="text-center mb-12">
         <h1 class="text-5xl font-extrabold text-[#005F73]">YILMAZ MUSTAFA</h1>
-        <p class="text-2xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
+        <p class="2xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
         <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600 responsive-contact-bar">
             <span>📧 yilmaz@codesapien.net</span>
             <span class="text-[#94D2BD] separator">|</span>
@@ -327,13 +345,8 @@
             <span class="text-[#94D2BD] separator">|</span>
             <span>💼 codesapienbe (LinkedIn)</span>
         </div>
-
-        <!-- NEW: Export Full Resume Button below Contact Info -->
-        <div class="flex justify-center">
-            <button id="exportFullCVButton" class="bg-[#94D2BD] hover:bg-[#0A9396] text-white font-bold rounded-lg transition duration-200 shadow-md flex items-center justify-center space-x-2">
-                Export Resume to Word 📄
-            </button>
-        </div>
+        
+        <!-- REMOVED: Export Full Resume Button from here as requested. Logic is now tied to the floating button. -->
     </header>
 
     <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
@@ -387,9 +400,9 @@
                         <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
                     </div>
                     <div>
-                        <p class="text-6xl font-extrabold text-[#BB3E03]">6</p>
+                        <p class="6xl font-extrabold text-[#BB3E03]">6</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Core Architectures</p>
-                        <p class="text-slate-500 mt-1">Monolith, Microservices, Modulith, SCS, Event-Driven Architecture, and Asynchronous Messaging Patterns.</p>
+                        <p class="slate-500 mt-1">Monolith, Microservices, Modulith, SCS, Event-Driven Architecture, and Asynchronous Messaging Patterns.</p>
                     </div>
                     <div>
                         <p class="text-6xl font-extrabold text-[#AE2012]">10k+</p>
@@ -580,7 +593,7 @@
         <!-- NEW BLOCK: Architectural Competencies -->
         <section id="architecture" class="mb-16">
             <div class="max-w-5xl mx-auto">
-                <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Architectural Competencies</h2>
+                <h2 class="3xl font-bold text-center text-[#005F73] mb-8">Architectural Competencies</h2>
                 <div class="architecture-grid grid gap-6">
                     <!-- Monolith Card -->
                     <div class="bg-white rounded-xl shadow-lg p-5 border-t-4 border-[#0A9396] architecture-card">
@@ -588,7 +601,7 @@
                             <div class="text-2xl" aria-hidden="true">🏛️</div>
                             <div>
                                 <h3 class="text-lg font-bold text-[#005F73]">Monolith</h3>
-                                <p class="text-slate-600 text-sm mt-1">Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.</p>
+                                <p class="slate-600 text-sm mt-1">Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.</p>
                                 <div class="mt-3 flex flex-wrap gap-2">
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold">Layered</span>
                                     <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">Modularization</span>
@@ -718,7 +731,7 @@
                     <div class="bg-white rounded-xl shadow-lg p-4 border border-slate-200 h-full">
                         <div class="text-[12px] font-semibold text-[#AE2012]">Expert Certification</div>
                         <h3 class="text-sm font-bold text-slate-800 mt-1">SWIFT Messaging Systems</h3>
-                        <p class="text-xs text-slate-500">Internal Training (MX/MT, ISO 20022, AMH)</p>
+                        <p class="xs text-slate-500">Internal Training (MX/MT, ISO 20022, AMH)</p>
                         <div class="mt-3 flex flex-wrap gap-2">
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold">SWIFT</span>
                             <span class="text-[10px] px-2 py-1 rounded-full bg-[#f6f7fb] text-[#005F73] font-semibold">ISO 20022</span>
@@ -791,10 +804,48 @@
                 </div>
             </div>
         </section>
+        
+        <!-- NEW CERTIFICATION ROADMAP SECTION -->
+        <section id="roadmap" class="mb-16">
+            <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#AE2012]">
+                <h2 class="3xl font-bold text-center text-[#005F73] mb-6">The Roadmap to Mastery 🗺️</h2>
+                <p class="text-slate-600 mb-8 text-center">Commitment to achieving industry-leading certifications in Java, Spring, and Computer Vision, starting November 2025.</p>
+
+                <div class="relative border-l-4 border-[#0A9396] ml-4 md:mx-auto max-w-4xl">
+                    
+                    <!-- Phase 1: OCP Java SE -->
+                    <div class="mb-10 ml-8">
+                        <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#0A9396] rounded-full"></div>
+                        <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 1: Nov 2025 - Mar 2026 (5 Months)</time>
+                        <h3 class="text-xl font-semibold text-slate-800">Oracle Certified Professional (OCP) - Java SE Developer</h3>
+                        <p class="mt-2 text-base font-normal text-slate-600">Mastery of <strong>Core Java language specifics</strong> (Concurrency, Streams, Generics, and File I/O) necessary for enterprise performance and reliability.</p>
+                    </div>
+
+                    <!-- Phase 2: VMware Tanzu Spring Professional -->
+                    <div class="mb-10 ml-8">
+                        <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#EE9B00] rounded-full"></div>
+                        <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 2: Apr 2026 - Jun 2026 (3 Months)</time>
+                        <h3 class="text-xl font-semibold text-slate-800">VMware Tanzu Spring Professional Certification</h3>
+                        <p class="mt-2 text-base font-normal text-slate-600">Validating expert-level knowledge of the <strong>Spring ecosystem</strong>, focusing on DI, AOP, Transactions, <strong>Spring Security</strong>, and <strong>Spring Boot Autoconfiguration</strong>.</p>
+                    </p>
+                    </div>
+
+                    <!-- Phase 3: Official OpenCV Certification -->
+                    <div class="ml-8">
+                        <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#AE2012] rounded-full"></div>
+                        <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 3: Jul 2026 - Aug 2026 (2 Months)</time>
+                        <h3 class="text-xl font-semibold text-slate-800">Official OpenCV Certification (Computer Vision)</h3>
+                        <p class="mt-2 text-base font-normal text-slate-600">Formalizing applied AI experience by mastering image processing, object detection, and <strong>DNN module integration</strong> using the OpenCV library.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
 
         <!-- ENHANCED BLOCK: Education & Languages -->
         <section id="education" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
+            <h2 class="3xl font-bold text-center text-[#005F73] mb-8">Education & Global Competencies</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Academic History Card (Spanning 3 columns) -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#0A9396] md:col-span-3">
@@ -802,7 +853,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
                         <div class="space-y-1">
                             <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning</p>
-                            <p class="text-sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
+                            <p class="sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
                             <span class="text-xs font-semibold text-[#005F73] px-2 py-0.5 bg-[#eef2ff] rounded">Completed</span>
                         </div>
                         <div class="space-y-1">
@@ -817,14 +868,15 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Languages & Domain Card (Full Width in its own row) -->
+                <!-- MOVED TO THE BOTTOM OF THE SECTION TO MAINTAIN FLOW -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
                         <div>
                             <p class="text-base font-semibold text-slate-800 mb-2">Language Proficiency</p>
-
+                            
                             <!-- Language: Turkish (Native / 100%) -->
                             <div class="mb-3">
                                 <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
@@ -835,7 +887,7 @@
                                     <div class="lang-progress-fill bg-[#005F73]" style="width: 100%;" title="Native Proficiency"></div>
                                 </div>
                             </div>
-
+                            
                             <!-- Language: English (Fluent / 85%) -->
                             <div class="mb-3">
                                 <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
@@ -869,6 +921,7 @@
                                 <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
                                     <span class="text-[#0A9396]">⚙️</span>
                                     <span class="font-medium">Enterprise Software</span>
+                                
                                 </div>
                                 <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
                                     <span class="text-[#005F73]">👨‍🏫</span>
@@ -896,8 +949,8 @@
         </div>
         <p class="text-sm text-slate-500 mt-4">Visual Resume for Yilmaz Mustafa.</p>
     </footer>
-
-    <!-- NEW: Floating Action Button Group -->
+    
+    <!-- NEW: Floating Action Button Group (Multimedia Controls - Right Bottom) -->
     <div id="floating-buttons" role="group" aria-label="Multimedia Resume Options">
         <button id="audio-toggle-btn" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
             <span aria-hidden="true">🎤</span>
@@ -906,6 +959,11 @@
             <span aria-hidden="true">🎬</span>
         </button>
     </div>
+
+    <!-- NEW: Floating Export to Word Button (Left Bottom) -->
+    <button id="export-resume-float" onclick="exportFullResume()" title="Export Full Resume as MS Word (.doc)">
+        <span aria-hidden="true">💾</span>
+    </button>
 
     <!-- NEW: Sticky Audio Player Bar -->
     <div id="audio-player-bar">
@@ -918,10 +976,10 @@
 
             <!-- Custom Play/Pause Button -->
             <button id="play-pause-btn" title="Play/Pause">▶️</button>
-
+            
             <!-- Go to Beginning Button -->
             <button id="restart-btn" title="Go to Beginning">⏮️</button>
-
+            
             <!-- Download Button -->
             <a id="download-link" href="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a" download="Resume_Summary.m4a" title="Download Audio">💾</a>
 
@@ -962,108 +1020,127 @@
         danger4: '#AE2012'
     };
 
-    new Chart(document.getElementById('javaSkillsChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Spring Boot 3.x', 'Java 17-21+', 'Spring Security', 'Java EE'],
-            datasets: [{
-                label: 'Java & Enterprise Core',
-                data: [40, 45, 10, 5],
-                backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.highlight],
-                borderColor: '#fff',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                ...tooltipTitleCallback.plugins,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        }
-    });
+    // Store Chart Instances globally for data URL export
+    let javaChartInstance;
+    let apiDbChartInstance;
+    let devopsChartInstance;
 
-    new Chart(document.getElementById('apiDbSkillsChart'), {
-        type: 'bar',
-        data: {
-            labels: ['REST APIs', 'PostgreSQL', ['JPA', 'Hibernate'], 'Oracle', 'GraphQL', 'MongoDB'],
-            datasets: [{
-                label: 'Proficiency',
-                data: [95, 85, 90, 75, 70, 65],
-                backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.danger2, colors.highlight, colors.danger3],
-                borderRadius: 4
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    max: 100,
-                    grid: { display: false }
-                },
-                y: { grid: { display: false } }
+    function initializeCharts() {
+        // Destroy existing instances if they exist (important for re-runs in some environments)
+        if (javaChartInstance) javaChartInstance.destroy();
+        if (apiDbChartInstance) apiDbChartInstance.destroy();
+        if (devopsChartInstance) devopsChartInstance.destroy();
+
+
+        javaChartInstance = new Chart(document.getElementById('javaSkillsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Spring Boot 3.x', 'Java 17-21+', 'Spring Security', 'Java EE'],
+                datasets: [{
+                    label: 'Java & Enterprise Core',
+                    data: [40, 45, 10, 5],
+                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.highlight],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
             },
-            plugins: {
-                ...tooltipTitleCallback.plugins,
-                legend: {
-                    display: false
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'bottom',
+                    },
                 }
             }
-        }
-    });
+        });
 
-    new Chart(document.getElementById('devopsSkillsChart'), {
-        type: 'radar',
-        data: {
-            labels: ['Docker', 'Kubernetes', 'Jenkins', 'Terraform', 'CI/CD', 'Architecture'],
-            datasets: [{
-                label: 'DevOps & Architecture Skills',
-                data: [90, 70, 85, 80, 95, 88],
-                fill: true,
-                backgroundColor: 'rgba(10, 147, 150, 0.2)',
-                borderColor: colors.secondary,
-                pointBackgroundColor: colors.secondary,
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: colors.secondary
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                ...tooltipTitleCallback.plugins,
-                legend: {
-                    position: 'bottom',
-                },
+        apiDbChartInstance = new Chart(document.getElementById('apiDbSkillsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['REST APIs', 'PostgreSQL', ['JPA', 'Hibernate'], 'Oracle', 'GraphQL', 'MongoDB'],
+                datasets: [{
+                    label: 'Proficiency',
+                    data: [95, 85, 90, 75, 70, 65],
+                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.danger2, colors.highlight, colors.danger3],
+                    borderRadius: 4
+                }]
             },
-            scales: {
-                r: {
-                    angleLines: {
-                        color: 'rgba(0, 0, 0, 0.1)'
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { display: false }
                     },
-                    suggestedMin: 0,
-                    suggestedMax: 100,
-                    pointLabels: {
-                        font: {
-                            size: 12
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        devopsChartInstance = new Chart(document.getElementById('devopsSkillsChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Docker', 'Kubernetes', 'Jenkins', 'Terraform', 'CI/CD', 'Architecture'],
+                datasets: [{
+                    label: 'DevOps & Architecture Skills',
+                    data: [90, 70, 85, 80, 95, 88],
+                    fill: true,
+                    backgroundColor: 'rgba(10, 147, 150, 0.2)',
+                    borderColor: colors.secondary,
+                    pointBackgroundColor: colors.secondary,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: colors.secondary
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'bottom',
+                    },
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        pointLabels: {
+                            font: {
+                                size: 12
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    }
+    
+    // Initialize charts on window load
+    window.onload = initializeCharts;
+
 
     // --- MULTIMEDIA MODAL (Video) LOGIC ---
     // Placeholder function for video player (still uses a modal)
+    const videoUrl = 'https://mockup.codesapien.net/resume-video-walkthrough.mp4';
+    
     window.openPlayerModal = function(type) {
-        if (type !== 'video') return;
+        if (type !== 'video') return; 
 
         // Create a temporary modal structure for the video
         const modalHtml = `
@@ -1141,7 +1218,7 @@
     restartBtn.addEventListener('click', () => {
         resumeAudio.currentTime = 0;
         if (resumeAudio.paused) {
-            resumeAudio.play().catch(e => console.error("Play failed:", e));
+             resumeAudio.play().catch(e => console.error("Play failed:", e));
         }
         updatePlayButton();
     });
@@ -1399,8 +1476,9 @@
     };
 
     // Hook up export button for full CV
-    if (exportFullCVButton) {
-        exportFullCVButton.addEventListener('click', () => {
+    const exportFullCVButtonFloat = document.getElementById('export-resume-float');
+    if (exportFullCVButtonFloat) {
+        exportFullCVButtonFloat.addEventListener('click', () => {
             exportFullResume();
         });
     };
@@ -1501,43 +1579,91 @@
     };
 
     const exportFullResume = () => {
+        // --- 1. Capture Charts as Base64 Images ---
+        // Ensure charts are initialized before capture (important if function is called too quickly)
+        if (!javaChartInstance || !apiDbChartInstance || !devopsChartInstance) {
+             initializeCharts();
+        }
+
+        const javaChartImg = javaChartInstance.toBase64Image();
+        const apiDbChartImg = apiDbChartInstance.toBase64Image();
+        const devopsChartImg = devopsChartInstance.toBase64Image();
+
+
         const professionalExperienceHTML = [
             // EXPERIENCE 1
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Feb 2025 – May 2025</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">Freelance - Python AI Focus</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed <strong>Python AI Applications</strong> using <strong>OpenCV</strong> and <strong>TensorFlow</strong> for computer vision systems, integrating them via <strong>FastAPI</strong> backends.</li><li style="margin-bottom: 6pt;">Implemented cross-platform mobile applications using <strong>React Native</strong> with embedded AI capabilities (<strong>TensorFlow Lite</strong>).</li></ul></td></tr>`,
+            { period: 'Feb 2025 – May 2025 (4 mos)', title: 'Software Engineer', subtitle: 'Freelance - Python AI Focus', bullets: ['Developed <strong>Python AI Applications</strong> using <strong>OpenCV</strong> and <strong>TensorFlow</strong> for computer vision systems, integrating them via <strong>FastAPI</strong> backends.', 'Implemented cross-platform mobile applications using <strong>React Native</strong> with embedded AI capabilities (<strong>TensorFlow Lite</strong>).'] },
             // EXPERIENCE 2
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Oct 2024 – Feb 2025</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">theMatchBox, Antwerp</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing <strong>ZeroMQ</strong>.</li></ul></td></tr>`,
+            { period: 'Oct 2024 – Feb 2025 (5 mos)', title: 'Java Software Engineer', subtitle: 'theMatchBox, Antwerp', bullets: ['Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing <strong>ZeroMQ</strong>.'] },
             // EXPERIENCE 3
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Jun 2023 – Oct 2024</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">SWIFT, Brussels</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Implemented and maintained <strong>SWIFT MT/MX messaging protocols</strong> on the Alliance Messaging Hub (AMH) for secure financial communication.</li><li style="margin-bottom: 6pt;">Contributed to <strong>Microservices design</strong> and enterprise security upgrades for high-volume, mission-critical transaction processing systems (using <strong>Java EE/Oracle SQL</strong>).</li></ul></td></tr>`,
+            { period: 'Jun 2023 – Oct 2024 (1 yr 5 mos)', title: 'Java Software Engineer', subtitle: 'SWIFT, Brussels', bullets: ['Implemented and maintained <strong>SWIFT MT/MX messaging protocols</strong> on the Alliance Messaging Hub (AMH) for secure financial communication.', 'Contributed to <strong>Microservices design</strong> and enterprise security upgrades for high-volume, mission-critical transaction processing systems (using <strong>Java EE/Oracle SQL</strong>).'] },
             // EXPERIENCE 4
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Mar 2020 – Jun 2023</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">& Instructor (INTEC)</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed and maintained full-stack internal applications (<strong>Student Management, QR Attendance</strong>) using <strong>Spring Boot</strong>, <strong>Spring Cloud</strong>, and <strong>Vaadin</strong>.</li><li style="margin-bottom: 6pt;">Delivered dual-language curriculum (<strong>Java EE, Spring Boot, Python</strong>) to over 100 professional developers, achieving a <strong>95% job placement rate</strong>.</li></ul></td></tr>`,
+            { period: 'Mar 2020 – Jun 2023 (3 yrs 4 mos)', title: 'Software Engineer', subtitle: '& Instructor (INTEC)', bullets: ['Developed and maintained full-stack internal applications (<strong>Student Management, QR Attendance</strong>) using <strong>Spring Boot</strong>, <strong>Spring Cloud</strong>, and <strong>Vaadin</strong>.', 'Delivered dual-language curriculum (<strong>Java EE, Spring Boot, Python</strong>) to over 100 professional developers, achieving a <strong>95% job placement rate</strong>.'] },
             // EXPERIENCE 5
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Apr 2019 – Oct 2019</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Java Software Engineer</p><p style="font-size:10pt; color:#0A9396;">VDAB, Brussels</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Migrated legacy employment system data formats and schemas to modern RESTful <strong>Spring Boot Applications</strong>.</li><li style="margin-bottom: 6pt;">Contributed to Java development of <strong>matching algorithms</strong> and API services for candidate processing against the specialized <strong>Elise</strong> database.</li></ul></td></tr>`,
+            { period: 'Apr 2019 – Oct 2019 (7 mos)', title: 'Java Software Engineer', subtitle: 'VDAB, Brussels', bullets: ['Migrated legacy employment system data formats and schemas to modern RESTful <strong>Spring Boot Applications</strong>.', 'Contributed to Java development of <strong>matching algorithms</strong> and API services for candidate processing against the specialized <strong>Elise</strong> database.'] },
             // EXPERIENCE 6
-            `<tr><td style="width:30%; padding: 8pt 0; vertical-align: top;"><p style="font-size:10pt; color:#555555;">Jan 2017 – Dec 2018</p><p style="font-size:12pt; font-weight:bold; color:#005F73;">Software Engineer</p><p style="font-size:10pt; color:#0A9396;">Self-employed, VKODIT</p></td><td style="width:70%; padding: 8pt 0; vertical-align: top;"><ul style="margin: 0; padding-left: 20pt; list-style-type: disc;"><li style="margin-bottom: 6pt;">Developed <strong>C# .Net desktop applications</strong> and powershell automation tools with robust <strong>MSSQL</strong> database integration for small enterprises.</li><li style="margin-bottom: 6pt;">Managed development, project delivery, and client acquisition for <strong>E-Commerce solutions</strong> (WordPress/WooCommerce with custom PHP plugins).</li></ul></td></tr>`
-        ].join('');
+            { period: 'Jan 2017 – Dec 2018 (2 yrs)', title: 'Software Engineer', subtitle: 'Self-employed, VKODIT', bullets: ['Developed <strong>C# .Net desktop applications</strong> and powershell automation tools with robust <strong>MSSQL</strong> database integration for small enterprises.', 'Managed development, project delivery, and client acquisition for <strong>E-Commerce solutions</strong> (WordPress/WooCommerce with custom PHP plugins).'] }
+        ];
 
-        const architectureCompetencies = [
-            'Monolith: Maintain and evolve cohesive enterprise apps with clear boundaries and layered design.',
-            'Microservices: Design resilient, independently deployable services with strong observability.',
-            'Modulith: Build well-structured Spring applications with explicit module boundaries.',
-            'SCS (Self-Contained Services): Expertise in developing vertically integrated services via Java EE + Spring Boot + Vaadin.',
-            'Event-Driven Architecture: Intermediate knowledge in designing systems that react to events for decoupled and scalable applications.',
-            'Asynchronous Messaging Patterns: Intermediate proficiency in implementing non-blocking communication for resilient and high-performance systems.'
-        ].map(item => `<li style="margin-bottom: 4pt;">${item}</li>`).join('');
+        const experienceBlocks = professionalExperienceHTML.map(job => `
+            <div style="margin-bottom: 15pt; page-break-inside: avoid;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 25%; padding: 0; vertical-align: top;">
+                            <p style="font-size: 10pt; color: #555555; margin: 0;">${job.period}</p>
+                        </td>
+                        <td style="width: 75%; padding: 0; vertical-align: top;">
+                            <p style="font-size: 12pt; font-weight: bold; color: #005F73; margin: 0;">${job.title}</p>
+                            <p style="font-size: 10pt; color: #0A9396; margin: 2pt 0 5pt 0;">${job.subtitle}</p>
+                            <ul style="margin: 0; padding-left: 20pt; list-style-type: disc;">
+                                ${job.bullets.map(b => `<li style="margin-bottom: 4pt; font-size: 10pt;">${b}</li>`).join('')}
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `).join('');
+
 
         const projectsHTML = [
-            { title: 'Spring Vision Framework', desc: 'A production-ready computer vision framework delivered as a <strong>Spring Boot Starter</strong>, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.', link: 'https://github.com/codesapienbe/spring-vision' },
-            { title: 'Instyper - Voice-to-Text Desktop App', desc: 'A lightweight, privacy-first desktop application that turns your voice into text instantly. It works offline (Vosk) and supports modern online models (Whisper) and live translation.', link: 'https://github.com/codesapienbe/Instyper' },
-            { title: 'Stegnocchi - EXIF Steganography App', desc: 'A security tool built in <strong>Core Java</strong> focused on hiding data within image metadata (<strong>EXIF Steganography</strong>), showcasing low-level data manipulation and security principles.', link: 'https://github.com/codesapienbe/Stegnocchi' },
-            { title: 'DeepVoice - Voice Analysis Library', desc: 'A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.', link: 'https://github.com/codesapienbe/DeepVoice' }
+            { title: 'Spring Vision Framework 👁️', desc: 'A production-ready computer vision framework delivered as a <strong>Spring Boot Starter</strong>, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.', link: 'https://github.com/codesapienbe/spring-vision' },
+            { title: 'Instyper - Voice-to-Text Desktop App 🎙️', desc: 'A lightweight, privacy-first desktop application that turns your voice into text instantly. It works offline (Vosk) and supports modern online models (Whisper) and live translation.', link: 'https://github.com/codesapienbe/Instyper' },
+            { title: 'Stegnocchi - EXIF Steganography App 🖼️', desc: 'A security tool built in <strong>Core Java</strong> focused on hiding data within image metadata (<strong>EXIF Steganography</strong>), showcasing low-level data manipulation and security principles.', link: 'https://github.com/codesapienbe/Stegnocchi' },
+            { title: 'DeepVoice - Voice Analysis Library 🎤', desc: 'A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.', link: 'https://github.com/codesapienbe/DeepVoice' }
         ].map(p => `
-            <div style="margin-bottom: 12pt; border-left: 3pt solid #0A9396; padding-left: 8pt;">
+            <div style="margin-bottom: 12pt; border-left: 3pt solid #0A9396; padding-left: 8pt; page-break-inside: avoid;">
                 <p style="font-size: 11pt; font-weight: bold; color: #005F73; margin-bottom: 2pt;">${p.title}</p>
                 <p style="font-size: 10pt; color: #555555; margin-bottom: 4pt;">${p.desc}</p>
                 <p style="font-size: 9pt; color: #EE9B00;"><a href="${p.link}" style="color: #EE9B00;">GitHub Link</a></p>
             </div>
         `).join('');
-
+        
+        const certificationRoadmapHTML = `
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10pt; font-size: 10pt;">
+                <tr style="background-color: #f0f9fa; font-weight: bold; color: #005F73;">
+                    <td style="padding: 6pt; border: 1px solid #ddd; width: 25%;">Phase / Timeframe</td>
+                    <td style="padding: 6pt; border: 1px solid #ddd; width: 35%;">Certification</td>
+                    <td style="padding: 6pt; border: 1px solid #ddd; width: 40%;">Primary Focus</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 1: Nov 2025 - Mar 2026</td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>Oracle Certified Professional (OCP) - Java SE</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Core Java language specifics (Concurrency, Streams, Generics, I/O).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 2: Apr 2026 - Jun 2026</td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>VMware Tanzu Spring Professional</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Spring ecosystem mastery (DI, AOP, Transactions, Spring Security, Autoconfiguration).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 3: Jul 2026 - Aug 2026</td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>Official OpenCV Certification</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #ddd;">Formalizing applied AI experience (Image processing, Object Detection, DNN).</td>
+                </tr>
+            </table>
+        `;
+        
+        // --- 2. Build the Document Content with Embedded Images ---
         const docContent = `
             <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
             <head>
@@ -1546,15 +1672,18 @@
                 <style>
                     body { font-family: 'Arial', sans-serif; color: #333; margin: 0; padding: 0; }
                     .header-info { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73; }
-                    .header-info h1 { font-size: 20pt; color: #005F73; margin: 0; }
-                    .header-info p { font-size: 13pt; color: #0A9396; margin: 2pt 0 5pt 0; }
-                    .contact-bar { font-size: 10pt; color: #555; }
-                    .section-title { font-size: 16pt; font-weight: bold; color: #005F73; margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid #0A9396; }
+                    .header-info h1 { font-size: 24pt; color: #005F73; margin: 0; }
+                    .header-info p { font-size: 15pt; color: #0A9396; margin: 2pt 0 5pt 0; }
+                    .contact-bar { font-size: 12pt; color: #555; }
+                    .section-title { font-size: 16pt; font-weight: bold; color: #005F73; margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid #0A9396; page-break-before: always; }
+                    .section-title.first { page-break-before: auto; }
                     strong { font-weight: bold; }
                     table { width: 100%; border-collapse: collapse; margin-bottom: 15pt; }
                     td { padding: 0; vertical-align: top; }
-                    .skills-list { display: flex; flex-wrap: wrap; margin-top: 5pt; }
-                    .skill-item { background-color: #f0f9fa; color: #0A9396; padding: 3pt 6pt; margin-right: 5pt; margin-bottom: 5pt; border-radius: 3pt; font-size: 9pt; display: inline-block; }
+                    .chart-title { font-size: 11pt; font-weight: bold; color: #0A9396; margin-bottom: 5pt; text-align: center; }
+                    .chart-wrapper { text-align: center; margin-bottom: 10pt; }
+                    .chart-image-small { width: 220px; height: 220px; max-width: 220px; display: inline-block; } /* Adjusted size */
+                    .chart-image-wide { width: 320px; height: 200px; max-width: 320px; display: inline-block; } /* Adjusted size for bar chart */
                 </style>
             </head>
             <body>
@@ -1562,53 +1691,57 @@
                     <h1>YILMAZ MUSTAFA</h1>
                     <p>Java & Spring Software Engineer</p>
                     <div class="contact-bar">
-                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">yilmaz@codesapien.net</a> |
-                        <a href="https://codesapien.net" style="color: #0A9396;">codesapien.net</a> |
-                        <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">codesapienbe (LinkedIn)</a>
+                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">📧 yilmaz@codesapien.net</a> | 
+                        <a href="https://codesapien.net" style="color: #0A9396;">🌐 codesapien.net</a> | 
+                        <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">💼 codesapienbe (LinkedIn)</a>
                     </div>
                 </div>
 
-                <div class="section-title">PROFESSIONAL SUMMARY</div>
+                <div class="section-title first">PROFESSIONAL SUMMARY</div>
                 <p style="margin-bottom: 10pt;">Software Engineer with <strong>8+ years of expertise</strong> in enterprise application development using <strong>Java</strong> and <strong>Spring Boot</strong>. Proven track record delivering scalable, high-performance applications and <strong>CI/CD automation</strong> across Monolith, <strong>Microservices</strong>, and <strong>Modulith</strong> architectures. Supported <strong>10k+ concurrent users</strong> and specialized in <strong>REST/SOAP APIs</strong>, data integration, and <strong>messaging protocols</strong> (SWIFT MT/MX).</p>
-
+                
                 <div class="section-title">CORE TECHNICAL EXPERTISE</div>
-                <table>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10pt;">
+                    <!-- Row 1: Java & Enterprise Core and DevOps, Cloud & Architecture (Side-by-Side) -->
                     <tr>
-                        <td style="width: 33%; padding-right: 15pt;">
-                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">Languages & Frameworks</p>
-                            <p style="font-size: 10pt; color: #555555;">Java 17-21+, Spring Boot 3.x, Spring Cloud, Spring Security, Java EE, Python, C#, Vaadin, React</p>
+                        <td style="width: 50%; padding-right: 10pt; text-align: center;">
+                            <p class="chart-title">Java & Enterprise Core</p>
+                            <div class="chart-wrapper"><img class="chart-image-small" src="${javaChartImg}" /></div>
                         </td>
-                        <td style="width: 33%; padding-right: 15pt;">
-                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">APIs & Data</p>
-                            <p style="font-size: 10pt; color: #555555;">REST APIs, SOAP, GraphQL, PostgreSQL, Oracle, JPA/Hibernate, ElasticSearch, ZeroMQ, IBM MQ</p>
+                        <td style="width: 50%; padding-left: 10pt; text-align: center;">
+                            <p class="chart-title">DevOps, Cloud & Architecture</p>
+                            <div class="chart-wrapper"><img class="chart-image-small" src="${devopsChartImg}" /></div>
                         </td>
-                        <td style="width: 33%;">
-                            <p style="font-size: 11pt; font-weight: bold; color: #005F73;">DevOps & Architecture</p>
-                            <p style="font-size: 10pt; color: #555555;">Docker, Kubernetes, Jenkins, Terraform, CI/CD, Microservices, Modulith, Monolith, SCS</p>
+                    </tr>
+                    <!-- Row 2: APIs & Database Tech (Merged Column, Centered) -->
+                    <tr>
+                        <td colspan="2" style="padding-top: 15pt; text-align: center;">
+                            <p class="chart-title">APIs & Database Tech</p>
+                            <div class="chart-wrapper"><img class="chart-image-wide" src="${apiDbChartImg}" /></div>
                         </td>
                     </tr>
                 </table>
+                <div style="page-break-after: always;"></div> <!-- Page Break Here -->
 
                 <div class="section-title">PROFESSIONAL JOURNEY</div>
-                <table style="margin-top: 5pt; border-bottom: 1px solid #e1e1e1;">
-                    ${professionalExperienceHTML}
-                </table>
+                ${experienceBlocks}
+                <div style="page-break-after: always;"></div> <!-- Page Break Here -->
 
-                <div class="section-title">ARCHITECTURAL COMPETENCIES</div>
-                <ul style="padding-left: 15pt; list-style-type: square; margin-bottom: 15pt;">
-                    ${architectureCompetencies}
-                </ul>
 
                 <div class="section-title">KEY OPEN SOURCE PROJECTS</div>
                 <div style="margin-bottom: 15pt;">
                     ${projectsHTML}
                 </div>
 
+                <div class="section-title">CERTIFICATION ROADMAP: MASTERY IN JAVA, SPRING, AND AI</div>
+                <p style="margin-bottom: 10pt;">Proactive plan to achieve advanced, recognized industry certifications starting November 2025.</p>
+                ${certificationRoadmapHTML}
+
                 <div class="section-title">EDUCATION & DEVELOPMENT</div>
                 <table style="width: 100%;">
                     <tr>
                         <td colspan="2" style="padding-bottom: 15pt;">
-                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Academic History</p>
+                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Academic History 🎓</p>
                             <div style="margin-bottom: 10pt;">
                                 <p style="font-size: 11pt; font-weight: bold; color: #333;">Postgraduate AI & Machine Learning (Completed)</p>
                                 <p style="font-size: 10pt; color: #555;">Erasmushogeschool Brussel, Belgium</p>
@@ -1634,7 +1767,7 @@
                             </ul>
                         </td>
                         <td style="width: 50%; vertical-align: top;">
-                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Global Competencies</p>
+                            <p style="font-size: 12pt; font-weight: bold; color: #0A9396; margin-bottom: 8pt;">Global Competencies 🗣️</p>
                             <p style="font-size: 10pt; color: #555;"><strong>Languages:</strong> Turkish (Native), English (Fluent), Dutch (Professional)</p>
                             <p style="font-size: 10pt; color: #555;"><strong>Domains:</strong> Financial Messaging, Enterprise Software & SaaS, Technical Training</p>
                         </td>

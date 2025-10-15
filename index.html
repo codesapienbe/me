@@ -393,25 +393,66 @@
         <section id="summary" class="mb-16">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Professional Snapshot</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center items-center">
                     <div>
-                        <p class="text-6xl font-extrabold text-[#CA6702]">8+</p>
+                        <p class="text-6xl font-extrabold text-[#CA6702] counter" data-target="8">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Years of Development</p>
-                        <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
+                        <p class="text-slate-500 mt-1">Total experience across Java and Python.</p>
                     </div>
                     <div>
-                        <p class="6xl font-extrabold text-[#BB3E03]">6</p>
-                        <p class="text-xl font-medium text-slate-700 mt-2">Core Architectures</p>
-                        <p class="slate-500 mt-1">Monolith, Microservices, Modulith, SCS, Event-Driven Architecture, and Asynchronous Messaging Patterns.</p>
+                        <p class="text-2xl font-extrabold text-[#BB3E03]">⚙️</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Architectures</p>
+                        <div class="mt-3 flex flex-wrap justify-center gap-2">
+                            <span class="text-sm px-3 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold transform transition hover:scale-105">Monolith</span>
+                            <span class="text-sm px-3 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold transform transition hover:scale-105">Microservices</span>
+                            <span class="text-sm px-3 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold transform transition hover:scale-105">Event-Driven</span>
+                        </div>
                     </div>
                     <div>
-                        <p class="text-6xl font-extrabold text-[#AE2012]">10k+</p>
+                        <p class="text-6xl font-extrabold text-[#AE2012] counter" data-target="10000">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Concurrent Users</p>
                         <p class="text-slate-500 mt-1">Supported in high-performance apps.</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <script>
+        (function(){
+            function animateCounters(){
+                const counters = document.querySelectorAll('.counter');
+                if(!counters.length) return;
+                const opts = { threshold: 0.5 };
+                const formatNumber = n => n.toLocaleString();
+                const run = (el, target) => {
+                    let start = 0;
+                    const duration = 1200;
+                    const stepTime = Math.max(16, Math.floor(duration / 60));
+                    const increment = Math.max(1, Math.floor(target / (duration / stepTime)));
+                    function step(){
+                        start += increment;
+                        if(start >= target){ el.textContent = formatNumber(target); return; }
+                        el.textContent = formatNumber(start);
+                        requestAnimationFrame(step);
+                    }
+                    step();
+                };
+                const io = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting){
+                            const el = entry.target;
+                            const target = parseInt(el.getAttribute('data-target') || '0', 10);
+                            run(el, target);
+                            observer.unobserve(el);
+                        }
+                    });
+                }, opts);
+                counters.forEach(c => io.observe(c));
+            }
+            if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', animateCounters);
+            else animateCounters();
+        })();
+        </script>
 
         <section id="gemini-analysis" class="mb-16">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">

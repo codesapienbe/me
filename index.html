@@ -79,15 +79,20 @@
             }
 
             /* Hide interactive and irrelevant blocks */
-            #architecture, #floating-buttons, #audio-player-bar {
+            #floating-buttons, #audio-player-bar {
                 display: none !important;
             }
 
             /* --- Layout Control --- */
-            /* Force single column for all primary grid containers on print */
-            .md\:grid, .md\:grid-cols-2, .md\:grid-cols-3, .lg\:grid-cols-3, .md\:gap-8, .lg\:col-span-3, .sm\:grid-cols-2 {
+            /* Force ALL complex layouts to simple blocks */
+            .md\:grid, .lg\:grid-cols-3, .md\:grid-cols-2 {
                 display: block !important;
                 width: 100% !important;
+            }
+            .gap-8, .gap-6, .gap-4 {
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                gap: 0 !important;
             }
 
             /* Fix contact header alignment for print */
@@ -110,18 +115,44 @@
             .p-6 { padding: 0.4cm !important; }
             .p-4 { padding: 0.3cm !important; }
 
-            /* Keep charts visible but constrain size */
-            #skills .flip-card, #skills .flip-card-inner, #skills .flip-card-front {
+            /* --- SKILLS/FLIP CARD PRINT FIX --- */
+            /* Force chart containers to display fully */
+            #skills .flip-card, #skills .flip-card-inner, #skills .flip-card-front, #skills .flip-card-back {
                 height: auto !important;
                 min-height: 0 !important;
+                position: relative !important; /* Reset absolute positioning */
+                transform: none !important; /* Disable 3D transform */
+                backface-visibility: visible !important; /* Ensure content is visible */
+                box-shadow: 0 0 1px #ccc !important;
+                margin-bottom: 10pt;
+                padding: 10pt !important;
             }
-            #skills .chart-container {
-                height: 180px !important; /* Smaller size for print */
-                max-width: 100% !important;
-                margin: 0 auto !important;
+            /* Only show the back content (details) of the flip cards in print */
+            #skills .flip-card-front {
+                display: none !important;
+            }
+            #skills .flip-card-back {
+                transform: none !important;
+                position: relative !important;
+                padding: 0 !important;
+                background-color: #fff !important;
+                border: none !important;
+                /* Adjust list styling */
+                list-style: none !important;
+            }
+            #skills .flip-card-back h3 {
+                color: #000 !important;
+            }
+            #skills .flip-card-back ul {
+                list-style-type: disc !important;
+                padding-left: 20pt !important;
+                margin-top: 5pt !important;
+            }
+            #skills .flip-card-back .self-end {
+                display: none; /* Hide 'Tap to see chart view' */
             }
 
-            /* --- Timeline Fixes (Experience) --- */
+            /* --- EXPERIENCE/JOURNEY FIX --- */
             .relative.border-l-4 {
                 border-left: none !important;
             }
@@ -129,14 +160,25 @@
             .ml-8, .ml-6, .md\:ml-0 { margin-left: 0 !important; }
             .md\:text-right { text-align: left !important; }
             .md\:pr-8 { padding-right: 0 !important; }
+            .md\:grid { display: block !important; }
+            .md\:grid-cols-2 > div { width: 100% !important; margin: 0; padding: 0; }
+            .md\:grid-cols-2 .md\:text-right { margin-bottom: 5pt; }
+
+            /* --- EDUCATION/LANGUAGES FIX --- */
+            #education .md\:col-span-3 {
+                padding: 10pt !important;
+                margin-bottom: 10pt;
+            }
+            #education .grid-cols-3 { display: block !important; }
+            #education .gap-x-6 { margin-bottom: 15pt; }
+            #education .lg\:grid-cols-2 { display: block !important; }
+            #education .p-4 { padding: 0 !important; border: none !important; }
+
 
             /* Ensure content fits A4 without breaking awkwardly */
             .rounded-xl, .bg-white {
                 page-break-inside: avoid;
             }
-
-            /* Force explicit page breaks (optional for flow control) */
-            /* If full visual similarity is desired, page breaks are usually omitted */
 
             /* Print-only interviewer notes block: hidden on screen, visible in print */
             .print-only { display: block !important; }

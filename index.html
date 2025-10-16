@@ -20,12 +20,12 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            height: 250px; /* Reduced height for clean front-card view */
+            max-height: 350px;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 350px;
+                height: 300px;
             }
         }
         .loading-spinner {
@@ -162,6 +162,64 @@
             background-color: #f7f7f7;
         }
 
+        /* --- CARD FLIP EFFECT STYLES --- */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            cursor: pointer;
+            /* FIX: Set a sufficient minimum height for all flip cards */
+            min-height: 420px; 
+            height: 100%;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%; 
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            background-color: white;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; 
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .flip-card-back {
+            background-color: #f0f9fa; /* Light color for background */
+            color: #333;
+            transform: rotateY(180deg);
+            padding: 1rem;
+            text-align: left;
+            overflow-y: auto; /* Allow scrolling on back face if content is large */
+        }
+        .flip-card-back ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .flip-card-back h3 {
+            margin-bottom: 0.5rem;
+        }
+
+
         /* --- NEW: Improved responsive layout for Architectural Competencies --- */
         /* Dedicated class so other grids aren't affected */
         .architecture-grid {
@@ -260,7 +318,6 @@
             padding: 4px 8px;
             font-size: 20px;
             cursor: pointer;
-            transition: color 0.1s;
         }
         #audio-player-bar button:hover {
             color: #94D2BD; /* Accent color on hover */
@@ -320,6 +377,31 @@
                 display: inline;
             }
         }
+        
+        /* --- STICKY HEADER STYLES --- */
+        #sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 80;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            padding: 10px 20px;
+        }
+        #sticky-header.visible {
+            opacity: 1;
+        }
+        .sticky-contact-bar {
+            font-size: 13px;
+        }
+        @media (max-width: 639px) {
+            .sticky-contact-bar {
+                font-size: 10px;
+            }
+        }
 
     </style>
 </head>
@@ -334,19 +416,34 @@
 -->
 <!-- Plan Narrative: 1. Snapshot (KPIs) 2. Contextual Skill Aligner (Offline Analysis). 3. Skills (Visual Charts) 4. Experience (Timeline) 5. Projects (List of cards). -->
 <!-- Visualization Choices: KPIs (Single Big Number), Skills (Doughnut, Bar, Radar for different categories - Comparison/Inform), Projects (List of cards - Organization/Inform). Confirmed NO SVG. -->
+
+<!-- STICKY HEADER (Hidden until scroll) -->
+<div id="sticky-header">
+    <div class="flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center space-x-3">
+            <h4 class="text-lg font-bold text-[#005F73]">YILMAZ MUSTAFA</h4>
+            <span class="text-[#94D2BD] text-xl hidden sm:inline">|</span>
+            <span class="text-sm text-slate-600 font-medium hidden sm:inline">Java & Spring Software Engineer</span>
+        </div>
+        <div class="sticky-contact-bar flex items-center space-x-2 text-slate-600">
+            <span>📧 yilmaz@codesapien.net</span>
+            <span class="text-[#94D2BD] hidden sm:inline">|</span>
+            <span class="hidden sm:inline">💼 codesapienbe</span>
+        </div>
+    </div>
+</div>
+
 <div class="container mx-auto p-4 md:p-8">
-    <header class="text-center mb-12">
+    <header class="text-center mb-12" id="main-header">
         <h1 class="text-5xl font-extrabold text-[#005F73]">YILMAZ MUSTAFA</h1>
-        <p class="2xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
-        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600 responsive-contact-bar">
+        <p class="text-xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
+        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600 responsive-contact-bar text-lg">
             <span>📧 yilmaz@codesapien.net</span>
             <span class="text-[#94D2BD] separator">|</span>
             <span>🌐 codesapien.net</span>
             <span class="text-[#94D2BD] separator">|</span>
             <span>💼 codesapienbe (LinkedIn)</span>
         </div>
-        
-        <!-- REMOVED: Export Full Resume Button from here as requested. Logic is now tied to the floating button. -->
     </header>
 
     <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
@@ -393,23 +490,19 @@
         <section id="summary" class="mb-16">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Professional Snapshot</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center items-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div>
-                        <p class="text-6xl font-extrabold text-[#CA6702] counter" data-target="8">0</p>
+                        <p id="counter1" class="text-6xl font-extrabold text-[#CA6702]">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Years of Development</p>
-                        <p class="text-slate-500 mt-1">Total experience across Java and Python.</p>
+                        <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-extrabold text-[#BB3E03]">⚙️</p>
-                        <p class="text-xl font-medium text-slate-700 mt-2">Architectures</p>
-                        <div class="mt-3 flex flex-wrap justify-center gap-2">
-                            <span class="text-sm px-3 py-1 rounded-full bg-[#f0f9fa] text-[#0A9396] font-semibold transform transition hover:scale-105">Monolith</span>
-                            <span class="text-sm px-3 py-1 rounded-full bg-[#fff2e6] text-[#CA6702] font-semibold transform transition hover:scale-105">Microservices</span>
-                            <span class="text-sm px-3 py-1 rounded-full bg-[#fef7ec] text-[#EE9B00] font-semibold transform transition hover:scale-105">Event-Driven</span>
-                        </div>
+                        <p id="counter2" class="text-6xl font-extrabold text-[#BB3E03]">0</p>
+                        <p class="text-xl font-medium text-slate-700 mt-2">Trained Junior Developers</p>
+                        <p class="slate-500 mt-1">Java/Python curriculum delivered with high placement rate.</p>
                     </div>
                     <div>
-                        <p class="text-6xl font-extrabold text-[#AE2012] counter" data-target="10000">0</p>
+                        <p id="counter3" class="text-6xl font-extrabold text-[#AE2012]">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Concurrent Users</p>
                         <p class="text-slate-500 mt-1">Supported in high-performance apps.</p>
                     </div>
@@ -417,57 +510,20 @@
             </div>
         </section>
 
-        <script>
-        (function(){
-            function animateCounters(){
-                const counters = document.querySelectorAll('.counter');
-                if(!counters.length) return;
-                const opts = { threshold: 0.5 };
-                const formatNumber = n => n.toLocaleString();
-                const run = (el, target) => {
-                    let start = 0;
-                    const duration = 1200;
-                    const stepTime = Math.max(16, Math.floor(duration / 60));
-                    const increment = Math.max(1, Math.floor(target / (duration / stepTime)));
-                    function step(){
-                        start += increment;
-                        if(start >= target){ el.textContent = formatNumber(target); return; }
-                        el.textContent = formatNumber(start);
-                        requestAnimationFrame(step);
-                    }
-                    step();
-                };
-                const io = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if(entry.isIntersecting){
-                            const el = entry.target;
-                            const target = parseInt(el.getAttribute('data-target') || '0', 10);
-                            run(el, target);
-                            observer.unobserve(el);
-                        }
-                    });
-                }, opts);
-                counters.forEach(c => io.observe(c));
-            }
-            if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', animateCounters);
-            else animateCounters();
-        })();
-        </script>
-
         <section id="gemini-analysis" class="mb-16">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Contextual Skill Match 🎯</h2>
                 <p class="text-slate-600 mb-2 text-center">Enter company details and paste a job description below for an instant analysis.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-3 gap-4 mb-4">
                     <label for="companyNameInput" class="sr-only">Company Name</label>
-                    <input type="text" id="companyNameInput" aria-label="Company Name" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Target Company Name (e.g., Acme Corp)">
+                    <input type="text" id="companyNameInput" aria-label="Company Name" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700 col-span-1" placeholder="Company Name">
                     <label for="companyUrlInput" class="sr-only">Company Website URL</label>
-                    <input type="url" id="companyUrlInput" aria-label="Company Website URL" class="w-full p-4 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Website URL (e.g., https://example.com)">
+                    <input type="url" id="companyUrlInput" aria-label="Company Website URL" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700 col-span-2" placeholder="Website URL (e.g., https://example.com)">
                 </div>
 
                 <label for="jobDescriptionInput" class="sr-only">Job Description</label>
-                <textarea id="jobDescriptionInput" aria-label="Job Description" rows="6" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Paste the job description (e.g., Backend Engineer, Java/Kubernetes)..."></textarea>
+                <textarea id="jobDescriptionInput" aria-label="Job Description" rows="8" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-[#0A9396] focus:border-[#0A9396] text-slate-700" placeholder="Paste the job description (e.g., Backend Engineer, Java/Kubernetes)..."></textarea>
 
                 <div class="flex justify-center mt-4 space-x-4">
                     <button id="analyzeButton" class="flex items-center space-x-2 bg-[#EE9B00] hover:bg-[#CA6702] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md w-full max-w-[200px]" type="button">
@@ -494,31 +550,82 @@
         <section id="skills" class="mb-16">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Core Technical Expertise</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">Java & Enterprise Core</h3>
-                    <p class="text-slate-600 mb-4">Deep expertise in the Java ecosystem, focusing on modern, high-performance backend development with the Spring Framework.</p>
-                    <div class="chart-container h-64 md:h-72">
-                        <canvas id="javaSkillsChart"></canvas>
+                
+                <!-- CARD 1: Backend & Databases -->
+                <div class="flip-card h-full" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-xl font-bold text-[#0A9396] mb-4">Backend & Databases</h3>
+                            <div class="chart-container flex-grow flex items-center justify-center">
+                                <canvas id="javaSkillsChart"></canvas>
+                            </div>
+                            <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
+                        </div>
+                        <div class="flip-card-back" style="border-left: 4px solid #0A9396;">
+                            <h3 class="text-xl font-bold text-[#005F73]">Backend & Databases (High Expertise)</h3>
+                            <ul class="text-left">
+                                <li><strong>Core Java:</strong> Java 17-21, emphasizing modern concurrency.</li>
+                                <li><strong>Spring Stack:</strong> Spring Boot 3.x, Spring Cloud, Spring Security.</li>
+                                <li><strong>Messaging:</strong> IBM MQ, ZeroMQ, RabbitMQ (Protocols: SWIFT MT/MX).</li>
+                                <li><strong>Databases:</strong> PostgreSQL, Oracle, MongoDB, MSSQL.</li>
+                                <li><strong>Persistence:</strong> JPA, Hibernate, ElasticSearch.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-4 self-end">Tap to see chart view.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">APIs & Database Tech</h3>
-                    <p class="text-slate-600 mb-4">Strong command of API design and a wide range of database technologies, ensuring efficient data persistence and integration.</p>
-                    <div class="chart-container h-64 md:h-72">
-                        <canvas id="apiDbSkillsChart"></canvas>
+
+                <!-- CARD 2: Frontend & Design -->
+                <div class="flip-card h-full" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-xl font-bold text-[#0A9396] mb-4">Frontend & Design</h3>
+                            <div class="chart-container flex-grow flex items-center justify-center">
+                                <canvas id="apiDbSkillsChart"></canvas>
+                            </div>
+                            <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
+                        </div>
+                        <div class="flip-card-back" style="border-left: 4px solid #EE9B00;">
+                            <h3 class="text-xl font-bold text-[#005F73]">Frontend & Design (Applied Skills)</h3>
+                            <ul class="text-left">
+                                <li><strong>Expert:</strong> Vaadin (Java UI framework).</li>
+                                <li><strong>Strong:</strong> React, HTML, CSS, JavaScript/TypeScript.</li>
+                                <li><strong>Intermediate:</strong> GWT (Legacy Java Web Toolkit).</li>
+                                <li><strong>Familiar:</strong> React Native, NextJS (beginner).</li>
+                                <li><strong>UI/APIs:</strong> GraphQL, RESTful API design.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-4 self-end">Tap to see chart view.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-6 md:col-span-2 lg:col-span-1">
-                    <h3 class="text-xl font-bold text-[#0A9396] mb-4">DevOps, Cloud & Architecture</h3>
-                    <p class="text-slate-600 mb-4">Proficient in modern DevOps practices, cloud platforms, and software architecture principles for building resilient systems.</p>
-                    <div class="chart-container h-64 md:h-72">
-                        <canvas id="devopsSkillsChart"></canvas>
+
+                <!-- CARD 3: DevOps & AI/ML -->
+                <div class="flip-card h-full lg:col-span-1 md:col-span-2" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-xl font-bold text-[#0A9396] mb-4">DevOps & AI/ML</h3>
+                            <div class="chart-container flex-grow flex items-center justify-center">
+                                <canvas id="devopsSkillsChart"></canvas>
+                            </div>
+                            <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
+                        </div>
+                        <div class="flip-card-back" style="border-left: 4px solid #005F73;">
+                            <h3 class="text-xl font-bold text-[#005F73]">DevOps & AI/ML (Infrastructure & Growth)</h3>
+                            <ul class="text-left">
+                                <li><strong>Expert:</strong> CI/CD, Jenkins, Docker.</li>
+                                <li><strong>Intermediate:</strong> Kubernetes, Terraform, Python (TensorFlow, OpenCV).</li>
+                                <li><strong>Familiar:</strong> Ansible, AWS/Azure, MLOps concepts.</li>
+                                <li><strong>Architecture:</strong> Microservices, Modulith, Event-Driven.</li>
+                                <li><strong>Quality:</strong> TDD, JUnit, SonarQube.</li>
+                            </ul>
+                            <p class="text-xs text-slate-500 mt-4 self-end">Tap to see chart view.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="mb-16">
+        <section id="experience" class="mb-16 pt-8">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Professional Journey</h2>
             <div class="relative border-l-4 border-[#94D2BD] ml-6 md:ml-0 md:mx-auto">
                 <!-- EXPERIENCE 1: Python AI Applications (Freelance) -->
@@ -858,7 +965,7 @@
                     <div class="mb-10 ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#0A9396] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 1: Nov 2025 - Mar 2026 (5 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">Oracle Certified Professional (OCP) - Java SE Developer</h3>
+                        <h3 class="text-xl font-semibold text-slate-800">Oracle Certified Professional (OCP) - Java SE Developer <a href="https://www.ucertify.com/p/oracle-certified-professional-java-se-17-developer.html" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Mastery of <strong>Core Java language specifics</strong> (Concurrency, Streams, Generics, and File I/O) necessary for enterprise performance and reliability.</p>
                     </div>
 
@@ -866,7 +973,7 @@
                     <div class="mb-10 ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#EE9B00] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 2: Apr 2026 - Jun 2026 (3 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">VMware Tanzu Spring Professional Certification</h3>
+                        <h3 class="text-xl font-semibold text-slate-800">VMware Tanzu Spring Professional Certification <a href="https://www.spring-certification.com/spring-exam-details" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Validating expert-level knowledge of the <strong>Spring ecosystem</strong>, focusing on DI, AOP, Transactions, <strong>Spring Security</strong>, and <strong>Spring Boot Autoconfiguration</strong>.</p>
                     </p>
                     </div>
@@ -875,7 +982,7 @@
                     <div class="ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#AE2012] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 3: Jul 2026 - Aug 2026 (2 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">Official OpenCV Certification (Computer Vision)</h3>
+                        <h3 class="text-xl font-semibold text-slate-800">Official OpenCV Certification (Computer Vision) <a href="https://opencv.org/university/courses/" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Formalizing applied AI experience by mastering image processing, object detection, and <strong>DNN module integration</strong> using the OpenCV library.</p>
                     </div>
                 </div>
@@ -893,29 +1000,28 @@
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Academic History 🎓</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
                         <div class="space-y-1">
-                            <p class="text-lg font-semibold text-slate-800">Postgraduate AI & Machine Learning</p>
+                            <p class="text-lg font-semibold text-slate-800"><a href="https://www.erasmushogeschool.be/en/programmes/postgraduate-applied-artificial-intelligence" target="_blank" class="hover:text-[#0A9396]">Postgraduate AI & Machine Learning</a></p>
                             <p class="sm text-slate-600">Erasmushogeschool Brussel, Belgium</p>
                             <span class="text-xs font-semibold text-[#005F73] px-2 py-0.5 bg-[#eef2ff] rounded">Completed</span>
                         </div>
                         <div class="space-y-1">
-                            <p class="text-lg font-semibold text-slate-800">MSc in Computing and Information Systems</p>
+                            <p class="text-lg font-semibold text-slate-800"><a href="https://www.qmul.ac.uk/postgraduate/course-info/computing-and-data-science/" target="_blank" class="hover:text-[#0A9396]">MSc in Computing and Information Systems</a></p>
                             <p class="text-sm text-slate-600">Queen Mary, University of London, UK (2013)</p>
                             <span class="text-xs font-semibold text-[#AE2012] px-2 py-0.5 bg-[#fce8e8] rounded">Incomplete Study</span>
                         </div>
                         <div class="space-y-1">
-                            <p class="text-lg font-semibold text-slate-800">Bachelor Degree, Tourism and Hotel Management</p>
+                            <p class="text-lg font-semibold text-slate-800"><a href="https://www.beykent.edu.tr" target="_blank" class="hover:text-[#0A9396]">Bachelor Degree, Tourism and Hotel Management</a></p>
                             <p class="text-sm text-slate-600">Beykent University, Istanbul, Turkiye (2010)</p>
                             <span class="text-xs font-semibold text-[#0A9396] px-2 py-0.5 bg-[#e9f7f9] rounded">Completed</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Languages & Domain Card (Full Width in its own row) -->
-                <!-- MOVED TO THE BOTTOM OF THE SECTION TO MAINTAIN FLOW -->
+                <!-- Languages & Domain Card (Span 3 columns for its own row below academic history) -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
-                        <div>
+                        <div class="p-4 border border-slate-100 rounded-lg">
                             <p class="text-base font-semibold text-slate-800 mb-2">Language Proficiency</p>
                             
                             <!-- Language: Turkish (Native / 100%) -->
@@ -952,7 +1058,7 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div class="p-4 border border-slate-100 rounded-lg">
                             <p class="text-base font-semibold text-slate-800 mb-2">Domain Expertise</p>
                             <div class="grid grid-cols-2 gap-3 text-sm text-slate-700">
                                 <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
@@ -1032,6 +1138,66 @@
 </div>
 
 <script>
+    // --- STICKY HEADER SCROLL LOGIC ---
+    const stickyHeader = document.getElementById('sticky-header');
+    const mainHeader = document.getElementById('main-header');
+    const headerHeight = mainHeader.offsetHeight;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > headerHeight) {
+            stickyHeader.classList.add('visible');
+        } else {
+            stickyHeader.classList.remove('visible');
+        }
+    });
+
+    // --- CARD FLIP LOGIC ---
+    // The flip logic is handled by the inline onclick="this.classList.toggle('flipped')" 
+    // on the .flip-card div for simplicity and zero dependencies.
+
+    // --- COUNTER ANIMATION LOGIC ---
+    function animateCounter(id, target, duration, isK) {
+        const element = document.getElementById(id);
+        if (!element) return;
+        const start = 0;
+        let startTime = null;
+
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const percentage = Math.min(progress / duration, 1);
+            let value = Math.floor(percentage * target);
+
+            if (isK) {
+                element.textContent = value.toLocaleString() + '+';
+            } else {
+                element.textContent = value + (id === 'counter1' ? '+' : '+');
+            }
+
+            if (progress < duration) {
+                window.requestAnimationFrame(step);
+            }
+        };
+
+        window.requestAnimationFrame(step);
+    }
+
+    function startCounters() {
+        // Only run if not in print mode
+        if (window.matchMedia('print').matches) return;
+        
+        animateCounter('counter1', 8, 2000, false);
+        animateCounter('counter2', 100, 2000, false);
+        animateCounter('counter3', 10000, 2000, true);
+    }
+
+    // Initialize counters on window load (and ensure charts initialize)
+    window.onload = () => {
+        initializeCharts();
+        startCounters();
+    };
+
+
     // --- CHART.JS CONFIGURATION ---
     const tooltipTitleCallback = {
         plugins: {
@@ -1073,14 +1239,15 @@
         if (devopsChartInstance) devopsChartInstance.destroy();
 
 
+        // New Backend & Databases Chart (Doughnut)
         javaChartInstance = new Chart(document.getElementById('javaSkillsChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Spring Boot 3.x', 'Java 17-21+', 'Spring Security', 'Java EE'],
+                labels: ['Spring Boot 3.x', 'Java 17-21+', 'PostgreSQL', 'Messaging/MQ', 'JPA/Hibernate'],
                 datasets: [{
-                    label: 'Java & Enterprise Core',
-                    data: [40, 45, 10, 5],
-                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.highlight],
+                    label: 'Backend & Databases',
+                    data: [25, 20, 20, 15, 20],
+                    backgroundColor: [colors.primary, colors.secondary, colors.danger2, colors.danger1, colors.accent],
                     borderColor: '#fff',
                     borderWidth: 2
                 }]
@@ -1097,14 +1264,15 @@
             }
         });
 
+        // New Frontend & Design Chart (Horizontal Bar - good for proficiency visual)
         apiDbChartInstance = new Chart(document.getElementById('apiDbSkillsChart'), {
             type: 'bar',
             data: {
-                labels: ['REST APIs', 'PostgreSQL', ['JPA', 'Hibernate'], 'Oracle', 'GraphQL', 'MongoDB'],
+                labels: ['Vaadin (Expert)', 'React (Strong)', ['HTML, CSS, JS/TS', ' (Strong)'], 'GWT (Intermediate)', 'React Native (Applied)'],
                 datasets: [{
                     label: 'Proficiency',
-                    data: [95, 85, 90, 75, 70, 65],
-                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.danger2, colors.highlight, colors.danger3],
+                    data: [95, 80, 85, 60, 50],
+                    backgroundColor: [colors.secondary, colors.primary, colors.accent, colors.highlight, colors.danger1],
                     borderRadius: 4
                 }]
             },
@@ -1129,13 +1297,14 @@
             }
         });
 
+        // New DevOps & AI/ML Chart (Radar - good for varied skills)
         devopsChartInstance = new Chart(document.getElementById('devopsSkillsChart'), {
             type: 'radar',
             data: {
-                labels: ['Docker', 'Kubernetes', 'Jenkins', 'Terraform', 'CI/CD', 'Architecture'],
+                labels: ['Docker (Expert)', 'CI/CD (Expert)', 'Kubernetes', 'Terraform', 'Python/ML', 'Ansible'],
                 datasets: [{
-                    label: 'DevOps & Architecture Skills',
-                    data: [90, 70, 85, 80, 95, 88],
+                    label: 'DevOps & AI/ML Skills',
+                    data: [95, 90, 70, 65, 55, 40],
                     fill: true,
                     backgroundColor: 'rgba(10, 147, 150, 0.2)',
                     borderColor: colors.secondary,
@@ -1171,9 +1340,6 @@
             }
         });
     }
-    
-    // Initialize charts on window load
-    window.onload = initializeCharts;
 
 
     // --- MULTIMEDIA MODAL (Video) LOGIC ---
@@ -1713,9 +1879,9 @@
                 <style>
                     body { font-family: 'Arial', sans-serif; color: #333; margin: 0; padding: 0; }
                     .header-info { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73; }
-                    .header-info h1 { font-size: 24pt; color: #005F73; margin: 0; }
-                    .header-info p { font-size: 15pt; color: #0A9396; margin: 2pt 0 5pt 0; }
-                    .contact-bar { font-size: 12pt; color: #555; }
+                    .header-info h1 { font-size: 26pt; color: #005F73; margin: 0; } /* Increased size */
+                    .header-info p { font-size: 17pt; color: #0A9396; margin: 2pt 0 5pt 0; } /* Increased size */
+                    .contact-bar { font-size: 13pt; color: #555; } /* Increased size */
                     .section-title { font-size: 16pt; font-weight: bold; color: #005F73; margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid #0A9396; page-break-before: always; }
                     .section-title.first { page-break-before: auto; }
                     strong { font-weight: bold; }
@@ -1723,8 +1889,8 @@
                     td { padding: 0; vertical-align: top; }
                     .chart-title { font-size: 11pt; font-weight: bold; color: #0A9396; margin-bottom: 5pt; text-align: center; }
                     .chart-wrapper { text-align: center; margin-bottom: 10pt; }
-                    .chart-image-small { width: 220px; height: 220px; max-width: 220px; display: inline-block; } /* Adjusted size */
-                    .chart-image-wide { width: 320px; height: 200px; max-width: 320px; display: inline-block; } /* Adjusted size for bar chart */
+                    .chart-image-small { width: 240px; height: 240px; max-width: 240px; display: inline-block; } /* Final Adjusted size */
+                    .chart-image-wide { width: 320px; height: 200px; max-width: 320px; display: inline-block; } /* Final Adjusted size for bar chart */
                 </style>
             </head>
             <body>
@@ -1743,30 +1909,30 @@
                 
                 <div class="section-title">CORE TECHNICAL EXPERTISE</div>
                 <table style="width: 100%; border-collapse: collapse; margin-top: 10pt;">
-                    <!-- Row 1: Java & Enterprise Core and DevOps, Cloud & Architecture (Side-by-Side) -->
+                    <!-- Row 1: Backend & Databases and Frontend & Design (Side-by-Side) -->
                     <tr>
                         <td style="width: 50%; padding-right: 10pt; text-align: center;">
-                            <p class="chart-title">Java & Enterprise Core</p>
+                            <p class="chart-title">Backend & Databases</p>
                             <div class="chart-wrapper"><img class="chart-image-small" src="${javaChartImg}" /></div>
                         </td>
                         <td style="width: 50%; padding-left: 10pt; text-align: center;">
-                            <p class="chart-title">DevOps, Cloud & Architecture</p>
+                            <p class="chart-title">Frontend & Design</p>
                             <div class="chart-wrapper"><img class="chart-image-small" src="${devopsChartImg}" /></div>
                         </td>
                     </tr>
-                    <!-- Row 2: APIs & Database Tech (Merged Column, Centered) -->
+                    <!-- Row 2: DevOps & AI/ML (Merged Column, Centered) -->
                     <tr>
                         <td colspan="2" style="padding-top: 15pt; text-align: center;">
-                            <p class="chart-title">APIs & Database Tech</p>
+                            <p class="chart-title">DevOps & AI/ML</p>
                             <div class="chart-wrapper"><img class="chart-image-wide" src="${apiDbChartImg}" /></div>
                         </td>
                     </tr>
                 </table>
-                <div style="page-break-after: always;"></div> <!-- Page Break Here -->
+                <div style="page-break-after: always;"></div> <!-- Page Break Here: After Core Technical Expertise -->
 
                 <div class="section-title">PROFESSIONAL JOURNEY</div>
                 ${experienceBlocks}
-                <div style="page-break-after: always;"></div> <!-- Page Break Here -->
+                <div style="page-break-after: always;"></div> <!-- Page Break Here: After Professional Journey -->
 
 
                 <div class="section-title">KEY OPEN SOURCE PROJECTS</div>

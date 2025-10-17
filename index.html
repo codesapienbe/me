@@ -94,7 +94,8 @@
             #personal-snapshot, /* HIDE THE LIVE HEADER */
             #sticky-header, /* HIDE THE LIVE STICKY HEADER */
             footer,
-            #projects { /* Per original strict instructions, hiding projects for compact PDF */
+            #projects, /* Per original strict instructions, hiding projects for compact PDF */
+            #architecture { /* NEW: Remove Architectural Competencies from print */
                 display: none !important;
             }
 
@@ -196,25 +197,8 @@
 
 
             /* --- ARCHITECTURAL COMPETENCIES PRINT OPTIMIZATION --- */
-            #architecture .architecture-grid {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important; /* 3 columns across the page */
-                gap: 5pt !important;
-            }
-            #architecture .architecture-card {
-                padding: 5pt !important;
-                min-height: 0 !important;
-                height: auto !important;
-                flex-direction: row !important; /* Title and icon side-by-side */
-                align-items: center !important;
-                border: 1px solid #eee !important;
-            }
-            #architecture .architecture-card .text-sm { display: none !important; } /* Hide description */
-            #architecture .architecture-card .flex-wrap { display: none !important; } /* Hide badges */
-            #architecture .architecture-card .text-2xl { font-size: 14pt !important; }
-            #architecture .architecture-card .text-lg { font-size: 10pt !important; margin-top: 0 !important; }
-            #architecture .architecture-card > div:first-child { width: auto !important; }
-            #architecture .architecture-card > div:nth-child(2) { flex: 1; }
+            /* This section is now hidden per user request */
+
 
             /* --- PROFESSIONAL DEVELOPMENT PRINT OPTIMIZATION (2 Columns) --- */
             #development .grid {
@@ -592,7 +576,7 @@
             
             <!-- Column 1: Image -->
             <div class="md:col-span-1 lg:col-span-1 flex justify-center md:justify-start">
-                <img src="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/profile.jpeg" 
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQElIgWslkyJbQ/profile-displayphoto-crop_800_800/B4DZnjmUPPJUAI-/0/1760460097204?e=1762387200&v=beta&t=6uAmkOse4HhoJ_JdpKGjYH8zFs41PQVP8i8ci2_WK8o" 
                      alt="Yilmaz Mustafa Profile Photo" 
                      class="w-32 h-32 rounded-full object-cover border-4 border-[#0A9396] shadow-md"/>
             </div>

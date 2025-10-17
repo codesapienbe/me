@@ -195,6 +195,50 @@
             #education .p-4 { padding: 0 !important; border: none !important; }
 
 
+            /* --- ARCHITECTURAL COMPETENCIES PRINT OPTIMIZATION --- */
+            #architecture .architecture-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important; /* 3 columns across the page */
+                gap: 5pt !important;
+            }
+            #architecture .architecture-card {
+                padding: 5pt !important;
+                min-height: 0 !important;
+                height: auto !important;
+                flex-direction: row !important; /* Title and icon side-by-side */
+                align-items: center !important;
+                border: 1px solid #eee !important;
+            }
+            #architecture .architecture-card .text-sm { display: none !important; } /* Hide description */
+            #architecture .architecture-card .flex-wrap { display: none !important; } /* Hide badges */
+            #architecture .architecture-card .text-2xl { font-size: 14pt !important; }
+            #architecture .architecture-card .text-lg { font-size: 10pt !important; margin-top: 0 !important; }
+            #architecture .architecture-card > div:first-child { width: auto !important; }
+            #architecture .architecture-card > div:nth-child(2) { flex: 1; }
+
+            /* --- PROFESSIONAL DEVELOPMENT PRINT OPTIMIZATION (2 Columns) --- */
+            #development .grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important; /* Force 2 columns */
+                gap: 10pt !important;
+            }
+            #development .h-full {
+                height: auto !important;
+                border: 1px solid #ddd !important;
+                padding: 8pt !important;
+            }
+
+            /* --- LANGUAGES & DOMAIN PRINT OPTIMIZATION (2 Columns) --- */
+            #education .lg\:grid-cols-2 {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important; /* Force 2 columns */
+                gap: 10pt !important;
+            }
+            #education .lg\:grid-cols-2 > div {
+                padding: 8pt !important;
+                border: 1px solid #ddd !important;
+            }
+            
             /* Ensure content fits A4 without breaking awkwardly */
             .rounded-xl, .bg-white {
                 page-break-inside: avoid;

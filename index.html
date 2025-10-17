@@ -90,7 +90,11 @@
             /* HIDE SPECIFIC SECTIONS AS REQUESTED */
             #summary, 
             #gemini-analysis, 
-            #roadmap {
+            #roadmap,
+            #personal-snapshot, /* HIDE THE LIVE HEADER */
+            #sticky-header, /* HIDE THE LIVE STICKY HEADER */
+            footer,
+            #projects { /* Per original strict instructions, hiding projects for compact PDF */
                 display: none !important;
             }
 
@@ -523,6 +527,20 @@
 </div>
 
 <div class="container mx-auto p-4 md:p-8">
+    
+    <!-- PRINT-ONLY CONTACT INFO BLOCK -->
+    <div id="print-contact-info" class="print-only" style="text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73;">
+        <h1 style="font-size: 26pt; color: #005F73; margin: 0;">YILMAZ MUSTAFA</h1>
+        <p style="font-size: 17pt; color: #0A9396; margin: 2pt 0 5pt 0;">Java & Spring Software Engineer</p>
+        <p style="font-size: 11pt; color: #555; margin: 5pt 0 0 0;">📍 Zele 9240, East Flanders, Belgium</p>
+        <div style="font-size: 11pt; color: #555; margin-top: 5pt; display: flex; justify-content: center; flex-wrap: wrap; gap: 8pt;">
+            <span style="display:inline-block;"><a href="mailto:yilmaz@codesapien.net" style="color: #0A9396; text-decoration: none;">📧 yilmaz@codesapien.net</a></span>
+            <span style="display:inline-block; color: #94D2BD;">|</span>
+            <span style="display:inline-block;"><a href="tel:+32467711709" style="color: #0A9396; text-decoration: none;">📞 +32 (467) 711 709</a></span>
+            <span style="display:inline-block; color: #94D2BD;">|</span>
+            <span style="display:inline-block;"><a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396; text-decoration: none;">💼 codesapienbe (LinkedIn)</a></span>
+        </div>
+    </div>
 
     <!-- NEW: PERSONAL SNAPSHOT SECTION -->
     <section id="personal-snapshot" class="mb-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
@@ -530,7 +548,7 @@
             
             <!-- Column 1: Image -->
             <div class="md:col-span-1 lg:col-span-1 flex justify-center md:justify-start">
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQElIgWslkyJbQ/profile-displayphoto-crop_800_800/B4DZnjmUPPJUAI-/0/1760460097204?e=1762387200&v=beta&t=6uAmkOse4HhoJ_JdpKGjYH8zFs41PQVP8i8ci2_WK8o" 
+                <img src="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/profile.jpeg" 
                      alt="Yilmaz Mustafa Profile Photo" 
                      class="w-32 h-32 rounded-full object-cover border-4 border-[#0A9396] shadow-md"/>
             </div>

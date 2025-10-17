@@ -10,17 +10,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        /* CSS-Based Background Animation: Soft, low-CPU mechanical effect */
+        @keyframes soft-pulse-grid {
+            0% { background-position: 0% 0%, 50% 50%; background-color: #f7faff; }
+            50% { background-position: 100% 100%, 0% 0%; background-color: #f0f9fa; }
+            100% { background-position: 0% 0%, 50% 50%; background-color: #f7faff; }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             padding-bottom: 70px; /* Space for the fixed audio player */
+            /* Low-CPU Background Animation */
+            background-color: #f7faff;
+            background-image: radial-gradient(circle at 1% 1%, rgba(0, 95, 115, 0.05) 1px, transparent 0),
+                              radial-gradient(circle at 99% 99%, rgba(148, 210, 189, 0.05) 1px, transparent 0);
+            background-size: 80px 80px;
+            animation: soft-pulse-grid 180s infinite alternate linear;
         }
+
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 250px; /* Reduced height for clean front-card view */
+            height: 250px; 
             max-height: 350px;
         }
         @media (min-width: 768px) {
@@ -42,8 +56,8 @@
         }
 
         /* FIX: Ensure print-only block is hidden by default on screen */
-        .print-only {
-            display: none;
+        .print-only { 
+            display: none; 
         }
 
         /* --- PDF Print Optimization Styles --- */
@@ -54,12 +68,14 @@
                 margin: 0;
                 padding: 0;
                 font-size: 10pt;
+                animation: none !important; /* Disable background animation */
+                background-image: none !important; /* Remove background images */
             }
             .container {
                 /* Use smaller padding for A4 fit */
-                padding: 0.5cm !important;
+                padding: 0.5cm !important; 
                 margin: 0 auto;
-                max-width: 100%;
+                max-width: 100%; 
             }
             /* Remove shadows, which look bad on print */
             .shadow-lg, .shadow-sm {
@@ -72,8 +88,8 @@
             }
 
             /* HIDE SPECIFIC SECTIONS AS REQUESTED */
-            #summary,
-            #gemini-analysis,
+            #summary, 
+            #gemini-analysis, 
             #roadmap {
                 display: none !important;
             }
@@ -82,7 +98,7 @@
             #floating-buttons, #audio-player-bar {
                 display: none !important;
             }
-
+            
             /* --- Layout Control --- */
             /* Force ALL complex layouts to simple blocks */
             .md\:grid, .lg\:grid-cols-3, .md\:grid-cols-2 {
@@ -94,8 +110,8 @@
                 margin-bottom: 0.5rem !important;
                 gap: 0 !important;
             }
-
-            /* Fix contact header alignment for print */
+            
+            /* Fix contact header alignment for print (Only needed if we kept the static header) */
             .responsive-contact-bar {
                 flex-direction: row !important;
                 justify-content: center !important;
@@ -141,7 +157,7 @@
                 list-style: none !important;
             }
             #skills .flip-card-back h3 {
-                color: #000 !important;
+                 color: #000 !important;
             }
             #skills .flip-card-back ul {
                 list-style-type: disc !important;
@@ -153,8 +169,8 @@
             }
 
             /* --- EXPERIENCE/JOURNEY FIX --- */
-            .relative.border-l-4 {
-                border-left: none !important;
+            .relative.border-l-4 { 
+                border-left: none !important; 
             }
             .absolute { display: none; }
             .ml-8, .ml-6, .md\:ml-0 { margin-left: 0 !important; }
@@ -163,11 +179,11 @@
             .md\:grid { display: block !important; }
             .md\:grid-cols-2 > div { width: 100% !important; margin: 0; padding: 0; }
             .md\:grid-cols-2 .md\:text-right { margin-bottom: 5pt; }
-
+            
             /* --- EDUCATION/LANGUAGES FIX --- */
             #education .md\:col-span-3 {
-                padding: 10pt !important;
-                margin-bottom: 10pt;
+                 padding: 10pt !important;
+                 margin-bottom: 10pt;
             }
             #education .grid-cols-3 { display: block !important; }
             #education .gap-x-6 { margin-bottom: 15pt; }
@@ -182,7 +198,7 @@
 
             /* Print-only interviewer notes block: hidden on screen, visible in print */
             .print-only { display: block !important; }
-
+            
             /* Move floating buttons for the print version */
             #export-resume-pdf-float, #export-resume-float {
                 display: none !important;
@@ -221,7 +237,7 @@
         .flip-card-inner {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 100%; 
             text-align: center;
             transition: transform 0.6s;
             transform-style: preserve-3d;
@@ -238,7 +254,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden; 
             backface-visibility: hidden;
             border-radius: 0.75rem;
             padding: 1.5rem;
@@ -408,7 +424,7 @@
 
         /* Export Resume Button Styling for Header */
         /* Removed as requested: #exportFullCVButton */
-
+        
         /* Custom Styling for responsive contact bar */
         .responsive-contact-bar {
             flex-direction: column;
@@ -427,7 +443,7 @@
                 display: block;
             }
         }
-
+        
         /* Custom Styling for Language/Domain visualization */
         .lang-progress-bar {
             height: 8px;
@@ -440,7 +456,7 @@
             height: 100%;
             border-radius: 4px;
         }
-
+        
         /* Hide separators on mobile */
         .separator {
             display: none;
@@ -450,7 +466,7 @@
                 display: inline;
             }
         }
-
+        
         /* --- STICKY HEADER STYLES --- */
         #sticky-header {
             position: fixed;
@@ -507,57 +523,52 @@
 </div>
 
 <div class="container mx-auto p-4 md:p-8">
-    <header class="text-center mb-12" id="main-header">
-        <h1 class="text-5xl font-extrabold text-[#005F73]">YILMAZ MUSTAFA</h1>
-        <p class="text-xl font-light text-[#0A9396] mt-2">Java & Spring Software Engineer</p>
-        <div class="mt-4 flex justify-center items-center space-x-4 text-slate-600 responsive-contact-bar text-lg">
-            <span>📧 yilmaz@codesapien.net</span>
-            <span class="text-[#94D2BD] separator">|</span>
-            <span>🌐 codesapien.net</span>
-            <span class="text-[#94D2BD] separator">|</span>
-            <span>💼 codesapienbe (LinkedIn)</span>
-        </div>
-    </header>
 
-    <!-- Print-only Interviewer Notes (hidden on screen, visible only when printing) -->
-    <div class="print-only" aria-hidden="true">
-        <div class="container max-w-4xl mx-auto print-notes-wrapper">
-            <div class="print-note-grid">
-                <div class="print-note-block">
-                    <div class="print-note-title">Contact & First Impressions</div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <div class="print-note-block">
-                    <div class="print-note-title">Candidate Expectations</div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <div class="print-note-block">
-                    <div class="print-note-title">Interviewer Observations</div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
+    <!-- NEW: PERSONAL SNAPSHOT SECTION -->
+    <section id="personal-snapshot" class="mb-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center">
+            
+            <!-- Column 1: Image -->
+            <div class="md:col-span-1 lg:col-span-1 flex justify-center md:justify-start">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQElIgWslkyJbQ/profile-displayphoto-crop_800_800/B4DZnjmUPPJUAI-/0/1760460097204?e=1762387200&v=beta&t=6uAmkOse4HhoJ_JdpKGjYH8zFs41PQVP8i8ci2_WK8o" 
+                     alt="Yilmaz Mustafa Profile Photo" 
+                     class="w-32 h-32 rounded-full object-cover border-4 border-[#0A9396] shadow-md"/>
             </div>
-            <div style="display:flex; gap:10px; margin-top:8px;">
-                <div class="print-note-block" style="flex:2;">
-                    <div class="print-note-title">Action Items / Follow-up</div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <div class="print-note-block" style="flex:1;">
-                    <div class="print-note-title">Rating / Next Steps</div>
-                    <div class="line"></div>
-                    <div class="line"></div>
+
+            <!-- Column 2: Name & Title -->
+            <div class="md:col-span-3 lg:col-span-2 text-center md:text-left">
+                <h1 class="text-4xl font-extrabold text-[#005F73] sm:text-5xl">YILMAZ MUSTAFA</h1>
+                <p class="text-xl font-light text-[#0A9396] mt-1">Java & Spring Software Engineer</p>
+                <p class="text-sm text-slate-500 mt-2">📍 Zele 9240, East Flanders, Belgium</p>
+            </div>
+
+            <!-- Column 3: Contact Links -->
+            <div class="md:col-span-4 lg:col-span-2 md:mt-0 mt-4">
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 gap-3 text-sm font-medium">
+                    
+                    <a href="mailto:yilmaz@codesapien.net" class="flex items-center space-x-2 p-2 bg-[#f0f9fa] rounded-lg text-[#005F73] hover:bg-[#eef2ff] transition">
+                        <span class="text-xl">📧</span>
+                        <span class="truncate">Email</span>
+                    </a>
+                    
+                    <a href="tel:+32467711709" class="flex items-center space-x-2 p-2 bg-[#f0f9fa] rounded-lg text-[#0A9396] hover:bg-[#e9f7f9] transition">
+                        <span class="text-xl">📞</span>
+                        <span class="truncate">Phone</span>
+                    </a>
+                    
+                    <a href="https://codesapien.net" target="_blank" class="flex items-center space-x-2 p-2 bg-[#f0f9fa] rounded-lg text-[#EE9B00] hover:bg-[#fff2e6] transition">
+                        <span class="text-xl">🌐</span>
+                        <span class="truncate">Portfolio</span>
+                    </a>
+                    
+                    <a href="https://github.com/codesapienbe" target="_blank" class="flex items-center space-x-2 p-2 bg-[#f0f9fa] rounded-lg text-[#BB3E03] hover:bg-[#fff0f0] transition">
+                        <span class="text-xl">🐙</span>
+                        <span class="truncate">GitHub</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <main>
         <section id="summary" class="mb-16">
@@ -565,17 +576,17 @@
                 <h2 class="text-3xl font-bold text-center text-[#005F73] mb-6">Professional Snapshot</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div>
-                        <p id="counter1" class="text-6xl font-extrabold text-[#CA6702]">0</p>
+                        <p id="counter1" class="text-6xl sm:text-5xl font-extrabold text-[#CA6702]">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Years of Development</p>
                         <p class="text-slate-500 mt-1">Total experience across Java, Python, and C#.</p>
                     </div>
                     <div>
-                        <p id="counter2" class="text-6xl font-extrabold text-[#BB3E03]">0</p>
+                        <p id="counter2" class="text-6xl sm:text-5xl font-extrabold text-[#BB3E03]">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Trained Junior Developers</p>
                         <p class="slate-500 mt-1">Java/Python curriculum delivered with high placement rate.</p>
                     </div>
                     <div>
-                        <p id="counter3" class="text-6xl font-extrabold text-[#AE2012]">0</p>
+                        <p id="counter3" class="text-6xl sm:text-5xl font-extrabold text-[#AE2012]">0</p>
                         <p class="text-xl font-medium text-slate-700 mt-2">Concurrent Users</p>
                         <p class="text-slate-500 mt-1">Supported in high-performance apps.</p>
                     </div>
@@ -623,7 +634,7 @@
         <section id="skills" class="mb-16">
             <h2 class="text-3xl font-bold text-center text-[#005F73] mb-8">Core Technical Expertise</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
+                
                 <!-- CARD 1: Backend & Databases -->
                 <div class="flip-card h-full" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
@@ -1025,7 +1036,7 @@
                 </div>
             </div>
         </section>
-
+        
         <!-- NEW CERTIFICATION ROADMAP SECTION -->
         <section id="roadmap" class="mb-16">
             <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#AE2012]">
@@ -1033,12 +1044,12 @@
                 <p class="text-slate-600 mb-8 text-center">Commitment to achieving industry-leading certifications in Java, Spring, and Computer Vision, starting November 2025.</p>
 
                 <div class="relative border-l-4 border-[#0A9396] ml-4 md:mx-auto max-w-4xl">
-
+                    
                     <!-- Phase 1: OCP Java SE -->
                     <div class="mb-10 ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#0A9396] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 1: Nov 2025 - Mar 2026 (5 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">Oracle Certified Professional (OCP) - Java SE Developer <a href="https://www.ucertify.com/p/oracle-certified-professional-java-se-17-developer.html" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
+                        <h3 class="text-xl font-semibold text-slate-800">Oracle Certified Professional (OCP) - Java SE Developer <a href="https://www.ucertify.com/p/oracle-certified-professional-java-se-17-developer.html" target="_blank" class="hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Mastery of <strong>Core Java language specifics</strong> (Concurrency, Streams, Generics, and File I/O) necessary for enterprise performance and reliability.</p>
                     </div>
 
@@ -1046,16 +1057,16 @@
                     <div class="mb-10 ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#EE9B00] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 2: Apr 2026 - Jun 2026 (3 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">VMware Tanzu Spring Professional Certification <a href="https://www.spring-certification.com/spring-exam-details" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
+                        <h3 class="text-xl font-semibold text-slate-800">VMware Tanzu Spring Professional Certification <a href="https://www.spring-certification.com/spring-exam-details" target="_blank" class="hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Validating expert-level knowledge of the <strong>Spring ecosystem</strong>, focusing on DI, AOP, Transactions, <strong>Spring Security</strong>, and <strong>Spring Boot Autoconfiguration</strong>.</p>
-                        </p>
+                    </p>
                     </div>
 
                     <!-- Phase 3: Official OpenCV Certification -->
                     <div class="ml-8">
                         <div class="absolute -left-1.5 mt-1.5 w-3 h-3 bg-[#AE2012] rounded-full"></div>
                         <time class="block mb-1 text-base font-bold leading-none text-[#005F73]">Phase 3: Jul 2026 - Aug 2026 (2 Months)</time>
-                        <h3 class="text-xl font-semibold text-slate-800">Official OpenCV Certification (Computer Vision) <a href="https://opencv.org/university/courses/" target="_blank" class="text-[#0A9396] hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
+                        <h3 class="text-xl font-semibold text-slate-800">Official OpenCV Certification (Computer Vision) <a href="https://opencv.org/university/courses/" target="_blank" class="hover:text-[#005F73]" title="View Official Certification Details">(Link)</a></h3>
                         <p class="mt-2 text-base font-normal text-slate-600">Formalizing applied AI experience by mastering image processing, object detection, and <strong>DNN module integration</strong> using the OpenCV library.</p>
                     </div>
                 </div>
@@ -1089,14 +1100,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Languages & Domain Card (Span 3 columns for its own row below academic history) -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#005F73] md:col-span-3">
                     <h3 class="text-xl font-bold text-[#0A9396] mb-4">Languages & Domain 🗣️</h3>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
                         <div class="p-4 border border-slate-100 rounded-lg">
                             <p class="text-base font-semibold text-slate-800 mb-2">Language Proficiency</p>
-
+                            
                             <!-- Language: Turkish (Native / 100%) -->
                             <div class="mb-3">
                                 <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
@@ -1107,7 +1118,7 @@
                                     <div class="lang-progress-fill bg-[#005F73]" style="width: 100%;" title="Native Proficiency"></div>
                                 </div>
                             </div>
-
+                            
                             <!-- Language: English (Fluent / 85%) -->
                             <div class="mb-3">
                                 <p class="text-sm text-slate-700 font-medium flex justify-between items-center">
@@ -1141,7 +1152,7 @@
                                 <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
                                     <span class="text-[#0A9396]">⚙️</span>
                                     <span class="font-medium">Enterprise Software</span>
-
+                                
                                 </div>
                                 <div class="flex items-center space-x-2 p-2 bg-slate-50 rounded">
                                     <span class="text-[#005F73]">👨‍🏫</span>
@@ -1169,7 +1180,7 @@
         </div>
         <p class="text-sm text-slate-500 mt-4">Visual Resume for Yilmaz Mustafa.</p>
     </footer>
-
+    
     <!-- NEW: Floating Action Button Group (Multimedia Controls - Right Bottom) -->
     <div id="floating-buttons" role="group" aria-label="Multimedia Resume Options">
         <button id="audio-toggle-btn" title="Listen to Resume Summary (Audio)" class="bg-[#005F73] hover:bg-[#0A9396]">
@@ -1196,15 +1207,15 @@
         <div class="audio-controls">
             <audio id="resume-audio" style="display:none;" controls preload="none">
                 <source src="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a" type="audio/mp4">
-                Your browser does not support the audio element.
+                Your browser does-not-support the audio element.
             </audio>
 
             <!-- Custom Play/Pause Button -->
             <button id="play-pause-btn" title="Play/Pause">▶️</button>
-
+            
             <!-- Go to Beginning Button -->
             <button id="restart-btn" title="Go to Beginning">⏮️</button>
-
+            
             <!-- Download Button -->
             <a id="download-link" href="https://raw.githubusercontent.com/codesapienbe/me/refs/heads/main/resume.m4a" download="Resume_Summary.m4a" title="Download Audio">💾</a>
 
@@ -1218,19 +1229,28 @@
 <script>
     // --- STICKY HEADER SCROLL LOGIC ---
     const stickyHeader = document.getElementById('sticky-header');
-    const mainHeader = document.getElementById('main-header');
-    const headerHeight = mainHeader.offsetHeight;
-
-    window.addEventListener('scroll', () => {
+    const mainHeader = document.getElementById('personal-snapshot'); // Use the new section for height reference
+    
+    // Recalculate header height dynamically
+    const updateStickyHeader = () => {
+        const headerHeight = mainHeader.offsetHeight;
         if (window.scrollY > headerHeight) {
             stickyHeader.classList.add('visible');
         } else {
             stickyHeader.classList.remove('visible');
         }
+    };
+
+    window.addEventListener('scroll', updateStickyHeader);
+
+    // Initial check and ensure calculation after load
+    window.addEventListener('load', () => {
+        updateStickyHeader();
     });
 
+
     // --- CARD FLIP LOGIC ---
-    // The flip logic is handled by the inline onclick="this.classList.toggle('flipped')"
+    // The flip logic is handled by the inline onclick="this.classList.toggle('flipped')" 
     // on the .flip-card div for simplicity and zero dependencies.
 
     // --- COUNTER ANIMATION LOGIC ---
@@ -1263,7 +1283,7 @@
     function startCounters() {
         // Only run if not in print mode
         if (window.matchMedia('print').matches) return;
-
+        
         animateCounter('counter1', 8, 2000, false);
         animateCounter('counter2', 100, 2000, false);
         animateCounter('counter3', 10000, 2000, true);
@@ -1273,6 +1293,8 @@
     window.onload = () => {
         initializeCharts();
         startCounters();
+        // Recalculate header height after all content/images load for sticky functionality
+        updateStickyHeader(); 
     };
 
 
@@ -1423,9 +1445,9 @@
     // --- MULTIMEDIA MODAL (Video) LOGIC ---
     // Placeholder function for video player (still uses a modal)
     const videoUrl = 'https://mockup.codesapien.net/resume-video-walkthrough.mp4';
-
+    
     window.openPlayerModal = function(type) {
-        if (type !== 'video') return;
+        if (type !== 'video') return; 
 
         // Create a temporary modal structure for the video
         const modalHtml = `
@@ -1503,7 +1525,7 @@
     restartBtn.addEventListener('click', () => {
         resumeAudio.currentTime = 0;
         if (resumeAudio.paused) {
-            resumeAudio.play().catch(e => console.error("Play failed:", e));
+             resumeAudio.play().catch(e => console.error("Play failed:", e));
         }
         updatePlayButton();
     });
@@ -1867,7 +1889,7 @@
         // --- 1. Capture Charts as Base64 Images ---
         // Charts are not used in the final 2-page export, so this block is now only for initialization checks.
         if (!javaChartInstance || !apiDbChartInstance || !devopsChartInstance) {
-            initializeCharts();
+             initializeCharts();
         }
 
 
@@ -1918,7 +1940,7 @@
                 <p style="font-size: 9pt; color: #EE9B00;"><a href="${p.link}" style="color: #EE9B00;">GitHub Link</a></p>
             </div>
         `).join('');
-
+        
         const certificationRoadmapHTML = `
             <table style="width: 100%; border-collapse: collapse; margin-top: 10pt; font-size: 10pt;">
                 <tr style="background-color: #f0f9fa; font-weight: bold; color: #005F73;">
@@ -1943,7 +1965,7 @@
                 </tr>
             </table>
         `;
-
+        
         // --- 2. Build the Document Content with Embedded Images ---
         const docContent = `
             <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -1972,15 +1994,15 @@
                     <h1>YILMAZ MUSTAFA</h1>
                     <p>Java & Spring Software Engineer</p>
                     <div class="contact-bar">
-                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">📧 yilmaz@codesapien.net</a> |
-                        <a href="https://codesapien.net" style="color: #0A9396;">🌐 codesapien.net</a> |
+                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">📧 yilmaz@codesapien.net</a> | 
+                        <a href="https://codesapien.net" style="color: #0A9396;">🌐 codesapien.net</a> | 
                         <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">💼 codesapienbe (LinkedIn)</a>
                     </div>
                 </div>
 
                 <div class="section-title first">PROFESSIONAL SUMMARY</div>
                 <p style="margin-bottom: 10pt;">Software Engineer with <strong>8+ years of expertise</strong> in enterprise application development using <strong>Java</strong> and <strong>Spring Boot</strong>. Proven track record delivering scalable, high-performance applications and <strong>CI/CD automation</strong> across Monolith, <strong>Microservices</strong>, and <strong>Modulith</strong> architectures. Supported <strong>10k+ concurrent users</strong> and specialized in <strong>REST/SOAP APIs</strong>, data integration, and <strong>messaging protocols</strong> (SWIFT MT/MX).</p>
-
+                
                 <div class="section-title" style="page-break-before: auto;">PROFESSIONAL JOURNEY</div>
                 ${experienceBlocks}
                 <div style="page-break-after: always;"></div> <!-- Page Break Here: After Professional Journey -->

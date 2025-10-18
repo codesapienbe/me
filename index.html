@@ -131,6 +131,25 @@
         .proj-block { margin-bottom: 12pt; border-left: 3pt solid var(--accent); padding-left: 8pt; page-break-inside: avoid; }
         .proj-title { font-size: 11pt; font-weight: bold; color: var(--primary); margin-bottom: 2pt; }
         .proj-desc { font-size: 10pt; color: var(--muted); margin-bottom: 4pt; }
+        /* Helpers for replacing inline layout styles */
+        .hidden-audio { display: none; }
+        .no-break { margin-bottom: 15pt; page-break-inside: avoid; }
+        .full-table { width: 100%; border-collapse: collapse; }
+        .col-25 { width: 25%; }
+        .col-35 { width: 35%; }
+        .col-40 { width: 40%; }
+        .col-75 { width: 75%; }
+        .td-no-pad { padding: 0; vertical-align: top; }
+        .resume-list { margin: 0; padding-left: 20pt; list-style-type: disc; }
+        .resume-li { margin-bottom: 4pt; font-size: 10pt; }
+        .doc-td { padding: 6pt; border: 1px solid var(--muted-border); }
+        .doc-table { width: 100%; border-collapse: collapse; margin-top: 10pt; font-size: 10pt; }
+        .security-row { display:flex; gap:12px; align-items:flex-start; padding:10px 8px; border-bottom:1px solid var(--muted-border); }
+        .security-status { width:8%; font-size:16px; text-align:center; }
+        .security-check { width:35%; font-weight:700; color:var(--primary); }
+        .security-result { flex:1 1 auto; color:var(--text); }
+        .mb-10pt { margin-bottom: 10pt; }
+        .page-break-after { page-break-after: always; }
         /* CSS-Based Background Animation: Soft, low-CPU mechanical effect */
         @keyframes soft-pulse-grid {
             0% { background-position: 0% 0%, 50% 50%; background-color: #f7faff; }
@@ -2031,10 +2050,10 @@
 
         const securityReport = generateSimulatedSecurityReport(companyUrl);
         const htmlSecurity = securityReport.map(item => `
-                <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 8px; border-bottom:1px solid var(--muted-border);">
-                    <div style="width:8%; font-size:16px; text-align:center;">${item.status}</div>
-                    <div style="width:35%; font-weight:700; color:var(--primary);">${item.check}</div>
-                    <div style="flex:1 1 auto; color:var(--text);">${item.result}</div>
+                <div class="security-row">
+                    <div class="security-status">${item.status}</div>
+                    <div class="security-check">${item.check}</div>
+                    <div class="security-result">${item.result}</div>
                 </div>
             `).join('');
 
@@ -2157,17 +2176,17 @@
         ];
 
         const experienceBlocks = professionalExperienceHTML.map(job => `
-            <div style="margin-bottom: 15pt; page-break-inside: avoid;">
-                <table style="width: 100%; border-collapse: collapse;">
+            <div class="no-break">
+                <table class="full-table">
                     <tr>
-                        <td style="width: 25%; padding: 0; vertical-align: top;">
+                        <td class="col-25 td-no-pad">
                             <p class="exp-period">${job.period}</p>
                         </td>
-                        <td style="width: 75%; padding: 0; vertical-align: top;">
+                        <td class="col-75 td-no-pad">
                             <p class="exp-title">${job.title}</p>
                             <p class="exp-subtitle">${job.subtitle}</p>
-                            <ul style="margin: 0; padding-left: 20pt; list-style-type: disc;">
-                                ${job.bullets.map(b => `<li style="margin-bottom: 4pt; font-size: 10pt;">${b}</li>`).join('')}
+                            <ul class="resume-list">
+                                ${job.bullets.map(b => `<li class="resume-li">${b}</li>`).join('')}
                             </ul>
                         </td>
                     </tr>
@@ -2190,16 +2209,16 @@
         `).join('');
         
         const certificationRoadmapHTML = `
-            <table style="width: 100%; border-collapse: collapse; margin-top: 10pt; font-size: 10pt;">
-                <tr style="background-color: #f0f9fa; font-weight: bold; color: #005F73;">
-                    <td style="padding: 6pt; border: 1px solid #ddd; width: 25%;">Phase / Timeframe</td>
-                    <td style="padding: 6pt; border: 1px solid #ddd; width: 35%;">Certification</td>
-                    <td style="padding: 6pt; border: 1px solid #ddd; width: 40%;">Primary Focus</td>
+            <table class="doc-table">
+                <tr style="background-color: var(--card-muted-bg); font-weight: bold; color: var(--primary);">
+                    <td class="doc-td col-25">Phase / Timeframe</td>
+                    <td class="doc-td col-35">Certification</td>
+                    <td class="doc-td col-40">Primary Focus</td>
                 </tr>
                 <tr>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 1: Nov 2025 - Mar 2026</td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>Oracle Certified Professional (OCP) - Java SE</strong></td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Core Java language specifics (Concurrency, Streams, Generics, I/O).</td>
+                    <td class="doc-td">Phase 1: Nov 2025 - Mar 2026</td>
+                    <td class="doc-td"><strong>Oracle Certified Professional (OCP) - Java SE</strong></td>
+                    <td class="doc-td">Core Java language specifics (Concurrency, Streams, Generics, I/O).</td>
                 </tr>
                 <tr>
                     <td style="padding: 6pt; border: 1px solid #ddd;">Phase 2: Apr 2026 - Jun 2026</td>
@@ -2271,7 +2290,7 @@
                 
                 <div class="section-title" style="page-break-before: auto;">PROFESSIONAL JOURNEY</div>
                 ${experienceBlocks}
-                <div style="page-break-after: always;"></div> <!-- Page Break Here: After Professional Journey -->
+                <div class="page-break-after"></div> <!-- Page Break Here: After Professional Journey -->
 
 
                 <div class="section-title">CERTIFICATION ROADMAP: MASTERY IN JAVA, SPRING, AND AI</div>

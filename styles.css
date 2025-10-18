@@ -1103,3 +1103,12 @@
            font-size: 10px;
        }
    }
+
+/* Prevent specific sections from appearing in printed/PDF or Word exports */
+@media print {
+    .no-export {
+        display: none !important;
+    }
+}
+
+/* Note: keep `.no-export` visible on screen; print media rule above hides it for exports. */

@@ -1549,30 +1549,8 @@
             </div>
         `).join('');
         
-        const certificationRoadmapHTML = `
-            <table class="doc-table">
-                <tr style="background-color: var(--card-muted-bg); font-weight: bold; color: var(--primary);">
-                    <td class="doc-td col-25">Phase / Timeframe</td>
-                    <td class="doc-td col-35">Certification</td>
-                    <td class="doc-td col-40">Primary Focus</td>
-                </tr>
-                <tr>
-                    <td class="doc-td">Phase 1: Nov 2025 - Mar 2026</td>
-                    <td class="doc-td"><strong>Oracle Certified Professional (OCP) - Java SE</strong></td>
-                    <td class="doc-td">Core Java language specifics (Concurrency, Streams, Generics, I/O).</td>
-                </tr>
-                <tr>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 2: Apr 2026 - Jun 2026</td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>VMware Tanzu Spring Professional</strong></td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Spring ecosystem mastery (DI, AOP, Transactions, Spring Security, Autoconfiguration).</td>
-                </tr>
-                <tr>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Phase 3: Jul 2026 - Aug 2026</td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;"><strong>Official OpenCV Certification</strong></td>
-                    <td style="padding: 6pt; border: 1px solid #ddd;">Formalizing applied AI experience (Image processing, Object Detection, DNN).</td>
-                </tr>
-            </table>
-        `;
+        // Certification roadmap removed from exports per user request
+        const certificationRoadmapHTML = '';
         
         // --- 2. Build the Document Content with Embedded Images ---
         // Theme-aware styles for resume Word export
@@ -1634,9 +1612,10 @@
                 <div class="page-break-after"></div> <!-- Page Break Here: After Professional Journey -->
 
 
-                <div class="section-title">CERTIFICATION ROADMAP: MASTERY IN JAVA, SPRING, AND AI</div>
-                <p style="margin-bottom: 10pt;">Proactive plan to achieve advanced, recognized industry certifications starting November 2025.</p>
-                ${certificationRoadmapHTML}
+                <div class="section-title no-export">CERTIFICATION ROADMAP: MASTERY IN JAVA, SPRING, AND AI</div>
+                <p class="no-export" style="margin-bottom: 10pt;">Proactive plan to achieve advanced, recognized industry certifications starting November 2025.</p>
+                <!-- Certification roadmap intentionally excluded from exports -->
+                <!-- When generating Word/PDF exports, we also remove certificationRoadmapHTML from the exported docContent. -->
 
                 <div class="section-title">EDUCATION & DEVELOPMENT</div>
                 <table style="width: 100%;">

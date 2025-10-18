@@ -60,35 +60,77 @@
             --deep-danger: #7f1a1a;
         }
 
-        /* Map common Tailwind arbitrary classes and inline styles to palette variables
-           This preserves existing markup while ensuring a single palette source of truth. */
-        [class*="text-[#005F73]"], [style*="#005F73"] { color: var(--primary) !important; }
-        [class*="bg-[#005F73]"], [style*="background-color: #005F73"] { background-color: var(--primary) !important; }
-        [class*="border-[#005F73]"], [style*="border-left-color: #005F73"], [style*="border-color: #005F73"] { border-color: var(--primary) !important; }
+        /* Map common Tailwind arbitrary classes to palette variables (no style attribute selectors) */
+        [class*="text-[#005F73]"] { color: var(--primary) !important; }
+        [class*="bg-[#005F73]"] { background-color: var(--primary) !important; }
+        [class*="border-[#005F73]"], [class*="border-left-color: #005F73"] { border-color: var(--primary) !important; }
 
-        [class*="text-[#0A9396]"], [style*="#0A9396"] { color: var(--accent) !important; }
-        [class*="bg-[#0A9396]"], [style*="background-color: #0A9396"] { background-color: var(--accent) !important; }
+        [class*="text-[#0A9396]"] { color: var(--accent) !important; }
+        [class*="bg-[#0A9396]"] { background-color: var(--accent) !important; }
 
-        [class*="text-[#94D2BD]"], [style*="#94D2BD"] { color: var(--accent-2) !important; }
-        [class*="bg-[#f0f9fa]"], [style*="#f0f9fa"] { background-color: var(--card-muted-bg) !important; }
-        [class*="bg-[#f7faff]"], [style*="#f7faff"] { background-color: var(--bg) !important; }
-        [class*="bg-[#ffffff]"], [style*="#ffffff"] { background-color: var(--card-bg) !important; }
+        [class*="text-[#94D2BD]"] { color: var(--accent-2) !important; }
+        [class*="bg-[#f0f9fa]"] { background-color: var(--card-muted-bg) !important; }
+        [class*="bg-[#f7faff]"] { background-color: var(--bg) !important; }
+        [class*="bg-[#ffffff]"] { background-color: var(--card-bg) !important; }
 
-        /* Light tint backgrounds used across the UI */
-        [style*="#eef2ff"], [style*="#fff2e6"], [style*="#fff0f0"], [style*="#f6f7fb"], [style*="#eef7ff"], [style*="#e6f1f4"] {
+        /* Light tint backgrounds used across the UI (class-based) */
+        [class*="bg-[#eef2ff]"], [class*="bg-[#fff2e6]"], [class*="bg-[#fff0f0]"], [class*="bg-[#f6f7fb]"], [class*="bg-[#eef7ff]"], [class*="bg-[#e6f1f4]"] {
             background-color: var(--card-muted-bg) !important;
         }
 
-        [class*="text-[#EE9B00]"], [style*="#EE9B00"] { color: var(--warn) !important; }
-        [class*="text-[#CA6702]"], [style*="#CA6702"] { color: var(--warn-2) !important; }
-        [class*="text-[#BB3E03]"], [style*="#BB3E03"] { color: var(--danger) !important; }
-        [class*="text-[#AE2012]"], [style*="#AE2012"] { color: var(--danger-2) !important; }
-        [class*="text-[#9B2226]"], [style*="#9B2226"] { color: var(--deep-danger) !important; }
+        [class*="text-[#EE9B00]"] { color: var(--warn) !important; }
+        [class*="text-[#CA6702]"] { color: var(--warn-2) !important; }
+        [class*="text-[#BB3E03]"] { color: var(--danger) !important; }
+        [class*="text-[#AE2012]"] { color: var(--danger-2) !important; }
+        [class*="text-[#9B2226]"] { color: var(--deep-danger) !important; }
 
-        /* Generic text and muted replacements */
-        [style*="#333"], [style*="#333333"] { color: var(--text) !important; }
-        [style*="#555"], [style*="#555555"] { color: var(--muted) !important; }
-        [style*="#eee"], [style*="#ddd"], [style*="#ccc"] { border-color: var(--muted-border) !important; background-color: transparent !important; }
+        /* Generic text and muted replacements (class-based) */
+        [class*="text-#333"], [class*="text-#333333"] { color: var(--text) !important; }
+        [class*="text-#555"], [class*="text-#555555"] { color: var(--muted) !important; }
+        /* border color normalization */
+        .muted-border { border-color: var(--muted-border) !important; }
+
+        /* Utility classes to replace inline style attributes */
+        .print-contact { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid var(--primary); }
+        .print-name { font-size: 26pt; color: var(--primary); margin: 0; }
+        .print-role { font-size: 17pt; color: var(--accent); margin: 2pt 0 5pt 0; }
+        .print-muted { font-size: 11pt; color: var(--muted); margin: 5pt 0 0 0; }
+        .print-contact-links { font-size: 11pt; color: var(--muted); margin-top: 5pt; display: flex; justify-content: center; flex-wrap: wrap; gap: 8pt; }
+        .print-link { color: var(--accent); text-decoration: none; display: inline-block; }
+        .sep { color: var(--accent-2); display: inline-block; }
+
+        .border-accent-left { border-left: 4px solid var(--accent); }
+        .border-warn-left { border-left: 4px solid var(--warn); }
+        .border-primary-left { border-left: 4px solid var(--primary); }
+
+        .project-card-border-primary { border-left-color: var(--primary) !important; }
+        .project-card-border-warn { border-left-color: var(--warn) !important; }
+        .project-card-border-warn2 { border-left-color: var(--warn-2) !important; }
+        .project-card-border-danger2 { border-left-color: var(--danger-2) !important; }
+
+        .theme-toggle-btn { position: fixed; bottom: 20px; right: 90px; z-index: 100; background: var(--primary); color: white; width: 48px; height: 48px; border-radius: 50%; display:flex; align-items:center; justify-content:center; }
+        .modal-open { display: flex; }
+        /* Footer & link utilities */
+        .footer-link { color: var(--accent); text-decoration: none; }
+        .footer-link:hover { color: var(--accent-2); }
+        .github-link { color: var(--warn); text-decoration: none; }
+        .github-link:hover { color: var(--warn-2); }
+        /* Width utility classes to replace inline width styles */
+        .w-100 { width: 100% !important; }
+        .w-85 { width: 85% !important; }
+        .w-70 { width: 70% !important; }
+        /* Video responsive utility */
+        .video-responsive { max-width: 100%; max-height: 80vh; }
+        /* Section helpers */
+        .section-no-break { page-break-before: auto; }
+        /* Experience & project text utilities */
+        .exp-period { font-size: 10pt; color: var(--muted); margin: 0; }
+        .exp-title { font-size: 12pt; font-weight: bold; color: var(--primary); margin: 0; }
+        .exp-subtitle { font-size: 10pt; color: var(--accent); margin: 2pt 0 5pt 0; }
+
+        .proj-block { margin-bottom: 12pt; border-left: 3pt solid var(--accent); padding-left: 8pt; page-break-inside: avoid; }
+        .proj-title { font-size: 11pt; font-weight: bold; color: var(--primary); margin-bottom: 2pt; }
+        .proj-desc { font-size: 10pt; color: var(--muted); margin-bottom: 4pt; }
         /* CSS-Based Background Animation: Soft, low-CPU mechanical effect */
         @keyframes soft-pulse-grid {
             0% { background-position: 0% 0%, 50% 50%; background-color: #f7faff; }
@@ -640,16 +682,16 @@
 <div class="container mx-auto p-4 md:p-8">
     
     <!-- PRINT-ONLY CONTACT INFO BLOCK -->
-    <div id="print-contact-info" class="print-only" style="text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid var(--primary);">
-        <h1 style="font-size: 26pt; color: var(--primary); margin: 0;">YILMAZ MUSTAFA</h1>
-        <p style="font-size: 17pt; color: var(--accent); margin: 2pt 0 5pt 0;">Java & Spring Software Engineer</p>
-        <p style="font-size: 11pt; color: var(--muted); margin: 5pt 0 0 0;">📍 Zele 9240, East Flanders, Belgium</p>
-        <div style="font-size: 11pt; color: var(--muted); margin-top: 5pt; display: flex; justify-content: center; flex-wrap: wrap; gap: 8pt;">
-            <span style="display:inline-block;"><a href="mailto:yilmaz@codesapien.net" style="color: var(--accent); text-decoration: none;">📧 yilmaz@codesapien.net</a></span>
-            <span style="display:inline-block; color: var(--accent-2);">|</span>
-            <span style="display:inline-block;"><a href="tel:+32467711709" style="color: var(--accent); text-decoration: none;">📞 +32 (467) 711 709</a></span>
-            <span style="display:inline-block; color: var(--accent-2);">|</span>
-            <span style="display:inline-block;"><a href="https://www.linkedin.com/in/codesapienbe" style="color: var(--accent); text-decoration: none;">💼 codesapienbe (LinkedIn)</a></span>
+    <div id="print-contact-info" class="print-only print-contact">
+        <h1 class="print-name">YILMAZ MUSTAFA</h1>
+        <p class="print-role">Java & Spring Software Engineer</p>
+        <p class="print-muted">📍 Zele 9240, East Flanders, Belgium</p>
+        <div class="print-contact-links">
+            <span><a href="mailto:yilmaz@codesapien.net" class="print-link">📧 yilmaz@codesapien.net</a></span>
+            <span class="sep">|</span>
+            <span><a href="tel:+32467711709" class="print-link">📞 +32 (467) 711 709</a></span>
+            <span class="sep">|</span>
+            <span><a href="https://www.linkedin.com/in/codesapienbe" class="print-link">💼 codesapienbe (LinkedIn)</a></span>
         </div>
     </div>
 
@@ -774,7 +816,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid var(--accent);">
+                        <div class="flip-card-back border-accent-left">
                             <h3 class="text-xl font-bold text-[#005F73]">Backend & Databases (High Expertise)</h3>
                             <ul class="text-left">
                                 <li><strong>Core Java:</strong> Java 17-21, emphasizing modern concurrency.</li>
@@ -798,7 +840,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid var(--warn);">
+                        <div class="flip-card-back border-warn-left">
                             <h3 class="text-xl font-bold text-[#005F73]">Frontend & Design (Applied Skills)</h3>
                             <ul class="text-left">
                                 <li><strong>Expert:</strong> Vaadin (Java UI framework).</li>
@@ -822,7 +864,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid var(--primary);">
+                        <div class="flip-card-back border-primary-left">
                             <h3 class="text-xl font-bold text-[#005F73]">DevOps & AI/ML (Infrastructure & Growth)</h3>
                             <ul class="text-left">
                                 <li><strong>Expert:</strong> CI/CD, Jenkins, Docker.</li>
@@ -1056,27 +1098,27 @@
                     <p class="text-slate-600">Highlighting contributions across core Java frameworks, financial integration, and applied AI/ML in high-performance contexts (GitHub: codesapienbe).</p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #005F73;">
+                    <div class="bg-white rounded-xl shadow-lg p-6 project-card-border project-card-border-primary">
                     <h4 class="text-lg font-semibold text-[#005F73]">Spring Vision Framework 👁️</h4>
-                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot 3.x, Java 21, OpenCV | <a href="https://github.com/codesapienbe/spring-vision" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Spring Boot 3.x, Java 21, OpenCV | <a href="https://github.com/codesapienbe/spring-vision" target="_blank" class="github-link">GitHub Link</a></p>
                     <p class="text-slate-600 text-sm">A production-ready computer vision framework delivered as a <strong>Spring Boot Starter</strong>, enabling zero-configuration object detection, face analysis, and intelligent applications with enterprise security and high-performance pluggable backends.</p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #EE9B00;">
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border project-card-border-warn">
                     <h4 class="text-lg font-semibold text-[#005F73]">Instyper - Voice-to-Text Desktop App 🎙️</h4>
-                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Java, Vosk, Whisper, GUI | <a href="https://github.com/codesapienbe/Instyper" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Java, Vosk, Whisper, GUI | <a href="https://github.com/codesapienbe/Instyper" target="_blank" class="github-link">GitHub Link</a></p>
                     <p class="text-slate-600 text-sm">A lightweight, privacy-first desktop application that turns your voice into text instantly. It works offline (Vosk) and supports modern online models (Whisper) and live translation.</p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #CA6702;">
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border project-card-border-warn2">
                     <h4 class="text-lg font-semibold text-[#005F73]">Stegnocchi - EXIF Steganography App 🖼️</h4>
-                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Core Java, Image Processing, Security | <a href="https://github.com/codesapienbe/Stegnocchi" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Core Java, Image Processing, Security | <a href="https://github.com/codesapienbe/Stegnocchi" target="_blank" class="github-link">GitHub Link</a></p>
                     <p class="text-slate-600 text-sm">A security tool built in <strong>Core Java</strong> focused on hiding data within image metadata (<strong>EXIF Steganography</strong>), showcasing low-level data manipulation and security principles.</p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border" style="border-left-color: #AE2012;">
+                <div class="bg-white rounded-xl shadow-lg p-6 project-card-border project-card-border-danger2">
                     <h4 class="text-lg font-semibold text-[#005F73]">DeepVoice - Voice Analysis Library 🎤</h4>
-                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Python, AI/ML, Signal Processing | <a href="https://github.com/codesapienbe/DeepVoice" target="_blank" class="text-[#EE9B00] hover:text-[#CA6702]">GitHub Link</a></p>
+                    <p class="text-sm font-medium text-[#0A9396] mb-2">Technologies: Python, AI/ML, Signal Processing | <a href="https://github.com/codesapienbe/DeepVoice" target="_blank" class="github-link">GitHub Link</a></p>
                     <p class="text-slate-600 text-sm">A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.</p>
                 </div>
             </div>
@@ -1244,7 +1286,7 @@
                                     <span class="text-xs text-[#005F73]">100%</span>
                                 </p>
                                 <div class="lang-progress-bar">
-                                    <div class="lang-progress-fill bg-[#005F73]" style="width: 100%;" title="Native Proficiency"></div>
+                                    <div class="lang-progress-fill bg-[#005F73] w-100" title="Native Proficiency"></div>
                                 </div>
                             </div>
                             
@@ -1255,7 +1297,7 @@
                                     <span class="text-xs text-[#0A9396]">85%</span>
                                 </p>
                                 <div class="lang-progress-bar">
-                                    <div class="lang-progress-fill bg-[#0A9396]" style="width: 85%;" title="Fluent Proficiency"></div>
+                                    <div class="lang-progress-fill bg-[#0A9396] w-85" title="Fluent Proficiency"></div>
                                 </div>
                             </div>
 
@@ -1266,7 +1308,7 @@
                                     <span class="text-xs text-[#94D2BD]">70%</span>
                                 </p>
                                 <div class="lang-progress-bar">
-                                    <div class="lang-progress-fill bg-[#94D2BD]" style="width: 70%;" title="Professional Proficiency"></div>
+                                    <div class="lang-progress-fill bg-[#94D2BD] w-70" title="Professional Proficiency"></div>
                                 </div>
                             </div>
                         </div>
@@ -1331,7 +1373,7 @@
     </button>
 
     <!-- Theme Toggle -->
-    <button id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme" style="position: fixed; bottom: 20px; right: 90px; z-index: 100; background: var(--primary); color: white; width: 48px; height: 48px; border-radius: 50%; display:flex; align-items:center; justify-content:center;">🌙</button>
+    <button id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme" class="theme-toggle-btn">🌙</button>
 
     <!-- NEW: Sticky Audio Player Bar -->
     <div id="audio-player-bar">
@@ -2029,12 +2071,12 @@
                         body { font-family: 'Arial', sans-serif; }
                         h1, h2, h3 { color: var(--primary); }
                         h1 { font-size: 24pt; }
-                        h2 { font-size: 18pt; border-bottom: 2px solid #0A9396; padding-bottom: 5px; margin-top: 20px; }
-                        h3 { font-size: 14pt; color: #0A9396; }
+                        h2 { font-size: 18pt; border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin-top: 20px; }
+                        h3 { font-size: 14pt; color: var(--accent); }
                         p, li { font-size: 11pt; line-height: 1.5; }
                         ul { padding-left: 20px; list-style-type: disc; }
                         .section { margin-bottom: 25px; }
-                        .job-description { padding: 15px; background-color: #f7f9fa; border: 1px solid #e1e8ed; border-radius: 5px; }
+                        .job-description { padding: 15px; background-color: var(--card-muted-bg); border: 1px solid var(--muted-border); border-radius: 5px; }
                         .score-indicator { padding: 15px; text-align: center; font-size: 18pt; font-weight: bold; color: white; background-color: ${scoreColor}; border-radius: 5px; }
                     </style>
                 </head>
@@ -2119,11 +2161,11 @@
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td style="width: 25%; padding: 0; vertical-align: top;">
-                            <p style="font-size: 10pt; color: #555555; margin: 0;">${job.period}</p>
+                            <p class="exp-period">${job.period}</p>
                         </td>
                         <td style="width: 75%; padding: 0; vertical-align: top;">
-                            <p style="font-size: 12pt; font-weight: bold; color: #005F73; margin: 0;">${job.title}</p>
-                            <p style="font-size: 10pt; color: #0A9396; margin: 2pt 0 5pt 0;">${job.subtitle}</p>
+                            <p class="exp-title">${job.title}</p>
+                            <p class="exp-subtitle">${job.subtitle}</p>
                             <ul style="margin: 0; padding-left: 20pt; list-style-type: disc;">
                                 ${job.bullets.map(b => `<li style="margin-bottom: 4pt; font-size: 10pt;">${b}</li>`).join('')}
                             </ul>
@@ -2140,10 +2182,10 @@
             { title: 'Stegnocchi - EXIF Steganography App 🖼️', desc: 'A security tool built in <strong>Core Java</strong> focused on hiding data within image metadata (<strong>EXIF Steganography</strong>), showcasing low-level data manipulation and security principles.', link: 'https://github.com/codesapienbe/Stegnocchi' },
             { title: 'DeepVoice - Voice Analysis Library 🎤', desc: 'A comprehensive <strong>Python library</strong> for voice analysis, processing, and <strong>speaker identification</strong>, reinforcing active interest and competency in the AI/ML domain.', link: 'https://github.com/codesapienbe/DeepVoice' }
         ].map(p => `
-            <div style="margin-bottom: 12pt; border-left: 3pt solid #0A9396; padding-left: 8pt; page-break-inside: avoid;">
-                <p style="font-size: 11pt; font-weight: bold; color: #005F73; margin-bottom: 2pt;">${p.title}</p>
-                <p style="font-size: 10pt; color: #555555; margin-bottom: 4pt;">${p.desc}</p>
-                <p style="font-size: 9pt; color: #EE9B00;"><a href="${p.link}" style="color: #EE9B00;">GitHub Link</a></p>
+            <div class="proj-block">
+                <p class="proj-title">${p.title}</p>
+                <p class="proj-desc">${p.desc}</p>
+                <p class="github-link" style="font-size: 9pt;"><a href="${p.link}" class="github-link">GitHub Link</a></p>
             </div>
         `).join('');
         
@@ -2218,9 +2260,9 @@
                     <h1>YILMAZ MUSTAFA</h1>
                     <p>Java & Spring Software Engineer</p>
                     <div class="contact-bar">
-                        <a href="mailto:yilmaz@codesapien.net" style="color: #0A9396;">📧 yilmaz@codesapien.net</a> | 
-                        <a href="https://codesapien.net" style="color: #0A9396;">🌐 codesapien.net</a> | 
-                        <a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396;">💼 codesapienbe (LinkedIn)</a>
+                        <a href="mailto:yilmaz@codesapien.net" class="footer-link">📧 yilmaz@codesapien.net</a> | 
+                        <a href="https://codesapien.net" class="footer-link">🌐 codesapien.net</a> | 
+                        <a href="https://www.linkedin.com/in/codesapienbe" class="footer-link">💼 codesapienbe (LinkedIn)</a>
                     </div>
                 </div>
 

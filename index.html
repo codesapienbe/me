@@ -10,6 +10,85 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Theme variables — light by default, override with `.dark` on <html> for dark mode */
+        :root {
+            --bg: #f7faff;
+            --text: #0f1724;
+            --muted: #555555;
+            --primary: #005F73;
+            --accent: #0A9396;
+            --card-bg: #ffffff;
+            --card-muted-bg: #f0f9fa;
+            --muted-border: #e1e8ed;
+        }
+        html.dark {
+            --bg: #0b1220;
+            --text: #e6eef6;
+            --muted: #94a3b8;
+            --primary: #89b8a9;
+            --accent: #5fb5a6;
+            --card-bg: #071229;
+            --card-muted-bg: #0f1726;
+            --muted-border: #102233;
+        }
+        /* Additional palette tokens */
+        :root {
+            --success: #2D6A4F;
+            --warn-bg: #fef7ec;
+            --track-light: #e6f1f4;
+        }
+        html.dark {
+            --success: #2b5b45;
+            --warn-bg: #3b2c20;
+            --track-light: #0b1a26;
+        }
+        /* Palette semantic aliases (also used to normalize inline hex usage) */
+        :root {
+            --accent-2: #94D2BD;
+            --warn: #EE9B00;
+            --warn-2: #CA6702;
+            --danger: #BB3E03;
+            --danger-2: #AE2012;
+            --deep-danger: #9B2226;
+        }
+        html.dark {
+            --accent-2: #7fb6a8; /* slightly muted for dark */
+            --warn: #e6b85a;
+            --warn-2: #d08a3a;
+            --danger: #b85a3a;
+            --danger-2: #9b4128;
+            --deep-danger: #7f1a1a;
+        }
+
+        /* Map common Tailwind arbitrary classes and inline styles to palette variables
+           This preserves existing markup while ensuring a single palette source of truth. */
+        [class*="text-[#005F73]"], [style*="#005F73"] { color: var(--primary) !important; }
+        [class*="bg-[#005F73]"], [style*="background-color: #005F73"] { background-color: var(--primary) !important; }
+        [class*="border-[#005F73]"], [style*="border-left-color: #005F73"], [style*="border-color: #005F73"] { border-color: var(--primary) !important; }
+
+        [class*="text-[#0A9396]"], [style*="#0A9396"] { color: var(--accent) !important; }
+        [class*="bg-[#0A9396]"], [style*="background-color: #0A9396"] { background-color: var(--accent) !important; }
+
+        [class*="text-[#94D2BD]"], [style*="#94D2BD"] { color: var(--accent-2) !important; }
+        [class*="bg-[#f0f9fa]"], [style*="#f0f9fa"] { background-color: var(--card-muted-bg) !important; }
+        [class*="bg-[#f7faff]"], [style*="#f7faff"] { background-color: var(--bg) !important; }
+        [class*="bg-[#ffffff]"], [style*="#ffffff"] { background-color: var(--card-bg) !important; }
+
+        /* Light tint backgrounds used across the UI */
+        [style*="#eef2ff"], [style*="#fff2e6"], [style*="#fff0f0"], [style*="#f6f7fb"], [style*="#eef7ff"], [style*="#e6f1f4"] {
+            background-color: var(--card-muted-bg) !important;
+        }
+
+        [class*="text-[#EE9B00]"], [style*="#EE9B00"] { color: var(--warn) !important; }
+        [class*="text-[#CA6702]"], [style*="#CA6702"] { color: var(--warn-2) !important; }
+        [class*="text-[#BB3E03]"], [style*="#BB3E03"] { color: var(--danger) !important; }
+        [class*="text-[#AE2012]"], [style*="#AE2012"] { color: var(--danger-2) !important; }
+        [class*="text-[#9B2226]"], [style*="#9B2226"] { color: var(--deep-danger) !important; }
+
+        /* Generic text and muted replacements */
+        [style*="#333"], [style*="#333333"] { color: var(--text) !important; }
+        [style*="#555"], [style*="#555555"] { color: var(--muted) !important; }
+        [style*="#eee"], [style*="#ddd"], [style*="#ccc"] { border-color: var(--muted-border) !important; background-color: transparent !important; }
         /* CSS-Based Background Animation: Soft, low-CPU mechanical effect */
         @keyframes soft-pulse-grid {
             0% { background-position: 0% 0%, 50% 50%; background-color: #f7faff; }
@@ -20,8 +99,9 @@
         body {
             font-family: 'Inter', sans-serif;
             padding-bottom: 70px; /* Space for the fixed audio player */
+            background-color: var(--bg);
+            color: var(--text);
             /* Low-CPU Background Animation */
-            background-color: #f7faff;
             background-image: radial-gradient(circle at 1% 1%, rgba(0, 95, 115, 0.05) 1px, transparent 0),
                               radial-gradient(circle at 99% 99%, rgba(148, 210, 189, 0.05) 1px, transparent 0);
             background-size: 80px 80px;
@@ -63,8 +143,11 @@
         /* --- PDF Print Optimization Styles --- */
         @media print {
             body {
-                background-color: #fff !important;
-                color: #000 !important;
+                /* Respect user's preferred theme for printing when possible */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: var(--bg) !important;
+                color: var(--text) !important;
                 margin: 0;
                 padding: 0;
                 font-size: 10pt;
@@ -275,7 +358,7 @@
             transform-style: preserve-3d;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
             border-radius: 0.75rem;
-            background-color: white;
+            background-color: var(--card-bg);
         }
 
         .flip-card.flipped .flip-card-inner {
@@ -296,8 +379,8 @@
         }
 
         .flip-card-back {
-            background-color: #f0f9fa; /* Light color for background */
-            color: #333;
+            background-color: var(--card-muted-bg); /* Light color for background */
+            color: var(--text);
             transform: rotateY(180deg);
             padding: 1rem;
             text-align: left;
@@ -376,7 +459,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background-color: #005F73; /* Primary color */
+            background-color: var(--primary); /* Primary color */
             color: white;
             font-size: 24px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -384,7 +467,7 @@
             transition: all 0.2s ease-in-out;
         }
         #export-resume-float:hover {
-            background-color: #0A9396;
+            background-color: var(--accent);
         }
         @media print {
             #export-resume-float { display: none !important; }
@@ -402,7 +485,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background-color: #AE2012; /* Distinct color for PDF */
+            background-color: var(--danger-2); /* Distinct color for PDF */
             color: white;
             font-size: 24px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -410,7 +493,7 @@
             transition: all 0.2s ease-in-out;
         }
         #export-resume-pdf-float:hover {
-            background-color: #BB3E03;
+            background-color: var(--danger);
         }
         @media print {
             #export-resume-pdf-float { display: none !important; }
@@ -423,7 +506,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #005F73; /* Primary color */
+            background-color: var(--primary); /* Primary color */
             color: white;
             padding: 8px 16px;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
@@ -441,7 +524,7 @@
             cursor: pointer;
         }
         #audio-player-bar button:hover {
-            color: #94D2BD; /* Accent color on hover */
+            color: var(--accent-2); /* Accent color on hover */
         }
         .audio-controls {
             display: flex;
@@ -480,7 +563,7 @@
         .lang-progress-bar {
             height: 8px;
             border-radius: 4px;
-            background-color: #e6f1f4; /* Light background for the track */
+            background-color: var(--track-light); /* Light background for the track */
             overflow: hidden;
             margin-bottom: 0.5rem;
         }
@@ -557,16 +640,16 @@
 <div class="container mx-auto p-4 md:p-8">
     
     <!-- PRINT-ONLY CONTACT INFO BLOCK -->
-    <div id="print-contact-info" class="print-only" style="text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73;">
-        <h1 style="font-size: 26pt; color: #005F73; margin: 0;">YILMAZ MUSTAFA</h1>
-        <p style="font-size: 17pt; color: #0A9396; margin: 2pt 0 5pt 0;">Java & Spring Software Engineer</p>
-        <p style="font-size: 11pt; color: #555; margin: 5pt 0 0 0;">📍 Zele 9240, East Flanders, Belgium</p>
-        <div style="font-size: 11pt; color: #555; margin-top: 5pt; display: flex; justify-content: center; flex-wrap: wrap; gap: 8pt;">
-            <span style="display:inline-block;"><a href="mailto:yilmaz@codesapien.net" style="color: #0A9396; text-decoration: none;">📧 yilmaz@codesapien.net</a></span>
-            <span style="display:inline-block; color: #94D2BD;">|</span>
-            <span style="display:inline-block;"><a href="tel:+32467711709" style="color: #0A9396; text-decoration: none;">📞 +32 (467) 711 709</a></span>
-            <span style="display:inline-block; color: #94D2BD;">|</span>
-            <span style="display:inline-block;"><a href="https://www.linkedin.com/in/codesapienbe" style="color: #0A9396; text-decoration: none;">💼 codesapienbe (LinkedIn)</a></span>
+    <div id="print-contact-info" class="print-only" style="text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid var(--primary);">
+        <h1 style="font-size: 26pt; color: var(--primary); margin: 0;">YILMAZ MUSTAFA</h1>
+        <p style="font-size: 17pt; color: var(--accent); margin: 2pt 0 5pt 0;">Java & Spring Software Engineer</p>
+        <p style="font-size: 11pt; color: var(--muted); margin: 5pt 0 0 0;">📍 Zele 9240, East Flanders, Belgium</p>
+        <div style="font-size: 11pt; color: var(--muted); margin-top: 5pt; display: flex; justify-content: center; flex-wrap: wrap; gap: 8pt;">
+            <span style="display:inline-block;"><a href="mailto:yilmaz@codesapien.net" style="color: var(--accent); text-decoration: none;">📧 yilmaz@codesapien.net</a></span>
+            <span style="display:inline-block; color: var(--accent-2);">|</span>
+            <span style="display:inline-block;"><a href="tel:+32467711709" style="color: var(--accent); text-decoration: none;">📞 +32 (467) 711 709</a></span>
+            <span style="display:inline-block; color: var(--accent-2);">|</span>
+            <span style="display:inline-block;"><a href="https://www.linkedin.com/in/codesapienbe" style="color: var(--accent); text-decoration: none;">💼 codesapienbe (LinkedIn)</a></span>
         </div>
     </div>
 
@@ -691,7 +774,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid #0A9396;">
+                        <div class="flip-card-back" style="border-left: 4px solid var(--accent);">
                             <h3 class="text-xl font-bold text-[#005F73]">Backend & Databases (High Expertise)</h3>
                             <ul class="text-left">
                                 <li><strong>Core Java:</strong> Java 17-21, emphasizing modern concurrency.</li>
@@ -715,7 +798,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid #EE9B00;">
+                        <div class="flip-card-back" style="border-left: 4px solid var(--warn);">
                             <h3 class="text-xl font-bold text-[#005F73]">Frontend & Design (Applied Skills)</h3>
                             <ul class="text-left">
                                 <li><strong>Expert:</strong> Vaadin (Java UI framework).</li>
@@ -739,7 +822,7 @@
                             </div>
                             <p class="text-xs text-slate-500 italic mt-2">Tap card for detailed breakdown.</p>
                         </div>
-                        <div class="flip-card-back" style="border-left: 4px solid #005F73;">
+                        <div class="flip-card-back" style="border-left: 4px solid var(--primary);">
                             <h3 class="text-xl font-bold text-[#005F73]">DevOps & AI/ML (Infrastructure & Growth)</h3>
                             <ul class="text-left">
                                 <li><strong>Expert:</strong> CI/CD, Jenkins, Docker.</li>
@@ -1247,6 +1330,9 @@
         <span aria-hidden="true">💾</span>
     </button>
 
+    <!-- Theme Toggle -->
+    <button id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme" style="position: fixed; bottom: 20px; right: 90px; z-index: 100; background: var(--primary); color: white; width: 48px; height: 48px; border-radius: 50%; display:flex; align-items:center; justify-content:center;">🌙</button>
+
     <!-- NEW: Sticky Audio Player Bar -->
     <div id="audio-player-bar">
         <p class="audio-title mr-4">Resume Audio Summary</p>
@@ -1293,6 +1379,60 @@
     window.addEventListener('load', () => {
         updateStickyHeader();
     });
+
+    // --- THEME TOGGLE & PERSISTENCE ---
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    /**
+     * Apply theme. If persist === true we store the user's explicit choice.
+     * If persist === false (used for system-driven changes) we don't overwrite stored preference.
+     */
+    const applyTheme = (theme, persist = false) => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
+        } else {
+            document.documentElement.classList.remove('dark');
+            if (themeToggleBtn) themeToggleBtn.textContent = '🌙';
+        }
+        try { if (persist) localStorage.setItem('preferredTheme', theme); } catch (e) { /* ignore */ }
+    };
+
+    // Initialize theme: respect an explicit saved preference, otherwise follow system and keep following changes.
+    const getSavedTheme = () => { try { return localStorage.getItem('preferredTheme'); } catch (e) { return null; } };
+    const savedTheme = getSavedTheme();
+    const prefersDarkMQ = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+        applyTheme(savedTheme, true);
+    } else {
+        // No explicit preference -> follow system
+        const initialIsDark = prefersDarkMQ ? prefersDarkMQ.matches : false;
+        applyTheme(initialIsDark ? 'dark' : 'light', false);
+
+        // Listen for system theme changes and apply them as long as the user hasn't chosen an explicit theme
+        if (prefersDarkMQ) {
+            const mqListener = (e) => {
+                // Only auto-change if user hasn't persisted a preference
+                if (!getSavedTheme()) {
+                    applyTheme(e.matches ? 'dark' : 'light', false);
+                }
+            };
+            if (typeof prefersDarkMQ.addEventListener === 'function') {
+                prefersDarkMQ.addEventListener('change', mqListener);
+            } else if (typeof prefersDarkMQ.addListener === 'function') {
+                prefersDarkMQ.addListener(mqListener);
+            }
+        }
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            // User-initiated toggle should persist preference
+            applyTheme(next, true);
+        });
+    }
 
 
     // --- CARD FLIP LOGIC ---
@@ -1844,21 +1984,40 @@
         // Convert raw job description using markdownToHtml for the Word document
         const htmlJobDescription = markdownToHtml(jobDescription);
 
-        const htmlSkills = matchedSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: #f0f9fa; border-left: 3px solid #0A9396;">${s}</li>`).join('');
-        const htmlAlignment = alignmentHits.map(h => `<li style="margin-bottom: 8px; padding: 5px; background-color: #fef7ec; border-left: 3px solid #EE9B00;">${h}</li>`).join('');
+        const htmlSkills = matchedSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--card-muted-bg); border-left: 3px solid var(--accent);">${s}</li>`).join('');
+        const htmlAlignment = alignmentHits.map(h => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--warn-bg); border-left: 3px solid var(--warn);">${h}</li>`).join('');
 
         const securityReport = generateSimulatedSecurityReport(companyUrl);
         const htmlSecurity = securityReport.map(item => `
-                <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 8px; border-bottom:1px solid #eee;">
+                <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 8px; border-bottom:1px solid var(--muted-border);">
                     <div style="width:8%; font-size:16px; text-align:center;">${item.status}</div>
-                    <div style="width:35%; font-weight:700; color:#005F73;">${item.check}</div>
-                    <div style="flex:1 1 auto; color:#333;">${item.result}</div>
+                    <div style="width:35%; font-weight:700; color:var(--primary);">${item.check}</div>
+                    <div style="flex:1 1 auto; color:var(--text);">${item.result}</div>
                 </div>
             `).join('');
 
         // Create a visual score indicator
-        const scoreColor = matchScore >= 80 ? '#2D6A4F' : matchScore >= 60 ? '#EE9B00' : matchScore >= 40 ? '#CA6702' : '#AE2012';
+        const scoreColor = matchScore >= 80 ? 'var(--success)' : matchScore >= 60 ? 'var(--warn)' : matchScore >= 40 ? 'var(--warn-2)' : 'var(--danger-2)';
         const scoreLabel = matchScore >= 80 ? 'Excellent Match' : matchScore >= 60 ? 'Good Match' : matchScore >= 40 ? 'Moderate Match' : 'Limited Match';
+
+        // Inject theme-aware inline CSS for Word export (adapts to current theme)
+        const exportThemeStyles = (() => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                return `
+                    :root{ --bg: #071229; --text: #e6eef6; --muted: #94a3b8; --primary: #89b8a9; }
+                    body{ background: var(--bg); color: var(--text); }
+                    h1,h2,h3{ color: var(--primary); }
+                    .job-description{ background-color:#0f1726; border:1px solid #102233; }
+                `;
+            }
+            return `
+                :root{ --bg: #ffffff; --text: #333333; --muted: #555555; --primary: #005F73; }
+                body{ background: var(--bg); color: var(--text); }
+                h1,h2,h3{ color: var(--primary); }
+                .job-description{ background-color:#f7f9fa; border:1px solid #e1e8ed; }
+            `;
+        })();
 
         const docContent = `
                 <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -1866,8 +2025,9 @@
                     <meta charset='utf-8'>
                     <title>Skill Match Report</title>
                     <style>
-                        body { font-family: 'Arial', sans-serif; color: #333; }
-                        h1, h2, h3 { color: #005F73; }
+                        ${exportThemeStyles}
+                        body { font-family: 'Arial', sans-serif; }
+                        h1, h2, h3 { color: var(--primary); }
                         h1 { font-size: 24pt; }
                         h2 { font-size: 18pt; border-bottom: 2px solid #0A9396; padding-bottom: 5px; margin-top: 20px; }
                         h3 { font-size: 14pt; color: #0A9396; }
@@ -2013,18 +2173,36 @@
         `;
         
         // --- 2. Build the Document Content with Embedded Images ---
+        // Theme-aware styles for resume Word export
+        const exportResumeThemeStyles = (() => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                return `
+                    :root{ --bg: #071229; --text: #e6eef6; --primary: #89b8a9; }
+                    body{ background: var(--bg); color: var(--text); }
+                    .header-info { border-bottom: 3pt solid var(--primary); }
+                    .section-title { color: var(--primary); }
+                `;
+            }
+            return `
+                :root{ --bg: #ffffff; --text: #333333; --primary: #005F73; }
+                body{ background: var(--bg); color: var(--text); }
+            `;
+        })();
+
         const docContent = `
             <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
             <head>
                 <meta charset='utf-8'>
                 <title>Yilmaz Mustafa Resume</title>
                 <style>
-                    body { font-family: 'Arial', sans-serif; color: #333; margin: 0; padding: 0; }
-                    .header-info { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid #005F73; }
-                    .header-info h1 { font-size: 26pt; color: #005F73; margin: 0; } /* Increased size */
-                    .header-info p { font-size: 17pt; color: #0A9396; margin: 2pt 0 5pt 0; } /* Increased size */
-                    .contact-bar { font-size: 13pt; color: #555; } /* Increased size */
-                    .section-title { font-size: 16pt; font-weight: bold; color: #005F73; margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid #0A9396; page-break-before: always; }
+                    ${exportResumeThemeStyles}
+                    body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; }
+                    .header-info { text-align: center; margin-bottom: 20pt; padding-bottom: 10pt; border-bottom: 3pt solid var(--primary); }
+                    .header-info h1 { font-size: 26pt; color: var(--primary); margin: 0; } /* Increased size */
+                    .header-info p { font-size: 17pt; color: var(--primary); margin: 2pt 0 5pt 0; } /* Increased size */
+                    .contact-bar { font-size: 13pt; color: var(--muted); } /* Increased size */
+                    .section-title { font-size: 16pt; font-weight: bold; color: var(--primary); margin-top: 15pt; margin-bottom: 8pt; padding-bottom: 3pt; border-bottom: 1pt solid var(--primary); page-break-before: always; }
                     .section-title.first { page-break-before: auto; }
                     strong { font-weight: bold; }
                     table { width: 100%; border-collapse: collapse; margin-bottom: 15pt; }

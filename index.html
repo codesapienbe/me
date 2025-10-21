@@ -150,7 +150,26 @@
                         <button id="exportButton" class="w-full flex items-center justify-center bg-[#0A9396] hover:bg-[#005F73] text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md" type="button">
                             Export Match Report 📄
                         </button>
+                        <!-- Tiny preview & section-exclude UI for quick verification before Word export -->
+                        <div id="export-options" style="margin-top:8px; font-size:12px;">
+                            <label style="display:flex; align-items:center; gap:6px;">
+                                <input type="checkbox" id="previewToggle" />
+                                <span>Open preview in new tab</span>
+                            </label>
+                            <details style="margin-top:6px;">
+                                <summary style="cursor:pointer;">Customize sections to include</summary>
+                                <div style="margin-top:6px; display:flex; flex-direction:column; gap:6px;">
+                                    <label><input type="checkbox" class="export-section" value="summary" checked /> Include Summary</label>
+                                    <label><input type="checkbox" class="export-section" value="analysis" checked /> Include Analysis</label>
+                                    <label><input type="checkbox" class="export-section" value="experience" checked /> Include Experience</label>
+                                    <label><input type="checkbox" class="export-section" value="projects" checked /> Include Projects</label>
+                                    <label><input type="checkbox" class="export-section" value="education" checked /> Include Education</label>
+                                </div>
+                            </details>
                     </div>
+
+                    <!-- Toast container for visual hints -->
+                    <div id="toast" style="position:fixed; bottom:24px; right:24px; z-index:200; display:none; background:var(--primary); color:white; padding:10px 14px; border-radius:8px; box-shadow:0 6px 18px rgba(2,6,23,0.35); font-size:13px;"></div>
                 </div>
 
                 <div id="analysisOutput" class="mt-8 pt-4 border-t border-slate-200">
@@ -1382,6 +1401,18 @@
         });
     };
 
+    // Restore persisted export section choices on load
+    try {
+        const saved = JSON.parse(localStorage.getItem('exportSections') || 'null');
+        if (Array.isArray(saved)) {
+            document.querySelectorAll('.export-section').forEach(cb => {
+                cb.checked = saved.includes(cb.value);
+            });
+        }
+    } catch (e) {
+        /* ignore */
+    }
+
     // Hook up export button for full CV
     const exportFullCVButtonFloat = document.getElementById('export-resume-float');
     if (exportFullCVButtonFloat) {
@@ -1394,6 +1425,10 @@
     // --- WORD EXPORT LOGIC ---
     const exportMatchReport = () => {
         const { matchScore, matchedSkills, alignmentHits, jobDescription, companyName, companyUrl } = lastAnalysisResult;
+        // Read preview and section options set by the user
+        const previewToggle = document.getElementById('previewToggle');
+        const selectedSections = Array.from(document.querySelectorAll('.export-section')).filter(cb => cb.checked).map(cb => cb.value);
+        const include = (name) => selectedSections.includes(name);
 
         // Convert raw job description using markdownToHtml for the Word document
         const htmlJobDescription = markdownToHtml(jobDescription);
@@ -1465,6 +1500,53 @@
             `;
         })();
 
+        // Build content conditionally based on selection
+        const headerSection = include('summary') ? `
+                    <div class='section'>
+                        <h1>Skill Match & Alignment Report</h1>
+                        <p><strong>Company:</strong> ${companyName}</p>
+                        <p><strong>URL:</strong> ${companyUrl}</p>
+                        <p><strong>Candidate:</strong> Yilmaz Mustafa</p>
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                    </div>
+        ` : '';
+
+        const scoreSection = include('summary') ? `
+                    <div class='section'>
+                        <div class='score-indicator'>
+                            ${matchScore}% Match (${scoreLabel})
+                        </div>
+                    </div>
+        ` : '';
+
+        const skillsSection = include('analysis') ? `
+                    <div class='section'>
+                        <h2>Top Matching Skills</h2>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlSkills}</ul>
+                    </div>
+        ` : '';
+
+        const experienceSection = include('experience') ? `
+                    <div class='section'>
+                        <h2>Relevant Experience Highlights</h2>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlAlignment}</ul>
+                    </div>
+        ` : '';
+
+        const securitySection = include('analysis') ? `
+                    <div class='section'>
+                        <h2>Simulated Security Assessment</h2>
+                        <div style="border:1px solid #ddd; border-radius:5px; overflow:hidden;">${htmlSecurity}</div>
+                    </div>
+        ` : '';
+
+        const jobDescSection = include('analysis') ? `
+                    <div class='section'>
+                        <h2>Original Job Description</h2>
+                        <div class='job-description'>${htmlJobDescription}</div>
+                    </div>
+        ` : '';
+
         const docContent = `
                 <html lang='en' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
@@ -1485,42 +1567,49 @@
                     </style>
                 </head>
                 <body>
-                    <div class='section'>
-                        <h1>Skill Match & Alignment Report</h1>
-                        <p><strong>Company:</strong> ${companyName}</p>
-                        <p><strong>URL:</strong> ${companyUrl}</p>
-                        <p><strong>Candidate:</strong> Yilmaz Mustafa</p>
-                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-                    </div>
-
-                    <div class='section'>
-                        <div class='score-indicator'>
-                            ${matchScore}% Match (${scoreLabel})
-                        </div>
-                    </div>
-
-                    <div class='section'>
-                        <h2>Top Matching Skills</h2>
-                        <ul style="list-style-type: none; padding-left: 0;">${htmlSkills}</ul>
-                    </div>
-
-                    <div class='section'>
-                        <h2>Relevant Experience Highlights</h2>
-                        <ul style="list-style-type: none; padding-left: 0;">${htmlAlignment}</ul>
-                    </div>
-
-                    <div class='section'>
-                        <h2>Simulated Security Assessment</h2>
-                        <div style="border:1px solid #ddd; border-radius:5px; overflow:hidden;">${htmlSecurity}</div>
-                    </div>
-
-                    <div class='section'>
-                        <h2>Original Job Description</h2>
-                        <div class='job-description'>${htmlJobDescription}</div>
-                    </div>
+                    ${headerSection}
+                    ${scoreSection}
+                    ${skillsSection}
+                    ${experienceSection}
+                    ${securitySection}
+                    ${jobDescSection}
                 </body>
                 </html>
             `;
+
+        // Persist section selections to localStorage
+        try {
+            localStorage.setItem('exportSections', JSON.stringify(selectedSections));
+        } catch (e) {
+            /* ignore storage errors */
+        }
+
+        // Preview handling: if preview toggle is enabled, open a new tab with the HTML for review
+        const showToast = (msg, timeout = 3000) => {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.style.display = 'block';
+            toast.style.opacity = '1';
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => { toast.style.display = 'none'; }, 300);
+            }, timeout);
+        };
+
+        if (previewToggle && previewToggle.checked) {
+            const previewWindow = window.open('', '_blank');
+            if (previewWindow) {
+                previewWindow.document.open();
+                previewWindow.document.write(docContent);
+                previewWindow.document.close();
+                showToast('Preview opened in new tab', 2500);
+            } else {
+                showToast('Popup blocked — allow popups for preview', 4000);
+            }
+            return;
+        }
 
         const blob = new Blob(['\ufeff', docContent], {
             type: 'application/msword'
@@ -1535,6 +1624,7 @@
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+        showToast('Word export downloaded', 2500);
     };
 
     const exportFullResume = () => {

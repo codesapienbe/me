@@ -62,7 +62,9 @@
 
    html.dark {
        --success: #2b5b45;
+       --success-bg: #1a3b2b;
        --warn-bg: #3b2c20;
+       --danger-bg: #3b1a1a;
        --track-light: #0b1a26;
    }
 
@@ -218,6 +220,25 @@
   #jobDescriptionInput::placeholder {
       color: var(--muted) !important;
       opacity: 1 !important;
+  }
+
+  /* Ensure the Run Match button's text is centered regardless of internal span layout */
+  #analyzeButton {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+  }
+
+  /* Additional slate color mappings for comprehensive dark mode support */
+  .bg-slate-100,
+  [class*="bg-slate-100"] {
+      background-color: var(--card-muted-bg) !important;
+  }
+
+  .text-slate-700,
+  [class*="text-slate-700"] {
+      color: var(--text) !important;
   }
 
    [class*="text-[#EE9B00]"] {

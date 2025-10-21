@@ -1152,26 +1152,187 @@
 
 
     // --- LOCAL SKILL MATCHER DATA & LOGIC ---
+    // 🎯 ENTERPRISE SKILLS - Production experience at SWIFT, theMatchBox, University, Freelance
+    const enterpriseSkills = [
+        /* Core Enterprise Java & Spring */
+        'Java', 'Java 17', 'Java 21', 'Spring Boot', 'Spring Boot 3', 'Spring Security', 'Spring Data', 'Spring MVC',
+        'Spring AI', 'DJL', 'Vaadin', // Vaadin from University experience
+
+        /* Enterprise Databases */
+        'PostgreSQL', 'Oracle', 'MSSQL', 'MongoDB', 'ElasticSearch', 'Redis',
+
+        /* Enterprise Messaging & Integration */
+        'IBM MQ', 'RabbitMQ', 'ZeroMQ', 'Kafka', 'AMH', 'SwiftNet', // SWIFT financial messaging
+        'Messaging', 'Event-Driven', 'JMS',
+
+        /* Enterprise DevOps & Infrastructure */
+        'Docker', 'Kubernetes', 'Jenkins', 'CI/CD', 'Git', 'Maven',
+
+        /* Enterprise Testing & Quality */
+        'JUnit', 'JUnit 5', 'Mockito', 'TDD', 'Testing',
+
+        /* Enterprise Security */
+        'Spring Security', 'Security', 'TLS', 'SSL', 'HTTPS', 'Authentication', 'Authorization',
+        'JWT', 'Encryption', 'Cryptography',
+
+        /* Enterprise AI/ML Integration */
+        'Machine Learning', 'TensorFlow', 'AI', 'Computer Vision', 'Data Engineering',
+
+        /* Enterprise Performance & Operations */
+        'Performance', 'Scalability', 'Load Balancing', 'High Availability', 'Monitoring',
+        'Concurrent Users', '10k+ concurrent users', 'Microservices'
+    ];
+
+    // 🚀 PERSONAL/EXPERIMENTAL SKILLS - Explored personally, willing to learn enterprise application
+    const personalExperimentalSkills = [
+        /* Modern Java Features & Languages */
+        'Virtual Threads', 'Project Loom', 'Reactive Programming', 'Project Reactor', 'Spring WebFlux',
+        'Kotlin', 'Scala', 'Groovy', 'JVM Languages', 'Python', 'C#', '.NET',
+
+        /* Advanced Spring Ecosystem */
+        'Spring Cloud', 'Spring Batch', 'Spring Integration', 'Spring Modulith',
+
+        /* Advanced APIs & Protocols */
+        'GraphQL', 'OpenAPI', 'Swagger', 'WebSocket', 'JSON-RPC', 'gRPC', 'API Gateway', 'API Management',
+
+        /* Advanced Databases & Data */
+        'Cassandra', 'OpenSearch', 'Solr', 'Lucene', 'PGVector', 'Vector Databases',
+        'Apache Spark', 'Hadoop', 'Flink', 'Big Data', 'Data Science', 'ETL', 'Data Pipeline',
+        'Database Sharding', 'Database Replication', 'Connection Pooling', 'Hazelcast', 'Infinispan',
+
+        /* Advanced Cloud & Infrastructure */
+        'AWS', 'Azure', 'GCP', 'Lambda', 'OpenShift', 'CloudBees', 'DigitalOcean', 'Linode',
+        'Terraform', 'Infrastructure as Code', 'IaC', 'GitOps', 'MLOps',
+
+        /* Advanced DevOps & CI/CD */
+        'GitLab CI', 'GitHub Actions', 'ArgoCD', 'CircleCI', 'GitOps',
+
+        /* Advanced Messaging & Architecture */
+        'ActiveMQ', 'Event Sourcing', 'CQRS', 'Saga Pattern', 'Domain-Driven Design', 'DDD',
+        'Hexagonal Architecture', 'Clean Architecture', 'Circuit Breaker', 'Backend for Frontend',
+
+        /* Advanced Testing & Quality */
+        'PowerMock', 'AssertJ', 'Hamcrest', 'Selenium', 'Playwright', 'SonarQube', 'Jacoco',
+        'ArchUnit', 'Checkstyle', 'PMD', 'SpotBugs',
+
+        /* Advanced AI/ML */
+        'PyTorch', 'Keras', 'NLP', 'Natural Language Processing', 'Scikit-learn', 'MLOps',
+
+        /* Advanced Security */
+        'OAuth2', 'OIDC', 'OpenID Connect', 'SAML', 'SSO', 'RBAC', 'ABAC',
+        'PKI', 'Certificate Management', 'Keycloak', 'Auth0',
+
+        /* Advanced Monitoring & Observability */
+        'Prometheus', 'Grafana', 'ELK', 'EFK', 'Splunk', 'DataDog', 'New Relic', 'Dynatrace',
+        'APM', 'Application Performance Monitoring', 'Distributed Tracing', 'Jaeger', 'Zipkin', 'OpenTelemetry',
+
+        /* Advanced Frontend */
+        'TypeScript', 'Node.js', 'React', 'NextJS', 'React Native', 'Tailwind CSS', 'Material UI',
+        'Progressive Web App', 'PWA', 'Responsive Design', 'Mobile-First', 'Expo',
+
+        /* Advanced Build & Development */
+        'Gradle', 'Lombok', 'MapStruct', 'IntelliJ IDEA',
+
+        /* Advanced Performance & Scalability */
+        'CDN', 'Horizontal Scaling', 'Vertical Scaling', 'Auto-scaling', 'Fault Tolerance', 'Resilience'
+    ];
+
+    // Keep original comprehensive list for full matching
     const candidateSkills = [
-        'Java 21', 'Java 17', 'Spring Boot 3.x', 'Spring Cloud', 'Spring Security', 'REST', 'SOAP',
-        'PostgreSQL', 'Oracle', 'JPA', 'Hibernate', 'GraphQL', 'Docker', 'Kubernetes',
-        'Terraform', 'Jenkins', 'CI/CD', 'DevOps', 'Microservices', 'Modulith', 'Monolith', 'SCS',
-        'TDD', 'JUnit 5', 'Mockito', 'OpenAPI', 'Swagger', 'Messaging', 'MQ', 'Python', 'Computer Vision',
-        'ElasticSearch', 'ZeroMQ', 'C#', 'MSSQL', 'Vaadin', 'React'
+        /* Core Languages & Runtimes */
+        'Java', 'Java 21', 'Java 17', 'Java 11', 'JVM', 'JVM Languages', 'Kotlin', 'Scala', 'Groovy',
+        'Python', 'C#', '.NET', 'JavaScript', 'TypeScript', 'Node.js', 'React', 'NextJS', 'React-Native',
+
+        /* Frameworks & Platform */
+        'Spring', 'Spring Boot', 'Spring Boot 3', 'Spring Cloud', 'Spring Security', 'Spring Data', 'Spring MVC',
+        'Spring Batch', 'Spring Integration', 'Vaadin',
+
+        /* APIs & Contracts */
+        'REST', 'RESTful', 'GraphQL', 'OpenAPI', 'Swagger', 'SOAP', 'WebSocket', 'JSON-RPC',
+        'JSON', 'XML', 'YAML', 'API Gateway', 'API Management',
+
+        /* Datastores & Persistence */
+        'PostgreSQL', 'Oracle', 'MSSQL', 'MySQL', 'MariaDB', 'MongoDB', 'Redis', 'Cassandra', 'PostgresSQL',
+        'JPA', 'Hibernate', 'PGVector', 'Spring Data JPA', 'ElasticSearch', 'OpenSearch', 'Solr', 'Lucene',
+        'H2', 'HSQLDB', 'Liquibase', 'Flyway', 'SQLite', 'Redis', 'DuckDB',
+
+        /* Cloud & Infrastructure */
+        'AWS', 'Azure', 'GCP', 'Cloud', 'Lambda', 'Docker', 'Kubernetes', 'OpenShift',
+        'Jenkins', 'CloudBees', 'Cloudflare', 'Vercel', 'DigitalOcean', 'Linode',
+
+        /* DevOps & CI/CD */
+        'Jenkins', 'GitLab CI', 'GitHub Actions', 'CI/CD/CT', 'DevOps', 'MLOps',
+        'GitOps', 'Infrastructure as Code', 'IaC', 'Terraform',
+
+        /* Messaging & Integration */
+        'Messaging', 'MQ', 'IBM MQ', 'ActiveMQ', 'RabbitMQ', 'ZeroMQ', 'Kafka', 'AMH', 'SwiftNet',
+        'Event-Driven', 'Event Sourcing', 'CQRS', 'Message Broker', 'JMS', 'AMQP', 'MQTT',
+
+        /* Testing & Quality */
+        'TDD', 'Unit Testing', 'Integration Testing', 'JUnit', 'JUnit 5', 'Mockito', 'Checkstyle',
+        'PowerMock', 'AssertJ', 'Hamcrest', 'Selenium', 'Playwright', 'SonarQube', 'Jacoco',
+
+        /* Architecture & Patterns */
+        'Microservices', 'Monolith', 'Modulith', 'Event-Driven', 'Domain-Driven Design', 'DDD',
+        'Hexagonal Architecture', 'Clean Architecture', 'CQRS', 'Event Sourcing', 'Saga Pattern',
+        'Circuit Breaker', 'API Composition', 'Backend for Frontend', 'BFF',
+
+        /* ML/AI & Data */
+        'Machine Learning', 'MLOps', 'TensorFlow', 'PyTorch', 'Keras', 'Scikit-learn', 'Computer Vision',
+        'NLP', 'Natural Language Processing', 'Data Engineering', 'Apache Spark', 'Hadoop', 'Flink',
+        'Data Pipeline', 'ETL', 'Big Data', 'Data Science',
+
+        /* Security & Operations */
+        'Security', 'TLS', 'SSL', 'HTTPS', 'OAuth', 'OAuth2', 'OIDC', 'OpenID Connect', 'SAML',
+        'JWT', 'Authentication', 'Authorization', 'SSO', 'RBAC', 'ABAC', 'Encryption', 'Cryptography',
+        'PKI', 'Certificate Management', 'Spring Security', 'Keycloak (planned to learn)', 'Auth0',
+
+        /* Monitoring & Observability */
+        'Monitoring', 'Observability', 'Prometheus', 'Grafana', 'ELK', 'EFK', 'Splunk', 'DataDog',
+        'New Relic', 'Dynatrace', 'APM', 'Application Performance Monitoring', 'Logging', 'Log4j',
+        'SLF4J', 'Metrics', 'Tracing', 'Distributed Tracing', 'Jaeger', 'Zipkin', 'OpenTelemetry', 'OpenSearch',
+
+        /* Database & Caching */
+        'Database', 'DBMS', 'RDBMS', 'NoSQL', 'NewSQL', 'Caching', 'Redis', 'Memcached', 'EhCache', 'DuckDB',
+        'Hazelcast', 'Infinispan', 'Database Sharding', 'Database Replication', 'Connection Pooling',
+
+        /* Build Tools & Development */
+        'Maven', 'Gradle', 'Ant', 'Build Tool', 'Dependency Management', 'Git', 'SVN', 'Version Control',
+        'IDE', 'IntelliJ IDEA', 'Eclipse', 'VS Code', 'Spring Tool Suite', 'Lombok', 'MapStruct',
+
+        /* Performance & Scalability */
+        'Performance', 'Scalability', 'Load Balancing', 'Caching', 'CDN', 'Horizontal Scaling',
+        'Vertical Scaling', 'Auto-scaling', 'High Availability', 'Fault Tolerance', 'Resilience',
+
+        /* Frontend & UI (complementary) */
+        'HTML', 'CSS', 'SCSS', 'SASS', 'Tailwind CSS', 'Bootstrap', 'Material UI', 'Expo', 'GWT', 'Vaadin',
+        'Thymeleaf', 'JSP', 'JSF', 'Responsive Design', 'Mobile-First', 'PWA', 'Progressive Web App', 'React Native',
+
+        /* First-class synonyms and abbreviations */
+        'spring boot', 'spring', 'k8s', 'docker', 'kubernetes', 'postgres', 'postgresql', 'mysql', 'spring ai', 'djl',
+        'spring cloud', 'spring security', 'spring data', 'spring batch', 'spring integration', 'spring mvc',
+        'mongodb', 'redis', 'elasticsearch', 'jwt', 'oauth2', 'sso', 'ci/cd', 'devops', 'ml', 'ai', 'pytorch', 'tensorflow',
+        'ddd', 'tdd', 'bdd', 'graphql', 'grpc', 'rest api', 'microservice', 'microservices', 'kafka', 'amh', 'swiftnet', 'jenkins',
+        'gitlab ci', 'github actions', 'terraform', 'docker', 'kubernetes', 'openshift', 'digitalocean', 'linode', 'vercel', 'cloudflare',
+        'cloudbees', 'cloudflare', 'vercel', 'digitalocean', 'linode', 'jenkins', 'gitlab ci', 'github actions', 'terraform', 'docker',
+        'kubernetes', 'openshift', 'digitalocean', 'linode', 'vercel', 'cloudflare', 'cloudbees', 'cloudflare', 'vercel', 'digitalocean',
+        'linode', 'jenkins', 'gitlab ci', 'github actions', 'terraform', 'docker', 'kubernetes', 'openshift', 'digitalocean', 'linode',
+        'vercel', 'cloudflare', 'cloudbees', 'cloudflare', 'vercel', 'digitalocean', 'linode', 'jenkins', 'gitlab ci', 'github actions',
+        'terraform', 'docker', 'kubernetes', 'openshift', 'digitalocean', 'linode', 'vercel', 'cloudflare', 'cloudbees', 'cloudflare',
+        'vercel', 'digitalocean', 'linode', 'jenkins', 'gitlab ci', 'github actions', 'terraform', 'docker', 'kubernetes', 'openshift',
     ];
 
     const experiencePoints = [
-        { keyword: 'concurrent users', context: 'Supported 10k+ concurrent users in high-performance Spring Boot apps (Freelance).' },
-        { keyword: 'CI/CD', context: 'Orchestrated CI/CD pipelines with Docker and Terraform (Freelance & University).' },
-        { keyword: 'financial messaging', context: 'Maintained mission-critical financial messaging systems (SWIFT AMH).' },
-        { keyword: 'security', context: 'Executed security upgrades using cryptographic standards (SWIFT).' },
-        { keyword: 'testing', context: 'Implemented robust automated testing strategies (TheMatchBox).' },
-        { keyword: 'ElasticSearch', context: 'Developed custom ElasticSearch Java Plugins for search algorithms (TheMatchBox).' },
-        { keyword: 'ZeroMQ', context: 'Used ZeroMQ for inter-service communication to reduce latency (TheMatchBox).' },
-        { keyword: 'C#', context: 'Developed C# desktop applications with MSSQL database integration (VKODIT).' },
-        { keyword: 'Python AI', context: 'Developed Python AI/Computer Vision systems with TensorFlow (Freelance AI).' },
-        { keyword: 'starter', context: 'Developed Spring Boot Starter frameworks (Spring Vision).' },
-        { keyword: 'MQ', context: 'Experienced with IBM MQ and other messaging protocols (SWIFT).' }
+        { keyword: 'Concurrency', context: 'Supported 10k+ concurrent users in high-performance Spring Boot apps (Freelance).' },
+        { keyword: 'CI/CD/CT', context: 'Orchestrated CI/CD pipelines with Docker and Terraform (Freelance & University).' },
+        { keyword: 'Financial Messaging', context: 'Maintained mission-critical financial messaging systems (SWIFT AMH).' },
+        { keyword: 'Security / Operations', context: 'Executed security upgrades using cryptographic standards (SWIFT).' },
+        { keyword: 'Testing / Quality', context: 'Implemented robust automated testing strategies (TheMatchBox).' },
+        { keyword: 'Search / Indexing', context: 'Developed custom ElasticSearch Java Plugins for search algorithms (TheMatchBox).' },
+        { keyword: 'Messaging / Distributed Systems', context: 'Used ZeroMQ for inter-service communication to reduce latency (TheMatchBox).' },
+        { keyword: 'C# (Basic Level)', context: 'Developed C# desktop applications with MSSQL database integration (VKODIT).' },
+        { keyword: 'Python AI/Computer Vision', context: 'Developed Python AI/Computer Vision systems with TensorFlow (Freelance AI).' },
+        { keyword: 'Own Libraries', context: 'Developed Spring Boot Starter frameworks (Spring Vision and Spring Finqube).' }
     ];
 
     const companyNameInput = document.getElementById('companyNameInput');
@@ -1240,8 +1401,43 @@
             }
         });
 
+        // 2b. Calculate Enterprise Skills (certain/production experience)
+        const enterpriseSkillHits = {};
+        let enterpriseMatchCount = 0;
+        enterpriseSkills.forEach(skill => {
+            const skillLower = skill.toLowerCase();
+            const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
+            if (jdLower.match(regex)) {
+                enterpriseSkillHits[skill] = (enterpriseSkillHits[skill] || 0) + 1;
+                enterpriseMatchCount++;
+            }
+        });
+
+        // 2c. Calculate Personal/Experimental Skills (willing to learn)
+        const experimentalSkillHits = {};
+        let experimentalMatchCount = 0;
+        personalExperimentalSkills.forEach(skill => {
+            const skillLower = skill.toLowerCase();
+            const regex = new RegExp('\\b' + skillLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
+            if (jdLower.match(regex)) {
+                experimentalSkillHits[skill] = (experimentalSkillHits[skill] || 0) + 1;
+                experimentalMatchCount++;
+            }
+        });
+
         // Sort matched skills by hit count (and then alphabetically)
         const matchedSkills = Object.entries(skillHits)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .map(([skill]) => skill);
+
+        // Sort Enterprise & Experimental Skills
+        const matchedEnterpriseSkills = Object.entries(enterpriseSkillHits)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .map(([skill]) => skill);
+
+        const matchedExperimentalSkills = Object.entries(experimentalSkillHits)
             .sort(([, a], [, b]) => b - a)
             .slice(0, 5)
             .map(([skill]) => skill);
@@ -1254,12 +1450,20 @@
             }
         });
 
+        // 3. Sort Advanced Skills
+        const matchedAdvancedSkills = Object.entries(advancedSkillHits)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5)
+            .map(([skill]) => skill);
+
         // 4. Generate Output and Update Cache
         const matchScore = Math.min(Math.round((totalMatchCount / 10) * 100), 100);
 
         lastAnalysisResult = {
             matchScore,
             matchedSkills,
+            matchedEnterpriseSkills,
+            matchedExperimentalSkills,
             alignmentHits,
             jobDescription,
             companyName,
@@ -1271,6 +1475,8 @@
 
         // Format HTML Output
         const formattedSkills = matchedSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No direct keyword matches found.</li>';
+        const formattedEnterpriseSkills = matchedEnterpriseSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No enterprise skills matched.</li>';
+        const formattedExperimentalSkills = matchedExperimentalSkills.map(s => `<li>${s}</li>`).join('\n') || '<li>No experimental skills matched.</li>';
         const formattedAlignment = alignmentHits.map(h => `<li>Relevant Experience: ${h}</li>`).join('\n') || '<li>No direct experience context matches found.</li>';
         const formattedSecurity = securityReport.map(item => `<li class="text-xs">${item.status} ${item.check}: ${item.result}</li>`).join('');
 
@@ -1284,6 +1490,22 @@
                 <p><strong>Top ${matchedSkills.length} Matching Skills/Keywords:</strong></p>
                 <ul>
                     ${formattedSkills}
+                </ul>
+
+                <hr class="my-3 border-t border-slate-300">
+
+                <p><strong>🎯 Enterprise Skills Match:</strong><br>
+                <small><em>Skills with proven production experience (SWIFT, theMatchBox, University)</em></small></p>
+                <ul>
+                    ${formattedEnterpriseSkills}
+                </ul>
+
+                <hr class="my-3 border-t border-slate-300">
+
+                <p><strong>🚀 Experimental Skills Match:</strong><br>
+                <small><em>Skills explored personally - willing to apply enterprise (Virtual Threads, Reactive, Cloud)</em></small></p>
+                <ul>
+                    ${formattedExperimentalSkills}
                 </ul>
 
                 <hr class="my-3 border-t border-slate-300">
@@ -1409,7 +1631,7 @@
 
     // --- WORD EXPORT LOGIC ---
     const exportMatchReport = () => {
-        const { matchScore, matchedSkills, alignmentHits, jobDescription, companyName, companyUrl } = lastAnalysisResult;
+        const { matchScore, matchedSkills, matchedEnterpriseSkills, matchedExperimentalSkills, alignmentHits, jobDescription, companyName, companyUrl } = lastAnalysisResult;
         // Read preview and section options set by the user
         const previewToggle = document.getElementById('previewToggle');
         const selectedSections = Array.from(document.querySelectorAll('.export-section')).filter(cb => cb.checked).map(cb => cb.value);
@@ -1419,7 +1641,9 @@
         const htmlJobDescription = markdownToHtml(jobDescription);
 
         const htmlSkills = matchedSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--card-muted-bg); border-left: 3px solid var(--accent);">${s}</li>`).join('');
-        const htmlAlignment = alignmentHits.map(h => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--warn-bg); border-left: 3px solid var(--warn);">${h}</li>`).join('');
+        const htmlEnterpriseSkills = matchedEnterpriseSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--success-bg); border-left: 3px solid var(--success);">${s}</li>`).join('');
+        const htmlExperimentalSkills = matchedExperimentalSkills.map(s => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--warn-bg); border-left: 3px solid var(--warn);">${s}</li>`).join('');
+        const htmlAlignment = alignmentHits.map(h => `<li style="margin-bottom: 8px; padding: 5px; background-color: var(--danger-bg); border-left: 3px solid var(--danger);">${h}</li>`).join('');
 
         const securityReport = generateSimulatedSecurityReport(companyUrl);
         const htmlSecurity = securityReport.map(item => `
@@ -1508,6 +1732,14 @@
                     <div class='section'>
                         <h2>Top Matching Skills</h2>
                         <ul style="list-style-type: none; padding-left: 0;">${htmlSkills}</ul>
+
+                        <h2>Enterprise Skills Match</h2>
+                        <p><em>Skills with proven production experience (SWIFT, theMatchBox, University)</em></p>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlEnterpriseSkills}</ul>
+
+                        <h2>Experimental Skills Match</h2>
+                        <p><em>Skills explored personally - willing to apply enterprise (Virtual Threads, Reactive, Cloud)</em></p>
+                        <ul style="list-style-type: none; padding-left: 0;">${htmlExperimentalSkills}</ul>
                     </div>
         ` : '';
 

@@ -1419,17 +1419,49 @@
             const isDark = document.documentElement.classList.contains('dark');
             if (isDark) {
                 return `
-                    :root{ --bg: #071229; --text: #e6eef6; --muted: #94a3b8; --primary: #89b8a9; }
+                    :root{
+                        --bg: #071229;
+                        --text: #e6eef6;
+                        --muted: #94a3b8;
+                        --primary: #89b8a9;
+                        --accent: #5fb5a6;
+                        --card-bg: #071229;
+                        --card-muted-bg: #0f1726;
+                        --muted-border: #102233;
+                        --success: #2b5b45;
+                        --warn: #e6b85a;
+                        --danger: #b85a3a;
+                    }
                     body{ background: var(--bg); color: var(--text); }
                     h1,h2,h3{ color: var(--primary); }
-                    .job-description{ background-color:#0f1726; border:1px solid #102233; }
+                    .job-description{ background-color: var(--card-muted-bg); border:1px solid var(--muted-border); }
+                    .proj-block{ background-color: var(--card-bg); color: var(--text); border-left: 3px solid var(--accent); padding-left: 8px; }
+                    .proj-title{ color: var(--primary); }
+                    .proj-desc{ color: var(--muted); }
+                    .footer-link, a { color: var(--accent); }
                 `;
             }
             return `
-                :root{ --bg: #ffffff; --text: #333333; --muted: #555555; --primary: #005F73; }
+                :root{
+                    --bg: #ffffff;
+                    --text: #333333;
+                    --muted: #555555;
+                    --primary: #005F73;
+                    --accent: #0A9396;
+                    --card-bg: #ffffff;
+                    --card-muted-bg: #f7f9fa;
+                    --muted-border: #e1e8ed;
+                    --success: #2D6A4F;
+                    --warn: #EE9B00;
+                    --danger: #BB3E03;
+                }
                 body{ background: var(--bg); color: var(--text); }
                 h1,h2,h3{ color: var(--primary); }
-                .job-description{ background-color:#f7f9fa; border:1px solid #e1e8ed; }
+                .job-description{ background-color: var(--card-muted-bg); border:1px solid var(--muted-border); }
+                .proj-block{ background-color: var(--card-bg); color: var(--text); border-left: 3px solid var(--accent); padding-left: 8px; }
+                .proj-title{ color: var(--primary); }
+                .proj-desc{ color: var(--muted); }
+                .footer-link, a { color: var(--accent); }
             `;
         })();
 
@@ -1572,14 +1604,34 @@
             const isDark = document.documentElement.classList.contains('dark');
             if (isDark) {
                 return `
-                    :root{ --bg: #071229; --text: #e6eef6; --primary: #89b8a9; }
+                    :root{
+                        --bg: #071229;
+                        --text: #e6eef6;
+                        --muted: #94a3b8;
+                        --primary: #89b8a9;
+                        --accent: #5fb5a6;
+                        --card-bg: #071229;
+                        --card-muted-bg: #0f1726;
+                        --muted-border: #102233;
+                    }
                     body{ background: var(--bg); color: var(--text); }
                     .header-info { border-bottom: 3pt solid var(--primary); }
                     .section-title { color: var(--primary); }
+                    .proj-title{ color: var(--primary); }
+                    .proj-desc{ color: var(--muted); }
                 `;
             }
             return `
-                :root{ --bg: #ffffff; --text: #333333; --primary: #005F73; }
+                :root{
+                    --bg: #ffffff;
+                    --text: #333333;
+                    --muted: #555555;
+                    --primary: #005F73;
+                    --accent: #0A9396;
+                    --card-bg: #ffffff;
+                    --card-muted-bg: #f7f9fa;
+                    --muted-border: #e1e8ed;
+                }
                 body{ background: var(--bg); color: var(--text); }
             `;
         })();

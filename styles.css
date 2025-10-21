@@ -200,6 +200,26 @@
       color: var(--text) !important;
   }
 
+  /* Dark-mode aware form inputs used in the analysis UI */
+  #companyNameInput,
+  #companyUrlInput,
+  #jobDescriptionInput,
+  input[aria-label="Company Name"],
+  input[aria-label="Company Website URL"],
+  textarea[aria-label="Job Description"] {
+      background-color: var(--card-muted-bg) !important;
+      color: var(--text) !important;
+      border-color: var(--muted-border) !important;
+  }
+
+  /* Ensure placeholder text remains muted in dark mode */
+  #companyNameInput::placeholder,
+  #companyUrlInput::placeholder,
+  #jobDescriptionInput::placeholder {
+      color: var(--muted) !important;
+      opacity: 1 !important;
+  }
+
    [class*="text-[#EE9B00]"] {
        color: var(--warn) !important;
    }

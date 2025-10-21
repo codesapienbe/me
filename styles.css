@@ -510,8 +510,8 @@
 
    /* --- PDF Print Optimization Styles --- */
    @media print {
+       /* Default print body uses theme tokens so dark/light prints match current theme */
        body {
-           /* Respect user's preferred theme for printing when possible */
            -webkit-print-color-adjust: exact !important;
            print-color-adjust: exact !important;
            background-color: var(--bg) !important;
@@ -520,9 +520,14 @@
            padding: 0;
            font-size: 10pt;
            animation: none !important;
-           /* Disable background animation */
            background-image: none !important;
-           /* Remove background images */
+       }
+
+       /* If the page is rendered in dark mode, ensure print uses dark tokens
+          by forcing these values when html.dark is present */
+       html.dark body {
+           background-color: var(--bg) !important;
+           color: var(--text) !important;
        }
 
        .container {
@@ -664,7 +669,8 @@
        }
 
        #skills .flip-card-back h3 {
-           color: #000 !important;
+           /* Use text token so print respects dark mode when enabled */
+           color: var(--text) !important;
        }
 
        #skills .flip-card-back ul {
@@ -1151,3 +1157,52 @@
 }
 
 /* Note: keep `.no-export` visible on screen; print media rule above hides it for exports. */
+
+/* Dark-mode aware print overrides: when the document is rendered with `html.dark`,
+   force printable surfaces to use dark theme tokens so PDF/Word exports match the UI. */
+@media print {
+    /* Ensure print color adjustments are applied when printing in dark mode */
+    html.dark, html.dark body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background-color: var(--bg) !important;
+        color: var(--text) !important;
+    }
+
+    /* Surfaces that should appear as cards in print */
+    html.dark .bg-white,
+    html.dark .card,
+    html.dark .container,
+    html.dark .rounded-xl,
+    html.dark .proj-block,
+    html.dark .flip-card-back,
+    html.dark .flip-card-inner,
+    html.dark .project-card-border {
+        background-color: var(--card-bg) !important;
+        color: var(--text) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Ensure borders adapt to dark muted border token */
+    html.dark .muted-border,
+    html.dark .border-accent-left,
+    html.dark .border-warn-left,
+    html.dark .project-card-border-primary {
+        border-color: var(--muted-border) !important;
+    }
+
+    /* Links should remain readable in dark prints */
+    html.dark a,
+    html.dark .footer-link,
+    html.dark .print-link {
+        color: var(--accent) !important;
+    }
+
+    /* Remove shadows for print while keeping contrast via backgrounds */
+    html.dark .shadow-lg,
+    html.dark .shadow-sm,
+    html.dark .box-elev {
+        box-shadow: none !important;
+    }
+}

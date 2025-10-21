@@ -27,8 +27,8 @@
 <div id="sticky-header">
     <div class="flex justify-between items-center max-w-7xl mx-auto">
         <div class="flex items-center space-x-3">
-            <h4 class="text-lg font-bold text-[#005F73]">YILMAZ MUSTAFA</h4>
-            <span class="text-[#94D2BD] text-xl hidden sm:inline">|</span>
+            <h4 class="text-lg font-bold text-primary">YILMAZ MUSTAFA</h4>
+            <span class="text-accent text-xl hidden sm:inline">|</span>
             <span class="text-sm text-slate-600 font-medium hidden sm:inline">Java & Spring Software Engineer</span>
         </div>
         <div class="sticky-contact-bar flex items-center space-x-2 text-slate-600">
@@ -70,7 +70,7 @@
             <div class="md:col-span-3 lg:col-span-2 text-center md:text-left">
                 <h1 class="text-4xl font-extrabold text-primary sm:text-5xl">YILMAZ MUSTAFA</h1>
                 <p class="text-xl font-light text-accent mt-1">Java & Spring Software Engineer</p>
-                <p class="text-sm text-slate-500 mt-2">📍 Zele 9240, East Flanders, Belgium</p>
+                <p class="text-sm text-muted mt-2">📍 Zele 9240, East Flanders, Belgium</p>
             </div>
 
             <!-- Column 3: Contact Links -->
@@ -763,8 +763,8 @@
         <span aria-hidden="true">💾</span>
     </button>
 
-    <!-- Theme Toggle -->
-    <button id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme" class="theme-toggle-btn">🌙</button>
+    <!-- Theme Toggle (disabled for now until verified) -->
+    <button id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme" class="theme-toggle-btn" disabled>🌙</button>
 
     <!-- NEW: Sticky Audio Player Bar -->
     <div id="audio-player-bar">
@@ -858,12 +858,10 @@
         }
     }
 
+    // Theme toggle is disabled by default until verified. Provide a no-op handler to avoid errors.
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
-            const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            const next = current === 'dark' ? 'light' : 'dark';
-            // User-initiated toggle should persist preference
-            applyTheme(next, true);
+            // No-op while toggle is disabled; kept to avoid removing event wiring.
         });
     }
 
@@ -1827,6 +1825,101 @@
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     };
+</script>
+</script>
+<script>
+// Runtime normalization: replace arbitrary-hex Tailwind classes and inline color styles
+// with semantic classes so dark mode aligns without changing the original markup manually.
+document.addEventListener('DOMContentLoaded', () => {
+    const classMap = {
+        // text colors
+        'text-[#005F73]': 'text-primary',
+        'text-[#0A9396]': 'text-accent',
+        'text-[#94D2BD]': 'text-accent-2',
+        'text-[#CA6702]': 'text-warn-2',
+        'text-[#EE9B00]': 'text-warn',
+        'text-[#BB3E03]': 'text-danger',
+        'text-[#AE2012]': 'text-danger-2',
+        // bg colors
+        'bg-[#f0f9fa]': 'bg-card-muted',
+        'bg-[#f7faff]': 'bg-slate-50',
+        'bg-[#fff2e6]': 'bg-warn-tint',
+        'bg-[#eef2ff]': 'bg-card-muted',
+        'bg-[#fff0f0]': 'bg-card-muted',
+        'bg-[#f6f7fb]': 'bg-card-muted',
+        'bg-[#eef7ff]': 'bg-card-muted',
+        'bg-[#e6f1f4]': 'bg-card-muted',
+        // borders
+        'border-[#0A9396]': 'border-accent',
+        'border-[#005F73]': 'border-primary',
+        'border-[#CA6702]': 'border-warn',
+        'border-[#EE9B00]': 'border-warn',
+        'border-[#BB3E03]': 'border-danger',
+        'border-[#AE2012]': 'border-danger'
+    };
+
+    // Replace class-based arbitrary tokens
+    document.querySelectorAll('[class]').forEach(el => {
+        let cls = el.className;
+        let changed = false;
+        Object.keys(classMap).forEach(hexClass => {
+            if (cls.includes(hexClass)) {
+                cls = cls.split(hexClass).join(classMap[hexClass]);
+                changed = true;
+            }
+        });
+        if (changed) el.className = cls.trim();
+    });
+
+    // Replace inline style color/background occurrences with semantic classes
+    const inlineColorMap = {
+        '#333': 'text-body', '#333333': 'text-body',
+        '#555': 'text-muted', '#555555': 'text-muted',
+        '#0A9396': 'text-accent', '#005F73': 'text-primary'
+    };
+    const inlineBgMap = {
+        '#ffffff': 'bg-card-muted', '#fff': 'bg-card-muted',
+        '#f7f9fa': 'bg-card-muted', '#f0f9fa': 'bg-card-muted'
+    };
+
+    document.querySelectorAll('[style]').forEach(el => {
+        const s = el.getAttribute('style');
+        let newStyle = s;
+        // color
+        Object.keys(inlineColorMap).forEach(hex => {
+            if (newStyle.indexOf(hex) !== -1) {
+                el.classList.add(inlineColorMap[hex]);
+                // remove color declarations containing the hex (simple heuristic)
+                newStyle = newStyle.replace(new RegExp("color:\\s*" + hex + "\\s*;?", 'gi'), '');
+            }
+        });
+        // background-color
+        Object.keys(inlineBgMap).forEach(hex => {
+            if (newStyle.indexOf(hex) !== -1) {
+                el.classList.add(inlineBgMap[hex]);
+                newStyle = newStyle.replace(new RegExp("background-color:\\s*" + hex + "\\s*;?", 'gi'), '');
+            }
+        });
+        // border color declarations
+        Object.keys(classMap).forEach(bc => {
+            if (bc.startsWith('border[') && s.indexOf(bc.slice(7, -1)) !== -1) {
+                // skip - handled via class replacements above for most cases
+            }
+        });
+
+        // Trim leftover style; if empty remove attribute
+        newStyle = newStyle.replace(/;\s*;/g, ';').trim();
+        if (newStyle === '' || newStyle === ';') el.removeAttribute('style');
+        else el.setAttribute('style', newStyle);
+    });
+
+    // Accessibility: ensure that badges that were bg-card-muted keep readable text
+    document.querySelectorAll('.bg-card-muted').forEach(el => {
+        if (!el.classList.contains('text-muted') && !el.classList.contains('text-body')) {
+            el.classList.add('text-accent');
+        }
+    });
+});
 </script>
 </body>
 </html>

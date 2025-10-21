@@ -135,6 +135,71 @@
        background-color: var(--card-muted-bg) !important;
    }
 
+  /* Map common Tailwind slate/bg utilities to theme tokens for dark mode */
+  .bg-slate-50,
+  [class*="bg-slate-50"] {
+      background-color: var(--card-muted-bg) !important;
+  }
+
+  .border-slate-200,
+  [class*="border-slate-200"] {
+      border-color: var(--muted-border) !important;
+  }
+
+  /* Map other slate text, bg and border utilities to theme tokens */
+  .text-slate-500,
+  [class*="text-slate-500"] {
+      color: var(--muted) !important;
+  }
+
+  .text-slate-600,
+  [class*="text-slate-600"] {
+      color: var(--muted) !important;
+  }
+
+  .text-slate-700,
+  [class*="text-slate-700"] {
+      color: var(--text) !important;
+  }
+
+  .text-slate-800,
+  [class*="text-slate-800"] {
+      color: var(--text) !important;
+  }
+
+  .bg-slate-100,
+  [class*="bg-slate-100"] {
+      background-color: var(--card-muted-bg) !important;
+  }
+
+  .border-slate-300,
+  [class*="border-slate-300"] {
+      border-color: var(--muted-border) !important;
+  }
+
+  /* Force common white surfaces and body slate background to use theme tokens
+     This increases specificity to override inline Tailwind utility defaults */
+  body.bg-slate-50 {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+  }
+
+  .bg-white,
+  [class*="bg-white"] {
+      background-color: var(--card-bg) !important;
+      color: var(--text) !important;
+  }
+
+  /* Ensure rounded surfaces that used bg-white or bg-slate-* also receive box-elev and muted borders */
+  .bg-white.rounded-xl,
+  .bg-white.rounded-lg,
+  .rounded-xl.bg-white,
+  .rounded-lg.bg-white {
+      background-color: var(--card-bg) !important;
+      border-color: var(--muted-border) !important;
+      color: var(--text) !important;
+  }
+
    [class*="text-[#EE9B00]"] {
        color: var(--warn) !important;
    }

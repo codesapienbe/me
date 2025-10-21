@@ -1423,7 +1423,8 @@
 
 /* PDF Preview specific styles */
 .pdf-preview-content {
-    background: white;
+    background: var(--bg);
+    color: var(--text);
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -1435,7 +1436,8 @@
 /* Word Preview specific styles */
 .word-preview-content {
     font-family: 'Arial', sans-serif;
-    background: white;
+    background: var(--bg);
+    color: var(--text);
     padding: 40px;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

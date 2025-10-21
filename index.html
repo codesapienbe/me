@@ -1620,13 +1620,7 @@
         });
     };
 
-    // Hook up export button for full CV
-    const exportFullCVButtonFloat = document.getElementById('export-resume-float');
-    if (exportFullCVButtonFloat) {
-        exportFullCVButtonFloat.addEventListener('click', () => {
-            exportFullResume();
-        });
-    };
+    // Hook up export button for full CV - REMOVED: Now uses onclick attribute for modal preview
 
 
     // --- WORD EXPORT LOGIC ---
@@ -2080,7 +2074,7 @@
 
         // Add a note about print preview
         const previewNote = document.createElement('div');
-        previewNote.style.cssText = 'background: #f0f8ff; border: 1px solid #005F73; padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: #005F73;';
+        previewNote.style.cssText = `background: var(--card-muted-bg); border: 1px solid var(--primary); padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: var(--primary);`;
         previewNote.innerHTML = '<strong>Print Preview:</strong> This is how your resume will appear when printed or saved as PDF. Use your browser\'s print dialog to adjust settings.';
         previewContainer.insertBefore(previewNote, previewContainer.firstChild);
     };
@@ -2130,36 +2124,105 @@
     const generateWordPreview = () => {
         const previewContainer = document.getElementById('word-preview-content');
 
-        // Use the same logic as exportFullResume but for preview
-        // This is a simplified version - we'll show the structured content
+        // Use the exact same content generation logic as exportFullResume
+        const professionalExperienceHTML = [
+            // EXPERIENCE 1
+            { period: 'Feb 2025 – Aug 2025 (7 mos)', title: 'Software Engineer', subtitle: 'Freelance - Java & AI/ML, Spring AI integration', bullets: ['Built production Java microservices with <strong>Spring Boot</strong> and integrated AI model serving using <strong>Spring AI</strong> for low-latency inference pipelines.', 'Designed end-to-end AI/ML workflows combining Java (Spring) services with Python model components (<strong>TensorFlow</strong>/<strong>PyTorch</strong>), exposing inference APIs and batch pipelines.'] },
+            // EXPERIENCE 2
+            { period: 'Oct 2024 – Feb 2025 (5 mos)', title: 'Java Software Engineer', subtitle: 'theMatchBox, Antwerp', bullets: ['Developed custom <strong>ElasticSearch Java Plugins</strong> for advanced search algorithms and performed JVM tuning/Spring application performance enhancement, utilizing <strong>ZeroMQ</strong>.'] },
+            // EXPERIENCE 3
+            { period: 'Jun 2023 – Oct 2024 (1 yr 5 mos)', title: 'Java Software Engineer', subtitle: 'SWIFT, Brussels', bullets: ['Implemented and maintained <strong>SWIFT MT/MX messaging protocols</strong> on the Alliance Messaging Hub (AMH) for secure financial communication.', 'Contributed to <strong>Microservices design</strong> and enterprise security upgrades for high-volume, mission-critical transaction processing systems (using <strong>Java EE/Oracle SQL</strong>).'] },
+            // EXPERIENCE 4
+            { period: 'Mar 2020 – Jun 2023 (3 yrs 4 mos)', title: 'Software Engineer', subtitle: '& Instructor (INTEC)', bullets: ['Developed and maintained full-stack internal applications (<strong>Student Management, QR Attendance</strong>) using <strong>Spring Boot</strong>, <strong>Spring Cloud</strong>, and <strong>Vaadin</strong>.', 'Delivered dual-language curriculum (<strong>Java EE, Spring Boot, Python</strong>) to over 100 professional developers, achieving a <strong>95% job placement rate</strong>.'] },
+            // EXPERIENCE 5
+            { period: 'Apr 2019 – Oct 2019 (7 mos)', title: 'Java Software Engineer', subtitle: 'VDAB, Brussels', bullets: ['Migrated legacy employment system data formats and schemas to modern RESTful <strong>Spring Boot Applications</strong>.', 'Contributed to Java development of <strong>matching algorithms</strong> and API services for candidate processing against the specialized <strong>Elise</strong> database.'] },
+            // EXPERIENCE 6
+            { period: 'Jan 2017 – Dec 2018 (2 yrs)', title: 'Software Engineer', subtitle: 'Self-employed, VKODIT', bullets: ['Developed <strong>C# .Net desktop applications</strong> and powershell automation tools with robust <strong>MSSQL</strong> database integration for small enterprises.', 'Managed development, project delivery, and client acquisition for <strong>E-Commerce solutions</strong> (WordPress/WooCommerce with custom PHP plugins).'] }
+        ];
+
+        const experienceBlocks = professionalExperienceHTML.map(job => `
+            <div style="margin-bottom: 15px; page-break-inside: avoid;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 25%; padding: 0; vertical-align: top;">
+                            <p style="font-size: 10px; color: var(--muted); margin: 0;">${job.period}</p>
+                        </td>
+                        <td style="width: 75%; padding: 0; vertical-align: top;">
+                            <p style="font-size: 12px; font-weight: bold; color: var(--text); margin: 0;">${job.title}</p>
+                            <p style="font-size: 11px; color: var(--primary); margin: 2px 0 5px 0;">${job.subtitle}</p>
+                            <ul style="margin: 0; padding-left: 15px; list-style-type: disc;">
+                                ${job.bullets.map(b => `<li style="margin-bottom: 3px; font-size: 10px; line-height: 1.3; color: var(--text);">${b}</li>`).join('')}
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `).join('');
 
         const previewContent = `
-            <div style="font-family: Arial, sans-serif; line-height: 1.4;">
-                <div style="text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #005F73;">
-                    <h1 style="font-size: 28px; color: #005F73; margin: 0;">YILMAZ MUSTAFA</h1>
-                    <p style="font-size: 18px; color: #005F73; margin: 5px 0;">Java & Spring Software Engineer</p>
-                    <div style="font-size: 14px; color: #555; margin-top: 10px;">
-                        📧 yilmaz@codesapien.net | 🌐 codesapien.net | 💼 codesapienbe (LinkedIn)
+            <div style="font-family: Arial, sans-serif; line-height: 1.4; max-width: 100%;">
+                <!-- Header -->
+                <div style="text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid var(--primary);">
+                    <h1 style="font-size: 28px; color: var(--primary); margin: 0;">YILMAZ MUSTAFA</h1>
+                    <p style="font-size: 18px; color: var(--primary); margin: 5px 0;">Java & Spring Software Engineer</p>
+                    <div style="font-size: 12px; color: var(--muted); margin-top: 8px;">
+                        <a href="mailto:yilmaz@codesapien.net" style="color: var(--primary); text-decoration: none;">📧 yilmaz@codesapien.net</a> |
+                        <a href="https://codesapien.net" style="color: var(--primary); text-decoration: none;">🌐 codesapien.net</a> |
+                        <a href="https://www.linkedin.com/in/codesapienbe" style="color: var(--primary); text-decoration: none;">💼 codesapienbe (LinkedIn)</a>
                     </div>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">PROFESSIONAL SUMMARY</h2>
-                    <p style="margin-bottom: 15px;">Software Engineer with 8+ years of expertise in enterprise application development using Java and Spring Boot. Proven track record delivering scalable, high-performance applications...</p>
+                <!-- Professional Summary -->
+                <div style="margin-bottom: 25px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--primary);">PROFESSIONAL SUMMARY</h2>
+                    <p style="margin-bottom: 10px; font-size: 11px; line-height: 1.4; color: var(--text);">Software Engineer with <strong>8+ years of expertise</strong> in enterprise application development using <strong>Java</strong> and <strong>Spring Boot</strong>. Proven track record delivering scalable, high-performance applications and <strong>CI/CD automation</strong> across Monolith, <strong>Microservices</strong>, and <strong>Modulith</strong> architectures. Supported <strong>10k+ concurrent users</strong> and specialized in <strong>REST/SOAP APIs</strong>, data integration, and <strong>messaging protocols</strong> (SWIFT MT/MX).</p>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">PROFESSIONAL JOURNEY</h2>
-                    <div style="margin-bottom: 15px;">
-                        <p><strong>Feb 2025 – Aug 2025</strong> - Software Engineer, Freelance</p>
-                        <p><strong>Built production Java microservices...</strong></p>
-                    </div>
-                    <!-- Additional experience entries would be here -->
+                <!-- Professional Journey -->
+                <div style="margin-bottom: 25px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--primary);">PROFESSIONAL JOURNEY</h2>
+                    ${experienceBlocks}
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">EDUCATION & DEVELOPMENT</h2>
-                    <p>Academic History, Certifications, and Global Competencies...</p>
+                <!-- Education & Development -->
+                <div style="margin-bottom: 25px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--primary);">EDUCATION & DEVELOPMENT</h2>
+
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="2" style="padding-bottom: 15px;">
+                                <p style="font-size: 12px; font-weight: bold; color: var(--accent); margin-bottom: 8px;">Academic History 🎓</p>
+                                <div style="margin-bottom: 8px;">
+                                    <p style="font-size: 11px; font-weight: bold; color: var(--text); margin: 0;">Postgraduate AI & Machine Learning (Completed)</p>
+                                    <p style="font-size: 10px; color: var(--muted); margin: 2px 0;">Erasmushogeschool Brussel, Belgium</p>
+                                </div>
+                                <div style="margin-bottom: 8px;">
+                                    <p style="font-size: 11px; font-weight: bold; color: var(--text); margin: 0;">MSc in Computing and Information Systems (Incomplete)</p>
+                                    <p style="font-size: 10px; color: var(--muted); margin: 2px 0;">Queen Mary, University of London, UK (2013)</p>
+                                </div>
+                                <div style="margin-bottom: 8px;">
+                                    <p style="font-size: 11px; font-weight: bold; color: var(--text); margin: 0;">Bachelor Degree, Tourism and Hotel Management</p>
+                                    <p style="font-size: 10px; color: var(--muted); margin: 2px 0;">Beykent University, Istanbul, Turkiye (2010)</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding-right: 15px; vertical-align: top;">
+                                <p style="font-size: 12px; font-weight: bold; color: var(--accent); margin-bottom: 8px;">Certifications & Training</p>
+                                <ul style="margin: 0; padding-left: 15px; list-style-type: disc;">
+                                    <li style="margin-bottom: 3px; font-size: 10px; color: var(--text);"><strong>SWIFT Messaging Systems</strong> (MX/MT, ISO 20022, AMH)</li>
+                                    <li style="margin-bottom: 3px; font-size: 10px; color: var(--text);">Agile in Software Engineering (SWIFT)</li>
+                                    <li style="margin-bottom: 3px; font-size: 10px; color: var(--text);">Spring Boot and Angular (VDAB)</li>
+                                    <li style="margin-bottom: 3px; font-size: 10px; color: var(--text);">C and System Programming</li>
+                                </ul>
+                            </td>
+                            <td style="width: 50%; vertical-align: top;">
+                                <p style="font-size: 12px; font-weight: bold; color: var(--accent); margin-bottom: 8px;">Global Competencies 🗣️</p>
+                                <p style="font-size: 10px; color: var(--text); margin: 0;"><strong>Languages:</strong> Turkish (Native), English (Fluent), Dutch (Professional)</p>
+                                <p style="font-size: 10px; color: var(--text); margin: 5px 0 0 0;"><strong>Domains:</strong> Financial Messaging, Enterprise Software & SaaS, Technical Training</p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         `;
@@ -2168,8 +2231,8 @@
 
         // Add a note about Word export preview
         const previewNote = document.createElement('div');
-        previewNote.style.cssText = 'background: #f0f8ff; border: 1px solid #005F73; padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: #005F73;';
-        previewNote.innerHTML = '<strong>Word Document Preview:</strong> This shows a formatted preview of your resume. The actual Word document will contain the full detailed content with proper formatting.';
+        previewNote.style.cssText = `background: var(--card-muted-bg); border: 1px solid var(--primary); padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: var(--primary);`;
+        previewNote.innerHTML = '<strong>Word Document Preview:</strong> This shows the exact content that will be exported to your Word document, formatted for professional presentation.';
         previewContainer.insertBefore(previewNote, previewContainer.firstChild);
     };
 

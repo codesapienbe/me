@@ -1,6 +1,6 @@
    /* Theme variables — light by default, override with `.dark` on <html> for dark mode */
    :root {
-       --bg: #f7faff;
+      --bg: #f7faff;
        --text: #0f1724;
        --muted: #555555;
        --primary: #005F73;
@@ -20,6 +20,38 @@
        --card-muted-bg: #0f1726;
        --muted-border: #102233;
    }
+
+  /* Dark-mode specific component tweaks to ensure contrast and readable shadows */
+  html.dark {
+      --elev-1-bg: #0e1723;
+      --elev-2-bg: #12202b;
+      --shadow-color: rgba(0,0,0,0.65);
+  }
+
+  /* Apply elevated backgrounds and shadows to common components */
+  .card,
+  .bg-white,
+  .flip-card-inner,
+  #sticky-header,
+  .theme-toggle-btn,
+  #export-resume-float,
+  #export-resume-pdf-float,
+  #floating-buttons button,
+  #audio-player-bar {
+      background-color: var(--card-bg);
+  }
+
+  /* Shadows adapt to theme using the CSS variable */
+  .box-elev {
+      box-shadow: 0 6px 18px var(--shadow-color);
+  }
+
+  /* Ensure text and muted text on card surfaces are readable */
+  .card,
+  .flip-card-back,
+  .flip-card-inner {
+      color: var(--text);
+  }
 
    /* Additional palette tokens */
    :root {
@@ -84,9 +116,10 @@
        background-color: var(--card-muted-bg) !important;
    }
 
-   [class*="bg-[#f7faff]"] {
-       background-color: var(--bg) !important;
-   }
+  /* Normalize any utility classes that reference the original light bg */
+  [class*="bg-[#f7faff]"] {
+      background-color: var(--bg) !important;
+  }
 
    [class*="bg-[#ffffff]"] {
        background-color: var(--card-bg) !important;
@@ -411,17 +444,17 @@
    @keyframes soft-pulse-grid {
        0% {
            background-position: 0% 0%, 50% 50%;
-           background-color: #f7faff;
+           background-color: var(--bg);
        }
 
        50% {
            background-position: 100% 100%, 0% 0%;
-           background-color: #f0f9fa;
+           background-color: var(--card-muted-bg);
        }
 
        100% {
            background-position: 0% 0%, 50% 50%;
-           background-color: #f7faff;
+           background-color: var(--bg);
        }
    }
 
@@ -516,7 +549,8 @@
        span,
        a,
        time {
-           color: #000 !important;
+           /* Use text token so dark mode inverts properly */
+           color: var(--text) !important;
        }
 
        /* HIDE SPECIFIC SECTIONS AS REQUESTED */
@@ -607,7 +641,8 @@
            /* Disable 3D transform */
            backface-visibility: visible !important;
            /* Ensure content is visible */
-           box-shadow: 0 0 1px #ccc !important;
+           /* Use a subtle shadow color that adapts to theme via muted-border */
+           box-shadow: 0 0 1px rgba(16, 34, 51, 0.12) !important;
            margin-bottom: 10pt;
            padding: 10pt !important;
        }
@@ -621,7 +656,8 @@
            transform: none !important;
            position: relative !important;
            padding: 0 !important;
-           background-color: #fff !important;
+          /* Use card background token to support dark mode */
+          background-color: var(--card-bg) !important;
            border: none !important;
            /* Adjust list styling */
            list-style: none !important;
@@ -769,11 +805,12 @@
    }
 
    /* Input styling for read-only state */
-   textarea[readonly],
-   input[readonly] {
-       cursor: not-allowed;
-       background-color: #f7f7f7;
-   }
+  textarea[readonly],
+  input[readonly] {
+      cursor: not-allowed;
+      /* Use card muted background so inputs follow theme (light or dark) */
+      background-color: var(--card-muted-bg);
+  }
 
    /* --- CARD FLIP EFFECT STYLES --- */
    .flip-card {
@@ -1077,18 +1114,20 @@
    }
 
    /* --- STICKY HEADER STYLES --- */
-   #sticky-header {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       background-color: #ffffff;
-       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-       z-index: 80;
-       opacity: 0;
-       transition: opacity 0.3s ease-in-out;
-       padding: 10px 20px;
-   }
+  #sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* Follow card background token so dark mode applies */
+      background-color: var(--card-bg);
+      /* Subtle shadow that still reads on dark backgrounds via variable */
+      box-shadow: 0 2px 6px rgba(2, 6, 23, 0.35);
+      z-index: 80;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      padding: 10px 20px;
+  }
 
    #sticky-header.visible {
        opacity: 1;

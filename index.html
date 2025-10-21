@@ -751,12 +751,12 @@
     </div>
 
     <!-- NEW: Floating Export to PDF Button (Left Bottom, above Word) -->
-    <button id="export-resume-pdf-float" onclick="window.print()" title="Export Visual Resume as PDF (Print)">
+    <button id="export-resume-pdf-float" onclick="showPdfPreviewModal()" title="Export Visual Resume as PDF (Print)">
         <span aria-hidden="true">🖨️</span>
     </button>
 
     <!-- NEW: Floating Export to Word Button (Left Bottom) -->
-    <button id="export-resume-float" onclick="exportFullResume()" title="Export Full Resume as MS Word (.doc)">
+    <button id="export-resume-float" onclick="showWordPreviewModal()" title="Export Full Resume as MS Word (.doc)">
         <span aria-hidden="true">💾</span>
     </button>
 
@@ -2021,6 +2021,168 @@
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+    };
+
+    // PDF Preview Modal Functions
+    const showPdfPreviewModal = () => {
+        // Create modal HTML
+        const modalHtml = `
+            <div id="pdf-preview-modal" class="preview-modal-overlay" onclick="if (event.target.id === 'pdf-preview-modal') closePdfPreviewModal()">
+                <div class="preview-modal-content">
+                    <div class="preview-modal-header">
+                        <h2 class="preview-modal-title">PDF Print Preview</h2>
+                        <button class="preview-modal-close" onclick="closePdfPreviewModal()">×</button>
+                    </div>
+                    <div class="preview-modal-body">
+                        <div class="pdf-preview-content" id="pdf-preview-content">
+                            <!-- PDF preview content will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="preview-modal-actions">
+                        <button class="preview-modal-btn cancel" onclick="closePdfPreviewModal()">Cancel</button>
+                        <button class="preview-modal-btn confirm" onclick="confirmPdfPrint()">Print PDF</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Insert modal into DOM
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        // Generate PDF preview content
+        generatePdfPreview();
+    };
+
+    const generatePdfPreview = () => {
+        const previewContainer = document.getElementById('pdf-preview-content');
+
+        // Clone the body content for preview
+        const bodyClone = document.body.cloneNode(true);
+
+        // Remove non-print elements
+        const elementsToRemove = bodyClone.querySelectorAll('.no-print, .hidden, .modal-overlay, #pdf-preview-modal, .preview-modal-overlay');
+        elementsToRemove.forEach(el => el.remove());
+
+        // Apply print styles by adding a print media query simulation
+        const printStyle = document.createElement('style');
+        printStyle.textContent = `
+            @media print {
+                body { background: white !important; color: black !important; }
+                .print-only { display: block !important; }
+                .no-print { display: none !important; }
+                a { color: #005F73 !important; text-decoration: underline !important; }
+            }
+        `;
+        bodyClone.insertBefore(printStyle, bodyClone.firstChild);
+
+        // Set the preview content
+        previewContainer.innerHTML = bodyClone.innerHTML;
+
+        // Add a note about print preview
+        const previewNote = document.createElement('div');
+        previewNote.style.cssText = 'background: #f0f8ff; border: 1px solid #005F73; padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: #005F73;';
+        previewNote.innerHTML = '<strong>Print Preview:</strong> This is how your resume will appear when printed or saved as PDF. Use your browser\'s print dialog to adjust settings.';
+        previewContainer.insertBefore(previewNote, previewContainer.firstChild);
+    };
+
+    const closePdfPreviewModal = () => {
+        const modal = document.getElementById('pdf-preview-modal');
+        if (modal) {
+            modal.remove();
+        }
+    };
+
+    const confirmPdfPrint = () => {
+        closePdfPreviewModal();
+        window.print();
+    };
+
+    // Word Preview Modal Functions
+    const showWordPreviewModal = () => {
+        // Create modal HTML
+        const modalHtml = `
+            <div id="word-preview-modal" class="preview-modal-overlay" onclick="if (event.target.id === 'word-preview-modal') closeWordPreviewModal()">
+                <div class="preview-modal-content">
+                    <div class="preview-modal-header">
+                        <h2 class="preview-modal-title">Word Document Preview</h2>
+                        <button class="preview-modal-close" onclick="closeWordPreviewModal()">×</button>
+                    </div>
+                    <div class="preview-modal-body">
+                        <div class="word-preview-content" id="word-preview-content">
+                            <!-- Word preview content will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="preview-modal-actions">
+                        <button class="preview-modal-btn cancel" onclick="closeWordPreviewModal()">Cancel</button>
+                        <button class="preview-modal-btn confirm" onclick="confirmWordExport()">Download Word</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Insert modal into DOM
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        // Generate Word preview content
+        generateWordPreview();
+    };
+
+    const generateWordPreview = () => {
+        const previewContainer = document.getElementById('word-preview-content');
+
+        // Use the same logic as exportFullResume but for preview
+        // This is a simplified version - we'll show the structured content
+
+        const previewContent = `
+            <div style="font-family: Arial, sans-serif; line-height: 1.4;">
+                <div style="text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #005F73;">
+                    <h1 style="font-size: 28px; color: #005F73; margin: 0;">YILMAZ MUSTAFA</h1>
+                    <p style="font-size: 18px; color: #005F73; margin: 5px 0;">Java & Spring Software Engineer</p>
+                    <div style="font-size: 14px; color: #555; margin-top: 10px;">
+                        📧 yilmaz@codesapien.net | 🌐 codesapien.net | 💼 codesapienbe (LinkedIn)
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">PROFESSIONAL SUMMARY</h2>
+                    <p style="margin-bottom: 15px;">Software Engineer with 8+ years of expertise in enterprise application development using Java and Spring Boot. Proven track record delivering scalable, high-performance applications...</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">PROFESSIONAL JOURNEY</h2>
+                    <div style="margin-bottom: 15px;">
+                        <p><strong>Feb 2025 – Aug 2025</strong> - Software Engineer, Freelance</p>
+                        <p><strong>Built production Java microservices...</strong></p>
+                    </div>
+                    <!-- Additional experience entries would be here -->
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h2 style="font-size: 16px; font-weight: bold; color: #005F73; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #005F73;">EDUCATION & DEVELOPMENT</h2>
+                    <p>Academic History, Certifications, and Global Competencies...</p>
+                </div>
+            </div>
+        `;
+
+        previewContainer.innerHTML = previewContent;
+
+        // Add a note about Word export preview
+        const previewNote = document.createElement('div');
+        previewNote.style.cssText = 'background: #f0f8ff; border: 1px solid #005F73; padding: 10px; margin-bottom: 20px; border-radius: 4px; font-size: 12px; color: #005F73;';
+        previewNote.innerHTML = '<strong>Word Document Preview:</strong> This shows a formatted preview of your resume. The actual Word document will contain the full detailed content with proper formatting.';
+        previewContainer.insertBefore(previewNote, previewContainer.firstChild);
+    };
+
+    const closeWordPreviewModal = () => {
+        const modal = document.getElementById('word-preview-modal');
+        if (modal) {
+            modal.remove();
+        }
+    };
+
+    const confirmWordExport = () => {
+        closeWordPreviewModal();
+        exportFullResume();
     };
 </script>
 </body>
